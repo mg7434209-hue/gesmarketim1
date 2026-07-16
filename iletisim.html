@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İletişim | GES MARKETİM</title>
+<meta name="description" content="GES MARKETİM iletişim: telefon, WhatsApp, e-posta ve adres bilgileri. Solar sistemleriniz için ücretsiz keşif ve boyutlandırma desteği.">
+<link rel="canonical" href="https://gesmarketim.com/iletisim.html">
+<meta name="theme-color" content="#0b0f14">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%80%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="iletisim">
+<div id="chrome-top"></div>
+<main class="container section">
+  <h1>📞 İletişim</h1>
+  <p class="muted">Solar sisteminizle ilgili her soru için buradayız — boyutlandırma ve keşif desteği ücretsizdir.</p>
+  <div class="cat-layout" style="grid-template-columns:1fr 1.2fr;margin-top:22px">
+    <div class="admin-card">
+      <h3>Bize Ulaşın</h3>
+      <p>📞 Telefon: <a data-c="tel" href="#"></a><br>
+      ✉️ E-posta: <a data-c="mail" href="#"></a><br>
+      📍 Adres: <span data-c="addr"></span><br>
+      🕘 Çalışma saatleri: <span data-c="hours"></span></p>
+      <a class="btn btn-wa btn-block" id="waDirect" href="https://wa.me/905437434209?text=Merhaba%2C%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener">💬 WhatsApp'tan Yazın</a>
+    </div>
+    <div class="admin-card">
+      <h3>Mesaj Bırakın</h3>
+      <div class="form-grid">
+        <label class="fld"><span>Ad Soyad</span><input type="text" id="cName"></label>
+        <label class="fld"><span>Telefon</span><input type="tel" id="cPhone" placeholder="05__ ___ __ __"></label>
+        <label class="fld full"><span>Konu</span>
+          <select id="cTopic">
+            <option>Ürün / fiyat bilgisi</option>
+            <option>Sistem boyutlandırma</option>
+            <option>Sipariş takibi</option>
+            <option>İade / değişim</option>
+            <option>Diğer</option>
+          </select></label>
+        <label class="fld full"><span>Mesajınız</span><textarea id="cMsg" rows="4"></textarea></label>
+      </div>
+      <button class="btn btn-primary btn-block" id="cSend">📩 WhatsApp ile Gönder</button>
+      <p class="muted small" style="margin-top:8px">Formunuz WhatsApp mesajına dönüştürülür — göndermeden önce düzenleyebilirsiniz.</p>
+    </div>
+  </div>
+</main>
+<div id="chrome-footer"></div>
+<script src="assets/config.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

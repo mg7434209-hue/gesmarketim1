@@ -1,0 +1,14 @@
+{
+  "name": "gesmarketim",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GES MARKETİM — solar e-ticaret (gesmarketim.com), bağımlılıksız statik site",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build-seo.js",
+    "test": "node -c server.js && node -c assets/config.js && node -c assets/data.js && node -c assets/app.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
