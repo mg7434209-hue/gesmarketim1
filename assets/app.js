@@ -110,6 +110,14 @@
     var fb = $("#favBadge"); if (fb) { var m = favs().length; fb.textContent = m; fb.style.display = m ? "" : "none"; }
   }
 
+  /* ================= SVG ikon seti ================= */
+  var ICONS = {
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>',
+    heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>',
+    cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l2.6 12.4A2 2 0 0 0 9.6 17h8.7a2 2 0 0 0 2-1.6L22 8H6"/><circle cx="9.5" cy="21" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="21" r="1.4" fill="currentColor" stroke="none"/></svg>',
+    wa: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>'
+  };
+
   /* ================= Ortak iskelet (header/nav/footer) ================= */
   function pageActive() { return document.body.getAttribute("data-page") || ""; }
   function renderChrome() {
@@ -125,11 +133,11 @@
         '<a class="logo" href="index.html"><span class="sun">☀</span><span>GES <b>MARKETİM</b></span></a>' +
         '<form class="search-box" action="kategori.html" method="get">' +
         '<input type="search" name="q" placeholder="Ürün ara: 550W panel, 100Ah akü, 3kW paket…" aria-label="Ürün ara">' +
-        '<button type="submit" aria-label="Ara">🔍</button></form>' +
+        '<button type="submit" aria-label="Ara">' + ICONS.search + "</button></form>" +
         '<div class="header-actions">' +
-        '<a class="icon-btn" href="' + waLink("Merhaba, bilgi almak istiyorum.") + '" target="_blank" rel="noopener" title="WhatsApp">💬</a>' +
-        '<a class="icon-btn" href="favoriler.html" title="Favoriler">🤍<span class="badge" id="favBadge" style="display:none">0</span></a>' +
-        '<a class="icon-btn" href="sepet.html" title="Sepet">🛒<span class="badge" id="cartBadge" style="display:none">0</span></a>' +
+        '<a class="icon-btn wa-green" href="' + waLink("Merhaba, bilgi almak istiyorum.") + '" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">' + ICONS.wa + "</a>" +
+        '<a class="icon-btn" href="favoriler.html" title="Favoriler" aria-label="Favoriler">' + ICONS.heart + '<span class="badge" id="favBadge" style="display:none">0</span></a>' +
+        '<a class="icon-btn" href="sepet.html" title="Sepet" aria-label="Sepet">' + ICONS.cart + '<span class="badge" id="cartBadge" style="display:none">0</span></a>' +
         "</div></div>" +
         '<nav class="site-nav" aria-label="Kategoriler"><div class="container nav-in">' +
         navLinks.map(function (l) {
@@ -171,7 +179,7 @@
     var fl = document.createElement("div"); fl.className = "float-stack";
     fl.innerHTML =
       '<button class="float-btn float-ai" id="aiOpen" title="AI Asistan" aria-label="AI Asistan">🤖</button>' +
-      '<a class="float-btn float-wa" href="' + waLink("Merhaba, gesmarketim.com üzerinden yazıyorum.") + '" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">💬</a>';
+      '<a class="float-btn float-wa" href="' + waLink("Merhaba, gesmarketim.com üzerinden yazıyorum.") + '" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">' + ICONS.wa + "</a>";
     document.body.appendChild(fl);
     var ai = $("#aiOpen"); if (ai) ai.addEventListener("click", openChat);
     updateBadges();
