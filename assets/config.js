@@ -77,7 +77,7 @@ GESM.config = {
       seo: "Solar yaşamı kolaylaştıran niş ürünler: güneş enerjili otomatik saksı sulama cihazları, uzun kesintiler için sessiz jeneratörler ve tamamlayıcı aksesuarlar. Aradığınız özel bir ürün varsa WhatsApp'tan sorun — tedarik ağımızla bulup fiyatlandıralım." }
   ],
 
-  brands: ["Gazioğlu", "CW Enerji", "TommaTech", "Megacell", "Deye", "GESM Power", "Agromot", "Lexron", "Tescom"],
+  brands: ["Gazioğlu", "Arçelik", "Lexron", "Mexxun", "TitanX", "Havensis", "Megacell", "Deye", "GESM Power", "Agromot", "Tescom"],
 
   // Admin panel (statik sitede yalnızca caydırıcı)
   admin: { pass: "gesm2026" },

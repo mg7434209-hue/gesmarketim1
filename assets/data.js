@@ -45,18 +45,18 @@
   add({ id: "pnl-600-gaz", cat: "gunes-panelleri", brand: "Gazioğlu", price: 5980,
     name: "Gazioğlu 600 W A+ Half-Cut TopCon Güneş Paneli", supplier: "enerjipazari",
     tags: ["450–600 W"], specs: { "Güç": "600 Wp", "Teknoloji": "TopCon Half-Cut", "Sınıf": "A+" } });
-  add({ id: "pnl-600-cw", cat: "gunes-panelleri", brand: "CW Enerji", price: 6580,
-    name: "CW Enerji 600 Wp 120PM M12 HC-MB Güneş Paneli", supplier: "enerjipazari",
+  add({ id: "pnl-600-lex", cat: "gunes-panelleri", brand: "Lexron", price: 6580,
+    name: "Lexron 600 Wp 120PM M12 HC-MB Güneş Paneli", supplier: "enerjipazari",
     tags: ["450–600 W"], specs: { "Güç": "600 Wp", "Hücre": "120 Half-Cut M12", "Tip": "Multi Busbar" } });
-  add({ id: "pnl-585-tt", cat: "gunes-panelleri", brand: "TommaTech", price: 6590,
-    name: "TommaTech 585 Wp 156PM M10 HC-MB Güneş Paneli", supplier: "enerjipazari",
+  add({ id: "pnl-585-arc", cat: "gunes-panelleri", brand: "Arçelik", price: 6590,
+    name: "Arçelik 585 Wp 156PM M10 HC-MB Güneş Paneli", supplier: "enerjipazari",
     tags: ["450–600 W"], specs: { "Güç": "585 Wp", "Hücre": "156 Half-Cut M10", "Tip": "Multi Busbar" } });
-  add({ id: "pnl-600-cw-tnb", cat: "gunes-panelleri", brand: "CW Enerji", price: 6690, isNew: true,
-    name: "CW Enerji 600 Wp 144TNB M10 G2G TopCon Güneş Paneli", supplier: "enerjipazari",
+  add({ id: "pnl-600-ttx", cat: "gunes-panelleri", brand: "TitanX", price: 6690, isNew: true,
+    name: "TitanX 600 Wp 144TNB M10 G2G TopCon Güneş Paneli", supplier: "enerjipazari",
     tags: ["450–600 W"], specs: { "Güç": "600 Wp", "Teknoloji": "TopCon G2G (çift cam)", "Hücre": "144 TNB M10" } });
 
   /* ---------- 2) Lityum Aküler ---------- */
-  add({ id: "aku-100-12", cat: "lityum-akuler", brand: "GESM Power", price: 14900, bestseller: true,
+  add({ id: "aku-100-12", cat: "lityum-akuler", brand: "Havensis", price: 14900, bestseller: true,
     name: "100 Ah 12V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
     tags: ["12V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 1,28 kWh", "Voltaj": "12,8 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi", "Çevrim": "≥4000" } });
   add({ id: "aku-mc-100", cat: "lityum-akuler", brand: "Megacell", price: 16900,
@@ -65,7 +65,7 @@
   add({ id: "aku-mc-120", cat: "lityum-akuler", brand: "Megacell", price: 20100,
     name: "Megacell 12,8V 120 Ah LiFePO4 Akü — ABS Standart", supplier: "enerjipazari",
     tags: ["12V", "120 Ah"], specs: { "Kapasite": "120 Ah / 1,54 kWh", "Voltaj": "12,8 V", "Kasa": "ABS", "Kimya": "LiFePO4" } });
-  add({ id: "aku-100-24", cat: "lityum-akuler", brand: "GESM Power", price: 23450, listPrice: 26800,
+  add({ id: "aku-100-24", cat: "lityum-akuler", brand: "Havensis", price: 23450, listPrice: 26800,
     name: "100 Ah 24V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
     tags: ["24V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 2,56 kWh", "Voltaj": "25,6 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi" } });
   add({ id: "aku-mc-150s", cat: "lityum-akuler", brand: "Megacell", price: 24400,
@@ -77,10 +77,10 @@
   add({ id: "aku-mc-200b", cat: "lityum-akuler", brand: "Megacell", price: 31800,
     name: "Megacell 12,8V 200 Ah LiFePO4 Akü — ABS Bluetooth", supplier: "enerjipazari",
     tags: ["12V", "200 Ah", "Bluetooth"], specs: { "Kapasite": "200 Ah / 2,56 kWh", "Voltaj": "12,8 V", "İzleme": "Bluetooth", "Kimya": "LiFePO4" } });
-  add({ id: "aku-100-36", cat: "lityum-akuler", brand: "GESM Power", price: 36900,
+  add({ id: "aku-100-36", cat: "lityum-akuler", brand: "Havensis", price: 36900,
     name: "100 Ah 36V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
     tags: ["36V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 3,84 kWh", "Voltaj": "38,4 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi" } });
-  add({ id: "aku-51-wpu", cat: "lityum-akuler", brand: "GESM Power", price: 44200, isNew: true,
+  add({ id: "aku-51-wpu", cat: "lityum-akuler", brand: "Havensis", price: 44200, isNew: true,
     name: "100 Ah 51,2V (5,4 kWh) LiFePO4 WPU Akü — Bluetooth", supplier: "mexxsun",
     tags: ["48V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 5,4 kWh", "Voltaj": "51,2 V", "Tip": "Duvar tipi (WPU)", "İzleme": "Bluetooth", "Kimya": "LiFePO4" } });
 
@@ -96,25 +96,25 @@
     tags: ["200 Ah"], specs: { "Kapasite": "200 Ah", "Voltaj": "12 V", "Tip": "Derin döngü jel", "Bakım": "Bakımsız" } });
 
   /* ---------- 4) Akıllı İnverterler (Off-Grid) ---------- */
-  add({ id: "inv-1kw", cat: "akilli-inverterler", brand: "GESM Power", price: 7810,
+  add({ id: "inv-1kw", cat: "akilli-inverterler", brand: "Mexxun", price: 7810,
     name: "1 kW MPPT 12V Akıllı İnverter", supplier: "mexxsun",
     tags: ["1–3 kW", "12V"], specs: { "Güç": "1 kW", "Akü Voltajı": "12 V", "Şarj": "Dahili MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-1-6kw", cat: "akilli-inverterler", brand: "GESM Power", price: 8380,
+  add({ id: "inv-1-6kw", cat: "akilli-inverterler", brand: "Mexxun", price: 8380,
     name: "1,6 kW HV MPPT Akıllı İnverter 12V", supplier: "mexxsun",
     tags: ["1–3 kW", "12V"], specs: { "Güç": "1,6 kW", "Akü Voltajı": "12 V", "Şarj": "HV MPPT (yüksek PV girişi)", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-3kw", cat: "akilli-inverterler", brand: "GESM Power", price: 9265, listPrice: 10500, bestseller: true,
+  add({ id: "inv-3kw", cat: "akilli-inverterler", brand: "Mexxun", price: 9265, listPrice: 10500, bestseller: true,
     name: "3 kW HV MPPT Akıllı İnverter 24V", supplier: "mexxsun",
     tags: ["1–3 kW", "24V"], specs: { "Güç": "3 kW", "Akü Voltajı": "24 V", "Şarj": "HV MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-4-2kw", cat: "akilli-inverterler", brand: "GESM Power", price: 13800,
+  add({ id: "inv-4-2kw", cat: "akilli-inverterler", brand: "Mexxun", price: 13800,
     name: "4,2 kW HV MPPT Akıllı İnverter 24V", supplier: "mexxsun",
     tags: ["4–8 kW", "24V"], specs: { "Güç": "4,2 kW", "Akü Voltajı": "24 V", "Şarj": "HV MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-6-2kw", cat: "akilli-inverterler", brand: "GESM Power", price: 18300, bestseller: true,
+  add({ id: "inv-6-2kw", cat: "akilli-inverterler", brand: "Mexxun", price: 18300, bestseller: true,
     name: "6,2 kW HV MPPT Akıllı İnverter 48V", supplier: "mexxsun",
     tags: ["4–8 kW", "48V"], specs: { "Güç": "6,2 kW", "Akü Voltajı": "48 V", "Şarj": "HV MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-max8", cat: "akilli-inverterler", brand: "GESM Power", price: 29985, listPrice: 48750,
+  add({ id: "inv-max8", cat: "akilli-inverterler", brand: "Mexxun", price: 29985, listPrice: 48750,
     name: "Tam Sinüs Akıllı İnverter 48V 8000W Twin (MAX 8000)", supplier: "mexxsun",
     tags: ["4–8 kW", "48V"], specs: { "Güç": "8 kW (2×4 kW twin)", "Akü Voltajı": "48 V", "Şarj": "Çift MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-11kw", cat: "akilli-inverterler", brand: "GESM Power", onRequest: true,
+  add({ id: "inv-11kw", cat: "akilli-inverterler", brand: "Mexxun", onRequest: true,
     name: "11 kW HV 2×MPPT Akıllı İnverter 48V", supplier: "mexxsun",
     tags: ["8+ kW", "48V"], specs: { "Güç": "11 kW", "Akü Voltajı": "48 V", "Şarj": "2× HV MPPT", "Dalga": "Tam sinüs" } });
 
@@ -300,7 +300,7 @@
      { q: 1, name: "Kablo + sigorta seti" }],
     "11 kW'ın dengeli konfigürasyonu: Deye 12 kW trifaze hibrit ve 16,2 kWh depolama — konfor ile bütçenin kesişimi.");
   pkt("pkt13", "11 kW Lityum Solar Paket (PKT13) — Pro", 256000, "Ev", "Pro", "~11 kW",
-    [{ q: 18, name: "600 W TopCon G2G çift cam panel", ref: "pnl-600-cw-tnb" },
+    [{ q: 18, name: "600 W TopCon G2G çift cam panel", ref: "pnl-600-ttx" },
      { q: 4, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
      { q: 5, name: "4 panel montaj seti", ref: "eq-montaj" },
