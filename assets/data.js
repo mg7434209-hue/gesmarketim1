@@ -60,19 +60,23 @@
   pnl("pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli", "750 W Bifacial 132-Cell 16BB Half-Cut TopCon Güneş Paneli", 22800, "500 W+",
     { "Güç": "750 Wp", "Tip": "Bifacial (çift yüzlü)", "Hücre": "132 hücre 16BB", "Teknoloji": "TopCon Half-Cut" }, { isNew: true });
 
+  add({ id: "pnl-245", cat: "gunes-panelleri", brand: "Gazioğlu", price: 2980, supplier: "mexxsun",
+    name: "Gazioğlu GSE245 245 W Half-Cut MonoPower Güneş Paneli (A Class)",
+    tags: ["100–300 W"], specs: { "Güç": "245 Wp", "Hücre": "Half-Cut Monokristal", "Sınıf": "A", "Üretim": "Yerli (Gazioğlu)" } });
+
   /* ---------- 2) Lityum Aküler ---------- */
-  add({ id: "aku-100-12", cat: "lityum-akuler", brand: "Havensis", price: 14900, bestseller: true,
-    name: "100 Ah 12V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
+  add({ id: "aku-100-12", cat: "lityum-akuler", brand: "Mexxun", price: 14900, bestseller: true,
+    name: "Mexxun 100 Ah 12,8V LiFePO4 Lityum Akü (1,28 kWh)", supplier: "mexxsun",
     tags: ["12V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 1,28 kWh", "Voltaj": "12,8 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi", "Çevrim": "≥4000" } });
-  add({ id: "aku-100-24", cat: "lityum-akuler", brand: "Havensis", price: 23450, listPrice: 26800,
-    name: "100 Ah 24V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
+  add({ id: "aku-100-24", cat: "lityum-akuler", brand: "Mexxun", price: 23450, listPrice: 26800,
+    name: "Mexxun 100 Ah 25,6V LiFePO4 Lityum Akü (2,56 kWh)", supplier: "mexxsun",
     tags: ["24V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 2,56 kWh", "Voltaj": "25,6 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi" } });
   add({ id: "aku-mc-200b", cat: "lityum-akuler", brand: "Megacell", price: 31800,
     name: "Megacell 12,8V 200 Ah LiFePO4 Akü — ABS Bluetooth", supplier: "enerjipazari",
     tags: ["12V", "200 Ah", "Bluetooth"], specs: { "Kapasite": "200 Ah / 2,56 kWh", "Voltaj": "12,8 V", "İzleme": "Bluetooth", "Kimya": "LiFePO4" } });
-  add({ id: "aku-51-wpu", cat: "lityum-akuler", brand: "Havensis", price: 44200, isNew: true,
-    name: "100 Ah 51,2V (5,4 kWh) LiFePO4 WPU Akü — Bluetooth", supplier: "mexxsun",
-    tags: ["48V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 5,4 kWh", "Voltaj": "51,2 V", "Tip": "Duvar tipi (WPU)", "İzleme": "Bluetooth", "Kimya": "LiFePO4" } });
+  add({ id: "aku-51-wpu", cat: "lityum-akuler", brand: "Mexxun", price: 44200, isNew: true,
+    name: "Mexxun 100 Ah 48V LiFePO4 Akü (4,8 kWh) — Raf Tipi", supplier: "mexxsun",
+    tags: ["48V", "100 Ah"], specs: { "Kapasite": "100 Ah / 4,8 kWh", "Voltaj": "48 V (51,2 V nominal)", "Tip": "Raf tipi", "Kimya": "LiFePO4" } });
 
   /* ---------- 3) Jel Aküler (Lexron Nano Karbon — tedarikçi gerçek envanteri) ---------- */
   function jel(id, ah, price, extra) {
@@ -90,27 +94,27 @@
   jel("210", "210", 36500);
 
   /* ---------- 4) Akıllı İnverterler (Off-Grid) ---------- */
-  add({ id: "inv-1kw", cat: "akilli-inverterler", brand: "Mexxun", price: 7810,
-    name: "1 kW MPPT 12V Akıllı İnverter", supplier: "mexxsun",
+  add({ id: "inv-1kw", cat: "akilli-inverterler", brand: "Lexron", price: 7810,
+    name: "Lexron 1 kW MPPT 12V Akıllı İnverter", supplier: "enerjipazari",
     tags: ["1–3 kW", "12V"], specs: { "Güç": "1 kW", "Akü Voltajı": "12 V", "Şarj": "Dahili MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-1-6kw", cat: "akilli-inverterler", brand: "Mexxun", price: 8380,
-    name: "1,6 kW HV MPPT Akıllı İnverter 12V", supplier: "mexxsun",
+  add({ id: "inv-1-6kw", cat: "akilli-inverterler", brand: "Lexron", price: 8380,
+    name: "Lexron 1,6 kW HV MPPT Akıllı İnverter 12V", supplier: "enerjipazari",
     tags: ["1–3 kW", "12V"], specs: { "Güç": "1,6 kW", "Akü Voltajı": "12 V", "Şarj": "HV MPPT (yüksek PV girişi)", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-3kw", cat: "akilli-inverterler", brand: "Mexxun", price: 9265, listPrice: 10500, bestseller: true,
-    name: "3 kW HV MPPT Akıllı İnverter 24V", supplier: "mexxsun",
-    tags: ["1–3 kW", "24V"], specs: { "Güç": "3 kW", "Akü Voltajı": "24 V", "Şarj": "HV MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-4-2kw", cat: "akilli-inverterler", brand: "Mexxun", price: 13800,
-    name: "4,2 kW HV MPPT Akıllı İnverter 24V", supplier: "mexxsun",
+  add({ id: "inv-3kw", cat: "akilli-inverterler", brand: "Sorotec", price: 9265, listPrice: 10500, bestseller: true,
+    name: "Sorotec 3,5 kW HV MPPT Akıllı İnverter 24V", supplier: "enerjipazari",
+    tags: ["4–8 kW", "24V"], specs: { "Güç": "3,5 kW", "Akü Voltajı": "24 V", "Şarj": "HV MPPT", "Dalga": "Tam sinüs" } });
+  add({ id: "inv-4-2kw", cat: "akilli-inverterler", brand: "Sako", price: 13800,
+    name: "Sako Sunon ECO 4,2 kW Tam Sinüs Akıllı İnverter 24V", supplier: "mexxsun",
     tags: ["4–8 kW", "24V"], specs: { "Güç": "4,2 kW", "Akü Voltajı": "24 V", "Şarj": "HV MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-6-2kw", cat: "akilli-inverterler", brand: "Mexxun", price: 18300, bestseller: true,
-    name: "6,2 kW HV MPPT Akıllı İnverter 48V", supplier: "mexxsun",
+  add({ id: "inv-6-2kw", cat: "akilli-inverterler", brand: "Lexron", price: 18300, bestseller: true,
+    name: "Lexron 6,2 kW HV MPPT Akıllı İnverter 48V", supplier: "enerjipazari",
     tags: ["4–8 kW", "48V"], specs: { "Güç": "6,2 kW", "Akü Voltajı": "48 V", "Şarj": "HV MPPT", "Dalga": "Tam sinüs" } });
-  add({ id: "inv-max8", cat: "akilli-inverterler", brand: "Mexxun", price: 29985, listPrice: 48750,
-    name: "Tam Sinüs Akıllı İnverter 48V 8000W Twin (MAX 8000)", supplier: "mexxsun",
-    tags: ["4–8 kW", "48V"], specs: { "Güç": "8 kW (2×4 kW twin)", "Akü Voltajı": "48 V", "Şarj": "Çift MPPT", "Dalga": "Tam sinüs" } });
+  add({ id: "inv-max8", cat: "akilli-inverterler", brand: "Sako", price: 29985, listPrice: 48750,
+    name: "Sako Sunon IV 8 kW Tam Sinüs Akıllı İnverter 48V", supplier: "mexxsun",
+    tags: ["4–8 kW", "48V"], specs: { "Güç": "8 kW", "Akü Voltajı": "48 V", "Maks. PV Girişi": "450 VDC", "Dalga": "Tam sinüs" } });
   add({ id: "inv-11kw", cat: "akilli-inverterler", brand: "Mexxun", onRequest: true,
-    name: "11 kW HV 2×MPPT Akıllı İnverter 48V", supplier: "mexxsun",
-    tags: ["8+ kW", "48V"], specs: { "Güç": "11 kW", "Akü Voltajı": "48 V", "Şarj": "2× HV MPPT", "Dalga": "Tam sinüs" } });
+    name: "Mexxun P12KW Premium 12 kW Akıllı İnverter 48V (Paralel, Wi-Fi)", supplier: "mexxsun",
+    tags: ["8+ kW", "48V"], specs: { "Güç": "12 kW", "Akü Voltajı": "48 V", "Paralel": "9 adede kadar", "Bağlantı": "Wi-Fi + çift çıkış", "Arayüz": "Türkçe" } });
 
   /* ---------- 5) Hibrit İnverterler ---------- */
   add({ id: "inv-deye-10m", cat: "hibrit-inverterler", brand: "Deye", price: 34500,
@@ -129,28 +133,34 @@
     tags: ["Trifaze"], specs: { "Güç": "25 kW", "Faz": "Trifaze", "Tip": "On-Grid (şebeke bağlantılı)" } });
 
   /* ---------- 7) Şarj Regülatörleri ---------- */
-  add({ id: "reg-pwm10", cat: "sarj-regulatorleri", brand: "GESM Power", price: 380,
-    name: "10A PWM Şarj Kontrol Cihazı (12/24V)", supplier: "mexxsun",
+  add({ id: "reg-pwm10", cat: "sarj-regulatorleri", brand: "Mexxun", price: 380,
+    name: "Mexxun AT10 10A PWM Şarj Kontrol Cihazı (12/24V)", supplier: "mexxsun",
     tags: ["PWM", "10–30 A"], specs: { "Teknoloji": "PWM", "Akım": "10 A", "Voltaj": "12/24 V otomatik" } });
-  add({ id: "reg-pwm20", cat: "sarj-regulatorleri", brand: "GESM Power", price: 470,
-    name: "20A PWM Şarj Kontrol Cihazı (12/24V)", supplier: "mexxsun",
+  add({ id: "reg-pwm20", cat: "sarj-regulatorleri", brand: "Lexron", price: 470,
+    name: "Lexron 20A PWM Şarj Kontrol Cihazı (12/24V)", supplier: "enerjipazari",
     tags: ["PWM", "10–30 A"], specs: { "Teknoloji": "PWM", "Akım": "20 A", "Voltaj": "12/24 V otomatik" } });
-  add({ id: "reg-pwm30", cat: "sarj-regulatorleri", brand: "GESM Power", price: 695,
-    name: "30A PWM Şarj Kontrol Cihazı (12/24V)", supplier: "mexxsun",
+  add({ id: "reg-pwm30", cat: "sarj-regulatorleri", brand: "Lexron", price: 695,
+    name: "Lexron 30A PWM Şarj Kontrol Cihazı (12/24V)", supplier: "enerjipazari",
     tags: ["PWM", "10–30 A"], specs: { "Teknoloji": "PWM", "Akım": "30 A", "Voltaj": "12/24 V otomatik" } });
-  add({ id: "reg-mppt20", cat: "sarj-regulatorleri", brand: "GESM Power", price: 2180,
-    name: "20A MPPT Şarj Kontrol Cihazı (12/24V, 60V panel girişi)", supplier: "mexxsun",
+  add({ id: "reg-mppt20", cat: "sarj-regulatorleri", brand: "Lexron", price: 2180,
+    name: "Lexron 20A MPPT Şarj Kontrol Cihazı (12/24V, 60V panel girişi)", supplier: "enerjipazari",
     tags: ["MPPT", "10–30 A"], specs: { "Teknoloji": "MPPT", "Akım": "20 A", "Maks. PV Girişi": "60 V", "Voltaj": "12/24 V" } });
-  add({ id: "reg-mppt30", cat: "sarj-regulatorleri", brand: "GESM Power", price: 2720, bestseller: true,
-    name: "30A MPPT Şarj Kontrol Cihazı (12/24V, 100V panel girişi)", supplier: "mexxsun",
+  add({ id: "reg-mppt30", cat: "sarj-regulatorleri", brand: "Lexron", price: 2720, bestseller: true,
+    name: "Lexron 30A MPPT Şarj Kontrol Cihazı (12/24V, 100V panel girişi)", supplier: "enerjipazari",
     tags: ["MPPT", "10–30 A"], specs: { "Teknoloji": "MPPT", "Akım": "30 A", "Maks. PV Girişi": "100 V", "Voltaj": "12/24 V" } });
-  add({ id: "reg-pc18f-80", cat: "sarj-regulatorleri", brand: "GESM Power", price: 7540,
-    name: "PC18F 80A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
-    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "80 A", "Voltaj": "12/24/48 V", "Seri": "PC18F" } });
+  add({ id: "reg-mpk8-60", cat: "sarj-regulatorleri", brand: "Mexxun", price: 7182,
+    name: "Mexxun MPK8 60A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
+    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "60 A", "Voltaj": "12/24/48 V", "Seri": "MPK8" } });
+  add({ id: "reg-pc18f-80", cat: "sarj-regulatorleri", brand: "Mexxun", price: 7540,
+    name: "Mexxun MPK8 80A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
+    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "80 A", "Voltaj": "12/24/48 V", "Seri": "MPK8" } });
+  add({ id: "reg-mpk8-100", cat: "sarj-regulatorleri", brand: "Mexxun", price: 9250,
+    name: "Mexxun MPK8 100A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
+    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "100 A", "Voltaj": "12/24/48 V", "Seri": "MPK8" } });
 
   /* ---------- 8) Tarımsal Sulama — Pompa Sürücüleri ---------- */
   function pump(id, hp, kw, price, extra) {
-    add(Object.assign({ id: id, cat: "tarimsal-sulama", brand: "Agromot", price: price, supplier: "enerjipazari",
+    add(Object.assign({ id: id, cat: "tarimsal-sulama", brand: "Mexxun", price: price, supplier: "mexxsun",
       name: hp + " Hp (" + kw + " kW) Solar Pompa Sürücüsü — Trifaze",
       tags: [parseFloat(hp) <= 15 ? "2–15 Hp" : (parseFloat(hp) <= 40 ? "20–40 Hp" : "100+ Hp")],
       specs: { "Pompa Gücü": hp + " Hp / " + kw + " kW", "Çıkış": "Trifaze", "Giriş": "Solar DC dizi", "Koruma": "Kuru çalışma / aşırı akım" } }, extra || {}));
@@ -227,7 +237,7 @@
     "Aydınlatma, telefon/laptop şarjı ve küçük TV için giriş seviyesi hazır sistem. Karavan, tekne ve kamelya kullanımına uygundur; kurulumu bir saat sürmez.");
   pkt("pkt2", "Karavan / Konteyner Solar Paket (PKT2)", 24650, "Karavan", null, "~550 W",
     [{ q: 1, name: "550 W Half-Cut panel" },
-     { q: 1, name: "100 Ah 12V LiFePO4 lityum akü (Bluetooth)", ref: "aku-100-12" },
+     { q: 1, name: "100 Ah 12,8V LiFePO4 lityum akü", ref: "aku-100-12" },
      { q: 1, name: "1,6 kW HV MPPT akıllı inverter", ref: "inv-1-6kw" },
      { q: 1, name: "Kablo + sigorta + montaj seti" }],
     "Karavan ve konteyner yaşamının standardı: buzdolabı, aydınlatma, TV ve şarj ihtiyaçlarını lityum akü konforuyla karşılar. Bluetooth ile şarj durumu telefondan izlenir.");
@@ -260,35 +270,35 @@
     "PKT5'in lityum sürümü: daha uzun ömür, daha hızlı şarj, telefondan izleme. Günlük derin kullanımda toplam maliyeti jelden daha düşüktür.");
   pkt("pkt10", "10,2 kW Lityum Solar Paket (PKT10)", 176000, "Ev", null, "~10 kW",
     [{ q: 17, name: "600 W TopCon panel" },
-     { q: 2, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
+     { q: 2, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 10 kW hibrit inverter (monofaze)", ref: "inv-deye-10m" },
      { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "Hibrit inverterli 10 kW sistem: şebekeyle mahsuplaşır, kesintide aküden besler. Yüksek tüketimli evler ve küçük işletmeler için ideal.");
   pkt("pkt11", "11 kW Lityum Solar Paket (PKT11) — Ekonomik", 193700, "Ev", "Ekonomik", "~11 kW",
     [{ q: 18, name: "600 W TopCon panel" },
-     { q: 2, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
+     { q: 2, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 10 kW hibrit inverter (trifaze)" },
      { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "11 kW sınıfının giriş konfigürasyonu: trifaze hibrit inverter ve 10,8 kWh depolama ile ekonomik güç.");
   pkt("pkt12", "11 kW Lityum Solar Paket (PKT12) — Standart", 228000, "Ev", "Standart", "~11 kW",
     [{ q: 18, name: "600 W TopCon panel" },
-     { q: 3, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
+     { q: 3, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
      { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "11 kW'ın dengeli konfigürasyonu: Deye 12 kW trifaze hibrit ve 16,2 kWh depolama — konfor ile bütçenin kesişimi.");
   pkt("pkt13", "11 kW Lityum Solar Paket (PKT13) — Pro", 256000, "Ev", "Pro", "~11 kW",
     [{ q: 18, name: "600 W TopCon G2G çift cam panel" },
-     { q: 4, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
+     { q: 4, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
      { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "Amiral gemisi: çift cam TopCon paneller, 21,6 kWh depolama ve Deye trifaze hibrit ile tam bağımsızlık. Uzun kesintilerde bile ev tam kapasite çalışır.");
   pkt("pkt14", "12 kW Lityum Solar Paket (PKT14)", 238900, "Ticari", null, "~12 kW",
     [{ q: 20, name: "600 W TopCon panel" },
-     { q: 3, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
+     { q: 3, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
      { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],

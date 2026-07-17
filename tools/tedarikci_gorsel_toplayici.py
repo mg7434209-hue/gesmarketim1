@@ -375,12 +375,19 @@ def run(supplier_filter, limit, delay, force):
             else:
                 st["hata"] += 1
 
-    # 3) CSV yaz
+    # 3) CSV yaz — bu çalıştırmada taranmayan tedarikçilerin satırlarını KORU
     if rows:
+        ran = {r[0] for r in rows}
+        keep = []
+        if CSV_PATH.exists():
+            with open(CSV_PATH, encoding="utf-8-sig") as f:
+                rd = csv.reader(f, delimiter=";")
+                next(rd, None)
+                keep = [r for r in rd if r and r[0] not in ran]
         with open(CSV_PATH, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.writer(f, delimiter=";")
             w.writerow(["tedarikci", "urun_adi", "url", "fiyat", "gorsel_dosyalari"])
-            w.writerows(rows)
+            w.writerows(keep + rows)
         log(f"\nCSV yazıldı → {CSV_PATH.relative_to(ROOT)} ({len(rows)} satır)")
 
     # 4) özet

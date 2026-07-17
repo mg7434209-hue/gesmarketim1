@@ -39,7 +39,7 @@ def load_catalog():
           f"require('{ROOT}/assets/config.js');require('{ROOT}/assets/data.js');"
           "console.log(JSON.stringify(global.GESM.data.products.map(p=>("
           "{id:p.id,name:p.name,brand:p.brand,cat:p.cat,supplier:p.supplier,"
-          "specs:p.specs||{}}))))")
+          "hasImg:!!p.img,specs:p.specs||{}}))))")
     out = subprocess.check_output(["node", "-e", js], text=True)
     return json.loads(out)
 
@@ -100,12 +100,17 @@ def tokens(s):
 # El ile doğrulanmış eşleşmeler: katalog id -> CSV url slug'ı (tam ad).
 # Otomatik eşleştiricinin hatalı/eksik bıraktığı, gözle kontrol edilmiş atamalar.
 FORCE = {
+    # --- Enerji Pazarı (gözle doğrulandı) ---
     "eq-mc4": "mc4-konnektor-1500v",
     "eq-kablo6": "6mm-solar-kablo",
-    "pmp-2-3hp": "2hp-solar-pompa-inverter-yeni-nesil",
-    "pmp-3hp": "3hp-solar-pompa-inverter-yeni-nesil",
-    "inv-6-2kw": "6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir",
-    "aku-51-wpu": "100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya",
+    "inv-1kw": "1kw-mppt-akilli-inverter-12v",            # Lexron
+    "inv-1-6kw": "1-6kw-mppt-12v-akilli-inverter",        # Lexron
+    "inv-3kw": "3kw-hv-mppt-akilli-inverter-sorotec",     # Sorotec 3,5kW
+    "inv-6-2kw": "6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir",  # Lexron
+    "reg-pwm20": "20a-pwm-sarj-kontrol-cihazi",
+    "reg-pwm30": "30a-pwm-sarj-kontrol-cihazi",
+    "reg-mppt20": "20a-mppt-sarj-kontrol-cihazi",
+    "reg-mppt30": "30a-mppt-sarj-kontrol-cihazi",         # Lexron
     "pkt1": "monokristalli-mini-buzdolabi-paketi-paket-1",
     "pkt2": "monokristalli-kucuk-ev-paketi-paket-2-kopya",
     "pkt3": "monokristalli-bag-evi-paketi-paket-3",
@@ -117,6 +122,32 @@ FORCE = {
     "pkt12": "trifaze-enerji-depolamali-on-grid-sistem-3",
     "pkt13": "trifaze-enerji-depolamali-on-grid-sistem-4",
     "pkt14": "trifaze-enerji-depolamali-on-grid-sistem-5",
+    # --- Mexxsun (gözle doğrulandı: mexxSUN/Sako markalı gerçek ürünler) ---
+    "pnl-245": "gse245-gazioglu-halfcut-monopower-fotovoltaik-gunes-paneli-a-class",
+    "aku-100-12": "mexxsun-lityum-aku-12-8v-100ah-lifepo4-1280wh-3120",
+    "aku-100-24": "mexxsun-lityum-aku-25-6v-100ah-lifepo4-2560wh-3154",
+    "aku-51-wpu": "mexxsun-lityum-aku-48v-100ah-lifepo4-3074",
+    "inv-4-2kw": "sunon-eco-4-2kw-tam-sinus-akilli-24v-4200w-2003",  # Sako
+    "inv-max8": "sunon-iv-8kw-48v-450vdc",                            # Sako
+    "inv-11kw": "mexx-p12kw-premium-48v-12kw-paralel-wi-fi-dual-output",
+    "inv-deye-10m": "deye-10kw-monofaze-910",
+    "inv-deye-12": "deye-12-kw-hibrit-trifaze-lv-48v-05",
+    "inv-deye-100": "deye-100kw-trifaze-sun-100k-g",
+    "inv-ongrid-25": "deye-25kw-trifaze",
+    "reg-pwm10": "pwm-12-24v-at10-604",
+    "reg-mpk8-60": "mpk8-60a-mppt-12-24-48v",
+    "reg-pc18f-80": "mpk8-80a-mppt-12-24-48v",
+    "reg-mpk8-100": "mpk8-100a-mppt-12-24-48v-3110",
+    "pmp-2-3hp": "2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220",
+    "pmp-3hp": "3hp-2-2-kw-solar-pompa-surucusu-trifaze-893",
+    "pmp-10hp": "10hp-7-5-kw-solar-pompa-surucusu-1000vdc",
+    "pmp-15hp": "15hp-11-kw-1000vdc-solar-pompa-surucusu",
+    "pmp-20hp": "20hp-15-kw-solar-pompa-surucusu-trifaze-899",
+    "pmp-25hp": "25hp-18-5-kw-1000vdc-solar-pompa-surucusu",
+    "pmp-30hp": "30hp-22-kw-solar-pompa-surucusu-trifaze-901",
+    "pmp-40hp": "40hp-30-kw-solar-pompa-surucusu-trifaze-3156",
+    "pmp-100hp": "100hp-75-kw-solar-pompa-surucusu-trifaze-905",
+    "pmp-120hp": "120hp-90-kw-solar-pompa-surucusu-trifaze-906",
 }
 # Otomatik eşleştiricinin yanlış eşlediği, doğru adayı olmayan ürünler.
 BLOCK = {"inv-deye-10t", "reg-pc18f-100", "pkt7", "pkt8", "pkt9"}
@@ -137,6 +168,8 @@ def match(catalog, csv_rows):
     for p in catalog:
         if p["id"] in FORCE or p["id"] in BLOCK:
             continue
+        if p.get("hasImg"):
+            continue  # data.js'te açık img alanı var — otomatik eşleşme onu ezmesin
         ptext = p["name"] + " " + " ".join(f"{k} {v}" for k, v in p["specs"].items())
         pf, pt = numfeat(ptext), tokens(p["name"] + " " + p["brand"])
         best, best_score = None, 0.0
@@ -153,6 +186,8 @@ def match(catalog, csv_rows):
             score = len(shared_nums) * 3.0 + len(pt & rt) * 1.0
             if norm(p["brand"]) in norm(rtext):
                 score += 2.0
+            if row.get("tedarikci") == p.get("supplier"):
+                score += 2.0  # kendi tedarikçisinin görseli tercih edilir
             if score > best_score:
                 best, best_score = i, score
         if best is not None and best_score >= 4.0:
@@ -207,8 +242,8 @@ def main(dry=False):
     by_id = {p["id"]: p for p in catalog}
     matched_rows = set(m.values())
     print("\n──────── RAPOR ────────")
-    nomatch_cat = [p for p in catalog if p["id"] not in imgmap]
-    print(f"\nA) Görselsiz kalan katalog ürünleri ({len(nomatch_cat)}):")
+    nomatch_cat = [p for p in catalog if p["id"] not in imgmap and not p.get("hasImg")]
+    print(f"\nA) Görselsiz kalan katalog ürünleri ({len(nomatch_cat)}) — data.js'te açık img'si olanlar hariç:")
     for p in nomatch_cat:
         print(f"   - [{p['id']}] {p['name']}")
     nomatch_csv = [r for i, r in enumerate(csv_rows) if i not in matched_rows]
