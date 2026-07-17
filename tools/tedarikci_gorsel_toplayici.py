@@ -50,6 +50,7 @@ SUPPLIERS = {
     "mexxsun": {
         "base": "https://www.mexxsun.com",
         "start": "https://www.mexxsun.com/tr",
+        "fallback": "mexxsun",   # Comwize altyapısı — standart sitemap.xml yok
     },
     "enerjipazari": {
         "base": "https://www.enerjipazari.com.tr",
@@ -57,10 +58,25 @@ SUPPLIERS = {
     },
 }
 
+# Mexxsun (Comwize) kategori sayfaları — sitemap yoksa buradan gezilir
+MEXXSUN_CATEGORIES = [
+    "tam-sinus-inverterler", "tam-sinus-ups-inverterler",
+    "tam-sinus-akilli-inverterler", "modifiye-sinus-inverterler-756",
+    "string-inverterler", "deye-hibrit-inverterler",
+    "pwm-sarj-regulatorleri", "mppt-sarj-regulatorleri",
+    "ac-dc-aku-sarj-cihazlari", "lityum-akuler", "jel-akuler-3037",
+    "solar-sulama-suruculeri", "dc-pompalar", "monokristal-gunes-panelleri",
+    "solar-kablolar-520", "solar-konnektorler-521",
+    "on-grid-paketler", "off-grid-paketler", "solar-montaj-ekipmanlari",
+]
+
+# Gerçek tarayıcı başlıkları — bazı altyapılar bot imzalı istekleri engelliyor
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                  "(KHTML, like Gecko) Chrome/126.0 Safari/537.36 GESMarketimBot/1.0",
-    "Accept-Language": "tr-TR,tr;q=0.9",
+                  "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,"
+              "image/webp,*/*;q=0.8",
+    "Accept-Language": "tr,tr-TR;q=0.9,en;q=0.7",
 }
 
 # Ürün OLMADIĞI belli olan yol parçaları (sitemap gürültüsünü eler)
@@ -143,6 +159,66 @@ def parse_sitemap(session, url, depth=0):
     else:
         urls = [loc.text.strip() for loc in root.iter("loc") if loc.text]
     return urls
+
+
+def page_links(html, page_url, path_prefix):
+    """Sayfadaki, yolu path_prefix ile başlayan mutlak linkleri döndür."""
+    soup = BeautifulSoup(html, "html.parser")
+    out = []
+    for a in soup.find_all("a", href=True):
+        u = urljoin(page_url, a["href"]).split("#")[0]
+        clean = u.split("?")[0]
+        if urlparse(clean).path.startswith(path_prefix):
+            out.append(clean)
+    return list(dict.fromkeys(out))
+
+
+def crawl_mexxsun_category(session, base, cat_url, delay):
+    """Bir kategori sayfasını sayfalama linklerini izleyerek gez, ürün linklerini topla."""
+    products, todo, seen = [], [cat_url], set()
+    cat_path = urlparse(cat_url).path
+    while todo and len(seen) < 20:  # kategori başına en çok 20 sayfa
+        u = todo.pop(0)
+        if u in seen:
+            continue
+        seen.add(u)
+        html = fetch(session, u)
+        time.sleep(delay)
+        if not html:
+            continue
+        products += [p for p in page_links(html, u, "/tr/urun/") if p not in products]
+        # sayfalama: aynı kategori yoluna işaret eden page/sayfa parametreli linkler
+        soup = BeautifulSoup(html, "html.parser")
+        for a in soup.find_all("a", href=True):
+            href = urljoin(u, a["href"])
+            if cat_path in urlparse(href).path and re.search(r"(?:[?&](?:page|sayfa|p)=\d+|/(?:page|sayfa)/\d+)", href):
+                if href not in seen and href not in todo:
+                    todo.append(href)
+    return products
+
+
+def mexxsun_fallback(session, base, delay):
+    """Mexxsun (Comwize) için sitemap yedeği:
+    1) /tr/site-haritasi sayfasındaki /tr/urun/ linkleri
+    2) olmazsa bilinen kategori sayfalarını (sayfalama dahil) gez"""
+    log("  → Yedek 1: /tr/site-haritasi sayfası taranıyor…")
+    html = fetch(session, base + "/tr/site-haritasi")
+    if html:
+        urls = page_links(html, base + "/tr/site-haritasi", "/tr/urun/")
+        if urls:
+            log(f"    site-haritasi'ndan {len(urls)} ürün linki bulundu.")
+            return urls
+        log("    site-haritasi ürün linki vermedi.")
+    else:
+        log("    site-haritasi sayfasına ulaşılamadı.")
+    log(f"  → Yedek 2: {len(MEXXSUN_CATEGORIES)} kategori sayfası geziliyor…")
+    found = []
+    for slug in MEXXSUN_CATEGORIES:
+        cat_url = f"{base}/tr/urunler/{slug}"
+        got = [u for u in crawl_mexxsun_category(session, base, cat_url, delay) if u not in found]
+        found += got
+        log(f"    {slug}: {len(got)} ürün")
+    return found
 
 
 def looks_like_product(url):
@@ -255,8 +331,11 @@ def run(supplier_filter, limit, delay, force):
             if got:
                 log(f"  sitemap OK: {sm} → {len(got)} URL")
                 all_urls += got
+        if not all_urls and conf.get("fallback") == "mexxsun":
+            log("  XML sitemap bulunamadı — yedek yönteme geçiliyor.")
+            all_urls = mexxsun_fallback(session, conf["base"], delay)
         if not all_urls:
-            log("  !! Sitemap'e ulaşılamadı — site erişilemiyor olabilir (egress/403?).")
+            log("  !! Ürün URL'si bulunamadı — site erişilemiyor olabilir (egress/403?).")
             st["hata"] += 1
             continue
 

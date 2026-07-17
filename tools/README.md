@@ -28,6 +28,13 @@ Seçenekler:
 Script kaldığı yerden devam eder (mevcut görseli atlar), logo/ikon/banner
 gürültüsünü ve 5 KB altı görselleri eler, ürün başına en çok 6 görsel alır.
 
+**Mexxsun yedek yöntemi:** Mexxsun (Comwize altyapısı) standart `sitemap.xml`
+sunmadığı için sitemap bulunamazsa script otomatik olarak (1) `/tr/site-haritasi`
+sayfasındaki `/tr/urun/` linklerini toplar; o da sonuç vermezse (2) 19 bilinen
+`/tr/urunler/…` kategori sayfasını sayfalama linklerini izleyerek gezer.
+İstekler gerçek Chrome tarayıcı başlıklarıyla (`User-Agent` + `Accept-Language: tr`)
+gönderilir — bot imzalı istekleri engelleyen altyapılara takılmaz.
+
 ### Sonrası
 
 1. İndirilen `public/images/products/` klasörünü ve `data/urun_gorsel_eslesme.csv`
