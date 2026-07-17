@@ -56,15 +56,6 @@ GESM.imgmap = {
  "inv-ongrid-25": [
   "public/images/products/25kw-on-grid-trifaze-inverter-1.webp"
  ],
- "jel-100": [
-  "public/images/products/105ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "jel-150": [
-  "public/images/products/160ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "jel-200": [
-  "public/images/products/210ah-lexron-nano-karbon-jel-aku-1.webp"
- ],
  "pkt1": [
   "public/images/products/monokristalli-mini-buzdolabi-paketi-paket-1.webp"
  ],

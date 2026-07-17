@@ -44,8 +44,9 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 
 ## Dosya mimarisi
 - `assets/config.js` — konfig (yukarıda).
-- `assets/data.js`   — ürün kataloğu (~75 ürün + 14 paket; spec Bölüm 4
-  envanteri). Paketlerde `components[]` bileşen listesi (ref → ürün id).
+- `assets/data.js`   — ürün kataloğu (75 gerçek tedarikçi ürünü + 11 paket;
+  tümü görselli — görselsiz/temsili ürünler kaldırıldı). Paketlerde `components[]`
+  bileşen listesi (ref → ürün id; ref'siz bileşen düz metin render edilir).
 - `assets/app.js`    — fiyat motoru (`priceOf`: tekil override > açık fiyat >
   maliyet×marj, sonra toplu % ayarları), sepet, favoriler, arama, kategori
   filtreleri, ürün detay, WhatsApp sipariş, AI asistan, admin panel.

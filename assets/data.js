@@ -23,77 +23,71 @@
     P.push(o);
   }
 
-  /* ---------- 1) Güneş Panelleri ---------- */
-  add({ id: "pnl-245", cat: "gunes-panelleri", brand: "GESM Power", price: 2980,
-    name: "245 W A+ Half-Cut Monokristal Perc Güneş Paneli", supplier: "mexxsun",
-    tags: ["100–300 W"], specs: { "Güç": "245 Wp", "Hücre": "Half-Cut Monokristal Perc", "Sınıf": "A+", "Üretim": "Yerli" } });
-  add({ id: "pnl-275", cat: "gunes-panelleri", brand: "GESM Power", price: 3100,
-    name: "275 W A+ Half-Cut Monokristal Perc Güneş Paneli (72 Hücre)", supplier: "mexxsun",
-    tags: ["100–300 W"], specs: { "Güç": "275 Wp", "Hücre": "72 hücre Half-Cut Mono Perc", "Sınıf": "A+", "Üretim": "Yerli" } });
-  add({ id: "pnl-280-gaz", cat: "gunes-panelleri", brand: "Gazioğlu", price: 3290,
-    name: "Gazioğlu 280 W A+ Half-Cut TopCon Güneş Paneli", supplier: "enerjipazari",
-    tags: ["100–300 W"], specs: { "Güç": "280 Wp", "Teknoloji": "TopCon Half-Cut", "Sınıf": "A+" } });
-  add({ id: "pnl-450-gaz", cat: "gunes-panelleri", brand: "Gazioğlu", onRequest: true,
-    name: "Gazioğlu 450 W A+ Half-Cut Monokristal Perc Güneş Paneli", supplier: "enerjipazari",
-    tags: ["450–600 W"], specs: { "Güç": "450 Wp", "Hücre": "Half-Cut Mono Perc", "Sınıf": "A+" } });
-  add({ id: "pnl-550-gaz", cat: "gunes-panelleri", brand: "Gazioğlu", price: 5290, bestseller: true,
-    name: "Gazioğlu 550 W A+ Half-Cut Monokristal Perc Güneş Paneli", supplier: "enerjipazari",
-    tags: ["450–600 W"], specs: { "Güç": "550 Wp", "Hücre": "144 hücre Half-Cut Mono Perc", "Sınıf": "A+" } });
-  add({ id: "pnl-600-gaz-eko", cat: "gunes-panelleri", brand: "Gazioğlu", price: 5150,
-    name: "Gazioğlu 600 W A- Half-Cut TopCon Güneş Paneli (Ekonomik)", supplier: "enerjipazari",
-    tags: ["450–600 W"], specs: { "Güç": "600 Wp", "Teknoloji": "TopCon Half-Cut", "Sınıf": "A-" } });
-  add({ id: "pnl-600-gaz", cat: "gunes-panelleri", brand: "Gazioğlu", price: 5980,
-    name: "Gazioğlu 600 W A+ Half-Cut TopCon Güneş Paneli", supplier: "enerjipazari",
-    tags: ["450–600 W"], specs: { "Güç": "600 Wp", "Teknoloji": "TopCon Half-Cut", "Sınıf": "A+" } });
-  add({ id: "pnl-600-lex", cat: "gunes-panelleri", brand: "Lexron", price: 6580,
-    name: "Lexron 600 Wp 120PM M12 HC-MB Güneş Paneli", supplier: "enerjipazari",
-    tags: ["450–600 W"], specs: { "Güç": "600 Wp", "Hücre": "120 Half-Cut M12", "Tip": "Multi Busbar" } });
-  add({ id: "pnl-585-arc", cat: "gunes-panelleri", brand: "Arçelik", price: 6590,
-    name: "Arçelik 585 Wp 156PM M10 HC-MB Güneş Paneli", supplier: "enerjipazari",
-    tags: ["450–600 W"], specs: { "Güç": "585 Wp", "Hücre": "156 Half-Cut M10", "Tip": "Multi Busbar" } });
-  add({ id: "pnl-600-ttx", cat: "gunes-panelleri", brand: "TitanX", price: 6690, isNew: true,
-    name: "TitanX 600 Wp 144TNB M10 G2G TopCon Güneş Paneli", supplier: "enerjipazari",
-    tags: ["450–600 W"], specs: { "Güç": "600 Wp", "Teknoloji": "TopCon G2G (çift cam)", "Hücre": "144 TNB M10" } });
+  /* ---------- 1) Güneş Panelleri (tedarikçi gerçek envanteri) ---------- */
+  function pnl(id, name, price, band, specs, extra) {
+    add(Object.assign({ id: id, cat: "gunes-panelleri", brand: "Lexron", price: price,
+      name: name, supplier: "enerjipazari", tags: [band], specs: specs,
+      img: ["public/images/products/" + id.replace("pnl-", "") + ".webp"] }, extra || {}));
+  }
+  pnl("pnl-12w-polikristal-gunes-paneli", "12 W Polikristal Güneş Paneli", 1640, "≤100 W",
+    { "Güç": "12 Wp", "Hücre": "Polikristal", "Kullanım": "Şarj/aydınlatma, hobi" });
+  pnl("pnl-25w-polikristal-gunes-paneli", "25 W Polikristal Güneş Paneli", 2670, "≤100 W",
+    { "Güç": "25 Wp", "Hücre": "Polikristal", "Kullanım": "Karavan, tekne, bahçe" });
+  pnl("pnl-55w-monokristal-gunes-paneli", "55 W Monokristal Güneş Paneli", 3830, "≤100 W",
+    { "Güç": "55 Wp", "Hücre": "Monokristal", "Kullanım": "Karavan, tekne" });
+  pnl("pnl-110w-monokristal-ecosolgunes-paneli", "Ecosol 110 W Monokristal Güneş Paneli", 6570, "100–300 W",
+    { "Güç": "110 Wp", "Hücre": "Monokristal" }, { brand: "Ecosol" });
+  pnl("pnl-140w-half-cut-topcon-gunes-paneli", "140 W Half-Cut TopCon Güneş Paneli", 7460, "100–300 W",
+    { "Güç": "140 Wp", "Teknoloji": "TopCon Half-Cut" });
+  pnl("pnl-160w-monokristal-gunes-paneli", "160 W Monokristal Güneş Paneli", 6130, "100–300 W",
+    { "Güç": "160 Wp", "Hücre": "Monokristal" });
+  pnl("pnl-175w-half-cut-topcon-gunes-paneli", "175 W Half-Cut TopCon Güneş Paneli", 9110, "100–300 W",
+    { "Güç": "175 Wp", "Teknoloji": "TopCon Half-Cut" });
+  pnl("pnl-240w-48-cell-16bb-half-cut-topcon-gunes-paneli", "240 W 48-Cell 16BB Half-Cut TopCon Güneş Paneli", 11910, "100–300 W",
+    { "Güç": "240 Wp", "Hücre": "48 hücre 16BB", "Teknoloji": "TopCon Half-Cut" });
+  pnl("pnl-285w-half-cut-monokristal-gunes-paneli", "285 W Half-Cut Monokristal Güneş Paneli", 13010, "100–300 W",
+    { "Güç": "285 Wp", "Hücre": "Half-Cut Monokristal" });
+  pnl("pnl-340w-polykristal-gunes-paneli", "340 W Polikristal Güneş Paneli", 11160, "300–500 W",
+    { "Güç": "340 Wp", "Hücre": "Polikristal" });
+  pnl("pnl-350w-ecosol-polykristal-gunes-paneli", "Ecosol 350 W Polikristal Güneş Paneli", 9450, "300–500 W",
+    { "Güç": "350 Wp", "Hücre": "Polikristal" }, { brand: "Ecosol", bestseller: true });
+  pnl("pnl-390w-78-cell-16bb-half-cut-topcon-gunes-paneli", "390 W 78-Cell 16BB Half-Cut TopCon Güneş Paneli", 14580, "300–500 W",
+    { "Güç": "390 Wp", "Hücre": "78 hücre 16BB", "Teknoloji": "TopCon Half-Cut" });
+  pnl("pnl-450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "450 W Bifacial 78-Cell 16BB Half-Cut TopCon Güneş Paneli", 15750, "300–500 W",
+    { "Güç": "450 Wp", "Tip": "Bifacial (çift yüzlü)", "Teknoloji": "TopCon Half-Cut" }, { isNew: true });
+  pnl("pnl-655w-half-cut-topcon-mono-gunes-paneli", "655 W Half-Cut TopCon Monokristal Güneş Paneli", 21910, "500 W+",
+    { "Güç": "655 Wp", "Teknoloji": "TopCon Half-Cut", "Kullanım": "Çatı/arazi GES" }, { bestseller: true });
+  pnl("pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli", "750 W Bifacial 132-Cell 16BB Half-Cut TopCon Güneş Paneli", 22800, "500 W+",
+    { "Güç": "750 Wp", "Tip": "Bifacial (çift yüzlü)", "Hücre": "132 hücre 16BB", "Teknoloji": "TopCon Half-Cut" }, { isNew: true });
 
   /* ---------- 2) Lityum Aküler ---------- */
   add({ id: "aku-100-12", cat: "lityum-akuler", brand: "Havensis", price: 14900, bestseller: true,
     name: "100 Ah 12V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
     tags: ["12V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 1,28 kWh", "Voltaj": "12,8 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi", "Çevrim": "≥4000" } });
-  add({ id: "aku-mc-100", cat: "lityum-akuler", brand: "Megacell", price: 16900,
-    name: "Megacell 12,8V 100 Ah LiFePO4 Akü — ABS Standart", supplier: "enerjipazari",
-    tags: ["12V", "100 Ah"], specs: { "Kapasite": "100 Ah / 1,28 kWh", "Voltaj": "12,8 V", "Kasa": "ABS", "Kimya": "LiFePO4" } });
-  add({ id: "aku-mc-120", cat: "lityum-akuler", brand: "Megacell", price: 20100,
-    name: "Megacell 12,8V 120 Ah LiFePO4 Akü — ABS Standart", supplier: "enerjipazari",
-    tags: ["12V", "120 Ah"], specs: { "Kapasite": "120 Ah / 1,54 kWh", "Voltaj": "12,8 V", "Kasa": "ABS", "Kimya": "LiFePO4" } });
   add({ id: "aku-100-24", cat: "lityum-akuler", brand: "Havensis", price: 23450, listPrice: 26800,
     name: "100 Ah 24V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
     tags: ["24V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 2,56 kWh", "Voltaj": "25,6 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi" } });
-  add({ id: "aku-mc-150s", cat: "lityum-akuler", brand: "Megacell", price: 24400,
-    name: "Megacell 12,8V 150 Ah LiFePO4 Akü — ABS Standart", supplier: "enerjipazari",
-    tags: ["12V", "150 Ah"], specs: { "Kapasite": "150 Ah / 1,92 kWh", "Voltaj": "12,8 V", "Kasa": "ABS", "Kimya": "LiFePO4" } });
-  add({ id: "aku-mc-150b", cat: "lityum-akuler", brand: "Megacell", price: 24500,
-    name: "Megacell 12,8V 150 Ah LiFePO4 Akü — ABS Bluetooth", supplier: "enerjipazari",
-    tags: ["12V", "150 Ah", "Bluetooth"], specs: { "Kapasite": "150 Ah / 1,92 kWh", "Voltaj": "12,8 V", "İzleme": "Bluetooth", "Kimya": "LiFePO4" } });
   add({ id: "aku-mc-200b", cat: "lityum-akuler", brand: "Megacell", price: 31800,
     name: "Megacell 12,8V 200 Ah LiFePO4 Akü — ABS Bluetooth", supplier: "enerjipazari",
     tags: ["12V", "200 Ah", "Bluetooth"], specs: { "Kapasite": "200 Ah / 2,56 kWh", "Voltaj": "12,8 V", "İzleme": "Bluetooth", "Kimya": "LiFePO4" } });
-  add({ id: "aku-100-36", cat: "lityum-akuler", brand: "Havensis", price: 36900,
-    name: "100 Ah 36V LiFePO4 Lityum Akü — Bluetooth/WiFi", supplier: "mexxsun",
-    tags: ["36V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 3,84 kWh", "Voltaj": "38,4 V", "Kimya": "LiFePO4", "İzleme": "Bluetooth + WiFi" } });
   add({ id: "aku-51-wpu", cat: "lityum-akuler", brand: "Havensis", price: 44200, isNew: true,
     name: "100 Ah 51,2V (5,4 kWh) LiFePO4 WPU Akü — Bluetooth", supplier: "mexxsun",
     tags: ["48V", "100 Ah", "Bluetooth"], specs: { "Kapasite": "100 Ah / 5,4 kWh", "Voltaj": "51,2 V", "Tip": "Duvar tipi (WPU)", "İzleme": "Bluetooth", "Kimya": "LiFePO4" } });
 
-  /* ---------- 3) Jel Aküler ---------- */
-  add({ id: "jel-100", cat: "jel-akuler", brand: "GESM Power", price: 4450,
-    name: "12V 100 Ah Derin Döngü Jel Akü", supplier: "enerjipazari",
-    tags: ["100 Ah"], specs: { "Kapasite": "100 Ah", "Voltaj": "12 V", "Tip": "Derin döngü jel", "Bakım": "Bakımsız" } });
-  add({ id: "jel-150", cat: "jel-akuler", brand: "GESM Power", price: 6350,
-    name: "12V 150 Ah Derin Döngü Jel Akü", supplier: "enerjipazari",
-    tags: ["150 Ah"], specs: { "Kapasite": "150 Ah", "Voltaj": "12 V", "Tip": "Derin döngü jel", "Bakım": "Bakımsız" } });
-  add({ id: "jel-200", cat: "jel-akuler", brand: "GESM Power", price: 8200,
-    name: "12V 200 Ah Derin Döngü Jel Akü", supplier: "enerjipazari",
-    tags: ["200 Ah"], specs: { "Kapasite": "200 Ah", "Voltaj": "12 V", "Tip": "Derin döngü jel", "Bakım": "Bakımsız" } });
+  /* ---------- 3) Jel Aküler (Lexron Nano Karbon — tedarikçi gerçek envanteri) ---------- */
+  function jel(id, ah, price, extra) {
+    add(Object.assign({ id: "jel-" + id, cat: "jel-akuler", brand: "Lexron", price: price,
+      name: "Lexron " + ah + " Ah 12V Nano Karbon Jel Akü", supplier: "enerjipazari",
+      tags: [ah + " Ah"], specs: { "Kapasite": ah + " Ah", "Voltaj": "12 V", "Tip": "Nano karbon jel (derin döngü)", "Bakım": "Bakımsız" },
+      img: ["public/images/products/" + id + "ah-lexron-nano-karbon-jel-aku" + (id === "210" ? "-1" : "") + ".webp"] }, extra || {}));
+  }
+  jel("14", "14", 3490);
+  jel("24", "24", 4450);
+  jel("42", "42", 9310);
+  jel("65", "65", 13630);
+  jel("105", "105", 18210, { bestseller: true });
+  jel("160", "160", 27390);
+  jel("210", "210", 36500);
 
   /* ---------- 4) Akıllı İnverterler (Off-Grid) ---------- */
   add({ id: "inv-1kw", cat: "akilli-inverterler", brand: "Mexxun", price: 7810,
@@ -122,9 +116,6 @@
   add({ id: "inv-deye-10m", cat: "hibrit-inverterler", brand: "Deye", price: 34500,
     name: "Deye 10 kW Hibrit İnverter — Monofaze", supplier: "enerjipazari",
     tags: ["8+ kW", "Monofaze"], specs: { "Güç": "10 kW", "Faz": "Monofaze", "Tip": "Hibrit (şebeke+akü+PV)", "Akü": "48 V LV" } });
-  add({ id: "inv-deye-10t", cat: "hibrit-inverterler", brand: "Deye", price: 34900,
-    name: "Deye 10 kW Hibrit İnverter — Trifaze", supplier: "enerjipazari",
-    tags: ["8+ kW", "Trifaze"], specs: { "Güç": "10 kW", "Faz": "Trifaze", "Tip": "Hibrit (şebeke+akü+PV)", "Akü": "48 V LV" } });
   add({ id: "inv-deye-12", cat: "hibrit-inverterler", brand: "Deye", price: 132800,
     name: "Deye 12 kW Hibrit İnverter Trifaze LV (48V)", supplier: "enerjipazari",
     tags: ["8+ kW", "Trifaze"], specs: { "Güç": "12 kW", "Faz": "Trifaze", "Tip": "Hibrit", "Akü": "48 V LV" } });
@@ -153,21 +144,9 @@
   add({ id: "reg-mppt30", cat: "sarj-regulatorleri", brand: "GESM Power", price: 2720, bestseller: true,
     name: "30A MPPT Şarj Kontrol Cihazı (12/24V, 100V panel girişi)", supplier: "mexxsun",
     tags: ["MPPT", "10–30 A"], specs: { "Teknoloji": "MPPT", "Akım": "30 A", "Maks. PV Girişi": "100 V", "Voltaj": "12/24 V" } });
-  add({ id: "reg-pc18f-60", cat: "sarj-regulatorleri", brand: "GESM Power", price: 6030,
-    name: "PC18F 60A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
-    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "60 A", "Voltaj": "12/24/48 V", "Seri": "PC18F" } });
-  add({ id: "reg-mpk8-60", cat: "sarj-regulatorleri", brand: "GESM Power", price: 7182,
-    name: "MPK8 60A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
-    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "60 A", "Voltaj": "12/24/48 V", "Seri": "MPK8" } });
   add({ id: "reg-pc18f-80", cat: "sarj-regulatorleri", brand: "GESM Power", price: 7540,
     name: "PC18F 80A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
     tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "80 A", "Voltaj": "12/24/48 V", "Seri": "PC18F" } });
-  add({ id: "reg-pc18f-100", cat: "sarj-regulatorleri", brand: "GESM Power", price: 8040,
-    name: "PC18F 100A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
-    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "100 A", "Voltaj": "12/24/48 V", "Seri": "PC18F" } });
-  add({ id: "reg-mpk8-100", cat: "sarj-regulatorleri", brand: "GESM Power", price: 9250,
-    name: "MPK8 100A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
-    tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "100 A", "Voltaj": "12/24/48 V", "Seri": "MPK8" } });
 
   /* ---------- 8) Tarımsal Sulama — Pompa Sürücüleri ---------- */
   function pump(id, hp, kw, price, extra) {
@@ -196,18 +175,40 @@
     tags: ["Konnektör"], specs: { "Tip": "MC4", "Akım": "30 A", "Gerilim": "1000 V DC", "IP": "IP67" } });
   add({ id: "eq-sigorta", cat: "solar-ekipmanlar", brand: "GESM Power", price: 420,
     name: "DC Sigorta + Tutucu Set (15A / 1000V)", supplier: "enerjipazari",
-    tags: ["Sigorta"], specs: { "Akım": "15 A", "Gerilim": "1000 V DC", "İçerik": "Sigorta + ray tipi tutucu" } });
-  add({ id: "eq-montaj", cat: "solar-ekipmanlar", brand: "GESM Power", price: 3450,
-    name: "4 Panel Alüminyum Montaj Seti (Kiremit/Trapez)", supplier: "enerjipazari",
-    tags: ["Montaj"], specs: { "Kapasite": "4 panel", "Malzeme": "Eloksallı alüminyum", "Çatı": "Kiremit ve trapez uyumlu" } });
+    tags: ["Sigorta"], specs: { "Akım": "15 A", "Gerilim": "1000 V DC", "İçerik": "Sigorta + ray tipi tutucu" },
+    img: ["public/images/products/dc-sigorta-1000v-15a.webp"] });
+  add({ id: "eq-kablo4", cat: "solar-ekipmanlar", brand: "GESM Power", price: 140, unit: "metre",
+    name: "4 mm² Solar Kablo (metre)", supplier: "enerjipazari",
+    tags: ["Kablo"], specs: { "Kesit": "4 mm²", "Gerilim": "1500 V DC", "UV": "Dayanımlı", "Satış": "Metre ile" },
+    img: ["public/images/products/4mm-solar-kablo.webp"] });
+  add({ id: "eq-tbranch", cat: "solar-ekipmanlar", brand: "GESM Power", price: 430,
+    name: "MC4 T-Branch Paralel Konnektör (Çift)", supplier: "enerjipazari",
+    tags: ["Konnektör"], specs: { "Tip": "T-Branch (2'li paralel)", "Uyum": "MC4", "IP": "IP67" },
+    img: ["public/images/products/t-branch.webp"] });
+  add({ id: "eq-3branch", cat: "solar-ekipmanlar", brand: "GESM Power", price: 610,
+    name: "MC4 3'lü Branch Paralel Konnektör (Çift)", supplier: "enerjipazari",
+    tags: ["Konnektör"], specs: { "Tip": "3'lü Branch paralel", "Uyum": "MC4", "IP": "IP67" },
+    img: ["public/images/products/3lu-branch.webp"] });
+  add({ id: "eq-orta-tutucu", cat: "solar-ekipmanlar", brand: "GESM Power", price: 100,
+    name: "Panel Orta Tutucu (Alüminyum)", supplier: "enerjipazari",
+    tags: ["Montaj"], specs: { "Tip": "Orta tutucu (mid clamp)", "Malzeme": "Eloksallı alüminyum" },
+    img: ["public/images/products/orta-tutucu.webp"] });
+  add({ id: "eq-sonlandirici", cat: "solar-ekipmanlar", brand: "GESM Power", price: 100,
+    name: "Panel Sonlandırıcı Tutucu (Alüminyum)", supplier: "enerjipazari",
+    tags: ["Montaj"], specs: { "Tip": "Sonlandırıcı (end clamp)", "Malzeme": "Eloksallı alüminyum" },
+    img: ["public/images/products/sonlandirici.webp"] });
 
-  /* ---------- 10) Aksesuar & Diğer ---------- */
-  add({ id: "aks-saksi", cat: "aksesuar", brand: "GESM Power", price: 950,
-    name: "Güneş Enerjili Otomatik Saksı Sulama Cihazı", supplier: "enerjipazari",
-    tags: ["Sulama"], specs: { "Güç": "Dahili solar panel", "Kapasite": "10 saksıya kadar", "Mod": "Zamanlayıcı + nem sensörü" } });
-  add({ id: "aks-jenerator", cat: "aksesuar", brand: "GESM Power", onRequest: true,
-    name: "11 kW Sessiz Jeneratör — Tek Faz", supplier: "enerjipazari",
-    tags: ["Jeneratör"], specs: { "Güç": "11 kW", "Faz": "Monofaze", "Tip": "Sessiz kabinli", "Kullanım": "Yedek güç" } });
+  /* ---------- 10) Aksesuar & Diğer — Isı Pompaları ---------- */
+  function isip(id, kw, price) {
+    add({ id: "aks-isi-" + id, cat: "aksesuar", brand: "Lexron", price: price,
+      name: "Lexron " + kw + " kW Monoblok Isı Pompası", supplier: "enerjipazari",
+      tags: ["Isı Pompası"], specs: { "Kapasite": kw + " kW", "Tip": "Monoblok (hava kaynaklı)", "Kullanım": "Isıtma/soğutma + sıcak su", "Uyum": "Solar sistemle entegre çalışır" },
+      img: ["public/images/products/lexron-" + id + "kw-monoblok-isi-pompasi.webp"],
+      desc: "Lexron " + kw + " kW monoblok ısı pompası; havadaki ısıyı kullanarak elektriğin 3–4 katı ısıtma enerjisi üretir. Güneş enerjisi sistemiyle birlikte kurulduğunda neredeyse sıfır maliyetli ısıtma/soğutma sağlar. Keşif ve boyutlandırma için bize ulaşın." });
+  }
+  isip("8", "8", 303540);
+  isip("13", "13", 365160);
+  isip("16", "16", 395560);
 
   /* ---------- 11) Solar Paketler (14 adet) ---------- */
   function pkt(id, name, price, scenario, tier, kw, comps, desc, extra) {
@@ -218,99 +219,78 @@
       components: comps, desc: desc }, extra || {}));
   }
   pkt("pkt1", "Mini Solar Paket (PKT1)", 13690, "Karavan", null, "~250 W",
-    [{ q: 1, name: "245 W Half-Cut Mono Perc panel", ref: "pnl-245" },
-     { q: 1, name: "12V 100 Ah jel akü", ref: "jel-100" },
+    [{ q: 1, name: "245 W Half-Cut Mono Perc panel" },
+     { q: 1, name: "12V 100 Ah jel akü" },
      { q: 1, name: "1000 W tam sinüs inverter" },
      { q: 1, name: "30A PWM şarj regülatörü", ref: "reg-pwm30" },
      { q: 1, name: "Kablo + sigorta + bağlantı seti" }],
     "Aydınlatma, telefon/laptop şarjı ve küçük TV için giriş seviyesi hazır sistem. Karavan, tekne ve kamelya kullanımına uygundur; kurulumu bir saat sürmez.");
   pkt("pkt2", "Karavan / Konteyner Solar Paket (PKT2)", 24650, "Karavan", null, "~550 W",
-    [{ q: 1, name: "550 W Half-Cut panel", ref: "pnl-550-gaz" },
+    [{ q: 1, name: "550 W Half-Cut panel" },
      { q: 1, name: "100 Ah 12V LiFePO4 lityum akü (Bluetooth)", ref: "aku-100-12" },
      { q: 1, name: "1,6 kW HV MPPT akıllı inverter", ref: "inv-1-6kw" },
      { q: 1, name: "Kablo + sigorta + montaj seti" }],
     "Karavan ve konteyner yaşamının standardı: buzdolabı, aydınlatma, TV ve şarj ihtiyaçlarını lityum akü konforuyla karşılar. Bluetooth ile şarj durumu telefondan izlenir.");
   pkt("pkt3", "Yayla / Bağ Evi Solar Paket (PKT3)", 34875, "Bağ Evi", null, "~1,1 kW",
-    [{ q: 2, name: "550 W Half-Cut panel", ref: "pnl-550-gaz" },
-     { q: 2, name: "12V 150 Ah jel akü", ref: "jel-150" },
+    [{ q: 2, name: "550 W Half-Cut panel" },
+     { q: 2, name: "12V 150 Ah jel akü" },
      { q: 1, name: "3 kW HV MPPT akıllı inverter", ref: "inv-3kw" },
-     { q: 1, name: "Kablo + sigorta + montaj seti", ref: "eq-montaj" }],
+     { q: 1, name: "Kablo + sigorta + montaj seti" }],
     "Hafta sonu kullanılan yayla ve bağ evleri için dengeli sistem: buzdolabı, aydınlatma, TV ve küçük ev aletlerini rahatça çalıştırır.");
   pkt("pkt4", "3 kW Solar Paket (PKT4)", 39900, "Bağ Evi", null, "~2,2 kW",
-    [{ q: 4, name: "550 W Half-Cut panel", ref: "pnl-550-gaz" },
-     { q: 2, name: "12V 200 Ah jel akü", ref: "jel-200" },
+    [{ q: 4, name: "550 W Half-Cut panel" },
+     { q: 2, name: "12V 200 Ah jel akü" },
      { q: 1, name: "3 kW HV MPPT akıllı inverter", ref: "inv-3kw" },
-     { q: 1, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 1, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "Sürekli yaşanan bağ evleri için 3 kW sistem: çamaşır makinesi dahil temel ev yükünü taşır. Jel akü grubuyla ekonomik, dilerseniz lityuma yükseltilebilir.");
   pkt("pkt5", "4 kW Solar Paket (PKT5)", 56800, "Ev", null, "~3,3 kW",
-    [{ q: 6, name: "550 W Half-Cut panel", ref: "pnl-550-gaz" },
-     { q: 4, name: "12V 200 Ah jel akü", ref: "jel-200" },
+    [{ q: 6, name: "550 W Half-Cut panel" },
+     { q: 4, name: "12V 200 Ah jel akü" },
      { q: 1, name: "4,2 kW HV MPPT akıllı inverter", ref: "inv-4-2kw" },
-     { q: 2, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 2, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "Şebekenin olmadığı müstakil evler için 4 kW jel akülü sistem: buzdolabı, çamaşır makinesi, TV, aydınlatma ve pompa gibi yükleri birlikte yönetir.");
   pkt("pkt6", "4 kW Lityum Solar Paket (PKT6)", 61750, "Ev", null, "~3,3 kW",
-    [{ q: 6, name: "550 W Half-Cut panel", ref: "pnl-550-gaz" },
+    [{ q: 6, name: "550 W Half-Cut panel" },
      { q: 1, name: "100 Ah 24V LiFePO4 lityum akü", ref: "aku-100-24" },
      { q: 1, name: "4,2 kW HV MPPT akıllı inverter", ref: "inv-4-2kw" },
-     { q: 2, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 2, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "PKT5'in lityum sürümü: daha uzun ömür, daha hızlı şarj, telefondan izleme. Günlük derin kullanımda toplam maliyeti jelden daha düşüktür.");
-  pkt("pkt7", "6 kW Lityum Solar Paket (PKT7)", 92750, "Ev", null, "~5,5 kW",
-    [{ q: 10, name: "550 W Half-Cut panel", ref: "pnl-550-gaz" },
-     { q: 1, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
-     { q: 1, name: "6,2 kW HV MPPT akıllı inverter", ref: "inv-6-2kw" },
-     { q: 3, name: "4 panel montaj seti", ref: "eq-montaj" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "En çok tercih edilen ev paketi: klima ve elektrikli süpürge dahil modern ev yükünü 5,4 kWh lityum depolamayla gün boyu taşır.", { bestseller: true });
-  pkt("pkt8", "8 kW Lityum Solar Paket (PKT8) — Ekonomik", 128500, "Ev", "Ekonomik", "~7,2 kW",
-    [{ q: 13, name: "550 W Half-Cut panel", ref: "pnl-550-gaz" },
-     { q: 1, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
-     { q: 1, name: "8 kW Twin akıllı inverter (MAX 8000)", ref: "inv-max8" },
-     { q: 4, name: "4 panel montaj seti", ref: "eq-montaj" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "Geniş evler için 8 kW gücün ekonomik konfigürasyonu: tek lityum modül ve twin inverter ile bütçe dostu başlangıç; akü kapasitesi sonradan artırılabilir.");
-  pkt("pkt9", "8 kW Lityum Solar Paket (PKT9) — Pro", 179800, "Ev", "Pro", "~7,2 kW",
-    [{ q: 13, name: "600 W TopCon panel", ref: "pnl-600-gaz" },
-     { q: 2, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
-     { q: 1, name: "8 kW Twin akıllı inverter (MAX 8000)", ref: "inv-max8" },
-     { q: 4, name: "4 panel montaj seti", ref: "eq-montaj" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "8 kW'ın üst konfigürasyonu: TopCon paneller ve 10,8 kWh çift lityum depolama ile bulutlu günlerde bile kesintisiz konfor.");
   pkt("pkt10", "10,2 kW Lityum Solar Paket (PKT10)", 176000, "Ev", null, "~10 kW",
-    [{ q: 17, name: "600 W TopCon panel", ref: "pnl-600-gaz" },
+    [{ q: 17, name: "600 W TopCon panel" },
      { q: 2, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 10 kW hibrit inverter (monofaze)", ref: "inv-deye-10m" },
-     { q: 5, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "Hibrit inverterli 10 kW sistem: şebekeyle mahsuplaşır, kesintide aküden besler. Yüksek tüketimli evler ve küçük işletmeler için ideal.");
   pkt("pkt11", "11 kW Lityum Solar Paket (PKT11) — Ekonomik", 193700, "Ev", "Ekonomik", "~11 kW",
-    [{ q: 18, name: "600 W TopCon panel", ref: "pnl-600-gaz" },
+    [{ q: 18, name: "600 W TopCon panel" },
      { q: 2, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
-     { q: 1, name: "Deye 10 kW hibrit inverter (trifaze)", ref: "inv-deye-10t" },
-     { q: 5, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 1, name: "Deye 10 kW hibrit inverter (trifaze)" },
+     { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "11 kW sınıfının giriş konfigürasyonu: trifaze hibrit inverter ve 10,8 kWh depolama ile ekonomik güç.");
   pkt("pkt12", "11 kW Lityum Solar Paket (PKT12) — Standart", 228000, "Ev", "Standart", "~11 kW",
-    [{ q: 18, name: "600 W TopCon panel", ref: "pnl-600-gaz" },
+    [{ q: 18, name: "600 W TopCon panel" },
      { q: 3, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
-     { q: 5, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "11 kW'ın dengeli konfigürasyonu: Deye 12 kW trifaze hibrit ve 16,2 kWh depolama — konfor ile bütçenin kesişimi.");
   pkt("pkt13", "11 kW Lityum Solar Paket (PKT13) — Pro", 256000, "Ev", "Pro", "~11 kW",
-    [{ q: 18, name: "600 W TopCon G2G çift cam panel", ref: "pnl-600-ttx" },
+    [{ q: 18, name: "600 W TopCon G2G çift cam panel" },
      { q: 4, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
-     { q: 5, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "Amiral gemisi: çift cam TopCon paneller, 21,6 kWh depolama ve Deye trifaze hibrit ile tam bağımsızlık. Uzun kesintilerde bile ev tam kapasite çalışır.");
   pkt("pkt14", "12 kW Lityum Solar Paket (PKT14)", 238900, "Ticari", null, "~12 kW",
-    [{ q: 20, name: "600 W TopCon panel", ref: "pnl-600-gaz" },
+    [{ q: 20, name: "600 W TopCon panel" },
      { q: 3, name: "5,4 kWh 51,2V LiFePO4 WPU akü", ref: "aku-51-wpu" },
      { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
-     { q: 5, name: "4 panel montaj seti", ref: "eq-montaj" },
+     { q: 5, name: "4 panel montaj seti" },
      { q: 1, name: "Kablo + sigorta seti" }],
     "Atölye, soğuk hava deposu ve küçük işletmeler için 12 kW trifaze sistem: gündüz yükünü doğrudan güneşten, akşamı depodan karşılar.");
 

@@ -106,9 +106,6 @@ FORCE = {
     "pmp-3hp": "3hp-solar-pompa-inverter-yeni-nesil",
     "inv-6-2kw": "6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir",
     "aku-51-wpu": "100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya",
-    "jel-100": "105ah-lexron-nano-karbon-jel-aku",       # en yakın kapasite (105 Ah)
-    "jel-150": "160ah-lexron-nano-karbon-jel-aku",       # en yakın kapasite (160 Ah)
-    "jel-200": "210ah-lexron-nano-karbon-jel-aku-1",     # en yakın kapasite (210 Ah)
     "pkt1": "monokristalli-mini-buzdolabi-paketi-paket-1",
     "pkt2": "monokristalli-kucuk-ev-paketi-paket-2-kopya",
     "pkt3": "monokristalli-bag-evi-paketi-paket-3",

@@ -53,11 +53,11 @@ GESM.config = {
 
   // 11 birleşik kategori (spec 8.2)
   categories: [
-    { slug: "gunes-panelleri",     name: "Güneş Panelleri",              icon: "☀️", desc: "Half-cut monokristal ve TopCon güneş panelleri — 245 W'tan 600 W'a.",
+    { slug: "gunes-panelleri",     name: "Güneş Panelleri",              icon: "☀️", desc: "Polikristal, monokristal ve TopCon güneş panelleri — 12 W'tan 750 W'a.",
       seo: "Güneş paneli seçerken ilk bakılması gereken değer panel gücüdür (Wp). Karavan ve küçük bağ evi sistemlerinde 245–300 W paneller yeterli olurken, ev tipi ve tarımsal sistemlerde 450–600 W half-cut monokristal veya TopCon paneller hem çatı alanından hem kablolamadan tasarruf sağlar. A+ hücre sınıfı, düşük sıcaklık katsayısı ve 10 yıl ürün / 25 yıl performans garantisi kalite göstergeleridir. Kaç panele ihtiyacınız olduğunu bilmiyorsanız AI asistanımıza günlük tüketiminizi yazın, size doğru gücü önersin." },
     { slug: "lityum-akuler",       name: "Lityum Aküler",                icon: "🔋", desc: "LiFePO4 lityum aküler — 12/24/36/51V, Bluetooth takipli modeller.",
       seo: "LiFePO4 (lityum demir fosfat) aküler, jel akülere göre 3–5 kat daha uzun çevrim ömrü (3000–6000 çevrim), %90'a varan kullanılabilir kapasite ve çok daha hızlı şarj sunar. Voltaj seçimi inverterinize göre yapılır: 12V küçük sistemler, 24V orta boy, 48/51,2V ev tipi sistemler içindir. Bluetooth'lu modellerde hücre dengesi ve şarj durumu telefondan izlenir. Ah değeri × voltaj = depolanan enerji (Wh) formülüyle ihtiyacınızı hesaplayabilirsiniz." },
-    { slug: "jel-akuler",          name: "Jel Aküler",                   icon: "🪫", desc: "Bakım gerektirmeyen derin döngü jel aküler.",
+    { slug: "jel-akuler",          name: "Jel Aküler",                   icon: "🪫", desc: "Lexron nano karbon derin döngü jel aküler — 14 Ah'ten 210 Ah'e.",
       seo: "Jel aküler, ekonomik başlangıç sistemleri ve düşük döngülü kullanım (hafta sonu bağ evi, yedek güç) için uygun maliyetli çözümdür. Derin deşarj toleransı %50 civarında tutulmalı, yani 200 Ah jel akünün pratik kapasitesi ~100 Ah kabul edilmelidir. Sık ve derin deşarj gerektiren günlük kullanımlarda lityum aküye geçiş toplam sahip olma maliyetini düşürür." },
     { slug: "hibrit-inverterler",  name: "Hibrit İnverterler",           icon: "⚡", desc: "Şebeke + akü + panel birlikte: Deye ve muadili hibrit inverterler.",
       seo: "Hibrit inverterler; güneş paneli, akü ve şebekeyi tek cihazda yönetir. Elektrik kesintisinde akülerden beslemeye milisaniyeler içinde geçer, fazla üretimi şebekeye satabilir (mahsuplaşma). Monofaze 10 kW'a kadar konutlar, trifaze modeller işletmeler ve tarımsal aboneler içindir. Akü voltajı (LV 48V / HV) inverterle uyumlu seçilmelidir." },
@@ -73,11 +73,11 @@ GESM.config = {
       seo: "Güneş enerjili tarımsal sulama, mazot ve şebeke maliyetini sıfırlar; sürücü, panellerden gelen DC enerjiyi mevcut trifaze dalgıç pompanıza uygun AC'ye çevirir. Sürücü gücü pompa etiket gücünün bir üst kademesi seçilmeli, panel gücü ise pompa gücünün yaklaşık 1,3 katı kurulmalıdır. 2 Hp'den 120 Hp'ye tüm sürücüler stoktan; kuyu derinliği ve günlük su ihtiyacınızı iletin, sistemi ücretsiz boyutlandıralım." },
     { slug: "solar-ekipmanlar",    name: "Solar Ekipmanlar",             icon: "🧰", desc: "Solar kablo, MC4 konnektör, DC sigorta ve montaj ekipmanları.",
       seo: "Sistemin görünmeyen kahramanları: doğru kesitte solar kablo gerilim düşümünü, DC sigorta ve parafudr yıldırım/ark riskini, kaliteli MC4 konnektör temas direncini önler. Panel montaj setleri kiremit, trapez sac ve düz çatı için ayrı tiplerde sunulur. Kablo kesiti seçiminde 100 metreye kadar %2 gerilim düşümü hedeflenmelidir." },
-    { slug: "aksesuar",            name: "Aksesuar & Diğer",             icon: "🧩", desc: "Saksı sulama, jeneratör ve niş solar ürünler.",
+    { slug: "aksesuar",            name: "Aksesuar & Diğer",             icon: "🧩", desc: "Monoblok ısı pompaları ve tamamlayıcı çözümler.",
       seo: "Solar yaşamı kolaylaştıran niş ürünler: güneş enerjili otomatik saksı sulama cihazları, uzun kesintiler için sessiz jeneratörler ve tamamlayıcı aksesuarlar. Aradığınız özel bir ürün varsa WhatsApp'tan sorun — tedarik ağımızla bulup fiyatlandıralım." }
   ],
 
-  brands: ["Gazioğlu", "Arçelik", "Lexron", "Mexxun", "TitanX", "Havensis", "Megacell", "Deye", "GESM Power", "Agromot", "Tescom"],
+  brands: ["Arçelik", "Lexron", "Mexxun", "TitanX", "Havensis", "Ecosol", "Megacell", "Deye", "GESM Power", "Agromot", "Tescom"],
 
   // Admin panel (statik sitede yalnızca caydırıcı)
   admin: { pass: "gesm2026" },
