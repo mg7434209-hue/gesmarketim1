@@ -3,5 +3,6 @@ Allow: /
 Disallow: /admin.html
 Disallow: /sepet.html
 Disallow: /favoriler.html
+Disallow: /data/
 
 Sitemap: https://gesmarketim.com/sitemap.xml

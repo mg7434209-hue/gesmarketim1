@@ -7,6 +7,9 @@
   "use strict";
   var cfg = GESM.config;
   var ALL = GESM.data.products;
+  // Gerçek ürün görselleri (assets/img-map.js — tools/gorselleri_isle.py üretir)
+  var IMGMAP = GESM.imgmap || {};
+  ALL.forEach(function (p) { if (IMGMAP[p.id]) p.img = IMGMAP[p.id]; });
 
   /* ================= Yardımcılar ================= */
   function $(s, r) { return (r || document).querySelector(s); }
@@ -86,6 +89,15 @@
       '<text x="200" y="212" font-size="26" font-weight="800" text-anchor="middle" fill="hsl(' + hue + ',55%,28%)" font-family="system-ui">' + esc(kv) + '</text>' +
       '<text x="200" y="244" font-size="15" text-anchor="middle" fill="rgba(62,55,42,.65)" font-family="system-ui">' + esc(short) + '</text>' +
       '</svg>';
+  }
+  // Gerçek foto varsa <img> (lazy), yoksa SVG yer tutucu
+  function thumbMedia(p, opts) {
+    opts = opts || {};
+    if (p.img && p.img.length) {
+      return '<img src="' + esc(p.img[0]) + '" alt="' + esc(p.name) + '"' +
+        (opts.eager ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async">';
+    }
+    return thumbSVG(p, opts.big);
   }
 
   /* ================= Sepet & Favoriler ================= */
@@ -225,7 +237,7 @@
         '<a class="btn btn-sm btn-ghost" href="' + prodUrl(p) + '">İncele</a></div>';
     return '<article class="prod-card">' + ribbons +
       '<button class="fav-toggle' + (isFav ? " on" : "") + '" data-fav="' + p.id + '" aria-label="Favori">' + (isFav ? "♥" : "♡") + "</button>" +
-      '<a class="prod-thumb" href="' + prodUrl(p) + '" aria-hidden="true" tabindex="-1">' + thumbSVG(p) + "</a>" +
+      '<a class="prod-thumb" href="' + prodUrl(p) + '" aria-hidden="true" tabindex="-1">' + thumbMedia(p) + "</a>" +
       '<div class="prod-body"><span class="prod-brand">' + esc(p.brand) + "</span>" +
       '<a class="prod-name" href="' + prodUrl(p) + '">' + esc(p.name) + "</a>" +
       priceHtml + actions + "</div></article>";
@@ -472,7 +484,16 @@
       '<div class="crumbs container" id="crumbs"><a href="index.html">Ana Sayfa</a> › <a href="' + catUrl(c) + '">' + esc(c.name) + "</a> › " + esc(p.name) + "</div>" +
       '<div class="container section" style="padding-top:18px">' +
       '<div class="pd-grid">' +
-      '<div class="pd-gallery">' + thumbSVG(p, true) + "</div>" +
+      '<div class="pd-gallery">' +
+      (p.img && p.img.length
+        ? '<div class="pd-main"><img id="pdMainImg" src="' + esc(p.img[0]) + '" alt="' + esc(p.name) + '" fetchpriority="high" decoding="async"></div>' +
+          (p.img.length > 1
+            ? '<div class="pd-thumbs">' + p.img.map(function (f, i) {
+                return '<img src="' + esc(f) + '" alt="' + esc(p.name) + ' görsel ' + (i + 1) + '" loading="lazy" decoding="async" data-full="' + esc(f) + '"' + (i === 0 ? ' class="on"' : "") + ">";
+              }).join("") + "</div>"
+            : "")
+        : thumbSVG(p, true)) +
+      "</div>" +
       '<div class="pd-buy">' +
       '<div><span class="prod-brand">' + esc(p.brand) + "</span><h1>" + esc(p.name) + "</h1>" +
       '<div class="pd-meta"><span>Ürün kodu: <b>' + esc(p.code) + '</b></span><span class="stock-ok">✔ Stokta / tedarikte</span>' + (p.unit ? "<span>Birim: <b>" + esc(p.unit) + "</b></span>" : "") + "</div></div>" +
@@ -491,6 +512,14 @@
       '<div class="section"><div class="section-head"><h2>Benzer Ürünler</h2></div><div id="relGrid"></div></div>' +
       "</div>";
 
+    // Galeri küçük görselleri
+    $$(".pd-thumbs img").forEach(function (t) {
+      t.addEventListener("click", function () {
+        $("#pdMainImg").src = t.getAttribute("data-full");
+        $$(".pd-thumbs img").forEach(function (x) { x.classList.remove("on"); });
+        t.classList.add("on");
+      });
+    });
     // Sekmeler
     $$("#pdTabs button").forEach(function (b) {
       b.addEventListener("click", function () {
@@ -528,6 +557,7 @@
       description: p.desc, category: c.name,
       url: cfg.company.domain + "/" + prodUrl(p)
     };
+    if (p.img && p.img.length) ld.image = p.img.map(function (f) { return cfg.company.domain + "/" + f; });
     if (!p.onRequest) {
       ld.offers = {
         "@type": "Offer", priceCurrency: "TRY", price: String(pr.price),
@@ -559,7 +589,7 @@
         var p = byId(id), pr = priceOf(p), line = pr.price * c[id];
         subtotal += line;
         return '<div class="cart-item">' +
-          '<a class="thumb" href="' + prodUrl(p) + '">' + thumbSVG(p) + "</a>" +
+          '<a class="thumb" href="' + prodUrl(p) + '">' + thumbMedia(p) + "</a>" +
           "<div><a class='prod-name' href='" + prodUrl(p) + "' style='min-height:0'>" + esc(p.name) + "</a>" +
           '<div class="muted small">' + fmt0(pr.price) + " × " + c[id] + (p.unit ? " " + esc(p.unit) : " adet") + "</div>" +
           '<div class="qty" style="margin-top:6px;display:inline-flex"><button data-dec="' + id + '">−</button><input value="' + c[id] + '" readonly><button data-inc="' + id + '">+</button></div></div>' +
