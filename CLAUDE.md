@@ -7,7 +7,8 @@ gesmarketim.com — **solar dropshipping e-ticaret sitesi**. bahcesolar.com raki
 analizinden türetilen build spec'e göre inşa edildi (bkz. `docs/build-spec.md`).
 Çok sayfalı statik site: saf HTML + CSS + Vanilla JS, bağımlılıksız Node statik
 sunucu (`server.js`, Railway uyumlu). Sunucu tarafı yok; sepet/favori/admin
-verileri istemcide (localStorage, `gesm.` öneki) tutulur. Dark theme.
+verileri istemcide (localStorage, `gesm.` öneki) tutulur. Tema: beyaza yakın
+bej/krem (kullanıcı kararı — spec'teki dark theme yerine).
 
 Sayfalar (kök dizinde):
 `index.html` (hero + kategori grid + paket vitrini + kampanya/çok satan/yeni) ·
@@ -29,7 +30,8 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 - **K3**: Fiyat yönetimi: toplu + tekil, yüzdesel + manuel, tedarikçi + kategori
   bazlı — `admin.html` üzerinden, localStorage'da (`gesm.admin`). Kalıcı yayın =
   değerleri `config.js`/`data.js`'e işleyip commit.
-- **K4**: Ön yüz dark-theme + AI asistan (kural tabanlı, `app.js` chat IIFE).
+- **K4**: Ön yüz AI asistanlı (kural tabanlı, `app.js` chat IIFE). Tema, spec'te
+  dark yazsa da kullanıcı talebiyle açık bej'e çevrildi — geri dönme.
 - **K5**: Ürün açıklamaları ÖZGÜN — rakip metin/görsel kopyalanmaz. Görseller
   SVG yer tutucu (`thumbSVG`); gerçek görsel eklenecekse `assets/img/` altına
   tedarikçi/üretici kaynaklı dosya koy, dış siteden hotlink YAPMA.
@@ -47,7 +49,7 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 - `assets/app.js`    — fiyat motoru (`priceOf`: tekil override > açık fiyat >
   maliyet×marj, sonra toplu % ayarları), sepet, favoriler, arama, kategori
   filtreleri, ürün detay, WhatsApp sipariş, AI asistan, admin panel.
-- `assets/style.css` — dark theme tasarım sistemi (CSS değişkenleri).
+- `assets/style.css` — açık bej tema tasarım sistemi (CSS değişkenleri).
 - `server.js`        — statik sunucu; uzantısız yol → `.html` eşlemesi yapar.
 - `build-seo.js`     — `sitemap.xml` üretir (`npm run build`); ürün/kategori
   değişince yeniden üret ve çıktıyı commit'le.

@@ -4,8 +4,8 @@
 lityum akü, hibrit/akıllı inverter, şarj regülatörü, tarımsal sulama sürücüleri
 ve kullanıma hazır solar paketler.
 
-Saf HTML + CSS + Vanilla JS, bağımlılıksız Node statik sunucu. Dark theme,
-AI destekli asistan, WhatsApp sipariş akışı.
+Saf HTML + CSS + Vanilla JS, bağımlılıksız Node statik sunucu. Beyaza yakın
+bej (krem) tema, AI destekli asistan, WhatsApp sipariş akışı.
 
 ## Çalıştırma
 

@@ -78,13 +78,13 @@
     var short = p.brand;
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 312" role="img" aria-label="' + esc(p.name) + '">' +
       '<defs><linearGradient id="g' + p.id + '" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0" stop-color="hsl(' + hue + ',45%,16%)"/><stop offset="1" stop-color="hsl(' + hue + ',55%,9%)"/></linearGradient></defs>' +
+      '<stop offset="0" stop-color="hsl(' + hue + ',48%,95%)"/><stop offset="1" stop-color="hsl(' + hue + ',42%,88%)"/></linearGradient></defs>' +
       '<rect width="400" height="312" fill="url(#g' + p.id + ')"/>' +
-      '<circle cx="340" cy="40" r="70" fill="hsla(' + hue + ',80%,60%,.10)"/>' +
-      '<circle cx="30" cy="290" r="90" fill="hsla(' + hue + ',80%,60%,.07)"/>' +
+      '<circle cx="340" cy="40" r="70" fill="hsla(' + hue + ',60%,45%,.10)"/>' +
+      '<circle cx="30" cy="290" r="90" fill="hsla(' + hue + ',60%,45%,.07)"/>' +
       '<text x="200" y="' + (big ? 138 : 148) + '" font-size="76" text-anchor="middle">' + c.icon + '</text>' +
-      '<text x="200" y="212" font-size="26" font-weight="800" text-anchor="middle" fill="hsl(' + hue + ',85%,72%)" font-family="system-ui">' + esc(kv) + '</text>' +
-      '<text x="200" y="244" font-size="15" text-anchor="middle" fill="rgba(232,237,243,.65)" font-family="system-ui">' + esc(short) + '</text>' +
+      '<text x="200" y="212" font-size="26" font-weight="800" text-anchor="middle" fill="hsl(' + hue + ',55%,28%)" font-family="system-ui">' + esc(kv) + '</text>' +
+      '<text x="200" y="244" font-size="15" text-anchor="middle" fill="rgba(62,55,42,.65)" font-family="system-ui">' + esc(short) + '</text>' +
       '</svg>';
   }
 
