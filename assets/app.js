@@ -143,17 +143,28 @@
     var mount = $("#chrome-top");
     if (mount) {
       var curCat = pageActive() === "kategori" ? param("k") : null;
+      var curTag = pageActive() === "kategori" ? param("t") : null;
       function navLink(c, cls) {
         var act = curCat === c.slug;
         return '<a href="' + catUrl(c) + '" class="' + (cls || "") + (act ? " active" : "") + '">' + esc(c.name) + "</a>";
       }
+      // Child öğe: slug (string) veya { label, cat, tag } → ?t= özellik filtresi
+      function kidOf(s) {
+        if (typeof s === "string") { var c = catOf(s); return c && { label: c.name, slug: c.slug, tag: null }; }
+        var c2 = catOf(s.cat); return c2 && { label: s.label || c2.name, slug: c2.slug, tag: s.tag || null };
+      }
+      function kidLink(k, cls) {
+        var href = "kategori.html?k=" + k.slug + (k.tag ? "&t=" + encodeURIComponent(k.tag) : "");
+        var act = curCat === k.slug && (k.tag ? curTag === k.tag : !curTag);
+        return '<a href="' + href + '" class="' + cls + (act ? " active" : "") + '">' + esc(k.label) + "</a>";
+      }
       var navHtml = cfg.nav.map(function (item) {
         if (item.children) {
-          var kids = item.children.map(function (s) { return catOf(s); }).filter(Boolean);
-          var parentAct = kids.some(function (c) { return curCat === c.slug; });
+          var kids = item.children.map(kidOf).filter(Boolean);
+          var parentAct = kids.some(function (k) { return curCat === k.slug; });
           return '<div class="nav-item has-sub' + (parentAct ? " active" : "") + '">' +
             '<button type="button" class="nav-link' + (parentAct ? " active" : "") + '" aria-expanded="false">' + esc(item.label) + ' <span class="caret">▾</span></button>' +
-            '<div class="sub">' + kids.map(function (c) { return navLink(c, "sub-link"); }).join("") + "</div></div>";
+            '<div class="sub">' + kids.map(function (k) { return kidLink(k, "sub-link"); }).join("") + "</div></div>";
         }
         if (item.cat) {
           var c = catOf(item.cat);
@@ -165,9 +176,9 @@
       // Mobil menü: gruplar açılır-kapanır bölümler halinde
       var mobHtml = cfg.nav.map(function (item) {
         if (item.children) {
-          var kids = item.children.map(function (s) { return catOf(s); }).filter(Boolean);
-          return '<details class="m-group"' + (kids.some(function (c) { return curCat === c.slug; }) ? " open" : "") + "><summary>" + esc(item.label) + "</summary>" +
-            kids.map(function (c) { return navLink(c, "m-link m-sub"); }).join("") + "</details>";
+          var kids = item.children.map(kidOf).filter(Boolean);
+          return '<details class="m-group"' + (kids.some(function (k) { return curCat === k.slug; }) ? " open" : "") + "><summary>" + esc(item.label) + "</summary>" +
+            kids.map(function (k) { return kidLink(k, "m-link m-sub"); }).join("") + "</details>";
         }
         if (item.cat) { var c = catOf(item.cat); return c ? navLink(c, "m-link") : ""; }
         return '<a class="m-link" href="' + item.href + '">' + esc(item.label) + "</a>";
@@ -365,7 +376,7 @@
 
   /* ================= Sayfa: Kategori / Arama ================= */
   function pageCategory() {
-    var slug = param("k"), q = param("q");
+    var slug = param("k"), q = param("q"), preTag = param("t");
     var c = slug ? catOf(slug) : null;
     var base;
     var title, desc;
@@ -378,6 +389,7 @@
     } else {
       base = ALL.slice(); title = "Tüm Ürünler"; desc = "Kataloğumuzdaki tüm solar ürünler";
     }
+    if (preTag && c) title = title + " — " + preTag;
     document.title = title + " | " + cfg.company.brand;
     $("#catTitle").textContent = title;
     $("#catDesc").textContent = desc;
@@ -389,8 +401,8 @@
       var st = $("#seoText");
       if (st && c.seo) st.innerHTML = "<h2>" + esc(c.name) + " Seçim Rehberi</h2><p>" + esc(c.seo) + "</p>";
     }
-    // Filtre durumu
-    var state = { brands: [], tags: [], min: null, max: null, sort: "featured", page: 1, per: 24 };
+    // Filtre durumu — ?t= parametresi özellik filtresini önceden seçer (menüden gelir)
+    var state = { brands: [], tags: preTag ? [preTag] : [], min: null, max: null, sort: "featured", page: 1, per: 24 };
     var brands = {}; var tags = {};
     base.forEach(function (p) { brands[p.brand] = 1; (p.tags || []).forEach(function (t) { tags[t] = 1; }); });
     var fEl = $("#filters");
@@ -402,6 +414,8 @@
       (Object.keys(tags).length > 1 ? '<div class="filter-group"><b>Özellik</b>' +
         Object.keys(tags).sort().map(function (t) { return '<label><input type="checkbox" data-tag="' + esc(t) + '"> ' + esc(t) + "</label>"; }).join("") + "</div>" : "") +
       '<div class="filter-group"><button class="btn btn-sm btn-block" id="fClear">Filtreleri Temizle</button></div>';
+    // Menüden gelen ön filtrenin kutusunu işaretle
+    if (preTag) $$("[data-tag]", fEl).forEach(function (i) { if (i.getAttribute("data-tag") === preTag) i.checked = true; });
     function apply() {
       var list = base.filter(function (p) {
         if (state.brands.length && state.brands.indexOf(p.brand) < 0) return false;

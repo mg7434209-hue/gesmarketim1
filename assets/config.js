@@ -82,13 +82,19 @@ GESM.config = {
 
   brands: ["Arçelik", "Lexron", "Mexxun", "TitanX", "Havensis", "Ecosol", "Sako", "Sorotec", "Gazioğlu", "Megacell", "Deye", "GESM Power", "Tescom"],
 
-  // Ana menü yapısı — cat: kategori slug'ı · children: açılır menü grubu
+  // Ana menü yapısı — cat: kategori slug'ı · children: açılır menü grubu.
+  // Child öğe: kategori slug'ı (string) YA DA { label, cat, tag } nesnesi
+  // (tag → kategori sayfası o özellik filtresiyle açılır, ?t= parametresi).
   nav: [
     { label: "Ana Sayfa", href: "index.html", key: "home" },
     { cat: "gunes-panelleri" },
     { label: "Aküler", children: ["lityum-akuler", "jel-akuler"] },
     { label: "İnverterler", children: ["akilli-inverterler", "hibrit-inverterler", "sebeke-inverterleri"] },
-    { cat: "sarj-regulatorleri" },
+    { label: "Şarj Regülatörleri", children: [
+      { label: "MPPT Regülatörler", cat: "sarj-regulatorleri", tag: "MPPT" },
+      { label: "PWM Regülatörler", cat: "sarj-regulatorleri", tag: "PWM" },
+      { label: "Tüm Şarj Regülatörleri", cat: "sarj-regulatorleri" }
+    ] },
     { cat: "solar-paketler" },
     { cat: "tarimsal-sulama" },
     { label: "Ekipman", children: ["solar-ekipmanlar", "aksesuar"] },

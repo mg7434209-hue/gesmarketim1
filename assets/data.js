@@ -190,9 +190,9 @@
     ["MPPT", "60–100 A"], { "Teknoloji": "MPPT", "Akım": "80 A", "Akü Voltajı": "12/24/36/48 V", "Maks. PV Girişi": "200 V / 6800 W", "Dönüştürücü Verimi": "%97,5", "Koruma": "Gelişmiş koruma devreleri", "Boyut": "280×235×100 mm" });
   // HV MPPT serisi (sıra 21–22) — yüksek voltajlı akü grupları
   hvs("hvs45amps", "Havensis HVS-45AMPS HV MPPT Şarj Regülatörü (60/72V Akü, 45A, 200V PV)", 400,
-    ["HV MPPT", "30–60 A"], { "Teknoloji": "MPPT (HV)", "Akım": "45 A", "Akü Voltajı": "60/72 V", "Maks. PV Girişi": "200 V / 3800 W", "Dönüştürücü Verimi": "%96,5", "Ekran": "LCD + LED", "Boyut": "280×235×100 mm" });
+    ["MPPT", "HV MPPT", "30–60 A"], { "Teknoloji": "MPPT (HV)", "Akım": "45 A", "Akü Voltajı": "60/72 V", "Maks. PV Girişi": "200 V / 3800 W", "Dönüştürücü Verimi": "%96,5", "Ekran": "LCD + LED", "Boyut": "280×235×100 mm" });
   hvs("hvs145amps", "Havensis HVS-145AMPS HV MPPT Şarj Regülatörü (84/96/120V Akü, 45A, 200V PV)", 430,
-    ["HV MPPT", "30–60 A"], { "Teknoloji": "MPPT (HV)", "Akım": "45 A", "Akü Voltajı": "84/96/120 V", "Maks. PV Girişi": "200 V / 5500 W", "Dönüştürücü Verimi": "%96,5", "Koruma": "Gelişmiş koruma devreleri", "Boyut": "280×235×100 mm" });
+    ["MPPT", "HV MPPT", "30–60 A"], { "Teknoloji": "MPPT (HV)", "Akım": "45 A", "Akü Voltajı": "84/96/120 V", "Maks. PV Girişi": "200 V / 5500 W", "Dönüştürücü Verimi": "%96,5", "Koruma": "Gelişmiş koruma devreleri", "Boyut": "280×235×100 mm" });
   // DC-DC / alternatör şarj serisi (sıra 23–27) — karavan & tekne
   hvs("batchg-1224bbc", "Havensis BATCHG-1224BBC Alternatör Akü Şarj Cihazı (12V→12V, 20A)", 135,
     ["DC-DC Şarj", "10–30 A"], { "Teknoloji": "DC-DC (alternatörden şarj)", "Akım": "20 A", "Giriş": "10–17 V", "Çıkış": "Maks. 14,2 V", "Verim": "%96,4", "Koruma": "Ters akım (motor kapalı tanıma)", "Boyut": "132×200×60 mm" },
