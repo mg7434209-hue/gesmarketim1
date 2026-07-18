@@ -124,6 +124,7 @@
 
   /* ================= SVG ikon seti ================= */
   var ICONS = {
+    menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>',
     search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>',
     heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>',
     cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l2.6 12.4A2 2 0 0 0 9.6 17h8.7a2 2 0 0 0 2-1.6L22 8H6"/><circle cx="9.5" cy="21" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="21" r="1.4" fill="currentColor" stroke="none"/></svg>',
@@ -136,27 +137,69 @@
     var an = adminState().announcement || cfg.announcement;
     var mount = $("#chrome-top");
     if (mount) {
-      var navLinks = [{ href: "index.html", label: "Ana Sayfa", key: "home" }]
-        .concat(cfg.categories.map(function (c) { return { href: catUrl(c), label: c.name, key: "cat-" + c.slug }; }))
-        .concat([{ href: "iletisim.html", label: "İletişim", key: "iletisim" }]);
+      var curCat = pageActive() === "kategori" ? param("k") : null;
+      function navLink(c, cls) {
+        var act = curCat === c.slug;
+        return '<a href="' + catUrl(c) + '" class="' + (cls || "") + (act ? " active" : "") + '">' + esc(c.name) + "</a>";
+      }
+      var navHtml = cfg.nav.map(function (item) {
+        if (item.children) {
+          var kids = item.children.map(function (s) { return catOf(s); }).filter(Boolean);
+          var parentAct = kids.some(function (c) { return curCat === c.slug; });
+          return '<div class="nav-item has-sub' + (parentAct ? " active" : "") + '">' +
+            '<button type="button" class="nav-link' + (parentAct ? " active" : "") + '" aria-expanded="false">' + esc(item.label) + ' <span class="caret">▾</span></button>' +
+            '<div class="sub">' + kids.map(function (c) { return navLink(c, "sub-link"); }).join("") + "</div></div>";
+        }
+        if (item.cat) {
+          var c = catOf(item.cat);
+          return c ? '<div class="nav-item">' + navLink(c, "nav-link") + "</div>" : "";
+        }
+        var act = pageActive() === item.key;
+        return '<div class="nav-item"><a href="' + item.href + '" class="nav-link' + (act ? " active" : "") + '">' + esc(item.label) + "</a></div>";
+      }).join("");
+      // Mobil menü: gruplar açılır-kapanır bölümler halinde
+      var mobHtml = cfg.nav.map(function (item) {
+        if (item.children) {
+          var kids = item.children.map(function (s) { return catOf(s); }).filter(Boolean);
+          return '<details class="m-group"' + (kids.some(function (c) { return curCat === c.slug; }) ? " open" : "") + "><summary>" + esc(item.label) + "</summary>" +
+            kids.map(function (c) { return navLink(c, "m-link m-sub"); }).join("") + "</details>";
+        }
+        if (item.cat) { var c = catOf(item.cat); return c ? navLink(c, "m-link") : ""; }
+        return '<a class="m-link" href="' + item.href + '">' + esc(item.label) + "</a>";
+      }).join("");
       mount.innerHTML =
         '<div class="announce">' + esc(an) + "</div>" +
         '<header class="site-header"><div class="container header-in">' +
+        '<button class="hamburger icon-btn" id="menuBtn" aria-label="Menü" aria-expanded="false">' + ICONS.menu + "</button>" +
         '<a class="logo" href="index.html"><span class="sun">☀</span><span>GES <b>MARKETİM</b></span></a>' +
         '<form class="search-box" action="kategori.html" method="get">' +
-        '<input type="search" name="q" placeholder="Ürün ara: 550W panel, 100Ah akü, 3kW paket…" aria-label="Ürün ara">' +
+        '<input type="search" name="q" placeholder="Ürün ara: 655W panel, 100Ah akü, 3kW paket…" aria-label="Ürün ara">' +
         '<button type="submit" aria-label="Ara">' + ICONS.search + "</button></form>" +
         '<div class="header-actions">' +
         '<a class="icon-btn wa-green" href="' + waLink("Merhaba, bilgi almak istiyorum.") + '" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">' + ICONS.wa + "</a>" +
         '<a class="icon-btn" href="favoriler.html" title="Favoriler" aria-label="Favoriler">' + ICONS.heart + '<span class="badge" id="favBadge" style="display:none">0</span></a>' +
         '<a class="icon-btn" href="sepet.html" title="Sepet" aria-label="Sepet">' + ICONS.cart + '<span class="badge" id="cartBadge" style="display:none">0</span></a>' +
         "</div></div>" +
-        '<nav class="site-nav" aria-label="Kategoriler"><div class="container nav-in">' +
-        navLinks.map(function (l) {
-          var act = pageActive() === l.key || (l.key.indexOf("cat-") === 0 && pageActive() === "kategori" && param("k") === l.key.slice(4));
-          return '<a href="' + l.href + '"' + (act ? ' class="active"' : "") + ">" + esc(l.label) + "</a>";
-        }).join("") +
-        "</div></nav>";
+        '<nav class="site-nav" aria-label="Kategoriler"><div class="container nav-in">' + navHtml + "</div></nav>" +
+        '<nav class="mobile-nav" id="mobileNav" aria-label="Mobil menü">' + mobHtml + "</nav></header>";
+      // Açılır menü etkileşimi (dokunmatik + klavye uyumlu)
+      $$(".has-sub > .nav-link").forEach(function (b) {
+        b.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var it = b.parentElement, open = it.classList.contains("open");
+          $$(".has-sub.open").forEach(function (x) { x.classList.remove("open"); });
+          if (!open) it.classList.add("open");
+          b.setAttribute("aria-expanded", String(!open));
+        });
+      });
+      document.addEventListener("click", function () {
+        $$(".has-sub.open").forEach(function (x) { x.classList.remove("open"); });
+      });
+      var mb = $("#menuBtn");
+      if (mb) mb.addEventListener("click", function () {
+        var nav = $("#mobileNav"), open = nav.classList.toggle("open");
+        mb.setAttribute("aria-expanded", String(open));
+      });
     }
     var fmount = $("#chrome-footer");
     if (fmount) {

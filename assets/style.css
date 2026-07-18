@@ -3,17 +3,17 @@
    Zemin: çok hafif bej · Yüzeyler (kart/header): beyaz
    ============================================================ */
 :root {
-  --bg: #fbfaf7;            /* sayfa zemini — beyaza çok yakın bej */
-  --bg-2: #f5f1e8;          /* alternatif bölüm zemini */
-  --bg-3: #ede7d9;          /* hover / ikincil zemin */
+  --bg: #fdfdfb;            /* sayfa zemini — beyaza çok yakın bej */
+  --bg-2: #f9f7f1;          /* alternatif bölüm zemini */
+  --bg-3: #f2eee4;          /* hover / ikincil zemin */
   --card: #ffffff;          /* kart, header, panel yüzeyi — beyaz */
-  --line: #e5ddcc;
-  --line-2: #efe9db;        /* daha yumuşak iç çizgiler */
+  --line: #eae3d4;
+  --line-2: #f2ede1;        /* daha yumuşak iç çizgiler */
   --text: #2b2721;
   --muted: #8a8172;
   --accent: #e0a133;        /* solar amber */
   --accent-2: #9a6a12;      /* koyu amber — link & fiyat */
-  --accent-soft: #fdf3dd;   /* amber vurgu zemini */
+  --accent-soft: #fdf6e7;   /* amber vurgu zemini */
   --green: #1e7d4d;
   --wa: #1fbe5f;            /* WhatsApp yeşili */
   --wa-dark: #17a94f;
@@ -64,7 +64,7 @@ h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 800; }
 
 /* ---------- Duyuru bandı ---------- */
 .announce {
-  background: linear-gradient(90deg, #f8ecd0, #f2ddae);
+  background: linear-gradient(90deg, #faf1da, #f5e5c0);
   color: #77500c; text-align: center; font-size: .86rem; font-weight: 600;
   padding: 7px 12px; border-bottom: 1px solid var(--line);
 }
@@ -72,7 +72,7 @@ h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 800; }
 /* ---------- Header ---------- */
 .site-header {
   position: sticky; top: 0; z-index: 60;
-  background: rgba(255, 255, 255, .96); backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, .97); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
   box-shadow: 0 1px 0 rgba(93, 77, 44, .03);
 }
@@ -97,15 +97,32 @@ h2 { font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 800; }
 .icon-btn .badge { position: absolute; top: -6px; right: -6px; background: var(--accent); color: #2b1d05; font-size: .68rem; font-weight: 800; border-radius: 99px; padding: 1px 6px; min-width: 18px; text-align: center; border: 2px solid #fff; }
 .hamburger { display: none; }
 
-/* ---------- Nav ---------- */
+/* ---------- Nav (gruplu açılır menü) ---------- */
 .site-nav { border-bottom: 1px solid var(--line); background: var(--card); }
-.nav-in { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
-.nav-in::-webkit-scrollbar { display: none; }
-.nav-in a {
-  padding: 11px 13px; font-size: .88rem; font-weight: 600; color: var(--muted) !important;
+.nav-in { display: flex; gap: 2px; justify-content: center; flex-wrap: wrap; }
+.nav-item { position: relative; }
+.nav-link {
+  display: inline-flex; align-items: center; gap: 5px; background: none; border: 0; cursor: pointer;
+  padding: 12px 11px; font-size: .88rem; font-weight: 600; color: var(--muted) !important;
   white-space: nowrap; text-decoration: none !important; border-bottom: 2px solid transparent;
+  font-family: var(--font);
 }
-.nav-in a:hover, .nav-in a.active { color: var(--accent-2) !important; border-bottom-color: var(--accent); }
+.nav-link:hover, .nav-link.active { color: var(--accent-2) !important; border-bottom-color: var(--accent); }
+.caret { font-size: .68rem; transition: transform .15s; }
+.has-sub.open .caret { transform: rotate(180deg); }
+.sub {
+  position: absolute; top: 100%; left: 0; z-index: 70; min-width: 240px;
+  background: #fff; border: 1px solid var(--line); border-radius: 0 0 12px 12px;
+  box-shadow: var(--shadow); padding: 6px;
+  opacity: 0; visibility: hidden; transform: translateY(6px); transition: .15s;
+}
+.has-sub:hover .sub, .has-sub.open .sub { opacity: 1; visibility: visible; transform: translateY(0); }
+.sub-link {
+  display: block; padding: 10px 14px; border-radius: 8px; font-size: .9rem; font-weight: 600;
+  color: var(--text) !important; text-decoration: none !important;
+}
+.sub-link:hover, .sub-link.active { background: var(--accent-soft); color: var(--accent-2) !important; }
+.mobile-nav { display: none; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -341,6 +358,29 @@ details.faq p { color: var(--muted); margin-top: 0; }
   .filters { position: static; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .hero-art { display: none; }
+}
+@media (max-width: 900px) {
+  .site-nav { display: none; }
+  .hamburger { display: grid; }
+  .mobile-nav {
+    display: none; border-top: 1px solid var(--line); background: var(--card);
+    padding: 8px 16px 14px; max-height: 70vh; overflow-y: auto;
+  }
+  .mobile-nav.open { display: block; }
+  .m-link {
+    display: block; padding: 11px 8px; font-weight: 600; font-size: .95rem;
+    color: var(--text) !important; text-decoration: none !important;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .m-link.active { color: var(--accent-2) !important; }
+  .m-group { border-bottom: 1px solid var(--line-2); }
+  .m-group summary {
+    padding: 11px 8px; font-weight: 700; font-size: .95rem; cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .m-group summary::after { content: "▾"; font-size: .7rem; color: var(--muted); }
+  .m-group[open] summary::after { transform: rotate(180deg); }
+  .m-sub { padding-left: 22px; border-bottom: 0; font-weight: 500; }
 }
 @media (max-width: 640px) {
   .search-box { order: 3; max-width: none; width: 100%; }

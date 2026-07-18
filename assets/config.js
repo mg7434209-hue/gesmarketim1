@@ -79,6 +79,19 @@ GESM.config = {
 
   brands: ["Arçelik", "Lexron", "Mexxun", "TitanX", "Havensis", "Ecosol", "Sako", "Sorotec", "Gazioğlu", "Megacell", "Deye", "GESM Power", "Tescom"],
 
+  // Ana menü yapısı — cat: kategori slug'ı · children: açılır menü grubu
+  nav: [
+    { label: "Ana Sayfa", href: "index.html", key: "home" },
+    { cat: "gunes-panelleri" },
+    { label: "Aküler", children: ["lityum-akuler", "jel-akuler"] },
+    { label: "İnverterler", children: ["akilli-inverterler", "hibrit-inverterler", "sebeke-inverterleri"] },
+    { cat: "sarj-regulatorleri" },
+    { cat: "solar-paketler" },
+    { cat: "tarimsal-sulama" },
+    { label: "Ekipman", children: ["solar-ekipmanlar", "aksesuar"] },
+    { label: "İletişim", href: "iletisim.html", key: "iletisim" }
+  ],
+
   // Admin panel (statik sitede yalnızca caydırıcı)
   admin: { pass: "gesm2026" },
 
