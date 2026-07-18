@@ -122,7 +122,7 @@ GESM.imgmap = {
   "public/images/products/monokristalli-bag-evi-paketi-paket-3.webp"
  ],
  "pkt4": [
-  "public/images/products/monokristalli-bag-evi-paketi-paket-4.webp"
+  "public/images/products/4-2kw-topcon-paket-sistem-1-paket-4-kopya.webp"
  ],
  "pkt5": [
   "public/images/products/monokristalli-bag-evi-paketi-paket-5.webp"

@@ -114,7 +114,7 @@ FORCE = {
     "pkt1": "monokristalli-mini-buzdolabi-paketi-paket-1",
     "pkt2": "monokristalli-kucuk-ev-paketi-paket-2-kopya",
     "pkt3": "monokristalli-bag-evi-paketi-paket-3",
-    "pkt4": "monokristalli-bag-evi-paketi-paket-4",
+    "pkt4": "4-2kw-topcon-paket-sistem-1-paket-4-kopya",
     "pkt5": "monokristalli-bag-evi-paketi-paket-5",
     "pkt6": "monokristalli-bag-evi-paketi-paket-6",
     "pkt10": "klimali-buyuk-ev-paketi-paket-10",

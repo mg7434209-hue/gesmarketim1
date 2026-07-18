@@ -222,87 +222,78 @@
 
   /* ---------- 11) Solar Paketler (14 adet) ---------- */
   function pkt(id, name, price, scenario, tier, kw, comps, desc, extra) {
-    add(Object.assign({ id: id, cat: "solar-paketler", brand: "GESM Power", price: price, supplier: "mexxsun",
+    add(Object.assign({ id: id, cat: "solar-paketler", brand: "Lexron", price: price, supplier: "enerjipazari",
       name: name, scenario: scenario, tier: tier || null,
       tags: [scenario].concat(tier ? [tier] : []),
       specs: Object.assign({ "Sistem Gücü": kw, "Kullanım": scenario, "Kurulum": "Tak-çalıştır set (montaj opsiyonel)" }, tier ? { "Seviye": tier } : {}),
       components: comps, desc: desc }, extra || {}));
   }
-  pkt("pkt1", "Mini Solar Paket (PKT1)", 13690, "Karavan", null, "~250 W",
-    [{ q: 1, name: "245 W Half-Cut Mono Perc panel" },
-     { q: 1, name: "12V 100 Ah jel akü" },
-     { q: 1, name: "1000 W tam sinüs inverter" },
-     { q: 1, name: "30A PWM şarj regülatörü", ref: "reg-pwm30" },
-     { q: 1, name: "Kablo + sigorta + bağlantı seti" }],
-    "Aydınlatma, telefon/laptop şarjı ve küçük TV için giriş seviyesi hazır sistem. Karavan, tekne ve kamelya kullanımına uygundur; kurulumu bir saat sürmez.");
-  pkt("pkt2", "Karavan / Konteyner Solar Paket (PKT2)", 24650, "Karavan", null, "~550 W",
-    [{ q: 1, name: "550 W Half-Cut panel" },
-     { q: 1, name: "100 Ah 12,8V LiFePO4 lityum akü", ref: "aku-100-12" },
-     { q: 1, name: "1,6 kW HV MPPT akıllı inverter", ref: "inv-1-6kw" },
-     { q: 1, name: "Kablo + sigorta + montaj seti" }],
-    "Karavan ve konteyner yaşamının standardı: buzdolabı, aydınlatma, TV ve şarj ihtiyaçlarını lityum akü konforuyla karşılar. Bluetooth ile şarj durumu telefondan izlenir.");
-  pkt("pkt3", "Yayla / Bağ Evi Solar Paket (PKT3)", 34875, "Bağ Evi", null, "~1,1 kW",
-    [{ q: 2, name: "550 W Half-Cut panel" },
-     { q: 2, name: "12V 150 Ah jel akü" },
-     { q: 1, name: "3 kW HV MPPT akıllı inverter", ref: "inv-3kw" },
-     { q: 1, name: "Kablo + sigorta + montaj seti" }],
-    "Hafta sonu kullanılan yayla ve bağ evleri için dengeli sistem: buzdolabı, aydınlatma, TV ve küçük ev aletlerini rahatça çalıştırır.");
-  pkt("pkt4", "3 kW Solar Paket (PKT4)", 39900, "Bağ Evi", null, "~2,2 kW",
-    [{ q: 4, name: "550 W Half-Cut panel" },
-     { q: 2, name: "12V 200 Ah jel akü" },
-     { q: 1, name: "3 kW HV MPPT akıllı inverter", ref: "inv-3kw" },
-     { q: 1, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "Sürekli yaşanan bağ evleri için 3 kW sistem: çamaşır makinesi dahil temel ev yükünü taşır. Jel akü grubuyla ekonomik, dilerseniz lityuma yükseltilebilir.");
-  pkt("pkt5", "4 kW Solar Paket (PKT5)", 56800, "Ev", null, "~3,3 kW",
-    [{ q: 6, name: "550 W Half-Cut panel" },
-     { q: 4, name: "12V 200 Ah jel akü" },
-     { q: 1, name: "4,2 kW HV MPPT akıllı inverter", ref: "inv-4-2kw" },
-     { q: 2, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "Şebekenin olmadığı müstakil evler için 4 kW jel akülü sistem: buzdolabı, çamaşır makinesi, TV, aydınlatma ve pompa gibi yükleri birlikte yönetir.");
-  pkt("pkt6", "4 kW Lityum Solar Paket (PKT6)", 61750, "Ev", null, "~3,3 kW",
-    [{ q: 6, name: "550 W Half-Cut panel" },
-     { q: 1, name: "100 Ah 24V LiFePO4 lityum akü", ref: "aku-100-24" },
-     { q: 1, name: "4,2 kW HV MPPT akıllı inverter", ref: "inv-4-2kw" },
-     { q: 2, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "PKT5'in lityum sürümü: daha uzun ömür, daha hızlı şarj, telefondan izleme. Günlük derin kullanımda toplam maliyeti jelden daha düşüktür.");
-  pkt("pkt10", "10,2 kW Lityum Solar Paket (PKT10)", 176000, "Ev", null, "~10 kW",
-    [{ q: 17, name: "600 W TopCon panel" },
-     { q: 2, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
-     { q: 1, name: "Deye 10 kW hibrit inverter (monofaze)", ref: "inv-deye-10m" },
-     { q: 5, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "Hibrit inverterli 10 kW sistem: şebekeyle mahsuplaşır, kesintide aküden besler. Yüksek tüketimli evler ve küçük işletmeler için ideal.");
-  pkt("pkt11", "11 kW Lityum Solar Paket (PKT11) — Ekonomik", 193700, "Ev", "Ekonomik", "~11 kW",
-    [{ q: 18, name: "600 W TopCon panel" },
-     { q: 2, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
-     { q: 1, name: "Deye 10 kW hibrit inverter (trifaze)" },
-     { q: 5, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "11 kW sınıfının giriş konfigürasyonu: trifaze hibrit inverter ve 10,8 kWh depolama ile ekonomik güç.");
-  pkt("pkt12", "11 kW Lityum Solar Paket (PKT12) — Standart", 228000, "Ev", "Standart", "~11 kW",
-    [{ q: 18, name: "600 W TopCon panel" },
-     { q: 3, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
-     { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
-     { q: 5, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "11 kW'ın dengeli konfigürasyonu: Deye 12 kW trifaze hibrit ve 16,2 kWh depolama — konfor ile bütçenin kesişimi.");
-  pkt("pkt13", "11 kW Lityum Solar Paket (PKT13) — Pro", 256000, "Ev", "Pro", "~11 kW",
-    [{ q: 18, name: "600 W TopCon G2G çift cam panel" },
-     { q: 4, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
-     { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
-     { q: 5, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "Amiral gemisi: çift cam TopCon paneller, 21,6 kWh depolama ve Deye trifaze hibrit ile tam bağımsızlık. Uzun kesintilerde bile ev tam kapasite çalışır.");
-  pkt("pkt14", "12 kW Lityum Solar Paket (PKT14)", 238900, "Ticari", null, "~12 kW",
-    [{ q: 20, name: "600 W TopCon panel" },
-     { q: 3, name: "4,8 kWh 48V LiFePO4 akü", ref: "aku-51-wpu" },
-     { q: 1, name: "Deye 12 kW hibrit inverter (trifaze LV)", ref: "inv-deye-12" },
-     { q: 5, name: "4 panel montaj seti" },
-     { q: 1, name: "Kablo + sigorta seti" }],
-    "Atölye, soğuk hava deposu ve küçük işletmeler için 12 kW trifaze sistem: gündüz yükünü doğrudan güneşten, akşamı depodan karşılar.");
+  pkt("pkt1", "Paket 1 — 1 kW TOPCon Solar Paket Sistem (Jel Akülü)", 81280, "Bağ Evi", null, "1 kW",
+    [{ q: 1, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 1, name: "210 Ah solar jel akü", ref: "jel-210" },
+     { q: 1, name: "1 kW HV MPPT akıllı inverter", ref: "inv-1kw" },
+     { q: 1, name: "20 m 6 mm² solar kablo + MC4 set" }],
+    "Giriş seviyesi hazır sistem: 5 LED ampulü günde 8 saat, A+ mini buzdolabını 24 saat, LED TV'yi 8 saat çalıştırır; telefon şarjı sınırsız. Bağ evi ve kamelya için tak-çalıştır.");
+  pkt("pkt2", "Paket 2 — 3 kW TOPCon Solar Paket Sistem 1", 129690, "Bağ Evi", null, "3 kW",
+    [{ q: 3, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 2, name: "160 Ah solar jel akü", ref: "jel-160" },
+     { q: 1, name: "3 kW HV MPPT akıllı inverter (Lexron)" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "Hafta sonu kullanılan bağ evleri için: buzdolabı, aydınlatma, TV ve küçük ev aletlerini karşılar.");
+  pkt("pkt3", "Paket 3 — 3 kW TOPCon Solar Paket Sistem 2", 181040, "Bağ Evi", null, "3 kW",
+    [{ q: 5, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 2, name: "210 Ah solar jel akü", ref: "jel-210" },
+     { q: 1, name: "3 kW HV MPPT akıllı inverter (Lexron)" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "3 kW sistemin güçlendirilmiş sürümü: daha fazla panel ve daha büyük akü ile bulutlu günlerde de konfor.");
+  pkt("pkt4", "Paket 4 — 4,2 kW TOPCon Solar Paket Sistem 1", 236160, "Bağ Evi", null, "4,2 kW",
+    [{ q: 4, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 4, name: "160 Ah solar jel akü", ref: "jel-160" },
+     { q: 1, name: "4,2 kW HV MPPT akıllı inverter (Lexron)" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "Sürekli yaşanan bağ evleri için 4,2 kW sistem: çamaşır makinesi dahil temel ev yükünü taşır.");
+  pkt("pkt5", "Paket 5 — 6,2 kW TOPCon Solar Paket Sistem 1", 472590, "Ev", null, "6,2 kW",
+    [{ q: 6, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 4, name: "210 Ah solar jel akü", ref: "jel-210" },
+     { q: 1, name: "6,2 kW HV MPPT akıllı inverter", ref: "inv-6-2kw" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "Şebekesiz müstakil evler için 6,2 kW sistem: buzdolabı, çamaşır makinesi, TV, aydınlatma ve pompayı birlikte yönetir.");
+  pkt("pkt6", "Paket 6 — 6,2 kW TOPCon Solar Paket Sistem 2", 654930, "Ev", null, "6,2 kW",
+    [{ q: 8, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 8, name: "160 Ah solar jel akü", ref: "jel-160" },
+     { q: 1, name: "6,2 kW HV MPPT akıllı inverter", ref: "inv-6-2kw" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "6,2 kW sistemin yüksek depolamalı sürümü: 8 panel + 8 akü ile uzun akşam kullanımı.");
+  pkt("pkt10", "Paket 8 — 11 kW TOPCon Solar Paket Sistem 1", 792020, "Ev", null, "11 kW",
+    [{ q: 14, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 8, name: "210 Ah solar jel akü", ref: "jel-210" },
+     { q: 1, name: "11 kW 2×100A MPPT akıllı inverter", ref: "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "Yüksek tüketimli evler ve küçük işletmeler için 11 kW off-grid sistem: klima dahil tüm ev yükünü karşılar.");
+  pkt("pkt14", "12 kW Trifaze Hibrit Sistem — 5 kWh Lityum Depolama", 705400, "Ev", null, "12 kW",
+    [{ q: 11, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 1, name: "Deye 12 kW trifaze hibrit inverter", ref: "inv-deye-12" },
+     { q: 1, name: "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "Şebeke bağlantılı villa sistemi: gündüz üretir, fazlasını mahsuplaşır, kesintide 5 kWh lityum depodan besler.");
+  pkt("pkt11", "12 kW Trifaze Hibrit Sistem — 10 kWh Lityum Depolama", 1076110, "Ev", null, "12 kW",
+    [{ q: 22, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 1, name: "Deye 12 kW trifaze hibrit inverter", ref: "inv-deye-12" },
+     { q: 2, name: "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "12 kW trifaze hibrit sistemin 10 kWh depolamalı sürümü: akşam yükünün büyük kısmını depodan karşılar.");
+  pkt("pkt12", "15 kW Trifaze Hibrit Sistem — 15 kWh Lityum Depolama", 1269880, "Ticari", null, "15 kW",
+    [{ q: 26, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 1, name: "15 kW trifaze hibrit inverter (LV)", ref: "x-15kw-hibrit-trifaze-inverter-lv" },
+     { q: 3, name: "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "İşletme ve büyük konutlar için 15 kW trifaze hibrit sistem, 15 kWh lityum depolamayla.");
+  pkt("pkt13", "15 kW Trifaze Hibrit Sistem — 20 kWh Lityum Depolama", 1473650, "Ticari", null, "15 kW",
+    [{ q: 30, name: "655 W TopCon güneş paneli", ref: "pnl-655w-half-cut-topcon-mono-gunes-paneli" },
+     { q: 1, name: "15 kW trifaze hibrit inverter (LV)", ref: "x-15kw-hibrit-trifaze-inverter-lv" },
+     { q: 4, name: "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül" },
+     { q: 1, name: "Solar kablo + MC4 set" }],
+    "15 kW trifaze hibrit sistemin en yüksek depolamalı sürümü: 20 kWh lityum ile uzun kesintilerde bile tam kapasite.");
 
 
   /* ---------- EK: Tedarikçi tam envanteri (tools/envanter_genislet.py üretti) ----------
@@ -395,7 +386,6 @@
   {"id": "x-2000w-2kw-tasinabilir-guc-istasyonu", "cat": "aksesuar", "brand": "GESM Power", "name": "2000 W Taşınabilir Güç İstasyonu", "supplier": "enerjipazari", "price": 128040, "tags": ["Güç İstasyonu"], "specs": {}, "img": ["public/images/products/2000w-2kw-tasinabilir-guc-istasyonu.webp"]},
   {"id": "x-1-5kw-hv-mppt-akilli-inverter-12v-sorotec", "cat": "akilli-inverterler", "brand": "Sorotec", "name": "Sorotec 1,5 kW HV MPPT Akıllı İnverter 12V", "supplier": "enerjipazari", "price": 19720, "tags": ["Tam Sinüs", "12V"], "specs": {}, "img": ["public/images/products/1-5kw-hv-mppt-akilli-inverter-12v-sorotec.webp"]},
   {"id": "x-16kw-hibrit-monofaze-inverter-lv", "cat": "hibrit-inverterler", "brand": "GESM Power", "name": "16 kW Hibrit Monofaze İnverter LV", "supplier": "enerjipazari", "price": 387960, "tags": ["Monofaze", "10–30 kW"], "specs": {}, "img": ["public/images/products/16kw-hibrit-monofaze-inverter-lv.webp"]},
-  {"id": "x-4-2kw-topcon-paket-sistem-1-paket-4", "cat": "solar-paketler", "brand": "GESM Power", "name": "4,2 kW TopCon Paket Sistem", "supplier": "enerjipazari", "price": 236160, "tags": [], "scenario": "Ev", "specs": {}, "img": ["public/images/products/4-2kw-topcon-paket-sistem-1-paket-4-kopya.webp"]},
   {"id": "x-5-5kw-hv-mppt-akilli-inverter-sorotec", "cat": "akilli-inverterler", "brand": "Sorotec", "name": "Sorotec 5,5 kW HV MPPT Akıllı İnverter", "supplier": "enerjipazari", "price": 39710, "tags": ["Tam Sinüs"], "specs": {}, "img": ["public/images/products/5-5kw-hv-mppt-akilli-inverter-sorotec.webp"]},
   {"id": "x-30kw-on-grid-trifaze-inverter", "cat": "sebeke-inverterleri", "brand": "GESM Power", "name": "30 kW On-Grid Trifaze İnverter", "supplier": "enerjipazari", "price": 164330, "tags": ["Trifaze", "10–30 kW"], "specs": {}, "img": ["public/images/products/30kw-on-grid-trifaze-inverter.webp"]},
   {"id": "x-25kw-hibrit-trifaze-inverter-hv", "cat": "hibrit-inverterler", "brand": "GESM Power", "name": "25 kW Hibrit Trifaze İnverter HV", "supplier": "enerjipazari", "price": 455000, "tags": ["Trifaze", "10–30 kW"], "specs": {}, "img": ["public/images/products/25kw-hibrit-trifaze-inverter-hv.webp"]},
