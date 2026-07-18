@@ -3,26 +3,26 @@
 window.GESM = window.GESM || {};
 GESM.imgmap = {
  "aku-100-12": [
-  "public/images/products/mexxsun-lityum-aku-12-8v-100ah-lifepo4-1280wh-3120.webp",
-  "public/images/products/mexxsun-lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-2.webp",
-  "public/images/products/mexxsun-lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-3.webp",
-  "public/images/products/mexxsun-lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-4.webp",
-  "public/images/products/mexxsun-lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-5.webp"
+  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120.webp",
+  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-2.webp",
+  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-3.webp",
+  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-4.webp",
+  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-5.webp"
  ],
  "aku-100-24": [
-  "public/images/products/mexxsun-lityum-aku-25-6v-100ah-lifepo4-2560wh-3154.webp",
-  "public/images/products/mexxsun-lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-2.webp",
-  "public/images/products/mexxsun-lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-3.webp",
-  "public/images/products/mexxsun-lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-4.webp",
-  "public/images/products/mexxsun-lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-5.webp"
+  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154.webp",
+  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-2.webp",
+  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-3.webp",
+  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-4.webp",
+  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-5.webp"
  ],
  "aku-51-wpu": [
-  "public/images/products/mexxsun-lityum-aku-48v-100ah-lifepo4-3074.webp",
-  "public/images/products/mexxsun-lityum-aku-48v-100ah-lifepo4-3074-2.webp",
-  "public/images/products/mexxsun-lityum-aku-48v-100ah-lifepo4-3074-3.webp",
-  "public/images/products/mexxsun-lityum-aku-48v-100ah-lifepo4-3074-4.webp",
-  "public/images/products/mexxsun-lityum-aku-48v-100ah-lifepo4-3074-5.webp",
-  "public/images/products/mexxsun-lityum-aku-48v-100ah-lifepo4-3074-6.webp"
+  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074.webp",
+  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-2.webp",
+  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-3.webp",
+  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-4.webp",
+  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-5.webp",
+  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-6.webp"
  ],
  "aku-mc-200b": [
   "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"

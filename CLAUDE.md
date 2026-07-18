@@ -44,7 +44,7 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 
 ## Dosya mimarisi
 - `assets/config.js` — konfig (yukarıda).
-- `assets/data.js`   — ürün kataloğu (78 gerçek tedarikçi ürünü + 11 paket;
+- `assets/data.js`   — ürün kataloğu (225 gerçek tedarikçi ürünü, 19 paket dahil;
   tümü görselli — görselsiz/temsili ürünler kaldırıldı). Paketlerde `components[]`
   bileşen listesi (ref → ürün id; ref'siz bileşen düz metin render edilir).
 - `assets/app.js`    — fiyat motoru (`priceOf`: tekil override > açık fiyat >
