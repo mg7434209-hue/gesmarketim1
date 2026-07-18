@@ -17,6 +17,7 @@
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function fmt(n) { return new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n) + " ₺"; }
   function fmt0(n) { return new Intl.NumberFormat("tr-TR").format(Math.round(n)) + " ₺"; }
+  function fmtUsd(n) { return "$" + new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(n); }
   function param(k) { return new URLSearchParams(location.search).get(k); }
   function store(k, v) {
     try {
@@ -56,9 +57,13 @@
     if (p.onRequest) return { onRequest: true };
     var st = adminState();
     var ov = st.products[p.id] || {};
-    var base, list = ov.listPrice != null ? ov.listPrice : (p.listPrice || null);
+    var base, usd = null, list = ov.listPrice != null ? ov.listPrice : (p.listPrice || null);
     if (ov.price != null) {
-      base = ov.price; // tekil manuel fiyat — toplu ayarlamalardan etkilenmez
+      base = ov.price; // tekil manuel fiyat — toplu ayarlamalardan etkilenmez, ₺ gösterilir
+    } else if (p.priceUsd != null) {
+      // USD fiyatlı ürün (ör. Havensis) — kur config/admin'den, ₺ karşılığı sepet için
+      usd = p.priceUsd;
+      base = p.priceUsd * (st.usdTry || cfg.commerce.usdTry || 0);
     } else {
       base = p.price != null ? p.price : (p.cost || 0) * (1 + marginFor(p, st) / 100);
       var adj = (1 + (st.adj.global || 0) / 100) * (1 + (st.adj.cat[p.cat] || 0) / 100) * (1 + (st.adj.sup[p.supplier] || 0) / 100);
@@ -66,7 +71,7 @@
     }
     base = roundP(base);
     if (list != null && list <= base) list = null;
-    return { price: base, listPrice: list, discountPct: list ? Math.round((1 - base / list) * 100) : 0 };
+    return { price: base, usd: usd, listPrice: list, discountPct: list ? Math.round((1 - base / list) * 100) : 0 };
   }
   function havalePrice(n) { return n * (1 - cfg.commerce.havaleDiscountPct / 100); }
 
@@ -272,6 +277,8 @@
     var isFav = favs().indexOf(p.id) >= 0;
     var priceHtml = p.onRequest
       ? '<div class="price-row"><span class="price" style="font-size:.98rem">Fiyat için teklif alın</span></div>'
+      : pr.usd != null
+      ? '<div class="price-row"><span class="price">' + fmtUsd(pr.usd) + '</span><div class="price-note">≈ ' + fmt0(pr.price) + " KDV dahil (güncel kur)</div></div>"
       : '<div class="price-row">' + (pr.listPrice ? '<span class="price-old">' + fmt0(pr.listPrice) + "</span>" : "") +
         '<span class="price">' + fmt0(pr.price) + '</span><div class="price-note">KDV dahil · Havale ile ' + fmt0(havalePrice(pr.price)) + "</div></div>";
     var actions = p.onRequest
@@ -483,9 +490,11 @@
       priceBox =
         '<div class="pd-price-box">' +
         (pr.listPrice ? '<span class="pd-price-old">' + fmt0(pr.listPrice) + "</span>" : "") +
-        '<span class="pd-price">' + fmt0(pr.price) + "</span>" +
+        '<span class="pd-price">' + (pr.usd != null ? fmtUsd(pr.usd) : fmt0(pr.price)) + "</span>" +
         (pr.discountPct ? '<span class="discount-badge">%' + pr.discountPct + " İNDİRİM</span>" : "") +
-        '<div class="muted small">KDV dahil fiyattır.</div>' +
+        (pr.usd != null
+          ? '<div class="muted small">≈ <b>' + fmt0(pr.price) + "</b> KDV dahil — güncel USD/TL kuruna göre hesaplanır, sepette ₺ olarak işlem görür.</div>"
+          : '<div class="muted small">KDV dahil fiyattır.</div>') +
         '<div class="havale-note">💰 Havale/EFT ile: <b>' + fmt0(havalePrice(pr.price)) + "</b> (%" + cfg.commerce.havaleDiscountPct + " indirimli)</div>" +
         '<div class="qty-row" style="margin-top:14px">' +
         '<div class="qty"><button type="button" id="qMinus">−</button><input id="qtyInp" type="number" value="1" min="1" max="99"><button type="button" id="qPlus">+</button></div>' +
@@ -603,7 +612,9 @@
     if (p.img && p.img.length) ld.image = p.img.map(function (f) { return cfg.company.domain + "/" + f; });
     if (!p.onRequest) {
       ld.offers = {
-        "@type": "Offer", priceCurrency: "TRY", price: String(pr.price),
+        "@type": "Offer",
+        priceCurrency: pr.usd != null ? "USD" : "TRY",
+        price: String(pr.usd != null ? pr.usd : pr.price),
         availability: "https://schema.org/InStock",
         url: cfg.company.domain + "/" + prodUrl(p),
         seller: { "@type": "Organization", name: cfg.company.brand }
@@ -865,6 +876,11 @@
       }).join("") +
       '<button class="btn btn-sm btn-primary" id="mSave">Kaydet</button>' +
       '<p class="muted small" style="margin-top:8px">Marj, açık fiyatı olmayan ürünlerde maliyetten satış fiyatı türetmek için kullanılır (K2).</p></div>' +
+      '<div class="admin-card"><h3>💱 USD/TL Kuru</h3>' +
+      '<label class="fld"><span>1 USD = ₺ (USD fiyatlı ürünlerin ₺ karşılığı bu kurla hesaplanır)</span>' +
+      '<input type="number" id="adUsd" step="0.01" min="1" value="' + (st.usdTry || cfg.commerce.usdTry) + '"></label>' +
+      '<button class="btn btn-sm btn-primary" id="adUsdSave">Kaydet</button> <button class="btn btn-sm" id="adUsdReset">Varsayılana Dön</button>' +
+      '<p class="muted small" style="margin-top:8px">Varsayılan (config.js): ' + cfg.commerce.usdTry + " ₺</p></div>" +
       '<div class="admin-card"><h3>💾 Yedekle / Sıfırla</h3>' +
       '<button class="btn btn-sm" id="expBtn">JSON Dışa Aktar</button> ' +
       '<button class="btn btn-sm" id="impBtn">İçe Aktar</button> ' +
@@ -891,7 +907,7 @@
         return "<tr><td>" + esc(p.code) + "</td><td title='" + esc(p.name) + "'>" + esc(p.name.slice(0, 44)) + (p.name.length > 44 ? "…" : "") + "</td>" +
           "<td>" + esc((catOf(p.cat) || {}).name || "") + "</td><td><span class='pill'>" + esc(supLabel) + "</span></td>" +
           "<td>" + (p.cost ? fmt0(p.cost) : "—") + "</td>" +
-          "<td><b>" + (p.onRequest && ov.price == null ? "Teklif" : fmt0(pr.price || ov.price || 0)) + "</b></td>" +
+          "<td><b>" + (p.onRequest && ov.price == null ? "Teklif" : (pr.usd != null ? fmtUsd(pr.usd) + " ≈ " : "") + fmt0(pr.price || ov.price || 0)) + "</b></td>" +
           '<td><input type="number" data-op="' + p.id + '" placeholder="Manuel ₺" value="' + (ov.price != null ? ov.price : "") + '"></td>' +
           '<td><input type="number" data-ol="' + p.id + '" placeholder="Eski fiyat ₺" value="' + (ov.listPrice != null ? ov.listPrice : (p.listPrice || "")) + '"></td>' +
           '<td><button class="btn btn-sm" data-orow="' + p.id + '">Kaydet</button> <button class="btn btn-sm btn-ghost" data-oclr="' + p.id + '">↺</button></td></tr>';
@@ -915,6 +931,13 @@
       adjLabel();
     }
     $("#adAnnSave").addEventListener("click", function () { st.announcement = $("#adAnn").value.trim(); save(); });
+    $("#adUsdSave").addEventListener("click", function () {
+      var v = parseFloat($("#adUsd").value);
+      if (v > 0) { st.usdTry = v; save(); } else toast("Geçersiz kur");
+    });
+    $("#adUsdReset").addEventListener("click", function () {
+      delete st.usdTry; $("#adUsd").value = cfg.commerce.usdTry; save();
+    });
     $("#adjApply").addEventListener("click", function () {
       var scope = $("#adjScope").value, v = parseFloat($("#adjVal").value) || 0;
       if (scope === "global") st.adj.global = v;

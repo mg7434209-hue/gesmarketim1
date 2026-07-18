@@ -44,9 +44,13 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 
 ## Dosya mimarisi
 - `assets/config.js` — konfig (yukarıda).
-- `assets/data.js`   — ürün kataloğu (225 gerçek tedarikçi ürünü, 19 paket dahil;
+- `assets/data.js`   — ürün kataloğu (247 gerçek tedarikçi ürünü, 19 paket dahil;
   tümü görselli — görselsiz/temsili ürünler kaldırıldı). Paketlerde `components[]`
   bileşen listesi (ref → ürün id; ref'siz bileşen düz metin render edilir).
+  Havensis ürünleri (`hvs-*`, fiyat listesi 02/2026 sıra 11–33) **USD fiyatlıdır**:
+  `priceUsd` alanı + `config.commerce.usdTry` kuru → kartta $ ve yaklaşık ₺
+  gösterilir, sepet ₺ üzerinden işler, JSON-LD offer USD olur. Kur admin panelden
+  geçici (localStorage), config'ten kalıcı güncellenir.
 - `assets/app.js`    — fiyat motoru (`priceOf`: tekil override > açık fiyat >
   maliyet×marj, sonra toplu % ayarları), sepet, favoriler, arama, kategori
   filtreleri, ürün detay, WhatsApp sipariş, AI asistan, admin panel.

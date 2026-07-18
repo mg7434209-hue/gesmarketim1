@@ -158,6 +158,81 @@
     name: "Mexxun MPK8 100A MPPT Şarj Kontrol Cihazı (12/24/48V)", supplier: "mexxsun",
     tags: ["MPPT", "60–100 A"], specs: { "Teknoloji": "MPPT", "Akım": "100 A", "Voltaj": "12/24/48 V", "Seri": "MPK8" } });
 
+  /* ---------- 7b) Havensis MPPT / DC-DC şarj serisi ----------
+     Kaynak: Havensis genel fiyat listesi 02/2026, sıra 11–33.
+     Fiyatlar USD (priceUsd) — ₺ karşılığı config.commerce.usdTry kurundan
+     hesaplanır, kartta $ + yaklaşık ₺ gösterilir. ---------- */
+  function hvs(id, name, usd, tags, specs, extra) {
+    add(Object.assign({ id: "hvs-" + id, cat: "sarj-regulatorleri", brand: "Havensis",
+      priceUsd: usd, name: name, supplier: "havensis", tags: tags, specs: specs,
+      img: ["public/images/products/havensis-" + id + ".webp"] }, extra || {}));
+  }
+  // MPS MPPT serisi (sıra 11–20)
+  hvs("s20amps", "Havensis MPS Solar-20AMPS MPPT Şarj Regülatörü (12/24V, 20A, 100V PV)", 100,
+    ["MPPT", "10–30 A"], { "Teknoloji": "MPPT", "Akım": "20 A", "Akü Voltajı": "12/24 V", "Maks. PV Girişi": "100 V / 700 W", "Yük Çıkışı": "20 A", "Dönüştürücü Verimi": "%98", "Ekran": "LCD + LED", "Boyut": "132×200×60 mm" });
+  hvs("s30amps", "Havensis MPS Solar-30AMPS MPPT Şarj Regülatörü (12/24V, 30A, 100V PV)", 108,
+    ["MPPT", "10–30 A"], { "Teknoloji": "MPPT", "Akım": "30 A", "Akü Voltajı": "12/24 V", "Maks. PV Girişi": "100 V / 1200 W", "Yük Çıkışı": "20 A", "Dönüştürücü Verimi": "%98", "Ekran": "LCD + LED", "Boyut": "159×210×70 mm" });
+  hvs("s40amps", "Havensis MPS Solar-40AMPS MPPT Şarj Regülatörü (12/24V, 40A, 100V PV)", 120,
+    ["MPPT", "30–60 A"], { "Teknoloji": "MPPT", "Akım": "40 A", "Akü Voltajı": "12/24 V", "Maks. PV Girişi": "100 V / 1500 W", "Yük Çıkışı": "20 A", "Dönüştürücü Verimi": "%98", "Ekran": "LCD + LED", "Boyut": "162×210×77 mm" });
+  hvs("s50amps100", "Havensis MPS Solar-50AMPS-100 MPPT Şarj Regülatörü (12/24V, 50A, 100V PV)", 180,
+    ["MPPT", "30–60 A"], { "Teknoloji": "MPPT", "Akım": "50 A", "Akü Voltajı": "12/24 V", "Maks. PV Girişi": "100 V / 2200 W", "Yük Çıkışı": "20 A", "Dönüştürücü Verimi": "%98", "Ekran": "LCD + LED", "Boyut": "197×224×80 mm" }, { isNew: true });
+  hvs("s60amps100", "Havensis MPS Solar-60AMPS-100 MPPT Şarj Regülatörü (12/24V, 60A, 100V PV)", 200,
+    ["MPPT", "60–100 A"], { "Teknoloji": "MPPT", "Akım": "60 A", "Akü Voltajı": "12/24 V", "Maks. PV Girişi": "100 V / 2500 W", "Yük Çıkışı": "20 A", "Dönüştürücü Verimi": "%98", "Ekran": "LCD + LED", "Boyut": "197×224×80 mm" }, { isNew: true });
+  hvs("s40amps150", "Havensis MPS Solar-40AMPS-150 MPPT Şarj Regülatörü (12/24/36/48V, 40A, 150V PV)", 200,
+    ["MPPT", "30–60 A"], { "Teknoloji": "MPPT", "Akım": "40 A", "Akü Voltajı": "12/24/36/48 V", "Maks. PV Girişi": "150 V / 2500 W", "Yük Çıkışı": "20 A", "Dönüştürücü Verimi": "%98", "Ekran": "LCD + LED", "Boyut": "197×224×80 mm" }, { isNew: true });
+  hvs("s60amps", "Havensis MPS Solar-60AMPS MPPT Şarj Regülatörü (12/24/36/48V, 60A, 150V PV)", 275,
+    ["MPPT", "60–100 A"], { "Teknoloji": "MPPT", "Akım": "60 A", "Akü Voltajı": "12/24/36/48 V", "Maks. PV Girişi": "150 V / 5000 W", "Dönüştürücü Verimi": "%97,5", "Ekran": "LCD + LED", "Boyut": "280×235×100 mm" });
+  hvs("s70amps", "Havensis MPS Solar-70AMPS MPPT Şarj Regülatörü (12/24/36/48V, 70A, 150V PV)", 285,
+    ["MPPT", "60–100 A"], { "Teknoloji": "MPPT", "Akım": "70 A", "Akü Voltajı": "12/24/36/48 V", "Maks. PV Girişi": "150 V / 5500 W", "Dönüştürücü Verimi": "%97,5", "Ekran": "LCD + LED", "Boyut": "280×235×100 mm" });
+  hvs("s80amps", "Havensis MPS Solar-80AMPS MPPT Şarj Regülatörü (12/24/36/48V, 80A, 150V PV)", 305,
+    ["MPPT", "60–100 A"], { "Teknoloji": "MPPT", "Akım": "80 A", "Akü Voltajı": "12/24/36/48 V", "Maks. PV Girişi": "150 V / 6800 W", "Dönüştürücü Verimi": "%97,5", "Ekran": "LCD + LED", "Boyut": "280×235×100 mm" }, { bestseller: true });
+  hvs("s80amps200", "Havensis MPS Solar-80AMPS-200 MPPT Şarj Regülatörü (12/24/36/48V, 80A, 200V PV)", 350,
+    ["MPPT", "60–100 A"], { "Teknoloji": "MPPT", "Akım": "80 A", "Akü Voltajı": "12/24/36/48 V", "Maks. PV Girişi": "200 V / 6800 W", "Dönüştürücü Verimi": "%97,5", "Koruma": "Gelişmiş koruma devreleri", "Boyut": "280×235×100 mm" });
+  // HV MPPT serisi (sıra 21–22) — yüksek voltajlı akü grupları
+  hvs("hvs45amps", "Havensis HVS-45AMPS HV MPPT Şarj Regülatörü (60/72V Akü, 45A, 200V PV)", 400,
+    ["HV MPPT", "30–60 A"], { "Teknoloji": "MPPT (HV)", "Akım": "45 A", "Akü Voltajı": "60/72 V", "Maks. PV Girişi": "200 V / 3800 W", "Dönüştürücü Verimi": "%96,5", "Ekran": "LCD + LED", "Boyut": "280×235×100 mm" });
+  hvs("hvs145amps", "Havensis HVS-145AMPS HV MPPT Şarj Regülatörü (84/96/120V Akü, 45A, 200V PV)", 430,
+    ["HV MPPT", "30–60 A"], { "Teknoloji": "MPPT (HV)", "Akım": "45 A", "Akü Voltajı": "84/96/120 V", "Maks. PV Girişi": "200 V / 5500 W", "Dönüştürücü Verimi": "%96,5", "Koruma": "Gelişmiş koruma devreleri", "Boyut": "280×235×100 mm" });
+  // DC-DC / alternatör şarj serisi (sıra 23–27) — karavan & tekne
+  hvs("batchg-1224bbc", "Havensis BATCHG-1224BBC Alternatör Akü Şarj Cihazı (12V→12V, 20A)", 135,
+    ["DC-DC Şarj", "10–30 A"], { "Teknoloji": "DC-DC (alternatörden şarj)", "Akım": "20 A", "Giriş": "10–17 V", "Çıkış": "Maks. 14,2 V", "Verim": "%96,4", "Koruma": "Ters akım (motor kapalı tanıma)", "Boyut": "132×200×60 mm" },
+    { desc: "Havensis BATCHG-1224BBC, araç alternatöründen karavan/tekne yaşam aküsünü 20 A ile güvenle şarj eden DC-DC şarj cihazıdır. JEL/AGM akülerle uyumludur; motor kapalıyken ters akımı tanıyıp keser. Karavanlar için özel tasarlanmıştır." });
+  hvs("dcdc-1224-30", "Havensis DCDC-1224 Tek Yönlü DC-DC Şarj Cihazı (12/24V, 30A)", 165,
+    ["DC-DC Şarj", "10–30 A"], { "Teknoloji": "DC-DC (alternatörden şarj)", "Akım": "30 A", "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24", "Giriş": "10–35 V", "Çıkış": "12–32 V", "Verim": "%96,4", "Ekran": "Dijital ekran + 5 m kablo", "Boyut": "158×210×60 mm" },
+    { desc: "Havensis DCDC-1224, alternatörden yaşam aküsüne 30 A tek yönlü şarj yapan, 12-12/12-24/24-12/24-24 kombinasyonlarını destekleyen DC-DC şarj cihazıdır. Tüm parametreler ekrandan programlanır; ters akım koruması ve motor kapalı tanıma standarttır." });
+  hvs("dcdc-1224b-30", "Havensis DCDC-1224B Çift Yönlü DC-DC Şarj Cihazı (12/24V, 30A)", 190,
+    ["DC-DC Şarj", "10–30 A"], { "Teknoloji": "DC-DC (çift yönlü)", "Akım": "30 A", "Takviye Şarj": "4 A", "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24", "Giriş": "10–35 V", "Çıkış": "12–32 V", "Verim": "%96,4", "Boyut": "158×210×60 mm" },
+    { desc: "Havensis DCDC-1224B, çift yönlü çalışır: alternatörden yaşam aküsünü 30 A ile şarj eder, gerektiğinde takviye modunda araç aküsünü besler. Tüm parametreler ekrandan programlanır; karavan ve tekneler için tasarlanmıştır." });
+  hvs("dcdc-1224-40", "Havensis DCDC-1224 Tek Yönlü DC-DC Şarj Cihazı (12/24V, 40A)", 200,
+    ["DC-DC Şarj", "30–60 A"], { "Teknoloji": "DC-DC (alternatörden şarj)", "Akım": "40 A", "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24", "Giriş": "10–35 V", "Çıkış": "12–32 V", "Verim": "%96,4", "Ekran": "Dijital ekran + 5 m kablo", "Boyut": "162×210×70 mm" },
+    { desc: "Havensis DCDC-1224 40 A sürümü, alternatörden yaşam aküsüne yüksek akımlı tek yönlü şarj sağlar; 12-12/12-24/24-12/24-24 kombinasyonlarını destekler. Ters akım koruması ve motor kapalı tanıma standarttır." });
+  hvs("dcdc-1224b-40", "Havensis DCDC-1224B Çift Yönlü DC-DC Şarj Cihazı (12/24V, 40A)", 230,
+    ["DC-DC Şarj", "30–60 A"], { "Teknoloji": "DC-DC (çift yönlü)", "Akım": "40 A", "Takviye Şarj": "10 A", "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24", "Giriş": "10–35 V", "Çıkış": "12–32 V", "Verim": "%96,4", "Boyut": "162×210×70 mm" },
+    { desc: "Havensis DCDC-1224B 40 A sürümü, çift yönlü şarj yapar: yaşam aküsünü 40 A ile doldurur, takviye modunda 10 A ile araç aküsünü destekler. Tüm parametreler ekrandan programlanır; karavan ve tekneler için tasarlanmıştır." });
+  // Dual Charger — MPPT + DC-DC tek kutuda (sıra 28–29)
+  hvs("dchg-3020amd", "Havensis DualCharger-3020AMD MPPT + DC-DC Şarj Cihazı (12V, 50A)", 250,
+    ["MPPT", "DC-DC Şarj", "30–60 A"], { "Teknoloji": "MPPT + çift yönlü DC-DC", "Toplam Akım": "50 A (30+20)", "MPPT": "30 A · 500 W panel", "DC-DC": "20 A + 3 A takviye", "Giriş (DC-DC)": "10–18 V", "Boyut": "197×224×80 mm" },
+    { desc: "Havensis DualCharger-3020AMD, MPPT solar şarjı ve çift yönlü DC-DC alternatör şarjını tek cihazda birleştirir: güneşten 30 A, alternatörden 20 A olmak üzere toplam 50 A ile 12 V yaşam aküsünü doldurur. Karavan kurulumlarında iki ayrı cihaz yerine tek kompakt çözüm sunar." });
+  hvs("dchg-4030amd-v2", "Havensis DualCharger-4030AMD V2 MPPT + DC-DC Şarj Cihazı (12V, 60A, Bluetooth)", 310,
+    ["MPPT", "DC-DC Şarj", "60–100 A"], { "Teknoloji": "MPPT + çift yönlü DC-DC", "Toplam Akım": "60 A", "MPPT": "40 A · 700 W panel · 100 V giriş", "Röle Çıkışı": "2× bağımsız kontak", "Ekran": "LCD + dahili Bluetooth", "Sensör": "Sıcaklık sensörü girişi", "Boyut": "280×235×100 mm" },
+    { desc: "Havensis DualCharger-4030AMD V2, 12 V sistemler için MPPT solar şarj (40 A, 700 W panel) ve çift yönlü DC-DC alternatör şarjını tek gövdede toplar; toplam 60 A şarj gücü sunar. Dahili Bluetooth ekranı, iki bağımsız röle çıkışı ve şarj akımı limitleme fonksiyonu vardır." });
+  // Boost serisi (sıra 30–32) — düşük voltajdan yüksek voltajlı aküye şarj
+  hvs("boost-2472", "Havensis Boost MPPT-2472 Yükseltici Şarj Cihazı (36–72V Akü, 15A)", 130,
+    ["Boost", "10–30 A"], { "Teknoloji": "Boost MPPT", "Akü Voltajı": "36/48/60/72 V", "PV Girişi": "15–60 V / 700 W", "Panel Akımı": "Maks. 20 A", "Şarj Akımı": "Maks. 15 A", "Verim": "%96,4", "Boyut": "158×210×60 mm" },
+    { desc: "Havensis Boost MPPT-2472, düşük voltajlı panel dizisinden 36/48/60/72 V akü gruplarını şarj eden yükseltici (boost) MPPT cihazıdır. Elektrikli bisiklet ve yüksek voltajlı akü uygulamaları için tasarlanmıştır; opsiyonel dahili Bluetooth ile izlenebilir." });
+  hvs("boost-dcdc-2472-20", "Havensis Boost DCDC-2472 Yükseltici DC-DC Şarj Cihazı (36–72V Akü, 15A)", 140,
+    ["Boost", "10–30 A"], { "Teknoloji": "Boost DC-DC", "Akü Voltajı": "36/48/60/72 V", "Giriş": "12–32 V · maks. 20 A", "Şarj Akımı": "Maks. 15 A", "Verim": "%95", "Ekran": "Dijital ekran + 5 m kablo", "Boyut": "162×210×70 mm" },
+    { desc: "Havensis Boost DCDC-2472, 12/24 V kaynaktan 36/48/60/72 V akü gruplarını şarj eden yükseltici DC-DC cihazıdır. Karavan ve teknelerde yüksek voltajlı servis akülerinin alternatörden doldurulması için tasarlanmıştır; gelişmiş koruma devreleri standarttır." });
+  hvs("boost-dcdc-2448-40", "Havensis Boost DCDC-2448 Yükseltici DC-DC Şarj Cihazı (36/48V Akü, 20A)", 170,
+    ["Boost", "10–30 A"], { "Teknoloji": "Boost DC-DC", "Akü Voltajı": "36/48 V", "Giriş": "12–32 V · maks. 40 A", "Şarj Akımı": "Maks. 20 A", "Verim": "%95", "Ekran": "Dijital ekran + 5 m kablo", "Boyut": "162×210×70 mm" },
+    { desc: "Havensis Boost DCDC-2448, 12/24 V kaynaktan 36/48 V akü gruplarını 20 A'e kadar şarj eden yükseltici DC-DC cihazıdır. Karavan ve tekneler için tasarlanmıştır; dijital ekran bağlantısı ve gelişmiş koruma devreleri bulunur." });
+  // Solar datalogger (sıra 33) — fiyat listede "F.S." → Teklif Al
+  add({ id: "hvs-solar-dl", cat: "solar-ekipmanlar", brand: "Havensis", supplier: "havensis",
+    onRequest: true, name: "Havensis SOLAR-DL Off-Grid Veri Kayıt Cihazı (Datalogger)",
+    tags: ["İzleme"], img: ["public/images/products/havensis-solar-dl.webp"],
+    specs: { "Akü Girişi": "9–80 V DC · 150 A", "Solar Panel Girişi": "0–300 V DC · 60 A", "Örnekleme": "50 ms", "Kayıt Sıklığı": "1 sn", "Hafıza": "16 GB micro SD (2–4 yıl kayıt)", "Sensör": "Dahili sıcaklık + nem", "Uzaktan İzleme": "Bluetooth/WiFi/GSM (ops.)", "Öz Tüketim": "7–30 mA" },
+    desc: "Havensis SOLAR-DL, off-grid sistemlerde panel üretimini, akü şarj/deşarjını ve anlık demeraj yüklenmelerini 50 ms örnekleme ile kaydeden veri kayıt cihazıdır. 16 GB dahili hafızasıyla 2–4 yıl kesintisiz kayıt tutar; opsiyonel Bluetooth/WiFi/GSM ile uzaktan izlenir. Sistem arızalarının kök nedenini bulmak ve doğru boyutlandırma için güçlü bir teşhis aracıdır." });
+
   /* ---------- 8) Tarımsal Sulama — Pompa Sürücüleri ---------- */
   function pump(id, hp, kw, price, extra) {
     add(Object.assign({ id: id, cat: "tarimsal-sulama", brand: "Mexxun", price: price, supplier: "mexxsun",

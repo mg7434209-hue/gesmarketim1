@@ -34,7 +34,9 @@ GESM.config = {
     havaleDiscountPct: 3,       // havale/EFT indirimi (%)
     freeShippingLimit: 15000,   // ₺ üzeri kargo bedava
     shippingFlat: 350,          // ₺ standart kargo (limit altı)
-    codAvailable: false
+    codAvailable: false,
+    usdTry: 44                  // USD/TL kuru — USD fiyatlı ürünlerin (priceUsd) ₺ karşılığı
+                                // bu kurla hesaplanır; admin panelden geçici, buradan kalıcı güncellenir
   },
 
   // Fiyatlandırma kuralları (K2/K3) — admin panel bunların üzerine yazabilir
@@ -48,7 +50,8 @@ GESM.config = {
   // Tedarikçiler — K1: müşteri arayüzünde ASLA gösterilmez, yalnız admin panelde
   suppliers: {
     mexxsun:      { label: "Mexxsun" },
-    enerjipazari: { label: "Enerji Pazarı" }
+    enerjipazari: { label: "Enerji Pazarı" },
+    havensis:     { label: "Havensis" }
   },
 
   // 11 birleşik kategori (spec 8.2)
