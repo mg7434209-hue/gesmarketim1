@@ -82,6 +82,12 @@ GESM.config = {
 
   brands: ["Arçelik", "Lexron", "Mexxun", "TitanX", "Havensis", "Ecosol", "Sako", "Sorotec", "Gazioğlu", "Megacell", "Deye", "GESM Power", "Tescom"],
 
+  // ŞİMDİLİK GİZLİ kategoriler: listelerde/aramada/sitemap'te görünmez, ürün
+  // verisi data.js'te DURUR (doğrudan ürün URL'si çalışmaya devam eder).
+  // Geri açmak = slug'ı bu listeden çıkar + nav'ı geri al + npm run build.
+  // "Hazır paketler" yerine Sistem Kurucu (sistem-kur.html) sunulur.
+  hiddenCategories: ["solar-paketler"],
+
   // Ana menü yapısı — cat: kategori slug'ı · children: açılır menü grubu.
   // Child öğe: kategori slug'ı (string) YA DA { label, cat, tag } nesnesi
   // (tag → kategori sayfası o özellik filtresiyle açılır, ?t= parametresi).
@@ -95,11 +101,97 @@ GESM.config = {
       { label: "PWM Regülatörler", cat: "sarj-regulatorleri", tag: "PWM" },
       { label: "Tüm Şarj Regülatörleri", cat: "sarj-regulatorleri" }
     ] },
-    { cat: "solar-paketler" },
+    { label: "Sistem Kur 🛠️", href: "sistem-kur.html", key: "sistem-kur" },
     { cat: "tarimsal-sulama" },
     { label: "Ekipman", children: ["solar-ekipmanlar", "aksesuar"] },
     { label: "İletişim", href: "iletisim.html", key: "iletisim" }
   ],
+
+  // ============================================================
+  // Sistem Kurucu (sistem-kur.html) — "Kendi Projenizi Oluşturun"
+  // TÜM katsayılar ve katalog eşlemesi burada; app.js koda sayı gömmez.
+  // Ürün ref'leri data.js id'leridir — ürün silinirse satır düşer (app.js
+  // ref bulunamayınca o kalemi zarifçe atlar).
+  // ============================================================
+  builder: {
+    sizing: {
+      sunHours: 4.2,        // TR ortalama güneşlenme (kWh/kWp/gün, temkinli)
+      systemEff: 0.75,      // panel→priz toplam sistem verimi
+      invEff: 0.93,         // inverter/şarj verimi (akü boyutunda)
+      simultaneity: 0.7,    // cihazların aynı anda çalışma oranı
+      surgeHeadroom: 1.25,  // inverter gücü emniyet payı
+      cableBaseM: 10,       // temel solar kablo (m)
+      cablePerKwM: 5,       // kurulu kW başına ek kablo (m)
+      dod: { lityum: 0.9, jel: 0.5 } // kullanılabilir kapasite oranı
+    },
+    // Cihazlar: w = güç (W), h = günlük kullanım (saat), surge = kalkış çarpanı
+    appliances: [
+      { id: "led",       name: "LED aydınlatma (ampul başı)", icon: "💡", w: 10,   h: 6,   surge: 1 },
+      { id: "buzdolabi", name: "Buzdolabı (A++)",             icon: "🧊", w: 100,  h: 10,  surge: 3 },
+      { id: "tv",        name: "TV + uydu",                   icon: "📺", w: 80,   h: 5,   surge: 1 },
+      { id: "sarj",      name: "Telefon / laptop şarjı",      icon: "🔌", w: 60,   h: 3,   surge: 1 },
+      { id: "camasir",   name: "Çamaşır makinesi",            icon: "🌀", w: 600,  h: 1,   surge: 2 },
+      { id: "pompa",     name: "Su pompası / hidrofor",       icon: "🚿", w: 750,  h: 1.5, surge: 3 },
+      { id: "klima",     name: "Klima (12.000 BTU inverter)", icon: "❄️", w: 1000, h: 4,   surge: 2 },
+      { id: "kettle",    name: "Kettle / su ısıtıcı",         icon: "☕", w: 1800, h: 0.3, surge: 1 },
+      { id: "mikro",     name: "Mikrodalga",                  icon: "🍲", w: 900,  h: 0.3, surge: 1 },
+      { id: "supurge",   name: "Elektrikli süpürge",          icon: "🧹", w: 900,  h: 0.2, surge: 1.5 }
+    ],
+    // Senaryolar: varsayılan cihaz seti + akü kimyası + özerklik + panel adayları
+    presets: [
+      { id: "karavan", label: "Karavan / Tekne", icon: "🚐",
+        desc: "12/24V kompakt sistem — buzdolabı, aydınlatma, şarj.",
+        chem: "lityum", autonomyDays: 1,
+        items: { led: 4, buzdolabi: 1, tv: 1, sarj: 1 },
+        panels: ["pnl-285w-half-cut-monokristal-gunes-paneli", "pnl-175w-half-cut-topcon-gunes-paneli", "pnl-160w-monokristal-gunes-paneli"] },
+      { id: "bagevi", label: "Bağ Evi (hafta sonu)", icon: "🏡",
+        desc: "Temel konfor: buzdolabı, TV, aydınlatma, su pompası.",
+        chem: "jel", autonomyDays: 1,
+        items: { led: 6, buzdolabi: 1, tv: 1, sarj: 1, pompa: 1 },
+        panels: ["pnl-655w-half-cut-topcon-mono-gunes-paneli", "pnl-450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "pnl-350w-ecosol-polykristal-gunes-paneli"] },
+      { id: "ev", label: "Müstakil Ev (sürekli)", icon: "🏠",
+        desc: "Çamaşır makinesi ve klima dahil tam ev yükü.",
+        chem: "lityum", autonomyDays: 1,
+        items: { led: 8, buzdolabi: 1, tv: 1, sarj: 1, camasir: 1, pompa: 1, klima: 1 },
+        panels: ["pnl-655w-half-cut-topcon-mono-gunes-paneli", "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] },
+      { id: "ticari", label: "İşletme / Ticari", icon: "🏭",
+        desc: "Yüksek tüketim — soğutma, aydınlatma, ofis yükleri.",
+        chem: "lityum", autonomyDays: 0.5,
+        items: { led: 12, buzdolabi: 2, tv: 1, sarj: 2, klima: 2, pompa: 1 },
+        panels: ["pnl-655w-half-cut-topcon-mono-gunes-paneli", "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] }
+    ],
+    // Katalog eşlemesi — data.js ürünleri (w=Wp, wh=akü enerjisi, kw/v=inverter)
+    catalog: {
+      panels: {
+        "pnl-160w-monokristal-gunes-paneli": 160,
+        "pnl-175w-half-cut-topcon-gunes-paneli": 175,
+        "pnl-285w-half-cut-monokristal-gunes-paneli": 285,
+        "pnl-350w-ecosol-polykristal-gunes-paneli": 350,
+        "pnl-450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli": 450,
+        "pnl-655w-half-cut-topcon-mono-gunes-paneli": 655,
+        "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli": 750
+      },
+      batteries: [
+        { ref: "aku-100-12",  chem: "lityum", v: 12, wh: 1280 },
+        { ref: "aku-mc-200b", chem: "lityum", v: 12, wh: 2560 },
+        { ref: "aku-100-24",  chem: "lityum", v: 24, wh: 2560 },
+        { ref: "aku-51-wpu",  chem: "lityum", v: 48, wh: 4800 },
+        { ref: "jel-105", chem: "jel", v: 12, wh: 1260 },
+        { ref: "jel-160", chem: "jel", v: 12, wh: 1920 },
+        { ref: "jel-210", chem: "jel", v: 12, wh: 2520 }
+      ],
+      inverters: [
+        { ref: "inv-1kw",   kw: 1,   v: 12 },
+        { ref: "inv-1-6kw", kw: 1.6, v: 12 },
+        { ref: "inv-3kw",   kw: 3.5, v: 24 },
+        { ref: "inv-4-2kw", kw: 4.2, v: 24 },
+        { ref: "inv-6-2kw", kw: 6.2, v: 48 },
+        { ref: "inv-max8",  kw: 8,   v: 48 },
+        { ref: "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1", kw: 11, v: 48 }
+      ],
+      extras: { cable: "eq-kablo6", mc4: "eq-mc4" }
+    }
+  },
 
   // Admin panel (statik sitede yalnızca caydırıcı)
   admin: { pass: "gesm2026" },

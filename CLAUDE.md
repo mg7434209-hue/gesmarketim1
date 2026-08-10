@@ -11,7 +11,13 @@ verileri istemcide (localStorage, `gesm.` öneki) tutulur. Tema: beyaza yakın
 bej/krem (kullanıcı kararı — spec'teki dark theme yerine).
 
 Sayfalar (kök dizinde):
-`index.html` (hero + kategori grid + paket vitrini + kampanya/çok satan/yeni) ·
+`index.html` (hero + kategori grid + "Kendi Projenizi Oluşturun" bölümü +
+kampanya/çok satan/yeni — paket vitrini ŞİMDİLİK kaldırıldı, aşağıya bak) ·
+`sistem-kur.html` (Sistem Kurucu: senaryo → cihaz adetleri → ihtiyaç
+hesabı → katalogdan panel/akü/inverter/ekipman önerisi → sepete ekle +
+WhatsApp teklif; mantık `app.js pageBuilder()`, TÜM katsayılar ve katalog
+eşlemesi `config.builder`'da — koda sayı gömme; durum localStorage
+`gesm.builder`, `?tip=<senaryo>` ön seçim yapar) ·
 `kategori.html?k=slug|?q=arama` (filtre paneli + sıralama + sayfalama + SEO
 rehber metni) · `urun.html?u=id` (galeri, fiyat/Teklif Al, sekmeler, paket
 bileşen listesi + ayrı alım karşılaştırması, JSON-LD Product) · `sepet.html`
@@ -37,6 +43,11 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
   tedarikçi/üretici kaynaklı dosya koy, dış siteden hotlink YAPMA.
 - "FİYAT SORUN" ürünlerinde fiyat alanı render edilmez → `onRequest: true` +
   Teklif Al formu (WhatsApp deep-link).
+- **K6 — Hazır paketler ŞİMDİLİK gizli** (`config.hiddenCategories:
+  ["solar-paketler"]`): listelerde/aramada/ana sayfada/sitemap'te görünmez,
+  nav'da yerini "Sistem Kur" aldı; ürün VERİSİ data.js'te durur ve doğrudan
+  `urun.html?u=pkt*` URL'leri çalışır. Geri açmak = slug'ı listeden çıkar +
+  nav'ı geri al + index paket bölümünü geri koy + `npm run build`.
 
 ## TEK DOĞRU KAYNAK — `assets/config.js`
 İletişim, duyuru bandı, kargo/havale katsayıları, marj kuralları, 11 kategori

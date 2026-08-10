@@ -10,6 +10,11 @@
   // Gerçek ürün görselleri (assets/img-map.js — tools/gorselleri_isle.py üretir)
   var IMGMAP = GESM.imgmap || {};
   ALL.forEach(function (p) { if (IMGMAP[p.id]) p.img = IMGMAP[p.id]; });
+  // Şimdilik gizli kategoriler (config.hiddenCategories): liste/arama/ana
+  // sayfada görünmez; veri durur, doğrudan ürün URL'si çalışır.
+  var HIDDEN_CATS = cfg.hiddenCategories || [];
+  function isHiddenCat(slug) { return HIDDEN_CATS.indexOf(slug) >= 0; }
+  var VISIBLE = ALL.filter(function (p) { return !isHiddenCat(p.cat); });
 
   /* ================= Yardımcılar ================= */
   function $(s, r) { return (r || document).querySelector(s); }
@@ -325,7 +330,7 @@
   function searchProducts(q) {
     var t = norm(q).split(/\s+/).filter(Boolean);
     if (!t.length) return [];
-    return ALL.map(function (p) {
+    return VISIBLE.map(function (p) {
       var hay = norm(p.name + " " + p.brand + " " + (p.tags || []).join(" ") + " " + (catOf(p.cat) || {}).name + " " + Object.keys(p.specs || {}).map(function (k) { return k + " " + p.specs[k]; }).join(" "));
       var score = 0;
       t.forEach(function (w) { if (hay.indexOf(w) >= 0) score += w.length > 2 ? 2 : 1; });
@@ -337,41 +342,246 @@
 
   /* ================= Sayfa: Ana sayfa ================= */
   function pageHome() {
-    var pkgs = ALL.filter(function (p) { return p.cat === "solar-paketler"; });
-    var campaigns = ALL.filter(function (p) { return !p.onRequest && priceOf(p).discountPct > 0; });
-    var best = ALL.filter(function (p) { return p.bestseller; });
-    var news = ALL.filter(function (p) { return p.isNew; });
+    var campaigns = VISIBLE.filter(function (p) { return !p.onRequest && priceOf(p).discountPct > 0; });
+    var best = VISIBLE.filter(function (p) { return p.bestseller; });
+    var news = VISIBLE.filter(function (p) { return p.isNew; });
     var stats = $("#heroStats");
     if (stats) stats.innerHTML =
-      "<div><b>" + ALL.length + "+</b><span class='muted small'>ürün çeşidi</span></div>" +
-      "<div><b>" + cfg.categories.length + "</b><span class='muted small'>kategori</span></div>" +
-      "<div><b>" + pkgs.length + "</b><span class='muted small'>hazır solar paket</span></div>" +
+      "<div><b>" + VISIBLE.length + "+</b><span class='muted small'>ürün çeşidi</span></div>" +
+      "<div><b>" + cfg.categories.filter(function (c) { return !isHiddenCat(c.slug); }).length + "</b><span class='muted small'>kategori</span></div>" +
+      "<div><b>3 dk</b><span class='muted small'>sistem kurucu ile proje</span></div>" +
       "<div><b>14 gün</b><span class='muted small'>koşulsuz iade</span></div>";
     var cg = $("#catGrid");
-    if (cg) cg.innerHTML = cfg.categories.map(function (c) {
-      var n = ALL.filter(function (p) { return p.cat === c.slug; }).length;
+    if (cg) cg.innerHTML = cfg.categories.filter(function (c) { return !isHiddenCat(c.slug); }).map(function (c) {
+      var n = VISIBLE.filter(function (p) { return p.cat === c.slug; }).length;
       return '<a class="cat-card" href="' + catUrl(c) + '"><div class="ico">' + c.icon + "</div><b>" + esc(c.name) + "</b><span>" + n + " ürün</span></a>";
     }).join("");
-    // Paket vitrini + senaryo filtresi
-    var scen = ["Tümü", "Karavan", "Bağ Evi", "Ev", "Ticari"];
-    var pf = $("#pkgFilter"), pg = $("#pkgGrid");
-    function drawPkgs(s) {
-      var list = s === "Tümü" ? pkgs : pkgs.filter(function (p) { return p.scenario === s; });
-      renderGrid(pg, list);
-    }
-    if (pf && pg) {
-      pf.innerHTML = scen.map(function (s, i) { return '<button class="btn btn-sm' + (i === 0 ? " btn-primary" : "") + '" data-s="' + s + '">' + s + "</button>"; }).join(" ");
-      $$("button", pf).forEach(function (b) {
-        b.addEventListener("click", function () {
-          $$("button", pf).forEach(function (x) { x.classList.remove("btn-primary"); });
-          b.classList.add("btn-primary"); drawPkgs(b.getAttribute("data-s"));
-        });
-      });
-      drawPkgs("Tümü");
-    }
+    // "Kendi Projenizi Oluşturun" bölümündeki WhatsApp uzman bağlantısı
+    $$("[data-wa-expert]").forEach(function (a) {
+      a.setAttribute("href", waLink("Merhaba, sistemimi kurmak için uzman desteği istiyorum."));
+      a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener");
+    });
     var cs = $("#campGrid"); if (cs) renderGrid(cs, campaigns, "Şu an aktif kampanya yok.");
     var bs = $("#bestGrid"); if (bs) renderGrid(bs, best.slice(0, 8));
     var ns = $("#newGrid"); if (ns) renderGrid(ns, news, "Yeni ürünler yakında.");
+  }
+
+  /* ================= Sayfa: Sistem Kurucu (sistem-kur.html) =================
+     "Kendi Projenizi Oluşturun": senaryo → cihazlar → ihtiyaç → katalogdan
+     öneri → sepete ekle / WhatsApp teklif. Tüm katsayılar cfg.builder'dadır. */
+  var BLD_KEY = "gesm.builder";
+  function pageBuilder() {
+    var B = cfg.builder; if (!B) return;
+    var SZ = B.sizing;
+    var appById = {}; B.appliances.forEach(function (a) { appById[a.id] = a; });
+    function presetOf(id) { for (var i = 0; i < B.presets.length; i++) if (B.presets[i].id === id) return B.presets[i]; return B.presets[0]; }
+    // Katalogda gerçekten var olan ürünlere indirge (ürün silinirse zarifçe düş)
+    function existingPanels(list) { return (list || []).filter(function (r) { return byId(r) && B.catalog.panels[r]; }); }
+
+    var st = store(BLD_KEY) || {};
+    var tipParam = param("tip");
+    if (tipParam && presetOf(tipParam).id === tipParam && st.tip !== tipParam) st = { tip: tipParam };
+    if (!st.tip) st.tip = B.presets[0].id;
+    function preset() { return presetOf(st.tip); }
+    function ensureDefaults() {
+      var p = preset();
+      if (!st.items) st.items = Object.assign({}, p.items);
+      if (!st.chem) st.chem = p.chem;
+      var panels = existingPanels(p.panels);
+      if (!st.panelRef || panels.indexOf(st.panelRef) < 0) st.panelRef = panels[0] || null;
+      st.qtyOv = st.qtyOv || {};
+    }
+    ensureDefaults();
+    function save() { store(BLD_KEY, st); }
+
+    /* ---- hesap ---- */
+    function calc() {
+      var dailyWh = 0, contW = 0, maxSurge = 0, anySelected = false;
+      B.appliances.forEach(function (a) {
+        var q = st.items[a.id] || 0; if (!q) return;
+        anySelected = true;
+        dailyWh += q * a.w * a.h;
+        contW += q * a.w;
+        maxSurge = Math.max(maxSurge, a.w * (a.surge || 1));
+      });
+      var invW = Math.max(contW * SZ.simultaneity, maxSurge) * SZ.surgeHeadroom;
+      var kwp = dailyWh / (SZ.sunHours * SZ.systemEff) / 1000;
+
+      // İnverter: gücü karşılayan en küçük model (katalog kw artan sıralı)
+      var inv = null;
+      for (var i = 0; i < B.catalog.inverters.length; i++) {
+        var cand = B.catalog.inverters[i];
+        if (byId(cand.ref) && cand.kw * 1000 >= invW) { inv = cand; break; }
+      }
+      if (!inv) { // hiçbiri yetmiyorsa en büyüğü öner
+        for (var j = B.catalog.inverters.length - 1; j >= 0; j--) if (byId(B.catalog.inverters[j].ref)) { inv = B.catalog.inverters[j]; break; }
+      }
+
+      // Panel
+      var panelW = st.panelRef ? B.catalog.panels[st.panelRef] : 0;
+      var panelQty = panelW ? Math.max(1, Math.ceil((kwp * 1000) / panelW - 0.05)) : 0;
+
+      // Akü: kimya + inverter voltajına uyan en ekonomik banka
+      var dod = SZ.dod[st.chem] || 0.8;
+      var needWh = (dailyWh * preset().autonomyDays) / dod / SZ.invEff;
+      var bat = null, batQty = 0, batCost = Infinity;
+      if (inv) {
+        B.catalog.batteries.forEach(function (b) {
+          if (b.chem !== st.chem || !byId(b.ref)) return;
+          var seriesOf = inv.v / b.v;
+          if (seriesOf < 1 || seriesOf % 1 !== 0) return;
+          var units = Math.max(seriesOf, Math.ceil(needWh / b.wh));
+          units = Math.ceil(units / seriesOf) * seriesOf;
+          var pr = priceOf(byId(b.ref)); if (pr.onRequest) return;
+          var cost = units * pr.price;
+          if (cost < batCost) { bat = b; batQty = units; batCost = cost; }
+        });
+      }
+
+      var cableQty = Math.round(SZ.cableBaseM + SZ.cablePerKwM * kwp);
+      return { anySelected: anySelected, dailyWh: dailyWh, invW: invW, kwp: kwp,
+        inv: inv, panelQty: panelQty, bat: bat, batQty: batQty, needWh: needWh, cableQty: cableQty };
+    }
+
+    // Öneri satırları: [key, ref, önerilenAdet, rolEtiketi]
+    function lines(c) {
+      var out = [];
+      if (st.panelRef && c.panelQty) out.push(["panel", st.panelRef, c.panelQty, "Güneş paneli"]);
+      if (c.bat) out.push(["bat", c.bat.ref, c.batQty, "Akü (" + (st.chem === "jel" ? "jel" : "LiFePO4") + ")"]);
+      if (c.inv) out.push(["inv", c.inv.ref, 1, "Akıllı inverter (MPPT dahili)"]);
+      if (B.catalog.extras.cable && byId(B.catalog.extras.cable) && c.cableQty) out.push(["cable", B.catalog.extras.cable, c.cableQty, "Solar kablo (metre)"]);
+      if (B.catalog.extras.mc4 && byId(B.catalog.extras.mc4) && c.panelQty) out.push(["mc4", B.catalog.extras.mc4, c.panelQty, "MC4 konnektör (çift)"]);
+      return out.map(function (l) {
+        var qty = st.qtyOv[l[0]] != null ? st.qtyOv[l[0]] : l[2];
+        return { key: l[0], ref: l[1], qty: qty, auto: l[2], role: l[3], p: byId(l[1]) };
+      });
+    }
+
+    /* ---- çizim ---- */
+    var elScen = $("#bldScen"), elApps = $("#bldApps"), elNeeds = $("#bldNeeds"),
+        elOpts = $("#bldOpts"), elList = $("#bldList"), elTotal = $("#bldTotal");
+
+    function drawScen() {
+      elScen.innerHTML = B.presets.map(function (p) {
+        return '<button class="cat-card bld-scen' + (p.id === st.tip ? " on" : "") + '" data-tip="' + p.id + '">' +
+          '<div class="ico">' + p.icon + "</div><b>" + esc(p.label) + "</b><span>" + esc(p.desc) + "</span></button>";
+      }).join("");
+      $$("[data-tip]", elScen).forEach(function (b) {
+        b.addEventListener("click", function () {
+          st = { tip: b.getAttribute("data-tip") }; ensureDefaults(); save();
+          drawScen(); drawApps(); drawAll();
+        });
+      });
+    }
+
+    function drawApps() {
+      elApps.innerHTML = B.appliances.map(function (a) {
+        var q = st.items[a.id] || 0;
+        return '<div class="bld-app' + (q ? " on" : "") + '" data-app="' + a.id + '">' +
+          '<span class="bld-app-ico">' + a.icon + '</span>' +
+          '<span class="bld-app-name">' + esc(a.name) + '<span class="muted small"> · ' + a.w + " W × " + String(a.h).replace(".", ",") + " sa/gün</span></span>" +
+          '<span class="qty-box"><button data-d="-1" aria-label="Azalt">−</button><b>' + q + '</b><button data-d="1" aria-label="Artır">+</button></span></div>';
+      }).join("");
+      $$(".bld-app", elApps).forEach(function (row) {
+        var id = row.getAttribute("data-app");
+        $$("button", row).forEach(function (b) {
+          b.addEventListener("click", function () {
+            var q = Math.max(0, (st.items[id] || 0) + parseInt(b.getAttribute("data-d"), 10));
+            st.items[id] = q; st.qtyOv = {}; save(); drawApps(); drawAll();
+          });
+        });
+      });
+    }
+
+    function drawAll() {
+      var c = calc();
+      // İhtiyaç kartları
+      elNeeds.innerHTML =
+        '<div><b>' + (c.dailyWh / 1000).toFixed(1).replace(".", ",") + " kWh</b><span class='muted small'>günlük tüketim</span></div>" +
+        '<div><b>' + c.kwp.toFixed(2).replace(".", ",") + " kWp</b><span class='muted small'>önerilen panel gücü</span></div>" +
+        '<div><b>' + (c.needWh / 1000).toFixed(1).replace(".", ",") + " kWh</b><span class='muted small'>akü bankası</span></div>" +
+        '<div><b>' + (c.invW / 1000).toFixed(1).replace(".", ",") + " kW</b><span class='muted small'>inverter gücü</span></div>";
+      // Seçenekler: akü kimyası + panel modeli
+      var panels = existingPanels(preset().panels);
+      elOpts.innerHTML =
+        '<div class="bld-opt"><b>Akü tipi</b><div class="bld-seg">' +
+          '<button data-chem="lityum" class="' + (st.chem === "lityum" ? "on" : "") + '">LiFePO4 · uzun ömür</button>' +
+          '<button data-chem="jel" class="' + (st.chem === "jel" ? "on" : "") + '">Jel · ekonomik</button></div></div>' +
+        (panels.length > 1
+          ? '<div class="bld-opt"><b>Panel modeli</b><select id="bldPanelSel">' +
+            panels.map(function (r) { var p = byId(r); return '<option value="' + r + '"' + (r === st.panelRef ? " selected" : "") + ">" + esc(p.name) + "</option>"; }).join("") +
+            "</select></div>"
+          : "");
+      $$("[data-chem]", elOpts).forEach(function (b) {
+        b.addEventListener("click", function () { st.chem = b.getAttribute("data-chem"); delete st.qtyOv.bat; save(); drawAll(); });
+      });
+      var ps = $("#bldPanelSel");
+      if (ps) ps.addEventListener("change", function () { st.panelRef = ps.value; delete st.qtyOv.panel; delete st.qtyOv.mc4; save(); drawAll(); });
+
+      // Öneri listesi + toplam
+      if (!c.anySelected) {
+        elList.innerHTML = '<p class="muted">Cihaz seçince önerilen sistem burada listelenir.</p>';
+        elTotal.innerHTML = ""; return;
+      }
+      var ls = lines(c), total = 0, anyPrice = false;
+      elList.innerHTML = ls.map(function (l) {
+        if (!l.p) return "";
+        var pr = priceOf(l.p);
+        var sum = pr.onRequest ? null : pr.price * l.qty;
+        if (sum != null) { total += sum; anyPrice = true; }
+        return '<div class="bld-line" data-key="' + l.key + '">' +
+          '<a class="bld-line-thumb" href="' + prodUrl(l.p) + '">' + thumbMedia(l.p) + "</a>" +
+          '<div class="bld-line-body"><span class="muted small">' + esc(l.role) + "</span>" +
+          '<a href="' + prodUrl(l.p) + '">' + esc(l.p.name) + "</a>" +
+          '<span class="muted small">' + (pr.onRequest ? "Fiyat için teklif" : fmt0(pr.price) + " × " + l.qty) + "</span></div>" +
+          '<span class="qty-box"><button data-d="-1" aria-label="Azalt">−</button><b>' + l.qty + '</b><button data-d="1" aria-label="Artır">+</button></span>' +
+          '<b class="bld-line-sum">' + (sum == null ? "—" : fmt0(sum)) + "</b>" +
+          (l.qty !== l.auto ? '<button class="bld-auto" data-auto="' + l.key + '" title="Önerilen adede dön">↺ ' + l.auto + "</button>" : "") +
+          "</div>";
+      }).join("");
+      $$(".bld-line", elList).forEach(function (row) {
+        var key = row.getAttribute("data-key");
+        $$(".qty-box button", row).forEach(function (b) {
+          b.addEventListener("click", function () {
+            var cur = null;
+            lines(calc()).forEach(function (l) { if (l.key === key) cur = l.qty; });
+            st.qtyOv[key] = Math.max(key === "inv" ? 1 : 0, (cur || 0) + parseInt(b.getAttribute("data-d"), 10));
+            save(); drawAll();
+          });
+        });
+      });
+      $$("[data-auto]", elList).forEach(function (b) {
+        b.addEventListener("click", function () { delete st.qtyOv[b.getAttribute("data-auto")]; save(); drawAll(); });
+      });
+
+      var tipLabel = preset().label;
+      elTotal.innerHTML = anyPrice
+        ? '<div class="bld-total-row"><span>Sistem toplamı</span><b>' + fmt0(total) + "</b></div>" +
+          '<div class="bld-total-row muted small"><span>💰 Havale/EFT ile</span><span>' + fmt0(havalePrice(total)) + " (%" + cfg.commerce.havaleDiscountPct + " indirimli)</span></div>" +
+          '<p class="muted small">KDV dahil · kargo hariç · fiyatlar tahmini liste fiyatıdır, kesin teklif için bize ulaşın.</p>' +
+          '<div class="bld-total-cta"><button class="btn btn-primary" id="bldAddAll">🛒 Hepsini Sepete Ekle</button>' +
+          '<a class="btn btn-wa" id="bldWa" target="_blank" rel="noopener">WhatsApp ile Teklif İste</a></div>'
+        : "";
+      var addBtn = $("#bldAddAll");
+      if (addBtn) addBtn.addEventListener("click", function () {
+        var ct = cart(), n = 0;
+        lines(calc()).forEach(function (l) { if (l.p && !l.p.onRequest && l.qty > 0) { ct[l.ref] = (ct[l.ref] || 0) + l.qty; n += l.qty; } });
+        setCart(ct); toast(n + " ürün sepete eklendi — sepetten sipariş verebilirsiniz.");
+      });
+      var waBtn = $("#bldWa");
+      if (waBtn) {
+        var msg = "Merhaba! Sistem Kurucu ile " + tipLabel + " projesi hazırladım:\n" +
+          lines(c).filter(function (l) { return l.p && l.qty > 0; }).map(function (l) {
+            return "• " + l.qty + " × " + l.p.name;
+          }).join("\n") +
+          "\nGünlük tüketim: " + (c.dailyWh / 1000).toFixed(1) + " kWh" +
+          (anyPrice ? "\nTahmini toplam: " + fmt0(total) : "") +
+          "\nKesin teklif rica ediyorum.";
+        waBtn.setAttribute("href", waLink(msg));
+      }
+    }
+
+    drawScen(); drawApps(); drawAll(); save();
   }
 
   /* ================= Sayfa: Kategori / Arama ================= */
@@ -380,6 +590,22 @@
     var c = slug ? catOf(slug) : null;
     var base;
     var title, desc;
+    // Şimdilik gizli kategori (ör. solar-paketler): liste yerine Sistem
+    // Kurucu'ya yönlendiren bilgi kartı gösterilir.
+    if (c && isHiddenCat(c.slug)) {
+      document.title = "Kendi Projenizi Oluşturun | " + cfg.company.brand;
+      $("#catTitle").textContent = "Hazır paketlerin yerini Sistem Kurucu aldı";
+      $("#catDesc").textContent = "Cihazlarınızı seçin; paneli, aküyü ve inverteri size göre boyutlandıralım.";
+      $("#crumbs").innerHTML = '<a href="index.html">Ana Sayfa</a> › Sistem Kurucu';
+      var wrap = $("#catGrid");
+      if (wrap) wrap.innerHTML =
+        '<div class="bld-redirect"><p>Hazır solar paketleri yeniliyoruz. Bu sürede ihtiyacınıza birebir uyan sistemi ' +
+        "<b>Sistem Kurucu</b> ile kendiniz oluşturabilir, tek tıkla sepete ekleyebilirsiniz.</p>" +
+        '<a class="btn btn-primary" href="sistem-kur.html">🛠️ Kendi Sistemini Kur</a></div>';
+      var f = $("#filters"); if (f) f.innerHTML = "";
+      var tb = $(".toolbar"); if (tb) tb.style.display = "none";
+      return;
+    }
     if (q) {
       base = searchProducts(q);
       title = '"' + q + '" için sonuçlar'; desc = base.length + " ürün bulundu";
@@ -387,7 +613,7 @@
       base = ALL.filter(function (p) { return p.cat === c.slug; });
       title = c.name; desc = c.desc;
     } else {
-      base = ALL.slice(); title = "Tüm Ürünler"; desc = "Kataloğumuzdaki tüm solar ürünler";
+      base = VISIBLE.slice(); title = "Tüm Ürünler"; desc = "Kataloğumuzdaki tüm solar ürünler";
     }
     if (preTag && c) title = title + " — " + preTag;
     document.title = title + " | " + cfg.company.brand;
@@ -981,6 +1207,7 @@
     renderChrome();
     var page = pageActive();
     if (page === "home") pageHome();
+    else if (page === "sistem-kur") pageBuilder();
     else if (page === "kategori") pageCategory();
     else if (page === "urun") pageProduct();
     else if (page === "sepet") pageCart();
