@@ -16,6 +16,7 @@ const today = new Date().toISOString().slice(0, 10);
 const staticPages = [
   { u: "/", p: "1.0" },
   { u: "/kategori.html", p: "0.8" },
+  { u: "/sistem-kur.html", p: "0.9" },
   { u: "/hakkimizda.html", p: "0.5" },
   { u: "/sss.html", p: "0.6" },
   { u: "/iletisim.html", p: "0.5" },
@@ -23,9 +24,12 @@ const staticPages = [
   { u: "/iade-degisim.html", p: "0.4" }
 ];
 
+// Şimdilik gizli kategoriler (config.hiddenCategories) ve ürünleri sitemap dışı
+const hidden = new Set(cfg.hiddenCategories || []);
+
 let urls = staticPages.map(s => ({ loc: BASE + s.u, pri: s.p }));
-cfg.categories.forEach(c => urls.push({ loc: BASE + "/kategori.html?k=" + c.slug, pri: "0.8" }));
-products.forEach(p => urls.push({ loc: BASE + "/urun.html?u=" + p.id, pri: "0.7" }));
+cfg.categories.filter(c => !hidden.has(c.slug)).forEach(c => urls.push({ loc: BASE + "/kategori.html?k=" + c.slug, pri: "0.8" }));
+products.filter(p => !hidden.has(p.cat)).forEach(p => urls.push({ loc: BASE + "/urun.html?u=" + p.id, pri: "0.7" }));
 
 const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
