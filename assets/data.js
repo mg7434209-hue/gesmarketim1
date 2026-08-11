@@ -662,9 +662,13 @@
     function r2(n) { return Math.round(n * 100) / 100; }
     P.forEach(function (p) {
       if (Object.prototype.hasOwnProperty.call(ACS_COST_USD, p.id)) {
-        var saleUsd = r2(ACS_COST_USD[p.id] * markup);
-        p.price = r2(saleUsd * kur * buffer);
-        p.cost = Math.round(ACS_COST_USD[p.id] * kur); // ₺ maliyet (yalnız admin görür, K1)
+        // USD TABANI: ürüne satış USD'si yazılır; ₺ karşılığı app.js priceOf
+        // içinde GÜNCEL kurla hesaplanır (kur değişince fiyat kendiliğinden
+        // güncellenir — statik ₺ basılmaz).
+        p.saleUsd = r2(ACS_COST_USD[p.id] * markup);
+        p.costUsd = ACS_COST_USD[p.id]; // yalnız admin marj analizi (K1)
+        p.cost = Math.round(ACS_COST_USD[p.id] * kur); // ₺ maliyet (yaklaşık)
+        delete p.price;
         delete p.listPrice;
         delete p.onRequest;
         var nn = ACS_RENAME[p.id];
@@ -701,6 +705,18 @@
         delete p.price;
         delete p.listPrice;
         p.cost = null;
+      }
+    });
+
+    // Kalan ₺ fiyatlı ürünler (Lexron sinüs inverter serisi, gizli paketler
+    // vb.) de USD TABANINA çevrilir: saleUsd = ₺ / (kur × tampon) — bugünkü ₺
+    // aynı kalır, kur güncellenince fiyat kendiliğinden yeni ₺'ye döner.
+    P.forEach(function (p) {
+      if (p.onRequest || p.saleUsd != null || p.priceUsd != null) return;
+      if (p.price > 0) {
+        p.saleUsd = r2(p.price / (kur * buffer));
+        delete p.price;
+        delete p.listPrice;
       }
     });
   })();

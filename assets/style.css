@@ -431,3 +431,7 @@ button.cat-card.bld-scen { font: inherit; text-align: center; cursor: pointer; }
   .bld-line-sum { min-width: 0; }
   .bld-needs { gap: 18px; }
 }
+
+/* ---------- Kur rozeti (duyuru bandı) ---------- */
+.announce { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.fx-badge { background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 2px 12px; font-weight: 700; font-size: .8rem; color: var(--accent-2); white-space: nowrap; }
