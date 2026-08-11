@@ -174,11 +174,13 @@ GESM.config = {
         "pnl-655w-half-cut-topcon-mono-gunes-paneli": 655,
         "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli": 750
       },
+      // Mexxsun ürünleri fiyat yayınından kalktığı için (11.08.2026) lityum
+      // banka ACS fiyatlı ürünlerden kurulur; app.js fiyatı yayında olmayan
+      // (onRequest) adayları zaten atlar.
       batteries: [
-        { ref: "aku-100-12",  chem: "lityum", v: 12, wh: 1280 },
         { ref: "aku-mc-200b", chem: "lityum", v: 12, wh: 2560 },
-        { ref: "aku-100-24",  chem: "lityum", v: 24, wh: 2560 },
-        { ref: "aku-51-wpu",  chem: "lityum", v: 48, wh: 4800 },
+        { ref: "x-200ah-25-6v-lityum-batarya", chem: "lityum", v: 24, wh: 5120 },
+        { ref: "x-314ah-51-2v-premium-serisi-lityum-batarya", chem: "lityum", v: 48, wh: 16077 },
         { ref: "jel-105", chem: "jel", v: 12, wh: 1260 },
         { ref: "jel-160", chem: "jel", v: 12, wh: 1920 },
         { ref: "jel-210", chem: "jel", v: 12, wh: 2520 }
@@ -187,9 +189,8 @@ GESM.config = {
         { ref: "inv-1kw",   kw: 1,   v: 12 },
         { ref: "inv-1-6kw", kw: 1.6, v: 12 },
         { ref: "inv-3kw",   kw: 3.5, v: 24 },
-        { ref: "inv-4-2kw", kw: 4.2, v: 24 },
+        { ref: "x-5-5kw-hv-mppt-akilli-inverter-sorotec", kw: 5.5, v: 48 },
         { ref: "inv-6-2kw", kw: 6.2, v: 48 },
-        { ref: "inv-max8",  kw: 8,   v: 48 },
         { ref: "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1", kw: 11, v: 48 }
       ],
       extras: { cable: "eq-kablo6", mc4: "eq-mc4" }
