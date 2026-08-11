@@ -78,9 +78,12 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
   `priceUsd`) bulunur; ₺ = USD × güncel kur × (1+`pricing.fxBufferPct`/100),
   `priceOf()` içinde hesaplanır — ürünlere statik ₺ yazma. Kur kaynağı sırası:
   admin cihaz-yerel deneme > sunucu günlük kuru (`/api/kur` → localStorage
-  `gesm.kur`) > `config.commerce.usdTry`. Günlük kur admin panelden "Kuru
-  Yayınla" ile sunucuya yazılır (`server.js` → `DATA_DIR/kur.json`, Railway'de
-  Volume önerilir); duyuru bandındaki `.fx-badge` rozeti güncel kuru gösterir.
+  `gesm.kur`) > `config.commerce.usdTry`. Kur SUNUCUDA OTOMATİK güncellenir:
+  açılışta + 6 saatte bir (KUR_REFRESH_HOURS) open.er-api.com/frankfurter.app
+  piyasa kurundan çekilir (`server.js autoUpdateKur`; %15+ sıçrama reddedilir;
+  kapatma: AUTO_KUR=false). Admin panelden "Kuru Yayınla" elle yazar ve 24 saat
+  otomatiğe ezdirilmez. Kalıcılık: `DATA_DIR/kur.json` (Railway Volume önerilir).
+  Duyuru bandındaki `.fx-badge` rozeti güncel kuru gösterir.
 - Tüm fiyat gösterimi KDV dahil; havale fiyatı `havalePrice()` ile hesaplanır.
 - JSON-LD: Organization her sayfada, WebSite+SearchAction ana sayfada, Product+
   BreadcrumbList ürün sayfasında, FAQPage `sss.html`'de statik.

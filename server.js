@@ -1,9 +1,14 @@
 /* GES MARKETİM — bağımlılıksız statik sunucu (Railway uyumlu)
    + /api/kur: günlük USD/TL kuru (GET herkese açık, POST admin şifreli).
    Kur DATA_DIR/kur.json'da tutulur (Railway Volume önerilir; yoksa ./data —
-   Volume yoksa her deploy'da config.js kuruna döner). */
+   Volume yoksa her deploy'da config.js kuruna döner).
+   + OTOMATİK KUR: sunucu açılışta ve KUR_REFRESH_HOURS'ta bir (varsayılan 6)
+   serbest piyasa USD/TRY kurunu ücretsiz kaynaklardan çeker ve yayınlar
+   (Google'ın gösterdiği piyasa kuruyla aynı veri). Elle yayınlanan kur
+   24 saat korunur. Kapatmak için AUTO_KUR=false. */
 "use strict";
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 
@@ -27,6 +32,65 @@ function readKur() {
   return { usdTry: CFG.commerce.usdTry, updatedAt: null, source: "config" };
 }
 
+/* ---------- Otomatik kur güncelleme ---------- */
+// Kaynaklar sırayla denenir (anahtarsız, ücretsiz). KUR_AUTO_URL env'i ile
+// özel/test kaynağı eklenebilir (er-api JSON formatında beklenir).
+const KUR_SOURCES = [
+  { name: "er-api", url: "https://open.er-api.com/v6/latest/USD",
+    pick: (j) => j && j.rates && Number(j.rates.TRY) },
+  { name: "frankfurter", url: "https://api.frankfurter.app/latest?from=USD&to=TRY",
+    pick: (j) => j && j.rates && Number(j.rates.TRY) }
+];
+if (process.env.KUR_AUTO_URL) {
+  KUR_SOURCES.unshift({ name: "custom", url: process.env.KUR_AUTO_URL,
+    pick: (j) => (j && j.rates && Number(j.rates.TRY)) || (j && Number(j.usdTry)) });
+}
+
+function fetchJson(url, cb) {
+  const mod = url.startsWith("https:") ? https : http;
+  const req2 = mod.get(url, { headers: { "User-Agent": "gesmarketim-kur/1.0" } }, (r) => {
+    if (r.statusCode !== 200) { r.resume(); return cb(null); }
+    let body = "";
+    r.on("data", (c) => { body += c; if (body.length > 262144) req2.destroy(); });
+    r.on("end", () => { try { cb(JSON.parse(body)); } catch (e) { cb(null); } });
+  });
+  req2.on("error", () => cb(null));
+  req2.setTimeout(8000, () => { req2.destroy(); cb(null); });
+}
+
+function writeKur(rate, source) {
+  const out = { usdTry: Math.round(rate * 10000) / 10000, updatedAt: new Date().toISOString(), source };
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(KUR_FILE, JSON.stringify(out));
+  return out;
+}
+
+function autoUpdateKur() {
+  if ((process.env.AUTO_KUR || "true").toLowerCase() === "false") return;
+  const cur = readKur();
+  // Elle yayınlanan kur 24 saat korunur — o gün admin ne dediyse o geçerli.
+  if (cur.source === "admin" && cur.updatedAt &&
+      Date.now() - Date.parse(cur.updatedAt) < 24 * 60 * 60 * 1000) {
+    console.log("[kur] elle yayınlanmış kur korunuyor (24 saat):", cur.usdTry);
+    return;
+  }
+  (function trySource(i) {
+    if (i >= KUR_SOURCES.length) { console.warn("[kur] hiçbir kaynaktan kur alınamadı"); return; }
+    const s = KUR_SOURCES[i];
+    fetchJson(s.url, (j) => {
+      const rate = s.pick(j);
+      if (!Number.isFinite(rate) || rate <= 0 || rate > 10000) return trySource(i + 1);
+      // Emniyet: tek adımda %15'ten büyük sıçramayı yazma (kaynak arızası koruması)
+      if (cur.usdTry > 0 && Math.abs(rate / cur.usdTry - 1) > 0.15) {
+        console.warn("[kur] şüpheli sıçrama atlandı:", cur.usdTry, "→", rate, "(" + s.name + ")");
+        return trySource(i + 1);
+      }
+      const out = writeKur(rate, "auto:" + s.name);
+      console.log("[kur] güncellendi:", out.usdTry, "₺ (" + s.name + ")");
+    });
+  })(0);
+}
+
 function handleKurApi(req, res) {
   if (req.method === "GET") {
     return send(res, 200, JSON.stringify(readKur()), {
@@ -47,10 +111,9 @@ function handleKurApi(req, res) {
       if (!Number.isFinite(rate) || rate <= 0 || rate > 10000) {
         return send(res, 400, '{"error":"gecersiz_kur"}', { "Content-Type": "application/json" });
       }
-      const out = { usdTry: Math.round(rate * 10000) / 10000, updatedAt: new Date().toISOString(), source: "admin" };
+      let out;
       try {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
-        fs.writeFileSync(KUR_FILE, JSON.stringify(out));
+        out = writeKur(rate, "admin"); // elle yayın — otomatik güncelleme 24 saat dokunmaz
       } catch (e) {
         return send(res, 500, '{"error":"yazilamadi"}', { "Content-Type": "application/json" });
       }
@@ -120,4 +183,8 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log("GES MARKETİM yayında → http://localhost:" + PORT);
+  // Otomatik kur: açılışta (3 sn sonra) + periyodik (varsayılan 6 saat)
+  const hours = Number(process.env.KUR_REFRESH_HOURS) > 0 ? Number(process.env.KUR_REFRESH_HOURS) : 6;
+  setTimeout(autoUpdateKur, 3000).unref();
+  setInterval(autoUpdateKur, hours * 60 * 60 * 1000).unref();
 });
