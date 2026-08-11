@@ -551,6 +551,11 @@
        (kendi USD listesi), solar-paketler (kendi bundle'larımız).
      Yeni liste gelince bu haritayı güncelle (kur: config.commerce.usdTry). */
   var ACS_COST_USD = {
+    // "11KW HV 2XMPPT AKILLI INVERTER 48V" satırı (el eşlemesi)
+    "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1": 715.39,
+    // 2000W modifiye sinüsün 12V'u listede yok; 24V muadiliyle aynı maliyet
+    // uygulanır (12/24V çiftleri aynı fiyattır — eski katalogda da öyleydi)
+    "x-2000w-12v-modifiye-sinus-inverter": 106.38,
     "pnl-12w-polikristal-gunes-paneli": 12.99,
     "pnl-25w-polikristal-gunes-paneli": 21.09,
     "pnl-350w-ecosol-polykristal-gunes-paneli": 75.82,
@@ -675,8 +680,23 @@
             p.tags = p.tags.map(function (t) { return t === oldAh + " Ah" ? newAh + " Ah" : t; });
           }
         }
-      } else if (p.supplier === "enerjipazari" && p.cat !== "solar-paketler" && p.priceUsd == null) {
-        // Güncel listede yok → fiyat yayınlanmaz; Teklif Al akışı (K5 deseni)
+      } else if (p.supplier === "mexxsun") {
+        // MEXXSUN FİYATLARI YAYINDAN KALDIRILDI (kullanıcı kararı 11.08.2026):
+        // güncel Mexxsun listesi gelene kadar tüm Mexxsun ürünleri Teklif Al.
+        // Geri açmak = bu dalı kaldırıp ürün fiyatlarını yeni listeden bas.
+        p.onRequest = true;
+        delete p.price;
+        delete p.listPrice;
+      } else if (
+        p.supplier === "enerjipazari" &&
+        p.cat !== "solar-paketler" &&
+        p.cat !== "akilli-inverterler" &&
+        p.priceUsd == null
+      ) {
+        // Güncel listede yok → fiyat yayınlanmaz; Teklif Al akışı (K5 deseni).
+        // İSTİSNA — akilli-inverterler: Lexron modifiye/tam sinüs serisi ACS
+        // listesinde yer almıyor; güncel listesi gelene kadar mevcut katalog
+        // fiyatları yayında kalır (kullanıcı kararı 11.08.2026).
         p.onRequest = true;
         delete p.price;
         delete p.listPrice;
