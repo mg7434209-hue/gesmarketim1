@@ -541,5 +541,149 @@
     if (!p.tags) p.tags = [];
   });
 
+  /* ================= ACS FİYAT LİSTESİ 10.08.2026 — TEK DOĞRU FİYAT KAYNAĞI =================
+     Kaynak CSV: gesmarketim (backend) reposu → backend/data/acs_fiyatlar_10_08_2026_marj22.csv
+     Kural: saleUSD = round2(costUSD × pricing.usdMarkup)
+            saleTRY = round2(saleUSD × commerce.usdTry × (1 + pricing.fxBufferPct/100))
+     - Haritada OLAN ürün: fiyat listeden hesaplanır (eski price/listPrice ezilir).
+     - Haritada OLMAYAN enerjipazari ürünü: fiyatı YAYINLANMAZ (onRequest → Teklif Al).
+       İstisna: Mexxsun tedarikçili ürünler (ayrı liste), Havensis priceUsd ürünleri
+       (kendi USD listesi), solar-paketler (kendi bundle'larımız).
+     Yeni liste gelince bu haritayı güncelle (kur: config.commerce.usdTry). */
+  var ACS_COST_USD = {
+    "pnl-12w-polikristal-gunes-paneli": 12.99,
+    "pnl-25w-polikristal-gunes-paneli": 21.09,
+    "pnl-350w-ecosol-polykristal-gunes-paneli": 75.82,
+    "pnl-55w-monokristal-gunes-paneli": 40.36,
+    "pnl-285w-half-cut-monokristal-gunes-paneli": 115.01,
+    "pnl-175w-half-cut-topcon-gunes-paneli": 72.76,
+    "pnl-140w-half-cut-topcon-gunes-paneli": 59.92,
+    "pnl-240w-48-cell-16bb-half-cut-topcon-gunes-paneli": 95.38,
+    "pnl-160w-monokristal-gunes-paneli": 68.48,
+    "pnl-450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli": 132.07,
+    "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli": 183.43,
+    "pnl-655w-half-cut-topcon-mono-gunes-paneli": 176.22,
+    "x-220w-16bb-etfe-210r-esnek-topcon-gunes-paneli": 484.26,
+    "x-195w-10bb-etfe-esnek-monokristal-gunes-paneli": 429.23,
+    "pnl-390w-78-cell-16bb-half-cut-topcon-gunes-paneli": 122.29,
+    "x-200ah-25-6v-lityum-batarya": 1039.45,
+    "x-314ah-51-2v-premium-serisi-lityum-batarya": 3179.49,
+    "aku-mc-200b": 605.33,
+    "jel-14": 30.57,
+    "jel-42": 74.6,
+    "jel-65": 109.45,
+    "x-7ah-lexron-agm-aku": 9.78,
+    "x-7-2ah-lexron-agm-aku": 11.62,
+    "x-12ah-12v-lexron-agm-aku": 17.73,
+    "jel-105": 165.09,
+    "jel-160": 250.69,
+    "jel-210": 330.18,
+    "x-eve-61-44kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": 15347.16,
+    "x-40-96kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": 10639.07,
+    "x-20-48kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": 6725.85,
+    "jel-24": 36.07,
+    "x-9ah-lexron-agm-aku": 15.29,
+    "x-2000w-24v-modifiye-sinus-inverter-1": 107.61,
+    "x-25kw-hibrit-trifaze-inverter-hv": 3656.42,
+    "x-16kw-hibrit-monofaze-inverter-lv": 3179.49,
+    "x-80kw-hibrit-trifaze-inverter-hv": 8621.31,
+    "x-60kw-hibrit-trifaze-inverter-hv": 7948.73,
+    "x-8kw-hibrit-monofaze-inverter-lv-1": 1650.89,
+    "x-8kw-hibrit-trifaze-inverter-lv": 2439.65,
+    "inv-deye-10m": 2299.02,
+    "x-50kw-hibrit-trifaze-inverter-hv": 7704.15,
+    "x-30kw-hibrit-trifaze-inverter-hv": 4585.81,
+    "x-15kw-hibrit-trifaze-inverter-lv": 3051.09,
+    "x-20kw-hibrit-trifaze-inverter-lv": 3656.42,
+    "inv-deye-12": 2506.91,
+    "x-5kw-hibrit-monofaze-inverter": 1100.59,
+    "inv-6-2kw": 342.41,
+    "x-3kw-on-grid-monofaze-inverter-1": 322.84,
+    "x-5kw-on-grid-monofaze-inverter-1": 440.24,
+    "inv-ongrid-25": 1143.39,
+    "inv-deye-100": 4218.94,
+    "x-30kw-on-grid-trifaze-inverter": 1320.71,
+    "x-5kw-on-grid-trifaze-inverter": 715.39,
+    "x-15kw-on-grid-trifaze-inverter": 972.19,
+    "x-10kw-on-grid-monofaze-inverter": 697.04,
+    "x-5-5kw-hv-mppt-akilli-inverter-sorotec": 342.41,
+    "inv-3kw": 264.14,
+    "x-gprs-kit": 220.12,
+    "x-dc-sigorta-1000v-30a": 9.78,
+    "x-210hp-160kw-solar-pompa-inverteri-yeni-nesil": 4830.38,
+    "x-180hp-132kw-solar-pompa-inverteri-yeni-nesil": 4280.08,
+    "x-60hp-solar-pompa-inverter-yeni-nesil": 1589.75,
+    "eq-sigorta": 7.22,
+    "x-7-5hp-solar-pompa-inverter-yeni-nesil": 242.13,
+    "x-50hp-solar-pompa-inverter-yeni-nesil": 1198.42,
+    "x-75hp-solar-pompa-inverter-yeni-nesil": 1712.03,
+    "x-150hp-110kw-solar-pompa-inverteri-yeni-nesil": 2812.63,
+    "x-2400w-solar-aydinlatma": 103.94,
+    "x-1200w-solar-aydinlatma": 67.26,
+    "x-200w-solar-projektor": 30.57,
+    "x-700w-solar-aydinlatma": 48.92,
+    "eq-mc4": 0.79,
+    "eq-tbranch": 3.42,
+    "eq-3branch": 4.89,
+    "eq-orta-tutucu": 0.84,
+    "eq-sonlandirici": 0.84,
+    "eq-kablo6": 1.71,
+    "eq-kablo4": 1.16,
+    "reg-pwm20": 11.01,
+    "reg-pwm30": 12.35,
+    "x-40a-pwm-sarj-kontrol-cihazi": 15.9,
+    "x-60a-pwm-sarj-kontrol-cihazi": 33.02,
+    "reg-mppt20": 47.69,
+    "reg-mppt30": 52.58,
+    "x-40a-mppt-sarj-kontrol-cihazi": 57.48,
+    "x-80a-hv-15-230v-mppt-sarj-kontrol-cihazi": 152.86
+  };
+  // Liste, bazı ürünleri farklı adlandırıyor — katalog adları listeye çekildi.
+  var ACS_RENAME = {
+    "pnl-160w-monokristal-gunes-paneli": "160 W 32-Cell 16BB Half-Cut TopCon Güneş Paneli",
+    "x-195w-10bb-etfe-esnek-monokristal-gunes-paneli": "195 W 16BB ETFE Esnek TopCon Güneş Paneli",
+    "jel-14": "Lexron 15 Ah 12V Nano Karbon Jel Akü",
+    "jel-42": "Lexron 43 Ah 12V Nano Karbon Jel Akü",
+    "jel-65": "Lexron 70 Ah 12V Nano Karbon Jel Akü",
+    "x-40-96kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": "EVE 40,96 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi",
+    "x-20-48kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": "EVE 20,48 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi",
+    "jel-24": "Lexron 25 Ah 12V Nano Karbon Jel Akü"
+  };
+  (function () {
+    var cm = GESM.config.commerce || {}, pr = GESM.config.pricing || {};
+    var kur = cm.usdTry || 0;
+    var markup = pr.usdMarkup || 1.22;
+    var buffer = 1 + (pr.fxBufferPct || 0) / 100;
+    function r2(n) { return Math.round(n * 100) / 100; }
+    P.forEach(function (p) {
+      if (Object.prototype.hasOwnProperty.call(ACS_COST_USD, p.id)) {
+        var saleUsd = r2(ACS_COST_USD[p.id] * markup);
+        p.price = r2(saleUsd * kur * buffer);
+        p.cost = Math.round(ACS_COST_USD[p.id] * kur); // ₺ maliyet (yalnız admin görür, K1)
+        delete p.listPrice;
+        delete p.onRequest;
+        var nn = ACS_RENAME[p.id];
+        if (nn) {
+          // Ad + kapasite etiketi/spec listedeki değere çekilir (ör. 14 Ah → 15 Ah)
+          var oldAh = (p.name.match(/(\d+(?:,\d+)?) Ah/) || [])[1];
+          var newAh = (nn.match(/(\d+(?:,\d+)?) Ah/) || [])[1];
+          p.name = nn;
+          if (oldAh && newAh && p.specs && p.specs["Kapasite"]) {
+            p.specs["Kapasite"] = p.specs["Kapasite"].replace(oldAh + " Ah", newAh + " Ah");
+          }
+          if (oldAh && newAh && p.tags) {
+            p.tags = p.tags.map(function (t) { return t === oldAh + " Ah" ? newAh + " Ah" : t; });
+          }
+        }
+      } else if (p.supplier === "enerjipazari" && p.cat !== "solar-paketler" && p.priceUsd == null) {
+        // Güncel listede yok → fiyat yayınlanmaz; Teklif Al akışı (K5 deseni)
+        p.onRequest = true;
+        delete p.price;
+        delete p.listPrice;
+        p.cost = null;
+      }
+    });
+  })();
+
   GESM.data = { products: P };
 })();
