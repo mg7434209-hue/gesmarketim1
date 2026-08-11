@@ -35,8 +35,9 @@ GESM.config = {
     freeShippingLimit: 15000,   // ₺ üzeri kargo bedava
     shippingFlat: 350,          // ₺ standart kargo (limit altı)
     codAvailable: false,
-    usdTry: 44                  // USD/TL kuru — USD fiyatlı ürünlerin (priceUsd) ₺ karşılığı
-                                // bu kurla hesaplanır; admin panelden geçici, buradan kalıcı güncellenir
+    usdTry: 47.20               // USD/TL kuru (10.08.2026) — hem Havensis priceUsd hem
+                                // ACS USD maliyet → ₺ hesabı bu kurla yapılır; admin
+                                // panelden geçici, buradan kalıcı güncellenir
   },
 
   // Fiyatlandırma kuralları (K2/K3) — admin panel bunların üzerine yazabilir
@@ -44,7 +45,9 @@ GESM.config = {
     defaultMarginPct: 20,       // Enerji Pazarı varsayılan marjı (K2)
     marginBySupplier: { mexxsun: 15, enerjipazari: 20 },
     marginByCategory: {},       // ör. { "solar-paketler": 18 }
-    roundTo: 10                 // satış fiyatı yuvarlama adımı (₺)
+    roundTo: 10,                // satış fiyatı yuvarlama adımı (₺)
+    usdMarkup: 1.22,            // ACS listesi sabit marjı: saleUSD = costUSD × 1.22
+    fxBufferPct: 2              // kur tamponu (%): saleTRY = saleUSD × kur × 1.02
   },
 
   // Tedarikçiler — K1: müşteri arayüzünde ASLA gösterilmez, yalnız admin panelde

@@ -407,14 +407,16 @@
       var invW = Math.max(contW * SZ.simultaneity, maxSurge) * SZ.surgeHeadroom;
       var kwp = dailyWh / (SZ.sunHours * SZ.systemEff) / 1000;
 
-      // İnverter: gücü karşılayan en küçük model (katalog kw artan sıralı)
+      // İnverter: gücü karşılayan, FİYATI YAYINDA olan en küçük model
+      // (onRequest ürünler öneriye girmez — sepette fiyatsız kalem olmasın)
+      function invOk(c) { var p = byId(c.ref); return p && !p.onRequest; }
       var inv = null;
       for (var i = 0; i < B.catalog.inverters.length; i++) {
         var cand = B.catalog.inverters[i];
-        if (byId(cand.ref) && cand.kw * 1000 >= invW) { inv = cand; break; }
+        if (invOk(cand) && cand.kw * 1000 >= invW) { inv = cand; break; }
       }
       if (!inv) { // hiçbiri yetmiyorsa en büyüğü öner
-        for (var j = B.catalog.inverters.length - 1; j >= 0; j--) if (byId(B.catalog.inverters[j].ref)) { inv = B.catalog.inverters[j]; break; }
+        for (var j = B.catalog.inverters.length - 1; j >= 0; j--) if (invOk(B.catalog.inverters[j])) { inv = B.catalog.inverters[j]; break; }
       }
 
       // Panel
