@@ -74,6 +74,13 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 - Sayfa linkleri `.html` uzantılı; ürün `urun.html?u=id`, kategori
   `kategori.html?k=slug`, arama `kategori.html?q=...`.
 - localStorage anahtarları `gesm.` önekiyle başlar.
+- **FİYATLAR USD TABANLIDIR**: her fiyatlı üründe `saleUsd` (veya Havensis
+  `priceUsd`) bulunur; ₺ = USD × güncel kur × (1+`pricing.fxBufferPct`/100),
+  `priceOf()` içinde hesaplanır — ürünlere statik ₺ yazma. Kur kaynağı sırası:
+  admin cihaz-yerel deneme > sunucu günlük kuru (`/api/kur` → localStorage
+  `gesm.kur`) > `config.commerce.usdTry`. Günlük kur admin panelden "Kuru
+  Yayınla" ile sunucuya yazılır (`server.js` → `DATA_DIR/kur.json`, Railway'de
+  Volume önerilir); duyuru bandındaki `.fx-badge` rozeti güncel kuru gösterir.
 - Tüm fiyat gösterimi KDV dahil; havale fiyatı `havalePrice()` ile hesaplanır.
 - JSON-LD: Organization her sayfada, WebSite+SearchAction ana sayfada, Product+
   BreadcrumbList ürün sayfasında, FAQPage `sss.html`'de statik.

@@ -23,6 +23,8 @@
   function fmt(n) { return new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n) + " ₺"; }
   function fmt0(n) { return new Intl.NumberFormat("tr-TR").format(Math.round(n)) + " ₺"; }
   function fmtUsd(n) { return "$" + new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(n); }
+  function fmtUsd2(n) { return "$" + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n); }
+  function fmtKur(n) { return new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n); }
   function param(k) { return new URLSearchParams(location.search).get(k); }
   function store(k, v) {
     try {
@@ -41,12 +43,43 @@
   function prodUrl(p) { return "urun.html?u=" + encodeURIComponent(p.id); }
   function catUrl(c) { return "kategori.html?k=" + encodeURIComponent(c.slug); }
 
-  /* ================= Fiyat motoru (K2/K3) =================
-     Öncelik: admin tekil override > açık fiyat > maliyet × (1+marj)
-     Sonra toplu % ayarlamaları (global/kategori/tedarikçi) uygulanır. */
+  /* ================= Fiyat motoru (K2/K3) — USD TABANLI =================
+     TÜM fiyatlar USD tutulur (p.saleUsd | p.priceUsd); ₺ karşılık GÜNCEL
+     kurla hesaplanır: ₺ = USD × kur × (1 + fxBufferPct/100).
+     Kur öncelik sırası: admin cihaz-yerel override (gesm.admin.usdTry) >
+     sunucudan çekilen günlük kur (/api/kur → gesm.kur) > config.commerce.usdTry.
+     Admin panelden "Kuru Yayınla" tüm ziyaretçilerin kurunu günceller. */
   var ADMIN_KEY = "gesm.admin";
+  var KUR_KEY = "gesm.kur";
   function adminState() {
     return store(ADMIN_KEY) || { products: {}, adj: { global: 0, cat: {}, sup: {} }, margins: { sup: {}, cat: {} }, announcement: "" };
+  }
+  function currentKur() {
+    var st = adminState();
+    if (st.usdTry > 0) return st.usdTry; // cihaz-yerel deneme/override
+    var k = store(KUR_KEY);
+    if (k && k.usdTry > 0) return k.usdTry; // sunucudan günlük kur
+    return cfg.commerce.usdTry || 0;
+  }
+  function fxMult() { return 1 + ((cfg.pricing.fxBufferPct || 0) / 100); }
+  // Günlük kuru sunucudan tazele (3 saatte bir; API yoksa sessizce geç).
+  function initKur(done) {
+    var k = store(KUR_KEY);
+    if (k && k.at && Date.now() - k.at < 3 * 60 * 60 * 1000) { done(); return; }
+    var finished = false;
+    function finish() { if (!finished) { finished = true; done(); } }
+    var t = setTimeout(finish, 1200); // API cevapsızsa sayfayı bekletme
+    fetch("/api/kur").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (j && j.usdTry > 0) {
+        store(KUR_KEY, { usdTry: j.usdTry, updatedAt: j.updatedAt || null, at: Date.now() });
+      } else {
+        store(KUR_KEY, Object.assign({ at: Date.now() }, k || {}, { at: Date.now() }));
+      }
+      clearTimeout(t); finish();
+    }).catch(function () {
+      store(KUR_KEY, Object.assign({}, k || {}, { at: Date.now() })); // Pages: 3 saat sorma
+      clearTimeout(t); finish();
+    });
   }
   function marginFor(p, st) {
     var m;
@@ -64,11 +97,11 @@
     var ov = st.products[p.id] || {};
     var base, usd = null, list = ov.listPrice != null ? ov.listPrice : (p.listPrice || null);
     if (ov.price != null) {
-      base = ov.price; // tekil manuel fiyat — toplu ayarlamalardan etkilenmez, ₺ gösterilir
-    } else if (p.priceUsd != null) {
-      // USD fiyatlı ürün (ör. Havensis) — kur config/admin'den, ₺ karşılığı sepet için
-      usd = p.priceUsd;
-      base = p.priceUsd * (st.usdTry || cfg.commerce.usdTry || 0);
+      base = ov.price; // tekil manuel ₺ fiyat — kurdan ve toplu ayarlardan bağımsız
+    } else if (p.saleUsd != null || p.priceUsd != null) {
+      // USD tabanı: satış USD'si × güncel kur × kur tamponu → ₺
+      usd = p.saleUsd != null ? p.saleUsd : p.priceUsd;
+      base = usd * currentKur() * fxMult();
     } else {
       base = p.price != null ? p.price : (p.cost || 0) * (1 + marginFor(p, st) / 100);
       var adj = (1 + (st.adj.global || 0) / 100) * (1 + (st.adj.cat[p.cat] || 0) / 100) * (1 + (st.adj.sup[p.supplier] || 0) / 100);
@@ -145,6 +178,7 @@
   function pageActive() { return document.body.getAttribute("data-page") || ""; }
   function renderChrome() {
     var an = adminState().announcement || cfg.announcement;
+    var kurInfo = store(KUR_KEY); // günlük kur rozeti için (updatedAt)
     var mount = $("#chrome-top");
     if (mount) {
       var curCat = pageActive() === "kategori" ? param("k") : null;
@@ -189,7 +223,10 @@
         return '<a class="m-link" href="' + item.href + '">' + esc(item.label) + "</a>";
       }).join("");
       mount.innerHTML =
-        '<div class="announce">' + esc(an) + "</div>" +
+        '<div class="announce"><span class="announce-text">' + esc(an) + "</span>" +
+        '<span class="fx-badge" title="Tüm fiyatlar USD tabanlıdır ve bu kurla ₺\'ye çevrilir — kur günlük güncellenir' +
+        (kurInfo && kurInfo.updatedAt ? " (son güncelleme: " + esc(String(kurInfo.updatedAt).slice(0, 10)) + ")" : "") +
+        '">💱 1 $ = ' + fmtKur(currentKur()) + " ₺</span></div>" +
         '<header class="site-header"><div class="container header-in">' +
         '<button class="hamburger icon-btn" id="menuBtn" aria-label="Menü" aria-expanded="false">' + ICONS.menu + "</button>" +
         '<a class="logo" href="index.html"><span class="sun">☀</span><span>GES <b>MARKETİM</b></span></a>' +
@@ -293,10 +330,11 @@
     var isFav = favs().indexOf(p.id) >= 0;
     var priceHtml = p.onRequest
       ? '<div class="price-row"><span class="price" style="font-size:.98rem">Fiyat için teklif alın</span></div>'
-      : pr.usd != null
-      ? '<div class="price-row"><span class="price">' + fmtUsd(pr.usd) + '</span><div class="price-note">≈ ' + fmt0(pr.price) + " KDV dahil (güncel kur)</div></div>"
       : '<div class="price-row">' + (pr.listPrice ? '<span class="price-old">' + fmt0(pr.listPrice) + "</span>" : "") +
-        '<span class="price">' + fmt0(pr.price) + '</span><div class="price-note">KDV dahil · Havale ile ' + fmt0(havalePrice(pr.price)) + "</div></div>";
+        '<span class="price">' + fmt0(pr.price) + "</span>" +
+        '<div class="price-note">' +
+        (pr.usd != null ? "≈ " + fmtUsd(pr.usd) + " · günlük kur · " : "") +
+        "KDV dahil · Havale ile " + fmt0(havalePrice(pr.price)) + "</div></div>";
     var actions = p.onRequest
       ? '<div class="prod-actions"><a class="btn btn-sm btn-primary" href="' + prodUrl(p) + '">Teklif Al</a></div>'
       : '<div class="prod-actions"><button class="btn btn-sm btn-primary" data-add="' + p.id + '">Sepete Ekle</button>' +
@@ -732,10 +770,11 @@
       priceBox =
         '<div class="pd-price-box">' +
         (pr.listPrice ? '<span class="pd-price-old">' + fmt0(pr.listPrice) + "</span>" : "") +
-        '<span class="pd-price">' + (pr.usd != null ? fmtUsd(pr.usd) : fmt0(pr.price)) + "</span>" +
+        '<span class="pd-price">' + fmt0(pr.price) + "</span>" +
         (pr.discountPct ? '<span class="discount-badge">%' + pr.discountPct + " İNDİRİM</span>" : "") +
         (pr.usd != null
-          ? '<div class="muted small">≈ <b>' + fmt0(pr.price) + "</b> KDV dahil — güncel USD/TL kuruna göre hesaplanır, sepette ₺ olarak işlem görür.</div>"
+          ? '<div class="muted small">≈ <b>' + fmtUsd2(pr.usd) + "</b> — KDV dahil ₺ fiyat, güncel USD/TL kuruyla (" +
+            fmtKur(currentKur()) + " ₺) hesaplanır ve günlük güncellenir.</div>"
           : '<div class="muted small">KDV dahil fiyattır.</div>') +
         '<div class="havale-note">💰 Havale/EFT ile: <b>' + fmt0(havalePrice(pr.price)) + "</b> (%" + cfg.commerce.havaleDiscountPct + " indirimli)</div>" +
         '<div class="qty-row" style="margin-top:14px">' +
@@ -1120,9 +1159,13 @@
       '<p class="muted small" style="margin-top:8px">Marj, açık fiyatı olmayan ürünlerde maliyetten satış fiyatı türetmek için kullanılır (K2).</p></div>' +
       '<div class="admin-card"><h3>💱 USD/TL Kuru</h3>' +
       '<label class="fld"><span>1 USD = ₺ (USD fiyatlı ürünlerin ₺ karşılığı bu kurla hesaplanır)</span>' +
-      '<input type="number" id="adUsd" step="0.01" min="1" value="' + (st.usdTry || cfg.commerce.usdTry) + '"></label>' +
-      '<button class="btn btn-sm btn-primary" id="adUsdSave">Kaydet</button> <button class="btn btn-sm" id="adUsdReset">Varsayılana Dön</button>' +
-      '<p class="muted small" style="margin-top:8px">Varsayılan (config.js): ' + cfg.commerce.usdTry + " ₺</p></div>" +
+      '<input type="number" id="adUsd" step="0.01" min="1" value="' + (st.usdTry || currentKur()) + '"></label>' +
+      '<button class="btn btn-sm btn-primary" id="adUsdPublish">🌐 Kuru Yayınla (tüm ziyaretçiler)</button> ' +
+      '<button class="btn btn-sm" id="adUsdSave">Yalnız Bu Cihazda Dene</button> ' +
+      '<button class="btn btn-sm" id="adUsdReset">Denemeyi Sıfırla</button>' +
+      '<p class="muted small" style="margin-top:8px">Yayındaki kur: <b>' + fmtKur(currentKur()) + " ₺</b> · Varsayılan (config.js): " +
+      cfg.commerce.usdTry + " ₺<br>Tüm fiyatlar USD tabanlıdır; ₺ = USD × kur × " + fxMult().toFixed(2).replace(".", ",") +
+      " (kur tamponu). \"Kuru Yayınla\" sunucuya yazar ve TÜM ziyaretçilerde geçerli olur (Railway'de kalıcılık için DATA_DIR/Volume önerilir).</p></div>" +
       '<div class="admin-card"><h3>💾 Yedekle / Sıfırla</h3>' +
       '<button class="btn btn-sm" id="expBtn">JSON Dışa Aktar</button> ' +
       '<button class="btn btn-sm" id="impBtn">İçe Aktar</button> ' +
@@ -1177,6 +1220,24 @@
       var v = parseFloat($("#adUsd").value);
       if (v > 0) { st.usdTry = v; save(); } else toast("Geçersiz kur");
     });
+    $("#adUsdPublish").addEventListener("click", function () {
+      var v = parseFloat($("#adUsd").value);
+      if (!(v > 0)) { toast("Geçersiz kur"); return; }
+      fetch("/api/kur", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usdTry: v, pass: cfg.admin.pass })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j && j.ok) {
+          delete st.usdTry; save(); // cihaz-yerel denemeyi kaldır, yayın kuru geçerli
+          store(KUR_KEY, { usdTry: j.usdTry, updatedAt: j.updatedAt, at: Date.now() });
+          toast("Kur yayınlandı: " + fmtKur(j.usdTry) + " ₺ — tüm ziyaretçilere uygulandı");
+          setTimeout(function () { location.reload(); }, 900);
+        } else toast("Yayınlanamadı" + (j && j.error ? " (" + j.error + ")" : ""));
+      }).catch(function () {
+        toast("Sunucu API'si yok (statik yayın) — kur yalnız bu cihazda denenebilir");
+      });
+    });
     $("#adUsdReset").addEventListener("click", function () {
       delete st.usdTry; $("#adUsd").value = cfg.commerce.usdTry; save();
     });
@@ -1206,16 +1267,20 @@
 
   /* ================= Başlat ================= */
   document.addEventListener("DOMContentLoaded", function () {
-    renderChrome();
-    var page = pageActive();
-    if (page === "home") pageHome();
-    else if (page === "sistem-kur") pageBuilder();
-    else if (page === "kategori") pageCategory();
-    else if (page === "urun") pageProduct();
-    else if (page === "sepet") pageCart();
-    else if (page === "favoriler") pageFavs();
-    else if (page === "iletisim") pageContact();
-    else if (page === "admin") pageAdmin();
-    else pageContact(); // statik sayfalardaki data-c alanları için
+    // Önce günlük kur (sunucudan, önbellekli) — sonra sayfa çizimi; böylece
+    // tüm ₺ fiyatlar güncel kurla basılır.
+    initKur(function () {
+      renderChrome();
+      var page = pageActive();
+      if (page === "home") pageHome();
+      else if (page === "sistem-kur") pageBuilder();
+      else if (page === "kategori") pageCategory();
+      else if (page === "urun") pageProduct();
+      else if (page === "sepet") pageCart();
+      else if (page === "favoriler") pageFavs();
+      else if (page === "iletisim") pageContact();
+      else if (page === "admin") pageAdmin();
+      else pageContact(); // statik sayfalardaki data-c alanları için
+    });
   });
 })();
