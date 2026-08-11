@@ -1165,7 +1165,8 @@
       '<button class="btn btn-sm" id="adUsdReset">Denemeyi Sıfırla</button>' +
       '<p class="muted small" style="margin-top:8px">Yayındaki kur: <b>' + fmtKur(currentKur()) + " ₺</b> · Varsayılan (config.js): " +
       cfg.commerce.usdTry + " ₺<br>Tüm fiyatlar USD tabanlıdır; ₺ = USD × kur × " + fxMult().toFixed(2).replace(".", ",") +
-      " (kur tamponu). \"Kuru Yayınla\" sunucuya yazar ve TÜM ziyaretçilerde geçerli olur (Railway'de kalıcılık için DATA_DIR/Volume önerilir).</p></div>" +
+      " (kur tamponu). Kur, sunucu tarafından piyasa kaynağından <b>otomatik</b> güncellenir (6 saatte bir); " +
+      "\"Kuru Yayınla\" ile elle yayınlarsanız 24 saat sizin kurunuz geçerli olur (Railway'de kalıcılık için DATA_DIR/Volume önerilir).</p></div>" +
       '<div class="admin-card"><h3>💾 Yedekle / Sıfırla</h3>' +
       '<button class="btn btn-sm" id="expBtn">JSON Dışa Aktar</button> ' +
       '<button class="btn btn-sm" id="impBtn">İçe Aktar</button> ' +
