@@ -25,10 +25,16 @@ const cfg = global.GESM.config;
 const CSV = path.join(__dirname, "data", "lexron_fiyatlar_10_08_2026_marj22.csv");
 const OUT = path.join(__dirname, "data", "catalog.json");
 const IMG_DIR = path.join(__dirname, "public", "images", "products");
-const ALIAS = (() => {
+// Görsel devralma dosyası — KALICI KURAL: bir ürünün görselinde FARKLI marka
+// görünemez. Devralma yalnız AYNI MARKA içinde yapılır (kaydın kaynakMarka'sı
+// ürünün markasıyla eşleşmeli); "_dislama" listesindeki dosyalar kaynağı
+// doğrulanamadığı için exact-slug eşleşmesinde de KULLANILMAZ.
+const ALIAS_FILE = (() => {
   try { return JSON.parse(fs.readFileSync(path.join(__dirname, "data", "gorsel-eslesme.json"), "utf8")); }
   catch (e) { return {}; }
 })();
+const ALIAS = ALIAS_FILE.devralmalar || {};
+const IMG_EXCLUDE = new Set(ALIAS_FILE._dislama || []);
 
 const TR = { "Ç": "c", "Ğ": "g", "I": "i", "İ": "i", "Ö": "o", "Ş": "s", "Ü": "u", "ç": "c", "ğ": "g", "ı": "i", "ö": "o", "ş": "s", "ü": "u" };
 function slugify(s) {
@@ -87,11 +93,18 @@ const CAT_BY_NAME = { "Panel": "panel", "İnverter": "inverter", "Akü Batarya":
   "Kablo Konnektör": "kablo-konnektor" };
 
 const files = fs.readdirSync(IMG_DIR);
-function imagesFor(slug) {
-  const own = files.filter((f) => f === slug + ".webp" || f.startsWith(slug + "-"))
+function imagesFor(slug, brand) {
+  const own = files.filter((f) => (f === slug + ".webp" || f.startsWith(slug + "-")) && !IMG_EXCLUDE.has(f))
     .sort().map((f) => "public/images/products/" + f);
   if (own.length) return own;
-  return ALIAS[slug] || [];
+  const a = ALIAS[slug];
+  if (!a) return [];
+  // Markalar arası slug eşleşmesi ASLA görsel taşımaz.
+  if ((a.kaynakMarka || "").toLowerCase() !== (brand || "").toLowerCase()) {
+    console.warn("[görsel] marka uyuşmazlığı, devralma atlandı:", slug, "←", a.kaynakMarka);
+    return [];
+  }
+  return (a.img || []).filter((im) => !IMG_EXCLUDE.has(im.split("/").pop()));
 }
 
 const rows = parseCsv(fs.readFileSync(CSV, "utf8"));
@@ -122,7 +135,7 @@ for (const r of rows) {
     bestseller,
     tags: [],
     specs: {},
-    img: imagesFor(slug),
+    img: imagesFor(slug, "Lexron"),
     desc: (DESC[cat] || ((p) => p.name))({ name: r.name }),
   });
 }

@@ -48,6 +48,12 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 - **K5**: Ürün açıklamaları ÖZGÜN — rakip metin/görsel kopyalanmaz. Görseller
   SVG yer tutucu (`thumbSVG`); gerçek görsel eklenecekse `assets/img/` altına
   tedarikçi/üretici kaynaklı dosya koy, dış siteden hotlink YAPMA.
+- **K7 — GÖRSELDE MARKA KURALI**: bir ürünün görselinde FARKLI marka
+  görünemez. Görsel devralma/eşleştirme yalnız AYNI MARKA içinde yapılır —
+  `build-catalog.js` bunu zorlar (`data/gorsel-eslesme.json` kayıtlarının
+  `kaynakMarka`sı ürün markasıyla eşleşmeli; `_dislama` listesindeki kaynağı
+  doğrulanamayan dosyalar hiç kullanılmaz). Yanlış görsel, görselsizlikten
+  kötüdür → emin olunamayan ürün SVG yer tutucuda kalır.
 - "FİYAT SORUN" ürünlerinde fiyat alanı render edilmez → `onRequest: true` +
   Teklif Al formu (WhatsApp deep-link).
 - **K6 — Paket Sistemler bu aşamada YOK** (aşamalı kurulum): kendi
