@@ -1,155 +1,167 @@
 {
- "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim": [
-  "public/images/products/285w-half-cut-monokristal-gunes-paneli.webp"
+ "_kural": "Görsel devri yalnız AYNI MARKA içinde yapılır (kaynakMarka ürün markasıyla eşleşmeli); _dislama'daki dosyalar kaynağı doğrulanamadığı için kullanılmaz.",
+ "_dislama": [
+  "100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya.webp",
+  "10a-pwm-sarj-kontrol-cihazi.webp",
+  "120hp-90kw-solar-pompa-inverteri-yeni-nesil.webp",
+  "195w-16bb-etfe-esnek-topcon-gunes-paneli-ecosol.webp",
+  "200w-solar-projektor-1.webp",
+  "314ah-51-2v-premium-serisi-lityum-batarya-1.webp",
+  "3lu-branch.webp",
+  "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli-kopya.webp",
+  "8kw-hv-mppt-akilli-inverter-48v.webp",
+  "gprs-kit.webp",
+  "mc4-konnektor-1500v.webp",
+  "orta-tutucu.webp",
+  "sonlandirici.webp"
  ],
- "175w-half-cut-topcon-mono-gunes-paneli": [
-  "public/images/products/175w-half-cut-topcon-gunes-paneli.webp"
- ],
- "140w-ecosol-half-cut-topcon-mono-gunes-paneli": [
-  "public/images/products/140w-half-cut-topcon-gunes-paneli.webp"
- ],
- "160w-32-cell-16bb-half-cut-topcon-gunes-paneli": [
-  "public/images/products/160w-monokristal-gunes-paneli.webp"
- ],
- "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli": [
-  "public/images/products/655w-half-cut-topcon-mono-gunes-paneli.webp"
- ],
- "100ah-12-8v-lityum-batarya": [
-  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120.webp",
-  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-2.webp",
-  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-3.webp",
-  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-4.webp",
-  "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-5.webp"
- ],
- "100ah-25-6v-lityum-batarya": [
-  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154.webp",
-  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-2.webp",
-  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-3.webp",
-  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-4.webp",
-  "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-5.webp"
- ],
- "100ah-48v-lityum-batarya": [
-  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074.webp",
-  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-2.webp",
-  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-3.webp",
-  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-4.webp",
-  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-5.webp",
-  "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-6.webp"
- ],
- "200ah-12-8v-lityum-batarya": [
-  "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"
- ],
- "15ah-12v-nano-karbon-jel-aku": [
-  "public/images/products/14ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "43ah-12v-nano-karbon-jel-aku": [
-  "public/images/products/42ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "70ah-12v-nano-karbon-jel-aku": [
-  "public/images/products/65ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "7ah-12v-agm-aku": [
-  "public/images/products/7ah-lexron-agm-aku.webp"
- ],
- "7-2ah-12v-agm-aku": [
-  "public/images/products/7-2ah-lexron-agm-aku.webp"
- ],
- "12ah-12v-agm-aku": [
-  "public/images/products/12ah-12v-lexron-agm-aku.webp"
- ],
- "105ah-12v-nano-karbon-jel-aku": [
-  "public/images/products/105ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "160ah-12v-nano-karbon-jel-aku": [
-  "public/images/products/160ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "210ah-12v-nano-karbon-jel-aku": [
-  "public/images/products/210ah-lexron-nano-karbon-jel-aku-1.webp"
- ],
- "25ah-12v-nano-karbon-jel-aku": [
-  "public/images/products/24ah-lexron-nano-karbon-jel-aku.webp"
- ],
- "9ah-12v-agm-aku": [
-  "public/images/products/9ah-lexron-agm-aku.webp"
- ],
- "11kw-hv-2xmppt-akilli-inverter-48v": [
-  "public/images/products/11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1.webp"
- ],
- "6-2kw-hv-mppt-akilli-inverter-48v": [
-  "public/images/products/6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir.webp"
- ],
- "3kw-hv-mppt-akilli-inverter-24v": [
-  "public/images/products/3kw-on-grid-monofaze-inverter-1.webp"
- ],
- "60hp-45kw-solar-pompa-inverter-yeni-nesil": [
-  "public/images/products/60hp-solar-pompa-inverter-yeni-nesil.webp"
- ],
- "3hp-2-2kw-3x220v-solar-pompa-inverteri": [
-  "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893.webp",
-  "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-2.webp",
-  "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-3.webp",
-  "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-4.webp",
-  "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-5.webp"
- ],
- "3hp-2-2kw-380v-solar-pompa-inverteri": [
-  "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220.webp",
-  "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-2.webp",
-  "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-3.webp",
-  "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-4.webp",
-  "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-5.webp"
- ],
- "7-5hp-5-5kw-solar-pompa-inverter-yeni-nesil": [
-  "public/images/products/7-5hp-solar-pompa-inverter-yeni-nesil.webp"
- ],
- "10hp-7-5kw-solar-pompa-inverter-yeni-nesil": [
-  "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc.webp",
-  "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-2.webp",
-  "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-3.webp",
-  "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-4.webp",
-  "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-5.webp"
- ],
- "15hp-11kw-solar-pompa-inverter-yeni-nesil": [
-  "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu.webp",
-  "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-2.webp",
-  "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-3.webp",
-  "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-4.webp",
-  "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-5.webp"
- ],
- "20hp-15kw-solar-pompa-inverter-yeni-nesil": [
-  "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899.webp",
-  "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-2.webp",
-  "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-3.webp",
-  "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-4.webp",
-  "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-5.webp"
- ],
- "25hp-18-5kwsolar-pompa-inverter-yeni-nesil": [
-  "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu.webp",
-  "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-2.webp",
-  "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-3.webp",
-  "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-4.webp",
-  "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-5.webp"
- ],
- "30hp-22kw-solar-pompa-inverter-yeni-nesil": [
-  "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901.webp",
-  "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-2.webp",
-  "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-3.webp",
-  "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-4.webp",
-  "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-5.webp"
- ],
- "40hp-30kw-solar-pompa-inverter-yeni-nesil": [
-  "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156.webp",
-  "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-2.webp",
-  "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-3.webp",
-  "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-4.webp",
-  "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-5.webp"
- ],
- "2li-t-branch": [
-  "public/images/products/t-branch.webp"
- ],
- "6mm2-solar-kablo": [
-  "public/images/products/6mm-solar-kablo.webp"
- ],
- "4mm2-solar-kablo": [
-  "public/images/products/4mm-solar-kablo.webp"
- ]
+ "devralmalar": {
+  "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim": {
+   "img": [
+    "public/images/products/285w-half-cut-monokristal-gunes-paneli.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "285 W Half-Cut Monokristal Güneş Paneli"
+  },
+  "175w-half-cut-topcon-mono-gunes-paneli": {
+   "img": [
+    "public/images/products/175w-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "175 W Half-Cut TopCon Güneş Paneli"
+  },
+  "140w-ecosol-half-cut-topcon-mono-gunes-paneli": {
+   "img": [
+    "public/images/products/140w-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "140 W Half-Cut TopCon Güneş Paneli"
+  },
+  "160w-32-cell-16bb-half-cut-topcon-gunes-paneli": {
+   "img": [
+    "public/images/products/160w-monokristal-gunes-paneli.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "160 W 32-Cell 16BB Half-Cut TopCon Güneş Paneli"
+  },
+  "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli": {
+   "img": [
+    "public/images/products/655w-half-cut-topcon-mono-gunes-paneli.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "655 W Half-Cut TopCon Monokristal Güneş Paneli"
+  },
+  "200ah-12-8v-lityum-batarya": {
+   "img": [
+    "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "200 Ah 12,8V LiFePO4 Lityum Akü — ABS Bluetooth (2,56 kWh)"
+  },
+  "15ah-12v-nano-karbon-jel-aku": {
+   "img": [
+    "public/images/products/14ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 15 Ah 12V Nano Karbon Jel Akü"
+  },
+  "43ah-12v-nano-karbon-jel-aku": {
+   "img": [
+    "public/images/products/42ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 43 Ah 12V Nano Karbon Jel Akü"
+  },
+  "70ah-12v-nano-karbon-jel-aku": {
+   "img": [
+    "public/images/products/65ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 70 Ah 12V Nano Karbon Jel Akü"
+  },
+  "7ah-12v-agm-aku": {
+   "img": [
+    "public/images/products/7ah-lexron-agm-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 7 Ah 12V AGM Akü"
+  },
+  "7-2ah-12v-agm-aku": {
+   "img": [
+    "public/images/products/7-2ah-lexron-agm-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 7,2 Ah 12V AGM Akü"
+  },
+  "12ah-12v-agm-aku": {
+   "img": [
+    "public/images/products/12ah-12v-lexron-agm-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 12 Ah 12V AGM Akü"
+  },
+  "105ah-12v-nano-karbon-jel-aku": {
+   "img": [
+    "public/images/products/105ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 105 Ah 12V Nano Karbon Jel Akü"
+  },
+  "160ah-12v-nano-karbon-jel-aku": {
+   "img": [
+    "public/images/products/160ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 160 Ah 12V Nano Karbon Jel Akü"
+  },
+  "210ah-12v-nano-karbon-jel-aku": {
+   "img": [
+    "public/images/products/210ah-lexron-nano-karbon-jel-aku-1.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 210 Ah 12V Nano Karbon Jel Akü"
+  },
+  "25ah-12v-nano-karbon-jel-aku": {
+   "img": [
+    "public/images/products/24ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 25 Ah 12V Nano Karbon Jel Akü"
+  },
+  "9ah-12v-agm-aku": {
+   "img": [
+    "public/images/products/9ah-lexron-agm-aku.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 9 Ah 12V AGM Akü"
+  },
+  "11kw-hv-2xmppt-akilli-inverter-48v": {
+   "img": [
+    "public/images/products/11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "11 kW 2×100A MPPT Akıllı İnverter (Paralellenebilir)"
+  },
+  "6-2kw-hv-mppt-akilli-inverter-48v": {
+   "img": [
+    "public/images/products/6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "Lexron 6,2 kW HV MPPT Akıllı İnverter 48V"
+  },
+  "60hp-45kw-solar-pompa-inverter-yeni-nesil": {
+   "img": [
+    "public/images/products/60hp-solar-pompa-inverter-yeni-nesil.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "60 Hp Solar Pompa İnverter Yeni Nesil"
+  },
+  "7-5hp-5-5kw-solar-pompa-inverter-yeni-nesil": {
+   "img": [
+    "public/images/products/7-5hp-solar-pompa-inverter-yeni-nesil.webp"
+   ],
+   "kaynakMarka": "Lexron",
+   "kaynakUrun": "7,5 Hp Solar Pompa İnverter Yeni Nesil"
+  }
+ }
 }

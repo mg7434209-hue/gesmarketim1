@@ -244,7 +244,6 @@
    "tags": [],
    "specs": {},
    "img": [
-    "public/images/products/450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli-kopya.webp",
     "public/images/products/450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli.webp"
    ],
    "desc": "450W BIFACIAL 78 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
@@ -308,9 +307,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/195w-16bb-etfe-esnek-topcon-gunes-paneli-ecosol.webp"
-   ],
+   "img": [],
    "desc": "195W 16BB ETFE ESNEK TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
   },
   {
@@ -340,13 +337,7 @@
    "bestseller": true,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120.webp",
-    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-2.webp",
-    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-3.webp",
-    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-4.webp",
-    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-5.webp"
-   ],
+   "img": [],
    "desc": "100AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -360,13 +351,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154.webp",
-    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-2.webp",
-    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-3.webp",
-    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-4.webp",
-    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-5.webp"
-   ],
+   "img": [],
    "desc": "100AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -380,14 +365,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074.webp",
-    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-2.webp",
-    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-3.webp",
-    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-4.webp",
-    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-5.webp",
-    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-6.webp"
-   ],
+   "img": [],
    "desc": "100AH 48V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -401,9 +379,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya.webp"
-   ],
+   "img": [],
    "desc": "100AH 51.2V PREMİUM SERİSİ (DUVAR TİPİ) LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -434,7 +410,6 @@
    "tags": [],
    "specs": {},
    "img": [
-    "public/images/products/314ah-51-2v-premium-serisi-lityum-batarya-1.webp",
     "public/images/products/314ah-51-2v-premium-serisi-lityum-batarya.webp"
    ],
    "desc": "314AH 51.2V PREMİUM SERİSİ LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
@@ -688,9 +663,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/8kw-hv-mppt-akilli-inverter-48v.webp"
-   ],
+   "img": [],
    "desc": "8KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
   },
   {
@@ -720,9 +693,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/3kw-on-grid-monofaze-inverter-1.webp"
-   ],
+   "img": [],
    "desc": "3KW HV MPPT AKILLI İNVERTER 24V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
   },
   {
@@ -736,9 +707,7 @@
    "bestseller": true,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/gprs-kit.webp"
-   ],
+   "img": [],
    "desc": "GPRS KİT — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -814,9 +783,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/120hp-90kw-solar-pompa-inverteri-yeni-nesil.webp"
-   ],
+   "img": [],
    "desc": "120HP 90KW SOLAR POMPA INVERTERİ (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -862,13 +829,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893.webp",
-    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-2.webp",
-    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-3.webp",
-    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-4.webp",
-    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-5.webp"
-   ],
+   "img": [],
    "desc": "3HP 2.2kW (3x220V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -882,13 +843,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220.webp",
-    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-2.webp",
-    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-3.webp",
-    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-4.webp",
-    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-5.webp"
-   ],
+   "img": [],
    "desc": "3HP 2.2KW (380V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -932,13 +887,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc.webp",
-    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-2.webp",
-    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-3.webp",
-    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-4.webp",
-    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-5.webp"
-   ],
+   "img": [],
    "desc": "10HP 7.5KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -952,13 +901,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu.webp",
-    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-2.webp",
-    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-3.webp",
-    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-4.webp",
-    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-5.webp"
-   ],
+   "img": [],
    "desc": "15HP 11KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -972,13 +915,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899.webp",
-    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-2.webp",
-    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-3.webp",
-    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-4.webp",
-    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-5.webp"
-   ],
+   "img": [],
    "desc": "20HP 15KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -992,13 +929,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu.webp",
-    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-2.webp",
-    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-3.webp",
-    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-4.webp",
-    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-5.webp"
-   ],
+   "img": [],
    "desc": "25HP 18.5KWSOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -1012,13 +943,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901.webp",
-    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-2.webp",
-    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-3.webp",
-    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-4.webp",
-    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-5.webp"
-   ],
+   "img": [],
    "desc": "30HP 22KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -1032,13 +957,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156.webp",
-    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-2.webp",
-    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-3.webp",
-    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-4.webp",
-    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-5.webp"
-   ],
+   "img": [],
    "desc": "40HP 30KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -1129,7 +1048,6 @@
    "tags": [],
    "specs": {},
    "img": [
-    "public/images/products/200w-solar-projektor-1.webp",
     "public/images/products/200w-solar-projektor.webp"
    ],
    "desc": "200W SOLAR PROJEKTÖR — şebekesiz solar aydınlatma; gün içinde şarj olur, karanlıkta otomatik çalışır."
@@ -1161,9 +1079,7 @@
    "bestseller": true,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/mc4-konnektor-1500v.webp"
-   ],
+   "img": [],
    "desc": "MC4 KONNEKTÖR -1500V — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
   },
   {
@@ -1177,9 +1093,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/t-branch.webp"
-   ],
+   "img": [],
    "desc": "2Lİ T BRANCH — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
   },
   {
@@ -1193,9 +1107,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/3lu-branch.webp"
-   ],
+   "img": [],
    "desc": "3LÜ BRANCH — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
   },
   {
@@ -1209,9 +1121,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/orta-tutucu.webp"
-   ],
+   "img": [],
    "desc": "ORTA TUTUCU — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
   },
   {
@@ -1225,9 +1135,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/sonlandirici.webp"
-   ],
+   "img": [],
    "desc": "SONLANDIRICI — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
   },
   {
@@ -1241,9 +1149,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/6mm-solar-kablo.webp"
-   ],
+   "img": [],
    "desc": "6mm2 SOLAR KABLO — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
   },
   {
@@ -1257,9 +1163,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/4mm-solar-kablo.webp"
-   ],
+   "img": [],
    "desc": "4mm2 SOLAR KABLO — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
   },
   {
@@ -1401,9 +1305,7 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [
-    "public/images/products/10a-pwm-sarj-kontrol-cihazi.webp"
-   ],
+   "img": [],
    "desc": "10A PWM ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
   }
  ]
