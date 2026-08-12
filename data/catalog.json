@@ -1,0 +1,1410 @@
+{
+ "phase": "lexron",
+ "priceDate": "2026-08-10",
+ "categories": [
+  {
+   "sortOrder": 1,
+   "slug": "panel",
+   "name": "Panel",
+   "icon": "☀️",
+   "desc": "Polikristal, monokristal ve TopCon güneş panelleri — 12 W'tan 750 W'a.",
+   "seo": "Güneş paneli seçerken ilk bakılacak değer panel gücüdür (Wp). Karavan ve küçük sistemlerde 100–300 W, ev tipi ve tarımsal sistemlerde 450–750 W TopCon paneller çatı alanından ve kablolamadan tasarruf sağlar. Kaç panel gerektiğini bilmiyorsanız Sistem Kurucu'ya cihazlarınızı girin, doğru gücü önersin."
+  },
+  {
+   "sortOrder": 2,
+   "slug": "inverter",
+   "name": "İnverter",
+   "icon": "⚡",
+   "desc": "HV MPPT akıllı inverterler ve modifiye sinüs çeviriciler.",
+   "seo": "Akıllı inverterler MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştirir; şebekesiz bağ evi ve karavan sistemlerinin kalbidir. Seçimde üç değer kritiktir: sürekli çıkış gücü (kW), akü voltajı (24/48V) ve maksimum PV giriş gerilimi."
+  },
+  {
+   "sortOrder": 3,
+   "slug": "aku-batarya",
+   "name": "Akü Batarya",
+   "icon": "🔋",
+   "desc": "LiFePO4 lityum bataryalar, nano karbon jel ve AGM aküler.",
+   "seo": "LiFePO4 lityum bataryalar jel akülere göre kat kat uzun çevrim ömrü ve %90'a varan kullanılabilir kapasite sunar. Voltaj seçimi inverterinize göre yapılır: 12V küçük sistemler, 24V orta boy, 48/51,2V ev tipi. Jel aküler ekonomik başlangıç ve yedek güç için uygundur (%50 deşarj)."
+  },
+  {
+   "sortOrder": 4,
+   "slug": "sarj-kontrol",
+   "name": "Şarj Kontrol",
+   "icon": "🎛️",
+   "desc": "PWM ve MPPT şarj kontrol cihazları — 10A'dan 80A'ya.",
+   "seo": "Şarj regülatörü panelden gelen enerjiyi aküye güvenle aktarır. PWM ekonomiktir; MPPT panelden %20–30 daha fazla hasat yapar ve yüksek voltajlı dizilere izin verir. Amper seçimi: panel gücü ÷ akü voltajı × 1,25."
+  },
+  {
+   "sortOrder": 5,
+   "slug": "solar-pompa",
+   "name": "Solar Pompa",
+   "icon": "💧",
+   "desc": "Solar pompa inverterleri 3 Hp – 210 Hp ve sulama ekipmanları.",
+   "seo": "Güneş enerjili tarımsal sulama mazot ve şebeke maliyetini sıfırlar; pompa inverteri panellerden gelen DC enerjiyi mevcut trifaze dalgıç pompanıza uygun AC'ye çevirir. Sürücü gücü pompa etiketinin bir üst kademesi, panel gücü pompanın ~1,3 katı seçilmelidir."
+  },
+  {
+   "sortOrder": 6,
+   "slug": "aydinlatma",
+   "name": "Aydınlatma",
+   "icon": "💡",
+   "desc": "Solar aydınlatma armatürleri ve projektörler.",
+   "seo": "Solar aydınlatmalar şebeke gerektirmeden bahçe, tarla ve tesis çevresini aydınlatır; gün içinde şarj olur, karanlıkta otomatik yanar. Watt değeri aydınlatılacak alanla orantılı seçilir."
+  },
+  {
+   "sortOrder": 7,
+   "slug": "kablo-konnektor",
+   "name": "Kablo Konnektör",
+   "icon": "🔌",
+   "desc": "Solar kablo, MC4 konnektör, branch ve panel tutucular.",
+   "seo": "Doğru kesitte solar kablo gerilim düşümünü, kaliteli MC4 konnektör temas direncini önler. 100 metreye kadar %2 gerilim düşümü hedeflenmelidir; paralel dizilerde T-branch konnektör kullanılır."
+  }
+ ],
+ "products": [
+  {
+   "id": "12w-polikristal-gunes-paneli",
+   "code": "GM-12WPOLIKRISTAL",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "12W POLİKRİSTAL GÜNEŞ PANELİ",
+   "saleUsd": 15.85,
+   "inStock": true,
+   "bestseller": true,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/12w-polikristal-gunes-paneli.webp"
+   ],
+   "desc": "12W POLİKRİSTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "25w-polikristal-gunes-paneli",
+   "code": "GM-25WPOLIKRISTAL",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "25W POLİKRİSTAL GÜNEŞ PANELİ",
+   "saleUsd": 25.73,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/25w-polikristal-gunes-paneli.webp"
+   ],
+   "desc": "25W POLİKRİSTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "350w-polykristal-gunes-paneli",
+   "code": "GM-350WPOLYKRISTA",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "350W POLYKRISTAL GÜNEŞ PANELİ",
+   "saleUsd": 109.65,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [],
+   "desc": "350W POLYKRISTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "350w-ecosol-polykristal-gunes-paneli",
+   "code": "GM-350WECOSOLPOLY",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "350W ECOSOL POLYKRISTAL GÜNEŞ PANELİ",
+   "saleUsd": 92.5,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/350w-ecosol-polykristal-gunes-paneli.webp"
+   ],
+   "desc": "350W ECOSOL POLYKRISTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "55w-monokristal-gunes-paneli",
+   "code": "GM-55WMONOKRISTAL",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "55W MONOKRİSTAL GÜNEŞ PANELİ",
+   "saleUsd": 49.24,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/55w-monokristal-gunes-paneli.webp"
+   ],
+   "desc": "55W MONOKRİSTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim",
+   "code": "GM-285W16BBHALFCU",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "285W 16BB HALF-CUT TOPCON MONO GÜNEŞ PANELİ -KARAVAN ÖZEL ÜRETİM",
+   "saleUsd": 140.31,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/285w-half-cut-monokristal-gunes-paneli.webp"
+   ],
+   "desc": "285W 16BB HALF-CUT TOPCON MONO GÜNEŞ PANELİ -KARAVAN ÖZEL ÜRETİM — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "175w-half-cut-topcon-mono-gunes-paneli",
+   "code": "GM-175WHALFCUTTOP",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "175W HALF-CUT TOPCON MONO GÜNEŞ PANELİ",
+   "saleUsd": 88.77,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/175w-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "desc": "175W HALF-CUT TOPCON MONO GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "140w-ecosol-half-cut-topcon-mono-gunes-paneli",
+   "code": "GM-140WECOSOLHALF",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "140W ECOSOL HALF-CUT TOPCON MONO GÜNEŞ PANELİ",
+   "saleUsd": 73.1,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/140w-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "desc": "140W ECOSOL HALF-CUT TOPCON MONO GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "330w-64-cell-16bb-half-cut-topcon-gunes-paneli",
+   "code": "GM-330W64CELL16BB",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "330W 64 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 130.47,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [],
+   "desc": "330W 64 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "240w-48-cell-16bb-half-cut-topcon-gunes-paneli",
+   "code": "GM-240W48CELL16BB",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "240W 48 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 116.36,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/240w-48-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "desc": "240W 48 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "160w-32-cell-16bb-half-cut-topcon-gunes-paneli",
+   "code": "GM-160W32CELL16BB",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "160W 32 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 83.55,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/160w-monokristal-gunes-paneli.webp"
+   ],
+   "desc": "160W 32 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli",
+   "code": "GM-450WBIFACIAL78",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "450W BIFACIAL 78 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 161.13,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli-kopya.webp",
+    "public/images/products/450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "desc": "450W BIFACIAL 78 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli",
+   "code": "GM-750WBIFACIAL13",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "750W BIFACIAL 132 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 223.78,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "desc": "750W BIFACIAL 132 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli",
+   "code": "GM-655W132CELL16B",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "655W 132 CELL 16BB HALF-CUT TOPCON 16BB GÜNEŞ PANELİ",
+   "saleUsd": 214.99,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/655w-half-cut-topcon-mono-gunes-paneli.webp"
+   ],
+   "desc": "655W 132 CELL 16BB HALF-CUT TOPCON 16BB GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "220w-16bb-etfe-210r-esnek-topcon-gunes-paneli",
+   "code": "GM-220W16BBETFE21",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "220W 16BB ETFE 210R ESNEK TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 590.8,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/220w-16bb-etfe-210r-esnek-topcon-gunes-paneli.webp"
+   ],
+   "desc": "220W 16BB ETFE 210R ESNEK TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "195w-16bb-etfe-esnek-topcon-gunes-paneli",
+   "code": "GM-195W16BBETFEES",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "195W 16BB ETFE ESNEK TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 523.66,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/195w-16bb-etfe-esnek-topcon-gunes-paneli-ecosol.webp"
+   ],
+   "desc": "195W 16BB ETFE ESNEK TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "390w-78-cell-16bb-half-cut-topcon-gunes-paneli",
+   "code": "GM-390W78CELL16BB",
+   "cat": "panel",
+   "brand": "Lexron",
+   "name": "390W 78 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ",
+   "saleUsd": 149.19,
+   "inStock": false,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/390w-78-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+   ],
+   "desc": "390W 78 CELL 16BB HALF-CUT TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+  },
+  {
+   "id": "100ah-12-8v-lityum-batarya",
+   "code": "GM-100AH128VLITYU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "100AH 12.8V LİTYUM BATARYA",
+   "saleUsd": 440.12,
+   "inStock": true,
+   "bestseller": true,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120.webp",
+    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-2.webp",
+    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-3.webp",
+    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-4.webp",
+    "public/images/products/lityum-aku-12-8v-100ah-lifepo4-1280wh-3120-5.webp"
+   ],
+   "desc": "100AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "100ah-25-6v-lityum-batarya",
+   "code": "GM-100AH256VLITYU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "100AH 25.6V LİTYUM BATARYA",
+   "saleUsd": 738.5,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154.webp",
+    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-2.webp",
+    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-3.webp",
+    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-4.webp",
+    "public/images/products/lityum-aku-25-6v-100ah-lifepo4-2560wh-3154-5.webp"
+   ],
+   "desc": "100AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "100ah-48v-lityum-batarya",
+   "code": "GM-100AH48VLITYUM",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "100AH 48V LİTYUM BATARYA",
+   "saleUsd": 1081.64,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074.webp",
+    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-2.webp",
+    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-3.webp",
+    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-4.webp",
+    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-5.webp",
+    "public/images/products/lityum-aku-48v-100ah-lifepo4-3074-6.webp"
+   ],
+   "desc": "100AH 48V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya",
+   "code": "GM-100AH512VPREMI",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "100AH 51.2V PREMİUM SERİSİ (DUVAR TİPİ) LİTYUM BATARYA",
+   "saleUsd": 1387.48,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya.webp"
+   ],
+   "desc": "100AH 51.2V PREMİUM SERİSİ (DUVAR TİPİ) LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "200ah-25-6v-lityum-batarya",
+   "code": "GM-200AH256VLITYU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "200AH 25.6V LİTYUM BATARYA",
+   "saleUsd": 1268.13,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/200ah-25-6v-lityum-batarya.webp"
+   ],
+   "desc": "200AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "314ah-51-2v-premium-serisi-lityum-batarya",
+   "code": "GM-314AH512VPREMI",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "314AH 51.2V PREMİUM SERİSİ LİTYUM BATARYA",
+   "saleUsd": 3878.98,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/314ah-51-2v-premium-serisi-lityum-batarya-1.webp",
+    "public/images/products/314ah-51-2v-premium-serisi-lityum-batarya.webp"
+   ],
+   "desc": "314AH 51.2V PREMİUM SERİSİ LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "100ah-51-2v-premium-serisi-lityum-batarya",
+   "code": "GM-100AH512VPREMI",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "100AH 51.2V PREMİUM SERİSİ LİTYUM BATARYA",
+   "saleUsd": 1268.13,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [],
+   "desc": "100AH 51.2V PREMİUM SERİSİ LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "200ah-12-8v-lityum-batarya",
+   "code": "GM-200AH128VLITYU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "200AH 12.8V LİTYUM BATARYA",
+   "saleUsd": 738.5,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"
+   ],
+   "desc": "200AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "15ah-12v-nano-karbon-jel-aku",
+   "code": "GM-15AH12VNANOKAR",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "15AH-12V NANO-KARBON JEL AKÜ",
+   "saleUsd": 37.3,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/14ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "desc": "15AH-12V NANO-KARBON JEL AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "43ah-12v-nano-karbon-jel-aku",
+   "code": "GM-43AH12VNANOKAR",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "43AH-12V NANO-KARBON JEL AKÜ",
+   "saleUsd": 91.01,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/42ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "desc": "43AH-12V NANO-KARBON JEL AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "70ah-12v-nano-karbon-jel-aku",
+   "code": "GM-70AH12VNANOKAR",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "70AH-12V NANO-KARBON JEL AKÜ",
+   "saleUsd": 133.53,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/65ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "desc": "70AH-12V NANO-KARBON JEL AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "7ah-12v-agm-aku",
+   "code": "GM-7AH12VAGMAKU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "7AH-12V AGM AKÜ",
+   "saleUsd": 11.93,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/7ah-lexron-agm-aku.webp"
+   ],
+   "desc": "7AH-12V AGM AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "7-2ah-12v-agm-aku",
+   "code": "GM-72AH12VAGMAKU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "7.2AH-12V AGM AKÜ",
+   "saleUsd": 14.18,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/7-2ah-lexron-agm-aku.webp"
+   ],
+   "desc": "7.2AH-12V AGM AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "12ah-12v-agm-aku",
+   "code": "GM-12AH12VAGMAKU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "12AH-12V AGM AKÜ",
+   "saleUsd": 21.63,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/12ah-12v-lexron-agm-aku.webp"
+   ],
+   "desc": "12AH-12V AGM AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "105ah-12v-nano-karbon-jel-aku",
+   "code": "GM-105AH12VNANOKA",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "105AH-12V NANO-KARBON JEL AKÜ",
+   "saleUsd": 201.41,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/105ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "desc": "105AH-12V NANO-KARBON JEL AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "160ah-12v-nano-karbon-jel-aku",
+   "code": "GM-160AH12VNANOKA",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "160AH-12V NANO-KARBON JEL AKÜ",
+   "saleUsd": 305.84,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/160ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "desc": "160AH-12V NANO-KARBON JEL AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "210ah-12v-nano-karbon-jel-aku",
+   "code": "GM-210AH12VNANOKA",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "210AH-12V NANO-KARBON JEL AKÜ",
+   "saleUsd": 402.82,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/210ah-lexron-nano-karbon-jel-aku-1.webp"
+   ],
+   "desc": "210AH-12V NANO-KARBON JEL AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "25ah-12v-nano-karbon-jel-aku",
+   "code": "GM-25AH12VNANOKAR",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "25AH-12V NANO-KARBON JEL AKÜ",
+   "saleUsd": 44.01,
+   "inStock": false,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/24ah-lexron-nano-karbon-jel-aku.webp"
+   ],
+   "desc": "25AH-12V NANO-KARBON JEL AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "9ah-12v-agm-aku",
+   "code": "GM-9AH12VAGMAKU",
+   "cat": "aku-batarya",
+   "brand": "Lexron",
+   "name": "9AH-12V AGM AKÜ",
+   "saleUsd": 18.65,
+   "inStock": false,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/9ah-lexron-agm-aku.webp"
+   ],
+   "desc": "9AH-12V AGM AKÜ — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+  },
+  {
+   "id": "2000w-24v-modifiye-sinus-inverter",
+   "code": "GM-2000W24VMODIFI",
+   "cat": "inverter",
+   "brand": "Lexron",
+   "name": "2000W-24V MODİFİYE SİNÜS İNVERTER",
+   "saleUsd": 131.28,
+   "inStock": true,
+   "bestseller": true,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/2000w-24v-modifiye-sinus-inverter-1.webp"
+   ],
+   "desc": "2000W-24V MODİFİYE SİNÜS İNVERTER — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
+  },
+  {
+   "id": "11kw-hv-2xmppt-akilli-inverter-48v",
+   "code": "GM-11KWHV2XMPPTAK",
+   "cat": "inverter",
+   "brand": "Lexron",
+   "name": "11KW HV 2XMPPT AKILLI INVERTER 48V",
+   "saleUsd": 872.78,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1.webp"
+   ],
+   "desc": "11KW HV 2XMPPT AKILLI INVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
+  },
+  {
+   "id": "8kw-hv-mppt-akilli-inverter-48v",
+   "code": "GM-8KWHVMPPTAKILL",
+   "cat": "inverter",
+   "brand": "Lexron",
+   "name": "8KW HV MPPT AKILLI İNVERTER 48V",
+   "saleUsd": 716.12,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/8kw-hv-mppt-akilli-inverter-48v.webp"
+   ],
+   "desc": "8KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
+  },
+  {
+   "id": "6-2kw-hv-mppt-akilli-inverter-48v",
+   "code": "GM-62KWHVMPPTAKIL",
+   "cat": "inverter",
+   "brand": "Lexron",
+   "name": "6.2KW HV MPPT AKILLI İNVERTER 48V",
+   "saleUsd": 417.74,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir.webp"
+   ],
+   "desc": "6.2KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
+  },
+  {
+   "id": "3kw-hv-mppt-akilli-inverter-24v",
+   "code": "GM-3KWHVMPPTAKILL",
+   "cat": "inverter",
+   "brand": "Lexron",
+   "name": "3KW HV MPPT AKILLI İNVERTER 24V",
+   "saleUsd": 238.71,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/3kw-on-grid-monofaze-inverter-1.webp"
+   ],
+   "desc": "3KW HV MPPT AKILLI İNVERTER 24V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
+  },
+  {
+   "id": "gprs-kit",
+   "code": "GM-GPRSKIT",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "GPRS KİT",
+   "saleUsd": 268.55,
+   "inStock": true,
+   "bestseller": true,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/gprs-kit.webp"
+   ],
+   "desc": "GPRS KİT — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "dc-sigorta-1000v-30a",
+   "code": "GM-DCSIGORTA1000V",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "DC SIGORTA 1000V 30A",
+   "saleUsd": 11.93,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/dc-sigorta-1000v-30a.webp"
+   ],
+   "desc": "DC SIGORTA 1000V 30A — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "5-5hp-4kw-3x220v-solar-pompa-inverteri",
+   "code": "GM-55HP4KW3X220VS",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "5.5HP 4kW (3x220V) SOLAR POMPA INVERTERİ",
+   "saleUsd": 328.22,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [],
+   "desc": "5.5HP 4kW (3x220V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "210hp-160kw-solar-pompa-inverteri-yeni-nesil",
+   "code": "GM-210HP160KWSOLA",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "210HP 160KW SOLAR POMPA INVERTERİ (YENİ NESİL)",
+   "saleUsd": 5893.06,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/210hp-160kw-solar-pompa-inverteri-yeni-nesil.webp"
+   ],
+   "desc": "210HP 160KW SOLAR POMPA INVERTERİ (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "180hp-132kw-solar-pompa-inverteri-yeni-nesil",
+   "code": "GM-180HP132KWSOLA",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "180HP 132KW SOLAR POMPA INVERTERİ (YENİ NESİL)",
+   "saleUsd": 5221.7,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/180hp-132kw-solar-pompa-inverteri-yeni-nesil.webp"
+   ],
+   "desc": "180HP 132KW SOLAR POMPA INVERTERİ (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "120hp-90kw-solar-pompa-inverteri-yeni-nesil",
+   "code": "GM-120HP90KWSOLAR",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "120HP 90KW SOLAR POMPA INVERTERİ (YENİ NESİL)",
+   "saleUsd": 3207.61,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/120hp-90kw-solar-pompa-inverteri-yeni-nesil.webp"
+   ],
+   "desc": "120HP 90KW SOLAR POMPA INVERTERİ (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "60hp-45kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-60HP45KWSOLARP",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "60HP 45KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 1939.5,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/60hp-solar-pompa-inverter-yeni-nesil.webp"
+   ],
+   "desc": "60HP 45KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "dc-sigorta-1000v-15a",
+   "code": "GM-DCSIGORTA1000V",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "DC SIGORTA 1000V 15A",
+   "saleUsd": 8.81,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/dc-sigorta-1000v-15a.webp"
+   ],
+   "desc": "DC SIGORTA 1000V 15A — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "3hp-2-2kw-3x220v-solar-pompa-inverteri",
+   "code": "GM-3HP22KW3X220VS",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "3HP 2.2kW (3x220V) SOLAR POMPA INVERTERİ",
+   "saleUsd": 171.57,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893.webp",
+    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-2.webp",
+    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-3.webp",
+    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-4.webp",
+    "public/images/products/3hp-2-2-kw-solar-pompa-surucusu-trifaze-893-5.webp"
+   ],
+   "desc": "3HP 2.2kW (3x220V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "3hp-2-2kw-380v-solar-pompa-inverteri",
+   "code": "GM-3HP22KW380VSOL",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "3HP 2.2KW (380V) SOLAR POMPA INVERTERİ",
+   "saleUsd": 179.04,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220.webp",
+    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-2.webp",
+    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-3.webp",
+    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-4.webp",
+    "public/images/products/2hp-3hp-1-5kw-2-2-kw-solar-pompa-surucusu-3x220-5.webp"
+   ],
+   "desc": "3HP 2.2KW (380V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "5-5hp-4kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-55HP4KWSOLARPO",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "5.5HP 4KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 246.17,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [],
+   "desc": "5.5HP 4KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "7-5hp-5-5kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-75HP55KWSOLARP",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "7.5HP 5.5KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 295.4,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/7-5hp-solar-pompa-inverter-yeni-nesil.webp"
+   ],
+   "desc": "7.5HP 5.5KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "10hp-7-5kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-10HP75KWSOLARP",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "10HP 7.5KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 350.6,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc.webp",
+    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-2.webp",
+    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-3.webp",
+    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-4.webp",
+    "public/images/products/10hp-7-5-kw-solar-pompa-surucusu-1000vdc-5.webp"
+   ],
+   "desc": "10HP 7.5KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "15hp-11kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-15HP11KWSOLARP",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "15HP 11KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 522.17,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu.webp",
+    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-2.webp",
+    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-3.webp",
+    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-4.webp",
+    "public/images/products/15hp-11-kw-1000vdc-solar-pompa-surucusu-5.webp"
+   ],
+   "desc": "15HP 11KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "20hp-15kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-20HP15KWSOLARP",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "20HP 15KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 589.31,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899.webp",
+    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-2.webp",
+    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-3.webp",
+    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-4.webp",
+    "public/images/products/20hp-15-kw-solar-pompa-surucusu-trifaze-899-5.webp"
+   ],
+   "desc": "20HP 15KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "25hp-18-5kwsolar-pompa-inverter-yeni-nesil",
+   "code": "GM-25HP185KWSOLAR",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "25HP 18.5KWSOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 738.5,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu.webp",
+    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-2.webp",
+    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-3.webp",
+    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-4.webp",
+    "public/images/products/25hp-18-5-kw-1000vdc-solar-pompa-surucusu-5.webp"
+   ],
+   "desc": "25HP 18.5KWSOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "30hp-22kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-30HP22KWSOLARP",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "30HP 22KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 969.74,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901.webp",
+    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-2.webp",
+    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-3.webp",
+    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-4.webp",
+    "public/images/products/30hp-22-kw-solar-pompa-surucusu-trifaze-901-5.webp"
+   ],
+   "desc": "30HP 22KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "40hp-30kw-solar-pompa-inverter-yeni-nesil",
+   "code": "GM-40HP30KWSOLARP",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "40HP 30KW SOLAR POMPA INVERTER (YENİ NESİL)",
+   "saleUsd": 1186.07,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156.webp",
+    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-2.webp",
+    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-3.webp",
+    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-4.webp",
+    "public/images/products/40hp-30-kw-solar-pompa-surucusu-trifaze-3156-5.webp"
+   ],
+   "desc": "40HP 30KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "150hp-110kw-solar-pompa-inverteri-yeni-nesil",
+   "code": "GM-150HP110KWSOLA",
+   "cat": "solar-pompa",
+   "brand": "Lexron",
+   "name": "150HP 110KW SOLAR POMPA INVERTERİ (YENİ NESİL)",
+   "saleUsd": 3431.41,
+   "inStock": false,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/150hp-110kw-solar-pompa-inverteri-yeni-nesil.webp"
+   ],
+   "desc": "150HP 110KW SOLAR POMPA INVERTERİ (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+  },
+  {
+   "id": "500w-solar-aydinlatma",
+   "code": "GM-500WSOLARAYDIN",
+   "cat": "aydinlatma",
+   "brand": "Lexron",
+   "name": "500W SOLAR AYDINLATMA",
+   "saleUsd": 52.22,
+   "inStock": true,
+   "bestseller": true,
+   "tags": [],
+   "specs": {},
+   "img": [],
+   "desc": "500W SOLAR AYDINLATMA — şebekesiz solar aydınlatma; gün içinde şarj olur, karanlıkta otomatik çalışır."
+  },
+  {
+   "id": "2400w-solar-aydinlatma",
+   "code": "GM-2400WSOLARAYDI",
+   "cat": "aydinlatma",
+   "brand": "Lexron",
+   "name": "2400W SOLAR AYDINLATMA",
+   "saleUsd": 126.81,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/2400w-solar-aydinlatma.webp"
+   ],
+   "desc": "2400W SOLAR AYDINLATMA — şebekesiz solar aydınlatma; gün içinde şarj olur, karanlıkta otomatik çalışır."
+  },
+  {
+   "id": "1200w-solar-aydinlatma",
+   "code": "GM-1200WSOLARAYDI",
+   "cat": "aydinlatma",
+   "brand": "Lexron",
+   "name": "1200W SOLAR AYDINLATMA",
+   "saleUsd": 82.06,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/1200w-solar-aydinlatma.webp"
+   ],
+   "desc": "1200W SOLAR AYDINLATMA — şebekesiz solar aydınlatma; gün içinde şarj olur, karanlıkta otomatik çalışır."
+  },
+  {
+   "id": "400w-solar-projektor",
+   "code": "GM-400WSOLARPROJE",
+   "cat": "aydinlatma",
+   "brand": "Lexron",
+   "name": "400W SOLAR PROJEKTÖR",
+   "saleUsd": 44.76,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [],
+   "desc": "400W SOLAR PROJEKTÖR — şebekesiz solar aydınlatma; gün içinde şarj olur, karanlıkta otomatik çalışır."
+  },
+  {
+   "id": "200w-solar-projektor",
+   "code": "GM-200WSOLARPROJE",
+   "cat": "aydinlatma",
+   "brand": "Lexron",
+   "name": "200W SOLAR PROJEKTÖR",
+   "saleUsd": 37.3,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/200w-solar-projektor-1.webp",
+    "public/images/products/200w-solar-projektor.webp"
+   ],
+   "desc": "200W SOLAR PROJEKTÖR — şebekesiz solar aydınlatma; gün içinde şarj olur, karanlıkta otomatik çalışır."
+  },
+  {
+   "id": "700w-solar-aydinlatma",
+   "code": "GM-700WSOLARAYDIN",
+   "cat": "aydinlatma",
+   "brand": "Lexron",
+   "name": "700W SOLAR AYDINLATMA",
+   "saleUsd": 59.68,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/700w-solar-aydinlatma.webp"
+   ],
+   "desc": "700W SOLAR AYDINLATMA — şebekesiz solar aydınlatma; gün içinde şarj olur, karanlıkta otomatik çalışır."
+  },
+  {
+   "id": "mc4-konnektor-1500v",
+   "code": "GM-MC4KONNEKTOR15",
+   "cat": "kablo-konnektor",
+   "brand": "Lexron",
+   "name": "MC4 KONNEKTÖR -1500V",
+   "saleUsd": 0.96,
+   "inStock": true,
+   "bestseller": true,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/mc4-konnektor-1500v.webp"
+   ],
+   "desc": "MC4 KONNEKTÖR -1500V — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
+  },
+  {
+   "id": "2li-t-branch",
+   "code": "GM-2LITBRANCH",
+   "cat": "kablo-konnektor",
+   "brand": "Lexron",
+   "name": "2Lİ T BRANCH",
+   "saleUsd": 4.17,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/t-branch.webp"
+   ],
+   "desc": "2Lİ T BRANCH — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
+  },
+  {
+   "id": "3lu-branch",
+   "code": "GM-3LUBRANCH",
+   "cat": "kablo-konnektor",
+   "brand": "Lexron",
+   "name": "3LÜ BRANCH",
+   "saleUsd": 5.97,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/3lu-branch.webp"
+   ],
+   "desc": "3LÜ BRANCH — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
+  },
+  {
+   "id": "orta-tutucu",
+   "code": "GM-ORTATUTUCU",
+   "cat": "kablo-konnektor",
+   "brand": "Lexron",
+   "name": "ORTA TUTUCU",
+   "saleUsd": 1.02,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/orta-tutucu.webp"
+   ],
+   "desc": "ORTA TUTUCU — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
+  },
+  {
+   "id": "sonlandirici",
+   "code": "GM-SONLANDIRICI",
+   "cat": "kablo-konnektor",
+   "brand": "Lexron",
+   "name": "SONLANDIRICI",
+   "saleUsd": 1.02,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/sonlandirici.webp"
+   ],
+   "desc": "SONLANDIRICI — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
+  },
+  {
+   "id": "6mm2-solar-kablo",
+   "code": "GM-6MM2SOLARKABLO",
+   "cat": "kablo-konnektor",
+   "brand": "Lexron",
+   "name": "6mm2 SOLAR KABLO",
+   "saleUsd": 2.09,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/6mm-solar-kablo.webp"
+   ],
+   "desc": "6mm2 SOLAR KABLO — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
+  },
+  {
+   "id": "4mm2-solar-kablo",
+   "code": "GM-4MM2SOLARKABLO",
+   "cat": "kablo-konnektor",
+   "brand": "Lexron",
+   "name": "4mm2 SOLAR KABLO",
+   "saleUsd": 1.42,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/4mm-solar-kablo.webp"
+   ],
+   "desc": "4mm2 SOLAR KABLO — solar kurulumların güvenli ve uzun ömürlü olması için TSE/IEC uyumlu bağlantı ekipmanı."
+  },
+  {
+   "id": "20a-pwm-sarj-kontrol-cihazi",
+   "code": "GM-20APWMSARJKONT",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "20A PWM ŞARJ KONTROL CİHAZI",
+   "saleUsd": 13.43,
+   "inStock": true,
+   "bestseller": true,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/20a-pwm-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "20A PWM ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "30a-pwm-sarj-kontrol-cihazi",
+   "code": "GM-30APWMSARJKONT",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "30A PWM ŞARJ KONTROL CİHAZI",
+   "saleUsd": 15.07,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/30a-pwm-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "30A PWM ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "40a-pwm-sarj-kontrol-cihazi",
+   "code": "GM-40APWMSARJKONT",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "40A PWM ŞARJ KONTROL CİHAZI",
+   "saleUsd": 19.4,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/40a-pwm-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "40A PWM ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "60a-pwm-sarj-kontrol-cihazi",
+   "code": "GM-60APWMSARJKONT",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "60A PWM ŞARJ KONTROL CİHAZI",
+   "saleUsd": 40.28,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/60a-pwm-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "60A PWM ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "20a-mppt-sarj-kontrol-cihazi",
+   "code": "GM-20AMPPTSARJKON",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "20A MPPT ŞARJ KONTROL CİHAZI",
+   "saleUsd": 58.18,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/20a-mppt-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "20A MPPT ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "30a-mppt-sarj-kontrol-cihazi",
+   "code": "GM-30AMPPTSARJKON",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "30A MPPT ŞARJ KONTROL CİHAZI",
+   "saleUsd": 64.15,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/30a-mppt-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "30A MPPT ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "40a-mppt-sarj-kontrol-cihazi",
+   "code": "GM-40AMPPTSARJKON",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "40A MPPT ŞARJ KONTROL CİHAZI",
+   "saleUsd": 70.13,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/40a-mppt-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "40A MPPT ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "80a-hv-15-230v-mppt-sarj-kontrol-cihazi",
+   "code": "GM-80AHV15230VMPP",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "80A HV(15~230V) MPPT ŞARJ KONTROL CİHAZI",
+   "saleUsd": 186.49,
+   "inStock": true,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/80a-hv-15-230v-mppt-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "80A HV(15~230V) MPPT ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  },
+  {
+   "id": "10a-pwm-sarj-kontrol-cihazi",
+   "code": "GM-10APWMSARJKONT",
+   "cat": "sarj-kontrol",
+   "brand": "Lexron",
+   "name": "10A PWM ŞARJ KONTROL CİHAZI",
+   "saleUsd": 7.69,
+   "inStock": false,
+   "bestseller": false,
+   "tags": [],
+   "specs": {},
+   "img": [
+    "public/images/products/10a-pwm-sarj-kontrol-cihazi.webp"
+   ],
+   "desc": "10A PWM ŞARJ KONTROL CİHAZI — panelden aküye şarjı güvenle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+  }
+ ]
+}

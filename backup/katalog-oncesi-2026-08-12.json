@@ -1,0 +1,5112 @@
+[
+ {
+  "id": "pnl-12w-polikristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "12 W Polikristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "≤100 W"
+  ],
+  "specs": {
+   "Güç": "12 Wp",
+   "Hücre": "Polikristal",
+   "Kullanım": "Şarj/aydınlatma, hobi"
+  },
+  "img": [
+   "public/images/products/12w-polikristal-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-12W-POLIKRISTAL-GUNES-PANELI",
+  "cost": 613,
+  "desc": "12 W Polikristal Güneş Paneli, 12 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 15.85,
+  "costUsd": 12.99
+ },
+ {
+  "id": "pnl-25w-polikristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "25 W Polikristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "≤100 W"
+  ],
+  "specs": {
+   "Güç": "25 Wp",
+   "Hücre": "Polikristal",
+   "Kullanım": "Karavan, tekne, bahçe"
+  },
+  "img": [
+   "public/images/products/25w-polikristal-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-25W-POLIKRISTAL-GUNES-PANELI",
+  "cost": 995,
+  "desc": "25 W Polikristal Güneş Paneli, 25 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 25.73,
+  "costUsd": 21.09
+ },
+ {
+  "id": "pnl-55w-monokristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "55 W Monokristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "≤100 W"
+  ],
+  "specs": {
+   "Güç": "55 Wp",
+   "Hücre": "Monokristal",
+   "Kullanım": "Karavan, tekne"
+  },
+  "img": [
+   "public/images/products/55w-monokristal-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-55W-MONOKRISTAL-GUNES-PANELI",
+  "cost": 1905,
+  "desc": "55 W Monokristal Güneş Paneli, 55 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 49.24,
+  "costUsd": 40.36
+ },
+ {
+  "id": "pnl-110w-monokristal-ecosolgunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Ecosol",
+  "name": "Ecosol 110 W Monokristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {
+   "Güç": "110 Wp",
+   "Hücre": "Monokristal"
+  },
+  "img": [
+   "public/images/products/110w-monokristal-ecosolgunes-paneli.webp"
+  ],
+  "code": "GM-PNL-110W-MONOKRISTAL-ECOSOLGUNES-PANELI",
+  "cost": null,
+  "desc": "Ecosol 110 W Monokristal Güneş Paneli, 110 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "onRequest": true
+ },
+ {
+  "id": "pnl-140w-half-cut-topcon-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "140 W Half-Cut TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {
+   "Güç": "140 Wp",
+   "Teknoloji": "TopCon Half-Cut"
+  },
+  "img": [
+   "public/images/products/140w-half-cut-topcon-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-140W-HALF-CUT-TOPCON-GUNES-PANELI",
+  "cost": 2828,
+  "desc": "140 W Half-Cut TopCon Güneş Paneli, 140 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 73.1,
+  "costUsd": 59.92
+ },
+ {
+  "id": "pnl-160w-monokristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "160 W 32-Cell 16BB Half-Cut TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {
+   "Güç": "160 Wp",
+   "Hücre": "Monokristal"
+  },
+  "img": [
+   "public/images/products/160w-monokristal-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-160W-MONOKRISTAL-GUNES-PANELI",
+  "cost": 3232,
+  "desc": "160 W Monokristal Güneş Paneli, 160 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 83.55,
+  "costUsd": 68.48
+ },
+ {
+  "id": "pnl-175w-half-cut-topcon-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "175 W Half-Cut TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {
+   "Güç": "175 Wp",
+   "Teknoloji": "TopCon Half-Cut"
+  },
+  "img": [
+   "public/images/products/175w-half-cut-topcon-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-175W-HALF-CUT-TOPCON-GUNES-PANELI",
+  "cost": 3434,
+  "desc": "175 W Half-Cut TopCon Güneş Paneli, 175 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 88.77,
+  "costUsd": 72.76
+ },
+ {
+  "id": "pnl-240w-48-cell-16bb-half-cut-topcon-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "240 W 48-Cell 16BB Half-Cut TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {
+   "Güç": "240 Wp",
+   "Hücre": "48 hücre 16BB",
+   "Teknoloji": "TopCon Half-Cut"
+  },
+  "img": [
+   "public/images/products/240w-48-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-240W-48-CELL-16BB-HALF-CUT-TOPCON-GUNES-PANELI",
+  "cost": 4502,
+  "desc": "240 W 48-Cell 16BB Half-Cut TopCon Güneş Paneli, 240 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 116.36,
+  "costUsd": 95.38
+ },
+ {
+  "id": "pnl-285w-half-cut-monokristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "285 W Half-Cut Monokristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {
+   "Güç": "285 Wp",
+   "Hücre": "Half-Cut Monokristal"
+  },
+  "img": [
+   "public/images/products/285w-half-cut-monokristal-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-285W-HALF-CUT-MONOKRISTAL-GUNES-PANELI",
+  "cost": 5428,
+  "desc": "285 W Half-Cut Monokristal Güneş Paneli, 285 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 140.31,
+  "costUsd": 115.01
+ },
+ {
+  "id": "pnl-340w-polykristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "340 W Polikristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "300–500 W"
+  ],
+  "specs": {
+   "Güç": "340 Wp",
+   "Hücre": "Polikristal"
+  },
+  "img": [
+   "public/images/products/340w-polykristal-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-340W-POLYKRISTAL-GUNES-PANELI",
+  "cost": null,
+  "desc": "340 W Polikristal Güneş Paneli, 340 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "onRequest": true
+ },
+ {
+  "id": "pnl-350w-ecosol-polykristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "Ecosol 350 W Polikristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "300–500 W"
+  ],
+  "specs": {
+   "Güç": "350 Wp",
+   "Hücre": "Polikristal"
+  },
+  "img": [
+   "public/images/products/350w-ecosol-polykristal-gunes-paneli.webp"
+  ],
+  "bestseller": true,
+  "code": "GM-PNL-350W-ECOSOL-POLYKRISTAL-GUNES-PANELI",
+  "cost": 3579,
+  "desc": "Ecosol 350 W Polikristal Güneş Paneli, 350 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 92.5,
+  "costUsd": 75.82
+ },
+ {
+  "id": "pnl-390w-78-cell-16bb-half-cut-topcon-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "390 W 78-Cell 16BB Half-Cut TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "300–500 W"
+  ],
+  "specs": {
+   "Güç": "390 Wp",
+   "Hücre": "78 hücre 16BB",
+   "Teknoloji": "TopCon Half-Cut"
+  },
+  "img": [
+   "public/images/products/390w-78-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+  ],
+  "code": "GM-PNL-390W-78-CELL-16BB-HALF-CUT-TOPCON-GUNES-PANELI",
+  "cost": 5772,
+  "desc": "390 W 78-Cell 16BB Half-Cut TopCon Güneş Paneli, 390 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 149.19,
+  "costUsd": 122.29
+ },
+ {
+  "id": "pnl-450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "450 W Bifacial 78-Cell 16BB Half-Cut TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "300–500 W"
+  ],
+  "specs": {
+   "Güç": "450 Wp",
+   "Tip": "Bifacial (çift yüzlü)",
+   "Teknoloji": "TopCon Half-Cut"
+  },
+  "img": [
+   "public/images/products/450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+  ],
+  "isNew": true,
+  "code": "GM-PNL-450W-BIFACIAL-78-CELL-16BB-HALF-CUT-TOPCON-GUNES-PANELI",
+  "cost": 6234,
+  "desc": "450 W Bifacial 78-Cell 16BB Half-Cut TopCon Güneş Paneli, 450 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 161.13,
+  "costUsd": 132.07
+ },
+ {
+  "id": "pnl-655w-half-cut-topcon-mono-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "655 W Half-Cut TopCon Monokristal Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "500 W+"
+  ],
+  "specs": {
+   "Güç": "655 Wp",
+   "Teknoloji": "TopCon Half-Cut",
+   "Kullanım": "Çatı/arazi GES"
+  },
+  "img": [
+   "public/images/products/655w-half-cut-topcon-mono-gunes-paneli.webp"
+  ],
+  "bestseller": true,
+  "code": "GM-PNL-655W-HALF-CUT-TOPCON-MONO-GUNES-PANELI",
+  "cost": 8318,
+  "desc": "655 W Half-Cut TopCon Monokristal Güneş Paneli, 655 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 214.99,
+  "costUsd": 176.22
+ },
+ {
+  "id": "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "750 W Bifacial 132-Cell 16BB Half-Cut TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "500 W+"
+  ],
+  "specs": {
+   "Güç": "750 Wp",
+   "Tip": "Bifacial (çift yüzlü)",
+   "Hücre": "132 hücre 16BB",
+   "Teknoloji": "TopCon Half-Cut"
+  },
+  "img": [
+   "public/images/products/750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli.webp"
+  ],
+  "isNew": true,
+  "code": "GM-PNL-750W-BIFACIAL-132-CELL-16BB-HALF-CUT-TOPCON-GUNES-PANELI",
+  "cost": 8658,
+  "desc": "750 W Bifacial 132-Cell 16BB Half-Cut TopCon Güneş Paneli, 750 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 223.78,
+  "costUsd": 183.43
+ },
+ {
+  "id": "pnl-245",
+  "cat": "gunes-panelleri",
+  "brand": "Gazioğlu",
+  "supplier": "mexxsun",
+  "name": "Gazioğlu GSE245 245 W Half-Cut MonoPower Güneş Paneli (A Class)",
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {
+   "Güç": "245 Wp",
+   "Hücre": "Half-Cut Monokristal",
+   "Sınıf": "A",
+   "Üretim": "Yerli (Gazioğlu)"
+  },
+  "code": "GM-PNL-245",
+  "cost": 2591,
+  "desc": "Gazioğlu GSE245 245 W Half-Cut MonoPower Güneş Paneli (A Class), 245 Wp gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "onRequest": true
+ },
+ {
+  "id": "aku-100-12",
+  "cat": "lityum-akuler",
+  "brand": "Mexxun",
+  "bestseller": true,
+  "name": "Mexxun 100 Ah 12,8V LiFePO4 Lityum Akü (1,28 kWh)",
+  "supplier": "mexxsun",
+  "tags": [
+   "12V",
+   "100 Ah",
+   "Bluetooth"
+  ],
+  "specs": {
+   "Kapasite": "100 Ah / 1,28 kWh",
+   "Voltaj": "12,8 V",
+   "Kimya": "LiFePO4",
+   "İzleme": "Bluetooth + WiFi",
+   "Çevrim": "≥4000"
+  },
+  "code": "GM-AKU-100-12",
+  "cost": 12957,
+  "desc": "Mexxun 100 Ah 12,8V LiFePO4 Lityum Akü (1,28 kWh), 100 Ah / 1,28 kWh kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır; şarj durumu ve hücre dengesi Bluetooth üzerinden telefondan izlenir. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "onRequest": true
+ },
+ {
+  "id": "aku-100-24",
+  "cat": "lityum-akuler",
+  "brand": "Mexxun",
+  "name": "Mexxun 100 Ah 25,6V LiFePO4 Lityum Akü (2,56 kWh)",
+  "supplier": "mexxsun",
+  "tags": [
+   "24V",
+   "100 Ah",
+   "Bluetooth"
+  ],
+  "specs": {
+   "Kapasite": "100 Ah / 2,56 kWh",
+   "Voltaj": "25,6 V",
+   "Kimya": "LiFePO4",
+   "İzleme": "Bluetooth + WiFi"
+  },
+  "code": "GM-AKU-100-24",
+  "cost": 20391,
+  "desc": "Mexxun 100 Ah 25,6V LiFePO4 Lityum Akü (2,56 kWh), 100 Ah / 2,56 kWh kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır; şarj durumu ve hücre dengesi Bluetooth üzerinden telefondan izlenir. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "onRequest": true
+ },
+ {
+  "id": "aku-mc-200b",
+  "cat": "lityum-akuler",
+  "brand": "Lexron",
+  "name": "200 Ah 12,8V LiFePO4 Lityum Akü — ABS Bluetooth (2,56 kWh)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "12V",
+   "200 Ah",
+   "Bluetooth"
+  ],
+  "specs": {
+   "Kapasite": "200 Ah / 2,56 kWh",
+   "Voltaj": "12,8 V",
+   "İzleme": "Bluetooth",
+   "Kimya": "LiFePO4"
+  },
+  "code": "GM-AKU-MC-200B",
+  "cost": 28572,
+  "desc": "200 Ah 12,8V LiFePO4 Lityum Akü — ABS Bluetooth (2,56 kWh), 200 Ah / 2,56 kWh kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır; şarj durumu ve hücre dengesi Bluetooth üzerinden telefondan izlenir. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "saleUsd": 738.5,
+  "costUsd": 605.33
+ },
+ {
+  "id": "aku-51-wpu",
+  "cat": "lityum-akuler",
+  "brand": "Mexxun",
+  "isNew": true,
+  "name": "Mexxun 100 Ah 48V LiFePO4 Akü (4,8 kWh) — Raf Tipi",
+  "supplier": "mexxsun",
+  "tags": [
+   "48V",
+   "100 Ah"
+  ],
+  "specs": {
+   "Kapasite": "100 Ah / 4,8 kWh",
+   "Voltaj": "48 V (51,2 V nominal)",
+   "Tip": "Raf tipi",
+   "Kimya": "LiFePO4"
+  },
+  "code": "GM-AKU-51-WPU",
+  "cost": 38435,
+  "desc": "Mexxun 100 Ah 48V LiFePO4 Akü (4,8 kWh) — Raf Tipi, 100 Ah / 4,8 kWh kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "onRequest": true
+ },
+ {
+  "id": "jel-14",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 15 Ah 12V Nano Karbon Jel Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "15 Ah"
+  ],
+  "specs": {
+   "Kapasite": "15 Ah",
+   "Voltaj": "12 V",
+   "Tip": "Nano karbon jel (derin döngü)",
+   "Bakım": "Bakımsız"
+  },
+  "img": [
+   "public/images/products/14ah-lexron-nano-karbon-jel-aku.webp"
+  ],
+  "code": "GM-JEL-14",
+  "cost": 1443,
+  "desc": "Lexron 14 Ah 12V Nano Karbon Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 37.3,
+  "costUsd": 30.57
+ },
+ {
+  "id": "jel-24",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 25 Ah 12V Nano Karbon Jel Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "25 Ah"
+  ],
+  "specs": {
+   "Kapasite": "25 Ah",
+   "Voltaj": "12 V",
+   "Tip": "Nano karbon jel (derin döngü)",
+   "Bakım": "Bakımsız"
+  },
+  "img": [
+   "public/images/products/24ah-lexron-nano-karbon-jel-aku.webp"
+  ],
+  "code": "GM-JEL-24",
+  "cost": 1703,
+  "desc": "Lexron 24 Ah 12V Nano Karbon Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 44.01,
+  "costUsd": 36.07
+ },
+ {
+  "id": "jel-42",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 43 Ah 12V Nano Karbon Jel Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "43 Ah"
+  ],
+  "specs": {
+   "Kapasite": "43 Ah",
+   "Voltaj": "12 V",
+   "Tip": "Nano karbon jel (derin döngü)",
+   "Bakım": "Bakımsız"
+  },
+  "img": [
+   "public/images/products/42ah-lexron-nano-karbon-jel-aku.webp"
+  ],
+  "code": "GM-JEL-42",
+  "cost": 3521,
+  "desc": "Lexron 42 Ah 12V Nano Karbon Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 91.01,
+  "costUsd": 74.6
+ },
+ {
+  "id": "jel-65",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 70 Ah 12V Nano Karbon Jel Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "70 Ah"
+  ],
+  "specs": {
+   "Kapasite": "70 Ah",
+   "Voltaj": "12 V",
+   "Tip": "Nano karbon jel (derin döngü)",
+   "Bakım": "Bakımsız"
+  },
+  "img": [
+   "public/images/products/65ah-lexron-nano-karbon-jel-aku.webp"
+  ],
+  "code": "GM-JEL-65",
+  "cost": 5166,
+  "desc": "Lexron 65 Ah 12V Nano Karbon Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 133.53,
+  "costUsd": 109.45
+ },
+ {
+  "id": "jel-105",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 105 Ah 12V Nano Karbon Jel Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "105 Ah"
+  ],
+  "specs": {
+   "Kapasite": "105 Ah",
+   "Voltaj": "12 V",
+   "Tip": "Nano karbon jel (derin döngü)",
+   "Bakım": "Bakımsız"
+  },
+  "img": [
+   "public/images/products/105ah-lexron-nano-karbon-jel-aku.webp"
+  ],
+  "bestseller": true,
+  "code": "GM-JEL-105",
+  "cost": 7792,
+  "desc": "Lexron 105 Ah 12V Nano Karbon Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 201.41,
+  "costUsd": 165.09
+ },
+ {
+  "id": "jel-160",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 160 Ah 12V Nano Karbon Jel Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "160 Ah"
+  ],
+  "specs": {
+   "Kapasite": "160 Ah",
+   "Voltaj": "12 V",
+   "Tip": "Nano karbon jel (derin döngü)",
+   "Bakım": "Bakımsız"
+  },
+  "img": [
+   "public/images/products/160ah-lexron-nano-karbon-jel-aku.webp"
+  ],
+  "code": "GM-JEL-160",
+  "cost": 11833,
+  "desc": "Lexron 160 Ah 12V Nano Karbon Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 305.84,
+  "costUsd": 250.69
+ },
+ {
+  "id": "jel-210",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 210 Ah 12V Nano Karbon Jel Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "210 Ah"
+  ],
+  "specs": {
+   "Kapasite": "210 Ah",
+   "Voltaj": "12 V",
+   "Tip": "Nano karbon jel (derin döngü)",
+   "Bakım": "Bakımsız"
+  },
+  "img": [
+   "public/images/products/210ah-lexron-nano-karbon-jel-aku-1.webp"
+  ],
+  "code": "GM-JEL-210",
+  "cost": 15584,
+  "desc": "Lexron 210 Ah 12V Nano Karbon Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 402.82,
+  "costUsd": 330.18
+ },
+ {
+  "id": "inv-1kw",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "Lexron 1 kW MPPT 12V Akıllı İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "1–3 kW",
+   "12V"
+  ],
+  "specs": {
+   "Güç": "1 kW",
+   "Akü Voltajı": "12 V",
+   "Şarj": "Dahili MPPT",
+   "Dalga": "Tam sinüs"
+  },
+  "code": "GM-INV-1KW",
+  "cost": 6508,
+  "desc": "Lexron 1 kW MPPT 12V Akıllı İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir. 1 kW sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 162.22
+ },
+ {
+  "id": "inv-1-6kw",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "Lexron 1,6 kW HV MPPT Akıllı İnverter 12V",
+  "supplier": "enerjipazari",
+  "tags": [
+   "1–3 kW",
+   "12V"
+  ],
+  "specs": {
+   "Güç": "1,6 kW",
+   "Akü Voltajı": "12 V",
+   "Şarj": "HV MPPT (yüksek PV girişi)",
+   "Dalga": "Tam sinüs"
+  },
+  "code": "GM-INV-1-6KW",
+  "cost": 6983,
+  "desc": "Lexron 1,6 kW HV MPPT Akıllı İnverter 12V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir. 1,6 kW sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 174.06
+ },
+ {
+  "id": "inv-3kw",
+  "cat": "akilli-inverterler",
+  "brand": "Sorotec",
+  "bestseller": true,
+  "name": "Sorotec 3,5 kW HV MPPT Akıllı İnverter 24V",
+  "supplier": "enerjipazari",
+  "tags": [
+   "4–8 kW",
+   "24V"
+  ],
+  "specs": {
+   "Güç": "3,5 kW",
+   "Akü Voltajı": "24 V",
+   "Şarj": "HV MPPT",
+   "Dalga": "Tam sinüs"
+  },
+  "code": "GM-INV-3KW",
+  "cost": 12467,
+  "desc": "Sorotec 3,5 kW HV MPPT Akıllı İnverter 24V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir. 3,5 kW sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 322.25,
+  "costUsd": 264.14
+ },
+ {
+  "id": "inv-4-2kw",
+  "cat": "akilli-inverterler",
+  "brand": "Sako",
+  "name": "Sako Sunon ECO 4,2 kW Tam Sinüs Akıllı İnverter 24V",
+  "supplier": "mexxsun",
+  "tags": [
+   "4–8 kW",
+   "24V"
+  ],
+  "specs": {
+   "Güç": "4,2 kW",
+   "Akü Voltajı": "24 V",
+   "Şarj": "HV MPPT",
+   "Dalga": "Tam sinüs"
+  },
+  "code": "GM-INV-4-2KW",
+  "cost": 12000,
+  "desc": "Sako Sunon ECO 4,2 kW Tam Sinüs Akıllı İnverter 24V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir. 4,2 kW sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "onRequest": true
+ },
+ {
+  "id": "inv-6-2kw",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "bestseller": true,
+  "name": "Lexron 6,2 kW HV MPPT Akıllı İnverter 48V",
+  "supplier": "enerjipazari",
+  "tags": [
+   "4–8 kW",
+   "48V"
+  ],
+  "specs": {
+   "Güç": "6,2 kW",
+   "Akü Voltajı": "48 V",
+   "Şarj": "HV MPPT",
+   "Dalga": "Tam sinüs"
+  },
+  "code": "GM-INV-6-2KW",
+  "cost": 16162,
+  "desc": "Lexron 6,2 kW HV MPPT Akıllı İnverter 48V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir. 6,2 kW sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 417.74,
+  "costUsd": 342.41
+ },
+ {
+  "id": "inv-max8",
+  "cat": "akilli-inverterler",
+  "brand": "Sako",
+  "name": "Sako Sunon IV 8 kW Tam Sinüs Akıllı İnverter 48V",
+  "supplier": "mexxsun",
+  "tags": [
+   "4–8 kW",
+   "48V"
+  ],
+  "specs": {
+   "Güç": "8 kW",
+   "Akü Voltajı": "48 V",
+   "Maks. PV Girişi": "450 VDC",
+   "Dalga": "Tam sinüs"
+  },
+  "code": "GM-INV-MAX8",
+  "cost": 26074,
+  "desc": "Sako Sunon IV 8 kW Tam Sinüs Akıllı İnverter 48V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir. 8 kW sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "onRequest": true
+ },
+ {
+  "id": "inv-11kw",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "onRequest": true,
+  "name": "Mexxun P12KW Premium 12 kW Akıllı İnverter 48V (Paralel, Wi-Fi)",
+  "supplier": "mexxsun",
+  "tags": [
+   "8+ kW",
+   "48V"
+  ],
+  "specs": {
+   "Güç": "12 kW",
+   "Akü Voltajı": "48 V",
+   "Paralel": "9 adede kadar",
+   "Bağlantı": "Wi-Fi + çift çıkış",
+   "Arayüz": "Türkçe"
+  },
+  "code": "GM-INV-11KW",
+  "cost": null,
+  "desc": "Mexxun P12KW Premium 12 kW Akıllı İnverter 48V (Paralel, Wi-Fi), MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir. 12 kW sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "inv-deye-10m",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "Deye 10 kW Hibrit İnverter — Monofaze",
+  "supplier": "enerjipazari",
+  "tags": [
+   "8+ kW",
+   "Monofaze"
+  ],
+  "specs": {
+   "Güç": "10 kW",
+   "Faz": "Monofaze",
+   "Tip": "Hibrit (şebeke+akü+PV)",
+   "Akü": "48 V LV"
+  },
+  "code": "GM-INV-DEYE-10M",
+  "cost": 108514,
+  "desc": "Deye 10 kW Hibrit İnverter — Monofaze; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir. Monofaze bağlantı içindir.",
+  "saleUsd": 2804.8,
+  "costUsd": 2299.02
+ },
+ {
+  "id": "inv-deye-12",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "Deye 12 kW Hibrit İnverter Trifaze LV (48V)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "8+ kW",
+   "Trifaze"
+  ],
+  "specs": {
+   "Güç": "12 kW",
+   "Faz": "Trifaze",
+   "Tip": "Hibrit",
+   "Akü": "48 V LV"
+  },
+  "code": "GM-INV-DEYE-12",
+  "cost": 118326,
+  "desc": "Deye 12 kW Hibrit İnverter Trifaze LV (48V); güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir. Trifaze bağlantı içindir.",
+  "saleUsd": 3058.43,
+  "costUsd": 2506.91
+ },
+ {
+  "id": "inv-deye-100",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "Deye 100 kW Trifaze On-Grid İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze"
+  ],
+  "specs": {
+   "Güç": "100 kW",
+   "Faz": "Trifaze",
+   "Tip": "On-Grid (şebeke bağlantılı)"
+  },
+  "code": "GM-INV-DEYE-100",
+  "cost": 199134,
+  "desc": "Deye 100 kW Trifaze On-Grid İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 5147.11,
+  "costUsd": 4218.94
+ },
+ {
+  "id": "inv-ongrid-25",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "Deye 25 kW Trifaze On-Grid İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze"
+  ],
+  "specs": {
+   "Güç": "25 kW",
+   "Faz": "Trifaze",
+   "Tip": "On-Grid (şebeke bağlantılı)"
+  },
+  "code": "GM-INV-ONGRID-25",
+  "cost": 53968,
+  "desc": "Deye 25 kW Trifaze On-Grid İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 1394.94,
+  "costUsd": 1143.39
+ },
+ {
+  "id": "reg-pwm10",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "Mexxun AT10 10A PWM Şarj Kontrol Cihazı (12/24V)",
+  "supplier": "mexxsun",
+  "tags": [
+   "PWM",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "PWM",
+   "Akım": "10 A",
+   "Voltaj": "12/24 V otomatik"
+  },
+  "code": "GM-REG-PWM10",
+  "cost": 330,
+  "desc": "Mexxun AT10 10A PWM Şarj Kontrol Cihazı (12/24V), panelden aküye şarjı PWM teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "onRequest": true
+ },
+ {
+  "id": "reg-pwm20",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "name": "Lexron 20A PWM Şarj Kontrol Cihazı (12/24V)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "PWM",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "PWM",
+   "Akım": "20 A",
+   "Voltaj": "12/24 V otomatik"
+  },
+  "code": "GM-REG-PWM20",
+  "cost": 520,
+  "desc": "Lexron 20A PWM Şarj Kontrol Cihazı (12/24V), panelden aküye şarjı PWM teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 13.43,
+  "costUsd": 11.01
+ },
+ {
+  "id": "reg-pwm30",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "name": "Lexron 30A PWM Şarj Kontrol Cihazı (12/24V)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "PWM",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "PWM",
+   "Akım": "30 A",
+   "Voltaj": "12/24 V otomatik"
+  },
+  "code": "GM-REG-PWM30",
+  "cost": 583,
+  "desc": "Lexron 30A PWM Şarj Kontrol Cihazı (12/24V), panelden aküye şarjı PWM teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 15.07,
+  "costUsd": 12.35
+ },
+ {
+  "id": "reg-mppt20",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "name": "Lexron 20A MPPT Şarj Kontrol Cihazı (12/24V, 60V panel girişi)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "MPPT",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "20 A",
+   "Maks. PV Girişi": "60 V",
+   "Voltaj": "12/24 V"
+  },
+  "code": "GM-REG-MPPT20",
+  "cost": 2251,
+  "desc": "Lexron 20A MPPT Şarj Kontrol Cihazı (12/24V, 60V panel girişi), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 58.18,
+  "costUsd": 47.69
+ },
+ {
+  "id": "reg-mppt30",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "bestseller": true,
+  "name": "Lexron 30A MPPT Şarj Kontrol Cihazı (12/24V, 100V panel girişi)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "MPPT",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "30 A",
+   "Maks. PV Girişi": "100 V",
+   "Voltaj": "12/24 V"
+  },
+  "code": "GM-REG-MPPT30",
+  "cost": 2482,
+  "desc": "Lexron 30A MPPT Şarj Kontrol Cihazı (12/24V, 100V panel girişi), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 64.15,
+  "costUsd": 52.58
+ },
+ {
+  "id": "reg-mpk8-60",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "Mexxun MPK8 60A MPPT Şarj Kontrol Cihazı (12/24/48V)",
+  "supplier": "mexxsun",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "60 A",
+   "Voltaj": "12/24/48 V",
+   "Seri": "MPK8"
+  },
+  "code": "GM-REG-MPK8-60",
+  "cost": 6245,
+  "desc": "Mexxun MPK8 60A MPPT Şarj Kontrol Cihazı (12/24/48V), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "onRequest": true
+ },
+ {
+  "id": "reg-pc18f-80",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "Mexxun MPK8 80A MPPT Şarj Kontrol Cihazı (12/24/48V)",
+  "supplier": "mexxsun",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "80 A",
+   "Voltaj": "12/24/48 V",
+   "Seri": "MPK8"
+  },
+  "code": "GM-REG-PC18F-80",
+  "cost": 6557,
+  "desc": "Mexxun MPK8 80A MPPT Şarj Kontrol Cihazı (12/24/48V), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "onRequest": true
+ },
+ {
+  "id": "reg-mpk8-100",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "Mexxun MPK8 100A MPPT Şarj Kontrol Cihazı (12/24/48V)",
+  "supplier": "mexxsun",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "100 A",
+   "Voltaj": "12/24/48 V",
+   "Seri": "MPK8"
+  },
+  "code": "GM-REG-MPK8-100",
+  "cost": 8043,
+  "desc": "Mexxun MPK8 100A MPPT Şarj Kontrol Cihazı (12/24/48V), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "onRequest": true
+ },
+ {
+  "id": "hvs-s20amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 100,
+  "name": "Havensis MPS Solar-20AMPS MPPT Şarj Regülatörü (12/24V, 20A, 100V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "20 A",
+   "Akü Voltajı": "12/24 V",
+   "Maks. PV Girişi": "100 V / 700 W",
+   "Yük Çıkışı": "20 A",
+   "Dönüştürücü Verimi": "%98",
+   "Ekran": "LCD + LED",
+   "Boyut": "132×200×60 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s20amps.webp"
+  ],
+  "code": "GM-HVS-S20AMPS",
+  "cost": null,
+  "desc": "Havensis MPS Solar-20AMPS MPPT Şarj Regülatörü (12/24V, 20A, 100V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s30amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 108,
+  "name": "Havensis MPS Solar-30AMPS MPPT Şarj Regülatörü (12/24V, 30A, 100V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "30 A",
+   "Akü Voltajı": "12/24 V",
+   "Maks. PV Girişi": "100 V / 1200 W",
+   "Yük Çıkışı": "20 A",
+   "Dönüştürücü Verimi": "%98",
+   "Ekran": "LCD + LED",
+   "Boyut": "159×210×70 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s30amps.webp"
+  ],
+  "code": "GM-HVS-S30AMPS",
+  "cost": null,
+  "desc": "Havensis MPS Solar-30AMPS MPPT Şarj Regülatörü (12/24V, 30A, 100V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s40amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 120,
+  "name": "Havensis MPS Solar-40AMPS MPPT Şarj Regülatörü (12/24V, 40A, 100V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "40 A",
+   "Akü Voltajı": "12/24 V",
+   "Maks. PV Girişi": "100 V / 1500 W",
+   "Yük Çıkışı": "20 A",
+   "Dönüştürücü Verimi": "%98",
+   "Ekran": "LCD + LED",
+   "Boyut": "162×210×77 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s40amps.webp"
+  ],
+  "code": "GM-HVS-S40AMPS",
+  "cost": null,
+  "desc": "Havensis MPS Solar-40AMPS MPPT Şarj Regülatörü (12/24V, 40A, 100V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s50amps100",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 180,
+  "name": "Havensis MPS Solar-50AMPS-100 MPPT Şarj Regülatörü (12/24V, 50A, 100V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "50 A",
+   "Akü Voltajı": "12/24 V",
+   "Maks. PV Girişi": "100 V / 2200 W",
+   "Yük Çıkışı": "20 A",
+   "Dönüştürücü Verimi": "%98",
+   "Ekran": "LCD + LED",
+   "Boyut": "197×224×80 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s50amps100.webp"
+  ],
+  "isNew": true,
+  "code": "GM-HVS-S50AMPS100",
+  "cost": null,
+  "desc": "Havensis MPS Solar-50AMPS-100 MPPT Şarj Regülatörü (12/24V, 50A, 100V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s60amps100",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 200,
+  "name": "Havensis MPS Solar-60AMPS-100 MPPT Şarj Regülatörü (12/24V, 60A, 100V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "60 A",
+   "Akü Voltajı": "12/24 V",
+   "Maks. PV Girişi": "100 V / 2500 W",
+   "Yük Çıkışı": "20 A",
+   "Dönüştürücü Verimi": "%98",
+   "Ekran": "LCD + LED",
+   "Boyut": "197×224×80 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s60amps100.webp"
+  ],
+  "isNew": true,
+  "code": "GM-HVS-S60AMPS100",
+  "cost": null,
+  "desc": "Havensis MPS Solar-60AMPS-100 MPPT Şarj Regülatörü (12/24V, 60A, 100V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s40amps150",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 200,
+  "name": "Havensis MPS Solar-40AMPS-150 MPPT Şarj Regülatörü (12/24/36/48V, 40A, 150V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "40 A",
+   "Akü Voltajı": "12/24/36/48 V",
+   "Maks. PV Girişi": "150 V / 2500 W",
+   "Yük Çıkışı": "20 A",
+   "Dönüştürücü Verimi": "%98",
+   "Ekran": "LCD + LED",
+   "Boyut": "197×224×80 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s40amps150.webp"
+  ],
+  "isNew": true,
+  "code": "GM-HVS-S40AMPS150",
+  "cost": null,
+  "desc": "Havensis MPS Solar-40AMPS-150 MPPT Şarj Regülatörü (12/24/36/48V, 40A, 150V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s60amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 275,
+  "name": "Havensis MPS Solar-60AMPS MPPT Şarj Regülatörü (12/24/36/48V, 60A, 150V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "60 A",
+   "Akü Voltajı": "12/24/36/48 V",
+   "Maks. PV Girişi": "150 V / 5000 W",
+   "Dönüştürücü Verimi": "%97,5",
+   "Ekran": "LCD + LED",
+   "Boyut": "280×235×100 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s60amps.webp"
+  ],
+  "code": "GM-HVS-S60AMPS",
+  "cost": null,
+  "desc": "Havensis MPS Solar-60AMPS MPPT Şarj Regülatörü (12/24/36/48V, 60A, 150V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s70amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 285,
+  "name": "Havensis MPS Solar-70AMPS MPPT Şarj Regülatörü (12/24/36/48V, 70A, 150V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "70 A",
+   "Akü Voltajı": "12/24/36/48 V",
+   "Maks. PV Girişi": "150 V / 5500 W",
+   "Dönüştürücü Verimi": "%97,5",
+   "Ekran": "LCD + LED",
+   "Boyut": "280×235×100 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s70amps.webp"
+  ],
+  "code": "GM-HVS-S70AMPS",
+  "cost": null,
+  "desc": "Havensis MPS Solar-70AMPS MPPT Şarj Regülatörü (12/24/36/48V, 70A, 150V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s80amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 305,
+  "name": "Havensis MPS Solar-80AMPS MPPT Şarj Regülatörü (12/24/36/48V, 80A, 150V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "80 A",
+   "Akü Voltajı": "12/24/36/48 V",
+   "Maks. PV Girişi": "150 V / 6800 W",
+   "Dönüştürücü Verimi": "%97,5",
+   "Ekran": "LCD + LED",
+   "Boyut": "280×235×100 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s80amps.webp"
+  ],
+  "bestseller": true,
+  "code": "GM-HVS-S80AMPS",
+  "cost": null,
+  "desc": "Havensis MPS Solar-80AMPS MPPT Şarj Regülatörü (12/24/36/48V, 80A, 150V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-s80amps200",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 350,
+  "name": "Havensis MPS Solar-80AMPS-200 MPPT Şarj Regülatörü (12/24/36/48V, 80A, 200V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT",
+   "Akım": "80 A",
+   "Akü Voltajı": "12/24/36/48 V",
+   "Maks. PV Girişi": "200 V / 6800 W",
+   "Dönüştürücü Verimi": "%97,5",
+   "Koruma": "Gelişmiş koruma devreleri",
+   "Boyut": "280×235×100 mm"
+  },
+  "img": [
+   "public/images/products/havensis-s80amps200.webp"
+  ],
+  "code": "GM-HVS-S80AMPS200",
+  "cost": null,
+  "desc": "Havensis MPS Solar-80AMPS-200 MPPT Şarj Regülatörü (12/24/36/48V, 80A, 200V PV), panelden aküye şarjı MPPT teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-hvs45amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 400,
+  "name": "Havensis HVS-45AMPS HV MPPT Şarj Regülatörü (60/72V Akü, 45A, 200V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "HV MPPT",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT (HV)",
+   "Akım": "45 A",
+   "Akü Voltajı": "60/72 V",
+   "Maks. PV Girişi": "200 V / 3800 W",
+   "Dönüştürücü Verimi": "%96,5",
+   "Ekran": "LCD + LED",
+   "Boyut": "280×235×100 mm"
+  },
+  "img": [
+   "public/images/products/havensis-hvs45amps.webp"
+  ],
+  "code": "GM-HVS-HVS45AMPS",
+  "cost": null,
+  "desc": "Havensis HVS-45AMPS HV MPPT Şarj Regülatörü (60/72V Akü, 45A, 200V PV), panelden aküye şarjı MPPT (HV) teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-hvs145amps",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 430,
+  "name": "Havensis HVS-145AMPS HV MPPT Şarj Regülatörü (84/96/120V Akü, 45A, 200V PV)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "HV MPPT",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT (HV)",
+   "Akım": "45 A",
+   "Akü Voltajı": "84/96/120 V",
+   "Maks. PV Girişi": "200 V / 5500 W",
+   "Dönüştürücü Verimi": "%96,5",
+   "Koruma": "Gelişmiş koruma devreleri",
+   "Boyut": "280×235×100 mm"
+  },
+  "img": [
+   "public/images/products/havensis-hvs145amps.webp"
+  ],
+  "code": "GM-HVS-HVS145AMPS",
+  "cost": null,
+  "desc": "Havensis HVS-145AMPS HV MPPT Şarj Regülatörü (84/96/120V Akü, 45A, 200V PV), panelden aküye şarjı MPPT (HV) teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "hvs-batchg-1224bbc",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 135,
+  "name": "Havensis BATCHG-1224BBC Alternatör Akü Şarj Cihazı (12V→12V, 20A)",
+  "supplier": "havensis",
+  "tags": [
+   "DC-DC Şarj",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "DC-DC (alternatörden şarj)",
+   "Akım": "20 A",
+   "Giriş": "10–17 V",
+   "Çıkış": "Maks. 14,2 V",
+   "Verim": "%96,4",
+   "Koruma": "Ters akım (motor kapalı tanıma)",
+   "Boyut": "132×200×60 mm"
+  },
+  "img": [
+   "public/images/products/havensis-batchg-1224bbc.webp"
+  ],
+  "desc": "Havensis BATCHG-1224BBC, araç alternatöründen karavan/tekne yaşam aküsünü 20 A ile güvenle şarj eden DC-DC şarj cihazıdır. JEL/AGM akülerle uyumludur; motor kapalıyken ters akımı tanıyıp keser. Karavanlar için özel tasarlanmıştır.",
+  "code": "GM-HVS-BATCHG-1224BBC",
+  "cost": null
+ },
+ {
+  "id": "hvs-dcdc-1224-30",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 165,
+  "name": "Havensis DCDC-1224 Tek Yönlü DC-DC Şarj Cihazı (12/24V, 30A)",
+  "supplier": "havensis",
+  "tags": [
+   "DC-DC Şarj",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "DC-DC (alternatörden şarj)",
+   "Akım": "30 A",
+   "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24",
+   "Giriş": "10–35 V",
+   "Çıkış": "12–32 V",
+   "Verim": "%96,4",
+   "Ekran": "Dijital ekran + 5 m kablo",
+   "Boyut": "158×210×60 mm"
+  },
+  "img": [
+   "public/images/products/havensis-dcdc-1224-30.webp"
+  ],
+  "desc": "Havensis DCDC-1224, alternatörden yaşam aküsüne 30 A tek yönlü şarj yapan, 12-12/12-24/24-12/24-24 kombinasyonlarını destekleyen DC-DC şarj cihazıdır. Tüm parametreler ekrandan programlanır; ters akım koruması ve motor kapalı tanıma standarttır.",
+  "code": "GM-HVS-DCDC-1224-30",
+  "cost": null
+ },
+ {
+  "id": "hvs-dcdc-1224b-30",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 190,
+  "name": "Havensis DCDC-1224B Çift Yönlü DC-DC Şarj Cihazı (12/24V, 30A)",
+  "supplier": "havensis",
+  "tags": [
+   "DC-DC Şarj",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "DC-DC (çift yönlü)",
+   "Akım": "30 A",
+   "Takviye Şarj": "4 A",
+   "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24",
+   "Giriş": "10–35 V",
+   "Çıkış": "12–32 V",
+   "Verim": "%96,4",
+   "Boyut": "158×210×60 mm"
+  },
+  "img": [
+   "public/images/products/havensis-dcdc-1224b-30.webp"
+  ],
+  "desc": "Havensis DCDC-1224B, çift yönlü çalışır: alternatörden yaşam aküsünü 30 A ile şarj eder, gerektiğinde takviye modunda araç aküsünü besler. Tüm parametreler ekrandan programlanır; karavan ve tekneler için tasarlanmıştır.",
+  "code": "GM-HVS-DCDC-1224B-30",
+  "cost": null
+ },
+ {
+  "id": "hvs-dcdc-1224-40",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 200,
+  "name": "Havensis DCDC-1224 Tek Yönlü DC-DC Şarj Cihazı (12/24V, 40A)",
+  "supplier": "havensis",
+  "tags": [
+   "DC-DC Şarj",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "DC-DC (alternatörden şarj)",
+   "Akım": "40 A",
+   "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24",
+   "Giriş": "10–35 V",
+   "Çıkış": "12–32 V",
+   "Verim": "%96,4",
+   "Ekran": "Dijital ekran + 5 m kablo",
+   "Boyut": "162×210×70 mm"
+  },
+  "img": [
+   "public/images/products/havensis-dcdc-1224-40.webp"
+  ],
+  "desc": "Havensis DCDC-1224 40 A sürümü, alternatörden yaşam aküsüne yüksek akımlı tek yönlü şarj sağlar; 12-12/12-24/24-12/24-24 kombinasyonlarını destekler. Ters akım koruması ve motor kapalı tanıma standarttır.",
+  "code": "GM-HVS-DCDC-1224-40",
+  "cost": null
+ },
+ {
+  "id": "hvs-dcdc-1224b-40",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 230,
+  "name": "Havensis DCDC-1224B Çift Yönlü DC-DC Şarj Cihazı (12/24V, 40A)",
+  "supplier": "havensis",
+  "tags": [
+   "DC-DC Şarj",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "DC-DC (çift yönlü)",
+   "Akım": "40 A",
+   "Takviye Şarj": "10 A",
+   "Şarj Yönü": "12-12 · 12-24 · 24-12 · 24-24",
+   "Giriş": "10–35 V",
+   "Çıkış": "12–32 V",
+   "Verim": "%96,4",
+   "Boyut": "162×210×70 mm"
+  },
+  "img": [
+   "public/images/products/havensis-dcdc-1224b-40.webp"
+  ],
+  "desc": "Havensis DCDC-1224B 40 A sürümü, çift yönlü şarj yapar: yaşam aküsünü 40 A ile doldurur, takviye modunda 10 A ile araç aküsünü destekler. Tüm parametreler ekrandan programlanır; karavan ve tekneler için tasarlanmıştır.",
+  "code": "GM-HVS-DCDC-1224B-40",
+  "cost": null
+ },
+ {
+  "id": "hvs-dchg-3020amd",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 250,
+  "name": "Havensis DualCharger-3020AMD MPPT + DC-DC Şarj Cihazı (12V, 50A)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "DC-DC Şarj",
+   "30–60 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT + çift yönlü DC-DC",
+   "Toplam Akım": "50 A (30+20)",
+   "MPPT": "30 A · 500 W panel",
+   "DC-DC": "20 A + 3 A takviye",
+   "Giriş (DC-DC)": "10–18 V",
+   "Boyut": "197×224×80 mm"
+  },
+  "img": [
+   "public/images/products/havensis-dchg-3020amd.webp"
+  ],
+  "desc": "Havensis DualCharger-3020AMD, MPPT solar şarjı ve çift yönlü DC-DC alternatör şarjını tek cihazda birleştirir: güneşten 30 A, alternatörden 20 A olmak üzere toplam 50 A ile 12 V yaşam aküsünü doldurur. Karavan kurulumlarında iki ayrı cihaz yerine tek kompakt çözüm sunar.",
+  "code": "GM-HVS-DCHG-3020AMD",
+  "cost": null
+ },
+ {
+  "id": "hvs-dchg-4030amd-v2",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 310,
+  "name": "Havensis DualCharger-4030AMD V2 MPPT + DC-DC Şarj Cihazı (12V, 60A, Bluetooth)",
+  "supplier": "havensis",
+  "tags": [
+   "MPPT",
+   "DC-DC Şarj",
+   "60–100 A"
+  ],
+  "specs": {
+   "Teknoloji": "MPPT + çift yönlü DC-DC",
+   "Toplam Akım": "60 A",
+   "MPPT": "40 A · 700 W panel · 100 V giriş",
+   "Röle Çıkışı": "2× bağımsız kontak",
+   "Ekran": "LCD + dahili Bluetooth",
+   "Sensör": "Sıcaklık sensörü girişi",
+   "Boyut": "280×235×100 mm"
+  },
+  "img": [
+   "public/images/products/havensis-dchg-4030amd-v2.webp"
+  ],
+  "desc": "Havensis DualCharger-4030AMD V2, 12 V sistemler için MPPT solar şarj (40 A, 700 W panel) ve çift yönlü DC-DC alternatör şarjını tek gövdede toplar; toplam 60 A şarj gücü sunar. Dahili Bluetooth ekranı, iki bağımsız röle çıkışı ve şarj akımı limitleme fonksiyonu vardır.",
+  "code": "GM-HVS-DCHG-4030AMD-V2",
+  "cost": null
+ },
+ {
+  "id": "hvs-boost-2472",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 130,
+  "name": "Havensis Boost MPPT-2472 Yükseltici Şarj Cihazı (36–72V Akü, 15A)",
+  "supplier": "havensis",
+  "tags": [
+   "Boost",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "Boost MPPT",
+   "Akü Voltajı": "36/48/60/72 V",
+   "PV Girişi": "15–60 V / 700 W",
+   "Panel Akımı": "Maks. 20 A",
+   "Şarj Akımı": "Maks. 15 A",
+   "Verim": "%96,4",
+   "Boyut": "158×210×60 mm"
+  },
+  "img": [
+   "public/images/products/havensis-boost-2472.webp"
+  ],
+  "desc": "Havensis Boost MPPT-2472, düşük voltajlı panel dizisinden 36/48/60/72 V akü gruplarını şarj eden yükseltici (boost) MPPT cihazıdır. Elektrikli bisiklet ve yüksek voltajlı akü uygulamaları için tasarlanmıştır; opsiyonel dahili Bluetooth ile izlenebilir.",
+  "code": "GM-HVS-BOOST-2472",
+  "cost": null
+ },
+ {
+  "id": "hvs-boost-dcdc-2472-20",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 140,
+  "name": "Havensis Boost DCDC-2472 Yükseltici DC-DC Şarj Cihazı (36–72V Akü, 15A)",
+  "supplier": "havensis",
+  "tags": [
+   "Boost",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "Boost DC-DC",
+   "Akü Voltajı": "36/48/60/72 V",
+   "Giriş": "12–32 V · maks. 20 A",
+   "Şarj Akımı": "Maks. 15 A",
+   "Verim": "%95",
+   "Ekran": "Dijital ekran + 5 m kablo",
+   "Boyut": "162×210×70 mm"
+  },
+  "img": [
+   "public/images/products/havensis-boost-dcdc-2472-20.webp"
+  ],
+  "desc": "Havensis Boost DCDC-2472, 12/24 V kaynaktan 36/48/60/72 V akü gruplarını şarj eden yükseltici DC-DC cihazıdır. Karavan ve teknelerde yüksek voltajlı servis akülerinin alternatörden doldurulması için tasarlanmıştır; gelişmiş koruma devreleri standarttır.",
+  "code": "GM-HVS-BOOST-DCDC-2472-20",
+  "cost": null
+ },
+ {
+  "id": "hvs-boost-dcdc-2448-40",
+  "cat": "sarj-regulatorleri",
+  "brand": "Havensis",
+  "priceUsd": 170,
+  "name": "Havensis Boost DCDC-2448 Yükseltici DC-DC Şarj Cihazı (36/48V Akü, 20A)",
+  "supplier": "havensis",
+  "tags": [
+   "Boost",
+   "10–30 A"
+  ],
+  "specs": {
+   "Teknoloji": "Boost DC-DC",
+   "Akü Voltajı": "36/48 V",
+   "Giriş": "12–32 V · maks. 40 A",
+   "Şarj Akımı": "Maks. 20 A",
+   "Verim": "%95",
+   "Ekran": "Dijital ekran + 5 m kablo",
+   "Boyut": "162×210×70 mm"
+  },
+  "img": [
+   "public/images/products/havensis-boost-dcdc-2448-40.webp"
+  ],
+  "desc": "Havensis Boost DCDC-2448, 12/24 V kaynaktan 36/48 V akü gruplarını 20 A'e kadar şarj eden yükseltici DC-DC cihazıdır. Karavan ve tekneler için tasarlanmıştır; dijital ekran bağlantısı ve gelişmiş koruma devreleri bulunur.",
+  "code": "GM-HVS-BOOST-DCDC-2448-40",
+  "cost": null
+ },
+ {
+  "id": "hvs-solar-dl",
+  "cat": "solar-ekipmanlar",
+  "brand": "Havensis",
+  "supplier": "havensis",
+  "onRequest": true,
+  "name": "Havensis SOLAR-DL Off-Grid Veri Kayıt Cihazı (Datalogger)",
+  "tags": [
+   "İzleme"
+  ],
+  "img": [
+   "public/images/products/havensis-solar-dl.webp"
+  ],
+  "specs": {
+   "Akü Girişi": "9–80 V DC · 150 A",
+   "Solar Panel Girişi": "0–300 V DC · 60 A",
+   "Örnekleme": "50 ms",
+   "Kayıt Sıklığı": "1 sn",
+   "Hafıza": "16 GB micro SD (2–4 yıl kayıt)",
+   "Sensör": "Dahili sıcaklık + nem",
+   "Uzaktan İzleme": "Bluetooth/WiFi/GSM (ops.)",
+   "Öz Tüketim": "7–30 mA"
+  },
+  "desc": "Havensis SOLAR-DL, off-grid sistemlerde panel üretimini, akü şarj/deşarjını ve anlık demeraj yüklenmelerini 50 ms örnekleme ile kaydeden veri kayıt cihazıdır. 16 GB dahili hafızasıyla 2–4 yıl kesintisiz kayıt tutar; opsiyonel Bluetooth/WiFi/GSM ile uzaktan izlenir. Sistem arızalarının kök nedenini bulmak ve doğru boyutlandırma için güçlü bir teşhis aracıdır.",
+  "code": "GM-HVS-SOLAR-DL",
+  "cost": null
+ },
+ {
+  "id": "pmp-2-3hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "2–3 Hp (1,5–2,2 kW) Solar Pompa Sürücüsü (3×220)",
+  "tags": [
+   "2–15 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "2–3 Hp / 1,5–2,2 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "bestseller": true,
+  "code": "GM-PMP-2-3HP",
+  "cost": 5791,
+  "desc": "2–3 Hp (1,5–2,2 kW) Solar Pompa Sürücüsü (3×220), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-3hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "3 Hp (2,2 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "2–15 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "3 Hp / 2,2 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-3HP",
+  "cost": 6783,
+  "desc": "3 Hp (2,2 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-10hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "10 Hp (7,5 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "2–15 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "10 Hp / 7,5 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-10HP",
+  "cost": 12557,
+  "desc": "10 Hp (7,5 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-15hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "15 Hp (11 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "2–15 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "15 Hp / 11 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-15HP",
+  "cost": 15861,
+  "desc": "15 Hp (11 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-20hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "20 Hp (15 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "20–40 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "20 Hp / 15 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-20HP",
+  "cost": 17374,
+  "desc": "20 Hp (15 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-25hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "25 Hp (18,5 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "20–40 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "25 Hp / 18,5 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-25HP",
+  "cost": 24130,
+  "desc": "25 Hp (18,5 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-30hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "30 Hp (22 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "20–40 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "30 Hp / 22 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-30HP",
+  "cost": 27348,
+  "desc": "30 Hp (22 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-40hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "40 Hp (30 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "20–40 Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "40 Hp / 30 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-40HP",
+  "cost": 35391,
+  "desc": "40 Hp (30 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-100hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "100 Hp (75 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "100+ Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "100 Hp / 75 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-100HP",
+  "cost": 77217,
+  "desc": "100 Hp (75 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "pmp-120hp",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "supplier": "mexxsun",
+  "name": "120 Hp (90 kW) Solar Pompa Sürücüsü — Trifaze",
+  "tags": [
+   "100+ Hp"
+  ],
+  "specs": {
+   "Pompa Gücü": "120 Hp / 90 kW",
+   "Çıkış": "Trifaze",
+   "Giriş": "Solar DC dizi",
+   "Koruma": "Kuru çalışma / aşırı akım"
+  },
+  "code": "GM-PMP-120HP",
+  "cost": 90087,
+  "desc": "120 Hp (90 kW) Solar Pompa Sürücüsü — Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "onRequest": true
+ },
+ {
+  "id": "eq-kablo6",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "unit": "metre",
+  "name": "6 mm² Solar Kablo (Kırmızı/Siyah, metre)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Kablo"
+  ],
+  "specs": {
+   "Kesit": "6 mm²",
+   "Gerilim": "1500 V DC",
+   "UV": "Dayanımlı",
+   "Satış": "Metre ile"
+  },
+  "code": "GM-EQ-KABLO6",
+  "cost": 81,
+  "desc": "6 mm² Solar Kablo (Kırmızı/Siyah, metre) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 2.09,
+  "costUsd": 1.71
+ },
+ {
+  "id": "eq-mc4",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "name": "MC4 Solar Konnektör Çifti (Erkek + Dişi)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Konnektör"
+  ],
+  "specs": {
+   "Tip": "MC4",
+   "Akım": "30 A",
+   "Gerilim": "1000 V DC",
+   "IP": "IP67"
+  },
+  "code": "GM-EQ-MC4",
+  "cost": 37,
+  "desc": "MC4 Solar Konnektör Çifti (Erkek + Dişi) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 0.96,
+  "costUsd": 0.79
+ },
+ {
+  "id": "eq-sigorta",
+  "cat": "solar-ekipmanlar",
+  "brand": "Lexron",
+  "name": "DC Sigorta + Tutucu Set (15A / 1000V)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sigorta"
+  ],
+  "specs": {
+   "Akım": "15 A",
+   "Gerilim": "1000 V DC",
+   "İçerik": "Sigorta + ray tipi tutucu"
+  },
+  "img": [
+   "public/images/products/dc-sigorta-1000v-15a.webp"
+  ],
+  "code": "GM-EQ-SIGORTA",
+  "cost": 341,
+  "desc": "DC Sigorta + Tutucu Set (15A / 1000V) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 8.81,
+  "costUsd": 7.22
+ },
+ {
+  "id": "eq-kablo4",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "unit": "metre",
+  "name": "4 mm² Solar Kablo (metre)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Kablo"
+  ],
+  "specs": {
+   "Kesit": "4 mm²",
+   "Gerilim": "1500 V DC",
+   "UV": "Dayanımlı",
+   "Satış": "Metre ile"
+  },
+  "img": [
+   "public/images/products/4mm-solar-kablo.webp"
+  ],
+  "code": "GM-EQ-KABLO4",
+  "cost": 55,
+  "desc": "4 mm² Solar Kablo (metre) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 1.42,
+  "costUsd": 1.16
+ },
+ {
+  "id": "eq-tbranch",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "name": "MC4 T-Branch Paralel Konnektör (Çift)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Konnektör"
+  ],
+  "specs": {
+   "Tip": "T-Branch (2'li paralel)",
+   "Uyum": "MC4",
+   "IP": "IP67"
+  },
+  "img": [
+   "public/images/products/t-branch.webp"
+  ],
+  "code": "GM-EQ-TBRANCH",
+  "cost": 161,
+  "desc": "MC4 T-Branch Paralel Konnektör (Çift) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 4.17,
+  "costUsd": 3.42
+ },
+ {
+  "id": "eq-3branch",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "name": "MC4 3'lü Branch Paralel Konnektör (Çift)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Konnektör"
+  ],
+  "specs": {
+   "Tip": "3'lü Branch paralel",
+   "Uyum": "MC4",
+   "IP": "IP67"
+  },
+  "img": [
+   "public/images/products/3lu-branch.webp"
+  ],
+  "code": "GM-EQ-3BRANCH",
+  "cost": 231,
+  "desc": "MC4 3'lü Branch Paralel Konnektör (Çift) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 5.97,
+  "costUsd": 4.89
+ },
+ {
+  "id": "eq-orta-tutucu",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "name": "Panel Orta Tutucu (Alüminyum)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {
+   "Tip": "Orta tutucu (mid clamp)",
+   "Malzeme": "Eloksallı alüminyum"
+  },
+  "img": [
+   "public/images/products/orta-tutucu.webp"
+  ],
+  "code": "GM-EQ-ORTA-TUTUCU",
+  "cost": 40,
+  "desc": "Panel Orta Tutucu (Alüminyum) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 1.02,
+  "costUsd": 0.84
+ },
+ {
+  "id": "eq-sonlandirici",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "name": "Panel Sonlandırıcı Tutucu (Alüminyum)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {
+   "Tip": "Sonlandırıcı (end clamp)",
+   "Malzeme": "Eloksallı alüminyum"
+  },
+  "img": [
+   "public/images/products/sonlandirici.webp"
+  ],
+  "code": "GM-EQ-SONLANDIRICI",
+  "cost": 40,
+  "desc": "Panel Sonlandırıcı Tutucu (Alüminyum) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 1.02,
+  "costUsd": 0.84
+ },
+ {
+  "id": "aks-isi-8",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "Lexron 8 kW Monoblok Isı Pompası",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Isı Pompası"
+  ],
+  "specs": {
+   "Kapasite": "8 kW",
+   "Tip": "Monoblok (hava kaynaklı)",
+   "Kullanım": "Isıtma/soğutma + sıcak su",
+   "Uyum": "Solar sistemle entegre çalışır"
+  },
+  "img": [
+   "public/images/products/lexron-8kw-monoblok-isi-pompasi.webp"
+  ],
+  "desc": "Lexron 8 kW monoblok ısı pompası; havadaki ısıyı kullanarak elektriğin 3–4 katı ısıtma enerjisi üretir. Güneş enerjisi sistemiyle birlikte kurulduğunda neredeyse sıfır maliyetli ısıtma/soğutma sağlar. Keşif ve boyutlandırma için bize ulaşın.",
+  "code": "GM-AKS-ISI-8",
+  "cost": null,
+  "onRequest": true
+ },
+ {
+  "id": "aks-isi-13",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "Lexron 13 kW Monoblok Isı Pompası",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Isı Pompası"
+  ],
+  "specs": {
+   "Kapasite": "13 kW",
+   "Tip": "Monoblok (hava kaynaklı)",
+   "Kullanım": "Isıtma/soğutma + sıcak su",
+   "Uyum": "Solar sistemle entegre çalışır"
+  },
+  "img": [
+   "public/images/products/lexron-13kw-monoblok-isi-pompasi.webp"
+  ],
+  "desc": "Lexron 13 kW monoblok ısı pompası; havadaki ısıyı kullanarak elektriğin 3–4 katı ısıtma enerjisi üretir. Güneş enerjisi sistemiyle birlikte kurulduğunda neredeyse sıfır maliyetli ısıtma/soğutma sağlar. Keşif ve boyutlandırma için bize ulaşın.",
+  "code": "GM-AKS-ISI-13",
+  "cost": null,
+  "onRequest": true
+ },
+ {
+  "id": "aks-isi-16",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "Lexron 16 kW Monoblok Isı Pompası",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Isı Pompası"
+  ],
+  "specs": {
+   "Kapasite": "16 kW",
+   "Tip": "Monoblok (hava kaynaklı)",
+   "Kullanım": "Isıtma/soğutma + sıcak su",
+   "Uyum": "Solar sistemle entegre çalışır"
+  },
+  "img": [
+   "public/images/products/lexron-16kw-monoblok-isi-pompasi.webp"
+  ],
+  "desc": "Lexron 16 kW monoblok ısı pompası; havadaki ısıyı kullanarak elektriğin 3–4 katı ısıtma enerjisi üretir. Güneş enerjisi sistemiyle birlikte kurulduğunda neredeyse sıfır maliyetli ısıtma/soğutma sağlar. Keşif ve boyutlandırma için bize ulaşın.",
+  "code": "GM-AKS-ISI-16",
+  "cost": null,
+  "onRequest": true
+ },
+ {
+  "id": "pkt1",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "Paket 1 — 1 kW TOPCon Solar Paket Sistem (Jel Akülü)",
+  "scenario": "Bağ Evi",
+  "tier": null,
+  "tags": [
+   "Bağ Evi"
+  ],
+  "specs": {
+   "Sistem Gücü": "1 kW",
+   "Kullanım": "Bağ Evi",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 1,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 1,
+    "name": "210 Ah solar jel akü",
+    "ref": "jel-210"
+   },
+   {
+    "q": 1,
+    "name": "1 kW HV MPPT akıllı inverter",
+    "ref": "inv-1kw"
+   },
+   {
+    "q": 1,
+    "name": "20 m 6 mm² solar kablo + MC4 set"
+   }
+  ],
+  "desc": "Giriş seviyesi hazır sistem: 5 LED ampulü günde 8 saat, A+ mini buzdolabını 24 saat, LED TV'yi 8 saat çalıştırır; telefon şarjı sınırsız. Bağ evi ve kamelya için tak-çalıştır.",
+  "code": "GM-PKT1",
+  "cost": 67733,
+  "saleUsd": 1688.27
+ },
+ {
+  "id": "pkt2",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "Paket 2 — 3 kW TOPCon Solar Paket Sistem 1",
+  "scenario": "Bağ Evi",
+  "tier": null,
+  "tags": [
+   "Bağ Evi"
+  ],
+  "specs": {
+   "Sistem Gücü": "3 kW",
+   "Kullanım": "Bağ Evi",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 3,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 2,
+    "name": "160 Ah solar jel akü",
+    "ref": "jel-160"
+   },
+   {
+    "q": 1,
+    "name": "3 kW HV MPPT akıllı inverter (Lexron)"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "Hafta sonu kullanılan bağ evleri için: buzdolabı, aydınlatma, TV ve küçük ev aletlerini karşılar.",
+  "code": "GM-PKT2",
+  "cost": 108075,
+  "saleUsd": 2693.79
+ },
+ {
+  "id": "pkt3",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "Paket 3 — 3 kW TOPCon Solar Paket Sistem 2",
+  "scenario": "Bağ Evi",
+  "tier": null,
+  "tags": [
+   "Bağ Evi"
+  ],
+  "specs": {
+   "Sistem Gücü": "3 kW",
+   "Kullanım": "Bağ Evi",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 5,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 2,
+    "name": "210 Ah solar jel akü",
+    "ref": "jel-210"
+   },
+   {
+    "q": 1,
+    "name": "3 kW HV MPPT akıllı inverter (Lexron)"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "3 kW sistemin güçlendirilmiş sürümü: daha fazla panel ve daha büyük akü ile bulutlu günlerde de konfor.",
+  "code": "GM-PKT3",
+  "cost": 150867,
+  "saleUsd": 3760.39
+ },
+ {
+  "id": "pkt4",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "Paket 4 — 4,2 kW TOPCon Solar Paket Sistem 1",
+  "scenario": "Bağ Evi",
+  "tier": null,
+  "tags": [
+   "Bağ Evi"
+  ],
+  "specs": {
+   "Sistem Gücü": "4,2 kW",
+   "Kullanım": "Bağ Evi",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 4,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 4,
+    "name": "160 Ah solar jel akü",
+    "ref": "jel-160"
+   },
+   {
+    "q": 1,
+    "name": "4,2 kW HV MPPT akıllı inverter (Lexron)"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "Sürekli yaşanan bağ evleri için 4,2 kW sistem: çamaşır makinesi dahil temel ev yükünü taşır.",
+  "code": "GM-PKT4",
+  "cost": 196800,
+  "saleUsd": 4905.28
+ },
+ {
+  "id": "pkt5",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "Paket 5 — 6,2 kW TOPCon Solar Paket Sistem 1",
+  "scenario": "Ev",
+  "tier": null,
+  "tags": [
+   "Ev"
+  ],
+  "specs": {
+   "Sistem Gücü": "6,2 kW",
+   "Kullanım": "Ev",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 6,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 4,
+    "name": "210 Ah solar jel akü",
+    "ref": "jel-210"
+   },
+   {
+    "q": 1,
+    "name": "6,2 kW HV MPPT akıllı inverter",
+    "ref": "inv-6-2kw"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "Şebekesiz müstakil evler için 6,2 kW sistem: buzdolabı, çamaşır makinesi, TV, aydınlatma ve pompayı birlikte yönetir.",
+  "code": "GM-PKT5",
+  "cost": 393825,
+  "saleUsd": 9816.18
+ },
+ {
+  "id": "pkt6",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "Paket 6 — 6,2 kW TOPCon Solar Paket Sistem 2",
+  "scenario": "Ev",
+  "tier": null,
+  "tags": [
+   "Ev"
+  ],
+  "specs": {
+   "Sistem Gücü": "6,2 kW",
+   "Kullanım": "Ev",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 8,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 8,
+    "name": "160 Ah solar jel akü",
+    "ref": "jel-160"
+   },
+   {
+    "q": 1,
+    "name": "6,2 kW HV MPPT akıllı inverter",
+    "ref": "inv-6-2kw"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "6,2 kW sistemin yüksek depolamalı sürümü: 8 panel + 8 akü ile uzun akşam kullanımı.",
+  "code": "GM-PKT6",
+  "cost": 545775,
+  "saleUsd": 13603.56
+ },
+ {
+  "id": "pkt10",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "Paket 8 — 11 kW TOPCon Solar Paket Sistem 1",
+  "scenario": "Ev",
+  "tier": null,
+  "tags": [
+   "Ev"
+  ],
+  "specs": {
+   "Sistem Gücü": "11 kW",
+   "Kullanım": "Ev",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 14,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 8,
+    "name": "210 Ah solar jel akü",
+    "ref": "jel-210"
+   },
+   {
+    "q": 1,
+    "name": "11 kW 2×100A MPPT akıllı inverter",
+    "ref": "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "Yüksek tüketimli evler ve küçük işletmeler için 11 kW off-grid sistem: klima dahil tüm ev yükünü karşılar.",
+  "code": "GM-PKT10",
+  "cost": 660017,
+  "saleUsd": 16451.06
+ },
+ {
+  "id": "pkt14",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "12 kW Trifaze Hibrit Sistem — 5 kWh Lityum Depolama",
+  "scenario": "Ev",
+  "tier": null,
+  "tags": [
+   "Ev"
+  ],
+  "specs": {
+   "Sistem Gücü": "12 kW",
+   "Kullanım": "Ev",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 11,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 1,
+    "name": "Deye 12 kW trifaze hibrit inverter",
+    "ref": "inv-deye-12"
+   },
+   {
+    "q": 1,
+    "name": "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "Şebeke bağlantılı villa sistemi: gündüz üretir, fazlasını mahsuplaşır, kesintide 5 kWh lityum depodan besler.",
+  "code": "GM-PKT14",
+  "cost": 587833,
+  "saleUsd": 14651.88
+ },
+ {
+  "id": "pkt11",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "12 kW Trifaze Hibrit Sistem — 10 kWh Lityum Depolama",
+  "scenario": "Ev",
+  "tier": null,
+  "tags": [
+   "Ev"
+  ],
+  "specs": {
+   "Sistem Gücü": "12 kW",
+   "Kullanım": "Ev",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 22,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 1,
+    "name": "Deye 12 kW trifaze hibrit inverter",
+    "ref": "inv-deye-12"
+   },
+   {
+    "q": 2,
+    "name": "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "12 kW trifaze hibrit sistemin 10 kWh depolamalı sürümü: akşam yükünün büyük kısmını depodan karşılar.",
+  "code": "GM-PKT11",
+  "cost": 896758,
+  "saleUsd": 22351.9
+ },
+ {
+  "id": "pkt12",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "15 kW Trifaze Hibrit Sistem — 15 kWh Lityum Depolama",
+  "scenario": "Ticari",
+  "tier": null,
+  "tags": [
+   "Ticari"
+  ],
+  "specs": {
+   "Sistem Gücü": "15 kW",
+   "Kullanım": "Ticari",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 26,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 1,
+    "name": "15 kW trifaze hibrit inverter (LV)",
+    "ref": "x-15kw-hibrit-trifaze-inverter-lv"
+   },
+   {
+    "q": 3,
+    "name": "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "İşletme ve büyük konutlar için 15 kW trifaze hibrit sistem, 15 kWh lityum depolamayla.",
+  "code": "GM-PKT12",
+  "cost": 1058233,
+  "saleUsd": 26376.7
+ },
+ {
+  "id": "pkt13",
+  "cat": "solar-paketler",
+  "brand": "Lexron",
+  "supplier": "enerjipazari",
+  "name": "15 kW Trifaze Hibrit Sistem — 20 kWh Lityum Depolama",
+  "scenario": "Ticari",
+  "tier": null,
+  "tags": [
+   "Ticari"
+  ],
+  "specs": {
+   "Sistem Gücü": "15 kW",
+   "Kullanım": "Ticari",
+   "Kurulum": "Tak-çalıştır set (montaj opsiyonel)"
+  },
+  "components": [
+   {
+    "q": 30,
+    "name": "655 W TopCon güneş paneli",
+    "ref": "pnl-655w-half-cut-topcon-mono-gunes-paneli"
+   },
+   {
+    "q": 1,
+    "name": "15 kW trifaze hibrit inverter (LV)",
+    "ref": "x-15kw-hibrit-trifaze-inverter-lv"
+   },
+   {
+    "q": 4,
+    "name": "Lexron 51,2V 100 Ah (5,12 kWh) lityum modül"
+   },
+   {
+    "q": 1,
+    "name": "Solar kablo + MC4 set"
+   }
+  ],
+  "desc": "15 kW trifaze hibrit sistemin en yüksek depolamalı sürümü: 20 kWh lityum ile uzun kesintilerde bile tam kapasite.",
+  "code": "GM-PKT13",
+  "cost": 1228042,
+  "saleUsd": 30609.21
+ },
+ {
+  "id": "x-60a-pwm-sarj-kontrol-cihazi",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "name": "60A PWM Şarj Kontrol Cihazı",
+  "supplier": "enerjipazari",
+  "tags": [
+   "PWM"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/60a-pwm-sarj-kontrol-cihazi.webp"
+  ],
+  "code": "GM-X-60A-PWM-SARJ-KONTROL-CIHAZI",
+  "cost": 1559,
+  "desc": "60A PWM Şarj Kontrol Cihazı, panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 40.28,
+  "costUsd": 33.02
+ },
+ {
+  "id": "x-9ah-lexron-agm-aku",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 9 Ah 12V AGM Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "AGM",
+   "9 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/9ah-lexron-agm-aku.webp"
+  ],
+  "code": "GM-X-9AH-LEXRON-AGM-AKU",
+  "cost": 722,
+  "desc": "Lexron 9 Ah 12V AGM Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 18.65,
+  "costUsd": 15.29
+ },
+ {
+  "id": "x-7-2ah-lexron-agm-aku",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 7,2 Ah 12V AGM Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "AGM",
+   "2 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/7-2ah-lexron-agm-aku.webp"
+  ],
+  "code": "GM-X-7-2AH-LEXRON-AGM-AKU",
+  "cost": 548,
+  "desc": "Lexron 7,2 Ah 12V AGM Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 14.18,
+  "costUsd": 11.62
+ },
+ {
+  "id": "x-7ah-lexron-agm-aku",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 7 Ah 12V AGM Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "AGM",
+   "7 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/7ah-lexron-agm-aku.webp"
+  ],
+  "code": "GM-X-7AH-LEXRON-AGM-AKU",
+  "cost": 462,
+  "desc": "Lexron 7 Ah 12V AGM Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 11.93,
+  "costUsd": 9.78
+ },
+ {
+  "id": "x-40a-pwm-sarj-kontrol-cihazi",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "name": "40A PWM Şarj Kontrol Cihazı",
+  "supplier": "enerjipazari",
+  "tags": [
+   "PWM"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/40a-pwm-sarj-kontrol-cihazi.webp"
+  ],
+  "code": "GM-X-40A-PWM-SARJ-KONTROL-CIHAZI",
+  "cost": 750,
+  "desc": "40A PWM Şarj Kontrol Cihazı, panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 19.4,
+  "costUsd": 15.9
+ },
+ {
+  "id": "x-40a-mppt-sarj-kontrol-cihazi",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "name": "40A MPPT Şarj Kontrol Cihazı",
+  "supplier": "enerjipazari",
+  "tags": [
+   "MPPT"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/40a-mppt-sarj-kontrol-cihazi.webp"
+  ],
+  "code": "GM-X-40A-MPPT-SARJ-KONTROL-CIHAZI",
+  "cost": 2713,
+  "desc": "40A MPPT Şarj Kontrol Cihazı, panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 70.13,
+  "costUsd": 57.48
+ },
+ {
+  "id": "x-12ah-12v-lexron-agm-aku",
+  "cat": "jel-akuler",
+  "brand": "Lexron",
+  "name": "Lexron 12 Ah 12V AGM Akü",
+  "supplier": "enerjipazari",
+  "tags": [
+   "AGM",
+   "12 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/12ah-12v-lexron-agm-aku.webp"
+  ],
+  "code": "GM-X-12AH-12V-LEXRON-AGM-AKU",
+  "cost": 837,
+  "desc": "Lexron 12 Ah 12V AGM Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir.",
+  "saleUsd": 21.63,
+  "costUsd": 17.73
+ },
+ {
+  "id": "x-5kw-on-grid-monofaze-inverter-1",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "5 kW On-Grid Monofaze İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Monofaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/5kw-on-grid-monofaze-inverter-1.webp"
+  ],
+  "code": "GM-X-5KW-ON-GRID-MONOFAZE-INVERTER-1",
+  "cost": 20779,
+  "desc": "5 kW On-Grid Monofaze İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 537.09,
+  "costUsd": 440.24
+ },
+ {
+  "id": "x-3kw-on-grid-monofaze-inverter-1",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "3 kW On-Grid Monofaze İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Monofaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/3kw-on-grid-monofaze-inverter-1.webp"
+  ],
+  "code": "GM-X-3KW-ON-GRID-MONOFAZE-INVERTER-1",
+  "cost": 15238,
+  "desc": "3 kW On-Grid Monofaze İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 393.86,
+  "costUsd": 322.84
+ },
+ {
+  "id": "x-75hp-solar-pompa-inverter-yeni-nesil",
+  "cat": "tarimsal-sulama",
+  "brand": "Smart",
+  "name": "75 Hp Solar Pompa İnverter Yeni Nesil",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/75hp-solar-pompa-inverter-yeni-nesil.webp"
+  ],
+  "code": "GM-X-75HP-SOLAR-POMPA-INVERTER-YENI-NESIL",
+  "cost": 80808,
+  "desc": "75 Hp Solar Pompa İnverter Yeni Nesil, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "saleUsd": 2088.68,
+  "costUsd": 1712.03
+ },
+ {
+  "id": "x-50hp-solar-pompa-inverter-yeni-nesil",
+  "cat": "tarimsal-sulama",
+  "brand": "Smart",
+  "name": "50 Hp Solar Pompa İnverter Yeni Nesil",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/50hp-solar-pompa-inverter-yeni-nesil.webp"
+  ],
+  "code": "GM-X-50HP-SOLAR-POMPA-INVERTER-YENI-NESIL",
+  "cost": 56565,
+  "desc": "50 Hp Solar Pompa İnverter Yeni Nesil, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "saleUsd": 1462.07,
+  "costUsd": 1198.42
+ },
+ {
+  "id": "x-7-5hp-solar-pompa-inverter-yeni-nesil",
+  "cat": "tarimsal-sulama",
+  "brand": "Lexron",
+  "name": "7,5 Hp Solar Pompa İnverter Yeni Nesil",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/7-5hp-solar-pompa-inverter-yeni-nesil.webp"
+  ],
+  "code": "GM-X-7-5HP-SOLAR-POMPA-INVERTER-YENI-NESIL",
+  "cost": 11429,
+  "desc": "7,5 Hp Solar Pompa İnverter Yeni Nesil, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "saleUsd": 295.4,
+  "costUsd": 242.13
+ },
+ {
+  "id": "x-60hp-solar-pompa-inverter-yeni-nesil",
+  "cat": "tarimsal-sulama",
+  "brand": "Lexron",
+  "name": "60 Hp Solar Pompa İnverter Yeni Nesil",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/60hp-solar-pompa-inverter-yeni-nesil.webp"
+  ],
+  "code": "GM-X-60HP-SOLAR-POMPA-INVERTER-YENI-NESIL",
+  "cost": 75036,
+  "desc": "60 Hp Solar Pompa İnverter Yeni Nesil, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "saleUsd": 1939.5,
+  "costUsd": 1589.75
+ },
+ {
+  "id": "x-5kw-hibrit-monofaze-inverter",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "5 kW Hibrit Monofaze İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Monofaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/5kw-hibrit-monofaze-inverter.webp"
+  ],
+  "code": "GM-X-5KW-HIBRIT-MONOFAZE-INVERTER",
+  "cost": 51948,
+  "desc": "5 kW Hibrit Monofaze İnverter; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 1342.72,
+  "costUsd": 1100.59
+ },
+ {
+  "id": "x-200w-solar-projektor",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "200 W Solar Projektör",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Aydınlatma"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/200w-solar-projektor.webp"
+  ],
+  "code": "GM-X-200W-SOLAR-PROJEKTOR",
+  "cost": 1443,
+  "desc": "200 W Solar Projektör — solar yaşamı kolaylaştıran tamamlayıcı ürün. Detaylı bilgi ve stok için WhatsApp'tan yazabilirsiniz.",
+  "saleUsd": 37.3,
+  "costUsd": 30.57
+ },
+ {
+  "id": "x-195w-10bb-etfe-esnek-monokristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "195 W 16BB ETFE Esnek TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Esnek"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/195w-10bb-etfe-esnek-monokristal-gunes-paneli.webp"
+  ],
+  "code": "GM-X-195W-10BB-ETFE-ESNEK-MONOKRISTAL-GUNES-PANELI",
+  "cost": 20260,
+  "desc": "195 W 10BB ETFE Esnek Monokristal Güneş Paneli,  gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 523.66,
+  "costUsd": 429.23
+ },
+ {
+  "id": "x-300w-12v-modifiye-sinus-inverter-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "300 W 12V Modifiye Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Modifiye Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/300w-12v-modifiye-sinus-inverter-1.webp"
+  ],
+  "code": "GM-X-300W-12V-MODIFIYE-SINUS-INVERTER-1",
+  "cost": 2000,
+  "desc": "300 W 12V Modifiye Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 49.85
+ },
+ {
+  "id": "x-600w-12v-modifiye-sinus-inverter",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "600 W 12V Modifiye Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Modifiye Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/600w-12v-modifiye-sinus-inverter.webp"
+  ],
+  "code": "GM-X-600W-12V-MODIFIYE-SINUS-INVERTER",
+  "cost": 2908,
+  "desc": "600 W 12V Modifiye Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 72.49
+ },
+ {
+  "id": "x-1200w-12v-modifiye-sinus-inverter",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "1200 W 12V Modifiye Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Modifiye Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/1200w-12v-modifiye-sinus-inverter.webp"
+  ],
+  "code": "GM-X-1200W-12V-MODIFIYE-SINUS-INVERTER",
+  "cost": 5192,
+  "desc": "1200 W 12V Modifiye Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 129.4
+ },
+ {
+  "id": "x-1200w-24v-modifiye-sinus-inverter-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "1200 W 24V Modifiye Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Modifiye Sinüs",
+   "24V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/1200w-24v-modifiye-sinus-inverter-1.webp"
+  ],
+  "code": "GM-X-1200W-24V-MODIFIYE-SINUS-INVERTER-1",
+  "cost": 5192,
+  "desc": "1200 W 24V Modifiye Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 129.4
+ },
+ {
+  "id": "x-2000w-12v-modifiye-sinus-inverter",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "2000 W 12V Modifiye Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Modifiye Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/2000w-12v-modifiye-sinus-inverter.webp"
+  ],
+  "code": "GM-X-2000W-12V-MODIFIYE-SINUS-INVERTER",
+  "cost": 5021,
+  "desc": "2000 W 12V Modifiye Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 129.78,
+  "costUsd": 106.38
+ },
+ {
+  "id": "x-2000w-24v-modifiye-sinus-inverter-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "2000 W 24V Modifiye Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Modifiye Sinüs",
+   "24V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/2000w-24v-modifiye-sinus-inverter-1.webp"
+  ],
+  "code": "GM-X-2000W-24V-MODIFIYE-SINUS-INVERTER-1",
+  "cost": 5079,
+  "desc": "2000 W 24V Modifiye Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 131.28,
+  "costUsd": 107.61
+ },
+ {
+  "id": "x-600w-12v-tam-sinus-inverter-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "600 W 12V Tam Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/600w-12v-tam-sinus-inverter-1.webp"
+  ],
+  "code": "GM-X-600W-12V-TAM-SINUS-INVERTER-1",
+  "cost": 6850,
+  "desc": "600 W 12V Tam Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 170.74
+ },
+ {
+  "id": "x-1000w-12v-tam-sinus-inverter",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "1000 W 12V Tam Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/1000w-12v-tam-sinus-inverter.webp"
+  ],
+  "code": "GM-X-1000W-12V-TAM-SINUS-INVERTER",
+  "cost": 10558,
+  "desc": "1000 W 12V Tam Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 263.17
+ },
+ {
+  "id": "x-1000w-24v-tam-sinus-inverter",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "1000 W 24V Tam Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs",
+   "24V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/1000w-24v-tam-sinus-inverter.webp"
+  ],
+  "code": "GM-X-1000W-24V-TAM-SINUS-INVERTER",
+  "cost": 10558,
+  "desc": "1000 W 24V Tam Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 263.17
+ },
+ {
+  "id": "x-2000w-12v-tam-sinus-inverter-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "2000 W 12V Tam Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/2000w-12v-tam-sinus-inverter-1.webp"
+  ],
+  "code": "GM-X-2000W-12V-TAM-SINUS-INVERTER-1",
+  "cost": 16492,
+  "desc": "2000 W 12V Tam Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 411.06
+ },
+ {
+  "id": "x-3000w-12v-tam-sinus-inverter-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "3000 W 12V Tam Sinüs İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/3000w-12v-tam-sinus-inverter-1.webp"
+  ],
+  "code": "GM-X-3000W-12V-TAM-SINUS-INVERTER-1",
+  "cost": 22542,
+  "desc": "3000 W 12V Tam Sinüs İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 561.86
+ },
+ {
+  "id": "x-1000w-12v-tam-sinus-inverter-ups-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "1000 W 12V Tam Sinüs İnverter UPS",
+  "supplier": "enerjipazari",
+  "tags": [
+   "UPS",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/1000w-12v-tam-sinus-inverter-ups-1.webp"
+  ],
+  "code": "GM-X-1000W-12V-TAM-SINUS-INVERTER-UPS-1",
+  "cost": 13292,
+  "desc": "1000 W 12V Tam Sinüs İnverter UPS, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 331.3
+ },
+ {
+  "id": "x-2000w-12v-tam-sinus-inverter-ups-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "2000 W 12V Tam Sinüs İnverter UPS",
+  "supplier": "enerjipazari",
+  "tags": [
+   "UPS",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/2000w-12v-tam-sinus-inverter-ups-1.webp"
+  ],
+  "code": "GM-X-2000W-12V-TAM-SINUS-INVERTER-UPS-1",
+  "cost": 25958,
+  "desc": "2000 W 12V Tam Sinüs İnverter UPS, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 647.02
+ },
+ {
+  "id": "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "11 kW 2×100A MPPT Akıllı İnverter (Paralellenebilir)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1.webp"
+  ],
+  "code": "GM-X-11-KW-2X100A-MPPT-AKILLI-INVERTER-PARALELLENEBILIR-1",
+  "cost": 33766,
+  "desc": "11 kW 2×100A MPPT Akıllı İnverter (Paralellenebilir), MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 872.78,
+  "costUsd": 715.39
+ },
+ {
+  "id": "x-3kva-3000w-mppt-hv-akilli-inverter-1",
+  "cat": "akilli-inverterler",
+  "brand": "Lexron",
+  "name": "3 kVA 3000 W MPPT HV Akıllı İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/3kva-3000w-mppt-hv-akilli-inverter-1.webp"
+  ],
+  "code": "GM-X-3KVA-3000W-MPPT-HV-AKILLI-INVERTER-1",
+  "cost": 20258,
+  "desc": "3 kVA 3000 W MPPT HV Akıllı İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 504.94
+ },
+ {
+  "id": "x-gprs-kit",
+  "cat": "solar-ekipmanlar",
+  "brand": "",
+  "name": "GPRS Uzaktan İzleme Kiti",
+  "supplier": "enerjipazari",
+  "tags": [
+   "İzleme"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/gprs-kit.webp"
+  ],
+  "code": "GM-X-GPRS-KIT",
+  "cost": 10390,
+  "desc": "GPRS Uzaktan İzleme Kiti — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 268.55,
+  "costUsd": 220.12
+ },
+ {
+  "id": "x-deye-wifi-logger",
+  "cat": "solar-ekipmanlar",
+  "brand": "Deye",
+  "name": "Deye Wi-Fi Logger (İzleme Modülü)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "İzleme"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/deye-wifi-logger.webp"
+  ],
+  "code": "GM-X-DEYE-WIFI-LOGGER",
+  "cost": null,
+  "desc": "Deye Wi-Fi Logger (İzleme Modülü) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "onRequest": true
+ },
+ {
+  "id": "x-enerji-depolamali-on-grid-sistem-1",
+  "cat": "solar-paketler",
+  "brand": "GESM Power",
+  "name": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 1",
+  "supplier": "enerjipazari",
+  "tags": [],
+  "scenario": "Ev",
+  "specs": {},
+  "img": [
+   "public/images/products/enerji-depolamali-on-grid-sistem-1.webp"
+  ],
+  "code": "GM-X-ENERJI-DEPOLAMALI-ON-GRID-SISTEM-1",
+  "cost": 337167,
+  "desc": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 1",
+  "saleUsd": 8403.95
+ },
+ {
+  "id": "x-enerji-depolamali-on-grid-sistem-2",
+  "cat": "solar-paketler",
+  "brand": "GESM Power",
+  "name": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 2",
+  "supplier": "enerjipazari",
+  "tags": [],
+  "scenario": "Ev",
+  "specs": {},
+  "img": [
+   "public/images/products/enerji-depolamali-on-grid-sistem-2.webp"
+  ],
+  "code": "GM-X-ENERJI-DEPOLAMALI-ON-GRID-SISTEM-2",
+  "cost": 515250,
+  "desc": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 2",
+  "saleUsd": 12842.72
+ },
+ {
+  "id": "x-enerji-depolamali-on-grid-sistem-3",
+  "cat": "solar-paketler",
+  "brand": "GESM Power",
+  "name": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 3",
+  "supplier": "enerjipazari",
+  "tags": [],
+  "scenario": "Ev",
+  "specs": {},
+  "img": [
+   "public/images/products/enerji-depolamali-on-grid-sistem-3.webp"
+  ],
+  "code": "GM-X-ENERJI-DEPOLAMALI-ON-GRID-SISTEM-3",
+  "cost": 781433,
+  "desc": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 3",
+  "saleUsd": 19477.4
+ },
+ {
+  "id": "x-enerji-depolamali-on-grid-sistem-4",
+  "cat": "solar-paketler",
+  "brand": "GESM Power",
+  "name": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 4",
+  "supplier": "enerjipazari",
+  "tags": [],
+  "scenario": "Ev",
+  "specs": {},
+  "img": [
+   "public/images/products/enerji-depolamali-on-grid-sistem-4.webp"
+  ],
+  "code": "GM-X-ENERJI-DEPOLAMALI-ON-GRID-SISTEM-4",
+  "cost": 947025,
+  "desc": "Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 4",
+  "saleUsd": 23604.81
+ },
+ {
+  "id": "x-trifaze-enerji-depolamali-on-grid-sistem-5-1",
+  "cat": "solar-paketler",
+  "brand": "GESM Power",
+  "name": "Trifaze Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 5",
+  "supplier": "enerjipazari",
+  "tags": [],
+  "scenario": "Ticari",
+  "specs": {},
+  "img": [
+   "public/images/products/trifaze-enerji-depolamali-on-grid-sistem-5-1.webp"
+  ],
+  "code": "GM-X-TRIFAZE-ENERJI-DEPOLAMALI-ON-GRID-SISTEM-5-1",
+  "cost": 1479625,
+  "desc": "Trifaze Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 5",
+  "saleUsd": 36879.99
+ },
+ {
+  "id": "x-trifaze-enerji-depolamali-on-grid-sistem-6",
+  "cat": "solar-paketler",
+  "brand": "GESM Power",
+  "name": "Trifaze Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 6",
+  "supplier": "enerjipazari",
+  "tags": [],
+  "scenario": "Ticari",
+  "specs": {},
+  "img": [
+   "public/images/products/trifaze-enerji-depolamali-on-grid-sistem-6.webp"
+  ],
+  "code": "GM-X-TRIFAZE-ENERJI-DEPOLAMALI-ON-GRID-SISTEM-6",
+  "cost": 1769317,
+  "desc": "Trifaze Enerji Depolamalı On-Grid Paket Sistem — Konfigürasyon 6",
+  "saleUsd": 44100.61
+ },
+ {
+  "id": "x-20kw-hibrit-trifaze-inverter-lv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "20 kW Hibrit Trifaze İnverter LV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/20kw-hibrit-trifaze-inverter-lv.webp"
+  ],
+  "code": "GM-X-20KW-HIBRIT-TRIFAZE-INVERTER-LV",
+  "cost": 172583,
+  "desc": "20 kW Hibrit Trifaze İnverter LV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 4460.83,
+  "costUsd": 3656.42
+ },
+ {
+  "id": "x-10kw-on-grid-monofaze-inverter",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "10 kW On-Grid Monofaze İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Monofaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/10kw-on-grid-monofaze-inverter.webp"
+  ],
+  "code": "GM-X-10KW-ON-GRID-MONOFAZE-INVERTER",
+  "cost": 32900,
+  "desc": "10 kW On-Grid Monofaze İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 850.39,
+  "costUsd": 697.04
+ },
+ {
+  "id": "x-20kw-trifaze-hibrit-sistem-3",
+  "cat": "solar-paketler",
+  "brand": "GESM Power",
+  "name": "20 kW Trifaze Hibrit Paket Sistem",
+  "supplier": "enerjipazari",
+  "tags": [],
+  "scenario": "Ticari",
+  "specs": {},
+  "img": [
+   "public/images/products/20kw-trifaze-hibrit-sistem-3.webp"
+  ],
+  "code": "GM-X-20KW-TRIFAZE-HIBRIT-SISTEM-3",
+  "cost": 1976042,
+  "desc": "20 kW Trifaze Hibrit Paket Sistem",
+  "saleUsd": 49253.28
+ },
+ {
+  "id": "x-15kw-hibrit-trifaze-inverter-lv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "15 kW Hibrit Trifaze İnverter LV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/15kw-hibrit-trifaze-inverter-lv.webp"
+  ],
+  "code": "GM-X-15KW-HIBRIT-TRIFAZE-INVERTER-LV",
+  "cost": 144011,
+  "desc": "15 kW Hibrit Trifaze İnverter LV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 3722.33,
+  "costUsd": 3051.09
+ },
+ {
+  "id": "x-30kw-hibrit-trifaze-inverter-hv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "30 kW Hibrit Trifaze İnverter HV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/30kw-hibrit-trifaze-inverter-hv.webp"
+  ],
+  "code": "GM-X-30KW-HIBRIT-TRIFAZE-INVERTER-HV",
+  "cost": 216450,
+  "desc": "30 kW Hibrit Trifaze İnverter HV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 5594.69,
+  "costUsd": 4585.81
+ },
+ {
+  "id": "x-50kw-hibrit-trifaze-inverter-hv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "50 kW Hibrit Trifaze İnverter HV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "30+ kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/50kw-hibrit-trifaze-inverter-hv.webp"
+  ],
+  "code": "GM-X-50KW-HIBRIT-TRIFAZE-INVERTER-HV",
+  "cost": 363636,
+  "desc": "50 kW Hibrit Trifaze İnverter HV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 9399.06,
+  "costUsd": 7704.15
+ },
+ {
+  "id": "x-150hp-110kw-solar-pompa-inverteri-yeni-nesil",
+  "cat": "tarimsal-sulama",
+  "brand": "Lexron",
+  "name": "150 Hp (110 kW) Solar Pompa İnverteri Yeni Nesil",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/150hp-110kw-solar-pompa-inverteri-yeni-nesil.webp"
+  ],
+  "code": "GM-X-150HP-110KW-SOLAR-POMPA-INVERTERI-YENI-NESIL",
+  "cost": 132756,
+  "desc": "150 Hp (110 kW) Solar Pompa İnverteri Yeni Nesil, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "saleUsd": 3431.41,
+  "costUsd": 2812.63
+ },
+ {
+  "id": "x-180hp-132kw-solar-pompa-inverteri-yeni-nesil",
+  "cat": "tarimsal-sulama",
+  "brand": "Lexron",
+  "name": "180 Hp (132 kW) Solar Pompa İnverteri Yeni Nesil",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/180hp-132kw-solar-pompa-inverteri-yeni-nesil.webp"
+  ],
+  "code": "GM-X-180HP-132KW-SOLAR-POMPA-INVERTERI-YENI-NESIL",
+  "cost": 202020,
+  "desc": "180 Hp (132 kW) Solar Pompa İnverteri Yeni Nesil, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "saleUsd": 5221.7,
+  "costUsd": 4280.08
+ },
+ {
+  "id": "x-8kw-hibrit-trifaze-inverter-lv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "8 kW Hibrit Trifaze İnverter LV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/8kw-hibrit-trifaze-inverter-lv.webp"
+  ],
+  "code": "GM-X-8KW-HIBRIT-TRIFAZE-INVERTER-LV",
+  "cost": 115151,
+  "desc": "8 kW Hibrit Trifaze İnverter LV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 2976.37,
+  "costUsd": 2439.65
+ },
+ {
+  "id": "x-210hp-160kw-solar-pompa-inverteri-yeni-nesil",
+  "cat": "tarimsal-sulama",
+  "brand": "Lexron",
+  "name": "210 Hp (160 kW) Solar Pompa İnverteri Yeni Nesil",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/210hp-160kw-solar-pompa-inverteri-yeni-nesil.webp"
+  ],
+  "code": "GM-X-210HP-160KW-SOLAR-POMPA-INVERTERI-YENI-NESIL",
+  "cost": 227994,
+  "desc": "210 Hp (160 kW) Solar Pompa İnverteri Yeni Nesil, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım.",
+  "saleUsd": 5893.06,
+  "costUsd": 4830.38
+ },
+ {
+  "id": "x-8kw-hibrit-monofaze-inverter-lv-1",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "8 kW Hibrit Monofaze İnverter LV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Monofaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/8kw-hibrit-monofaze-inverter-lv-1.webp"
+  ],
+  "code": "GM-X-8KW-HIBRIT-MONOFAZE-INVERTER-LV-1",
+  "cost": 77922,
+  "desc": "8 kW Hibrit Monofaze İnverter LV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 2014.09,
+  "costUsd": 1650.89
+ },
+ {
+  "id": "x-20-48kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi",
+  "cat": "lityum-akuler",
+  "brand": "EVE",
+  "name": "EVE 20,48 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi",
+  "supplier": "enerjipazari",
+  "tags": [
+   "HV Sistem"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/20-48kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi.webp"
+  ],
+  "code": "GM-X-20-48KWH-LIFEPO4-HV-YUKSEK-VOLTAJ-BATARYA-SISTEMI",
+  "cost": 317460,
+  "desc": "20–48 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi,  kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "saleUsd": 8205.54,
+  "costUsd": 6725.85
+ },
+ {
+  "id": "x-40-96kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi",
+  "cat": "lityum-akuler",
+  "brand": "EVE",
+  "name": "EVE 40,96 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi",
+  "supplier": "enerjipazari",
+  "tags": [
+   "HV Sistem"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/40-96kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi.webp"
+  ],
+  "code": "GM-X-40-96KWH-LIFEPO4-HV-YUKSEK-VOLTAJ-BATARYA-SISTEMI",
+  "cost": 502164,
+  "desc": "40–96 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi,  kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "saleUsd": 12979.67,
+  "costUsd": 10639.07
+ },
+ {
+  "id": "x-eve-61-44kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi",
+  "cat": "lityum-akuler",
+  "brand": "EVE",
+  "name": "EVE 61,44 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi",
+  "supplier": "enerjipazari",
+  "tags": [
+   "HV Sistem"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/eve-61-44kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi-kopya.webp"
+  ],
+  "code": "GM-X-EVE-61-44KWH-LIFEPO4-HV-YUKSEK-VOLTAJ-BATARYA-SISTEMI",
+  "cost": 724386,
+  "desc": "EVE 61,44 kWh LiFePO4 HV Yüksek Voltaj Batarya Sistemi,  kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "saleUsd": 18723.54,
+  "costUsd": 15347.16
+ },
+ {
+  "id": "x-15kw-on-grid-trifaze-inverter",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "15 kW On-Grid Trifaze İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/15kw-on-grid-trifaze-inverter.webp"
+  ],
+  "code": "GM-X-15KW-ON-GRID-TRIFAZE-INVERTER",
+  "cost": 45887,
+  "desc": "15 kW On-Grid Trifaze İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 1186.07,
+  "costUsd": 972.19
+ },
+ {
+  "id": "x-5kw-on-grid-trifaze-inverter",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "5 kW On-Grid Trifaze İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/5kw-on-grid-trifaze-inverter.webp"
+  ],
+  "code": "GM-X-5KW-ON-GRID-TRIFAZE-INVERTER",
+  "cost": 33766,
+  "desc": "5 kW On-Grid Trifaze İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 872.78,
+  "costUsd": 715.39
+ },
+ {
+  "id": "x-314ah-51-2v-premium-serisi-lityum-batarya",
+  "cat": "lityum-akuler",
+  "brand": "Lexron",
+  "name": "314 Ah 51,2V Premium Serisi Lityum Batarya (16 kWh)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "314 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/314ah-51-2v-premium-serisi-lityum-batarya.webp"
+  ],
+  "code": "GM-X-314AH-51-2V-PREMIUM-SERISI-LITYUM-BATARYA",
+  "cost": 150072,
+  "desc": "314 Ah 51,2V Premium Serisi Lityum Batarya (16 kWh),  kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "saleUsd": 3878.98,
+  "costUsd": 3179.49
+ },
+ {
+  "id": "x-1200w-solar-aydinlatma",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "1200 W Solar Aydınlatma",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Aydınlatma"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/1200w-solar-aydinlatma.webp"
+  ],
+  "code": "GM-X-1200W-SOLAR-AYDINLATMA",
+  "cost": 3175,
+  "desc": "1200 W Solar Aydınlatma — solar yaşamı kolaylaştıran tamamlayıcı ürün. Detaylı bilgi ve stok için WhatsApp'tan yazabilirsiniz.",
+  "saleUsd": 82.06,
+  "costUsd": 67.26
+ },
+ {
+  "id": "x-2400w-solar-aydinlatma",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "2400 W Solar Aydınlatma",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Aydınlatma"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/2400w-solar-aydinlatma.webp"
+  ],
+  "code": "GM-X-2400W-SOLAR-AYDINLATMA",
+  "cost": 4906,
+  "desc": "2400 W Solar Aydınlatma — solar yaşamı kolaylaştıran tamamlayıcı ürün. Detaylı bilgi ve stok için WhatsApp'tan yazabilirsiniz.",
+  "saleUsd": 126.81,
+  "costUsd": 103.94
+ },
+ {
+  "id": "x-700w-solar-aydinlatma",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "700 W Solar Aydınlatma",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Aydınlatma"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/700w-solar-aydinlatma.webp"
+  ],
+  "code": "GM-X-700W-SOLAR-AYDINLATMA",
+  "cost": 2309,
+  "desc": "700 W Solar Aydınlatma — solar yaşamı kolaylaştıran tamamlayıcı ürün. Detaylı bilgi ve stok için WhatsApp'tan yazabilirsiniz.",
+  "saleUsd": 59.68,
+  "costUsd": 48.92
+ },
+ {
+  "id": "x-lexron-18kw-monoblok-isi-pompasi",
+  "cat": "aksesuar",
+  "brand": "Lexron",
+  "name": "Lexron 18 kW Monoblok Isı Pompası",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Isı Pompası"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/lexron-18kw-monoblok-isi-pompasi.webp"
+  ],
+  "code": "GM-X-LEXRON-18KW-MONOBLOK-ISI-POMPASI",
+  "cost": null,
+  "desc": "Lexron 18 kW Monoblok Isı Pompası — solar yaşamı kolaylaştıran tamamlayıcı ürün. Detaylı bilgi ve stok için WhatsApp'tan yazabilirsiniz.",
+  "onRequest": true
+ },
+ {
+  "id": "x-60kw-hibrit-trifaze-inverter-hv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "60 kW Hibrit Trifaze İnverter HV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "30+ kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/60kw-hibrit-trifaze-inverter-hv.webp"
+  ],
+  "code": "GM-X-60KW-HIBRIT-TRIFAZE-INVERTER-HV",
+  "cost": 375180,
+  "desc": "60 kW Hibrit Trifaze İnverter HV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 9697.45,
+  "costUsd": 7948.73
+ },
+ {
+  "id": "x-80kw-hibrit-trifaze-inverter-hv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "80 kW Hibrit Trifaze İnverter HV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "30+ kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/80kw-hibrit-trifaze-inverter-hv.webp"
+  ],
+  "code": "GM-X-80KW-HIBRIT-TRIFAZE-INVERTER-HV",
+  "cost": 406926,
+  "desc": "80 kW Hibrit Trifaze İnverter HV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 10518,
+  "costUsd": 8621.31
+ },
+ {
+  "id": "x-200ah-25-6v-lityum-batarya",
+  "cat": "lityum-akuler",
+  "brand": "Lexron",
+  "name": "200 Ah 25,6V Lityum Batarya (5,12 kWh)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "200 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/200ah-25-6v-lityum-batarya.webp"
+  ],
+  "code": "GM-X-200AH-25-6V-LITYUM-BATARYA",
+  "cost": 49062,
+  "desc": "200 Ah 25,6V Lityum Batarya (5,12 kWh),  kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar.",
+  "saleUsd": 1268.13,
+  "costUsd": 1039.45
+ },
+ {
+  "id": "x-dc-sigorta-1000v-30a",
+  "cat": "solar-ekipmanlar",
+  "brand": "Lexron",
+  "name": "DC Sigorta 1000V 30A",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Sigorta"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-sigorta-1000v-30a.webp"
+  ],
+  "code": "GM-X-DC-SIGORTA-1000V-30A",
+  "cost": 462,
+  "desc": "DC Sigorta 1000V 30A — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır.",
+  "saleUsd": 11.93,
+  "costUsd": 9.78
+ },
+ {
+  "id": "x-80a-hv-15-230v-mppt-sarj-kontrol-cihazi",
+  "cat": "sarj-regulatorleri",
+  "brand": "Lexron",
+  "name": "80A HV MPPT Şarj Kontrol Cihazı (15–230V PV)",
+  "supplier": "enerjipazari",
+  "tags": [
+   "MPPT"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/80a-hv-15-230v-mppt-sarj-kontrol-cihazi.webp"
+  ],
+  "code": "GM-X-80A-HV-15-230V-MPPT-SARJ-KONTROL-CIHAZI",
+  "cost": 7215,
+  "desc": "80A HV MPPT Şarj Kontrol Cihazı (15–230V PV), panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır.",
+  "saleUsd": 186.49,
+  "costUsd": 152.86
+ },
+ {
+  "id": "x-1-5kw-hv-mppt-akilli-inverter-12v-sorotec",
+  "cat": "akilli-inverterler",
+  "brand": "Sorotec",
+  "name": "Sorotec 1,5 kW HV MPPT Akıllı İnverter 12V",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/1-5kw-hv-mppt-akilli-inverter-12v-sorotec.webp"
+  ],
+  "code": "GM-X-1-5KW-HV-MPPT-AKILLI-INVERTER-12V-SOROTEC",
+  "cost": 16433,
+  "desc": "Sorotec 1,5 kW HV MPPT Akıllı İnverter 12V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 409.6
+ },
+ {
+  "id": "x-16kw-hibrit-monofaze-inverter-lv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "16 kW Hibrit Monofaze İnverter LV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Monofaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/16kw-hibrit-monofaze-inverter-lv.webp"
+  ],
+  "code": "GM-X-16KW-HIBRIT-MONOFAZE-INVERTER-LV",
+  "cost": 150072,
+  "desc": "16 kW Hibrit Monofaze İnverter LV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 3878.98,
+  "costUsd": 3179.49
+ },
+ {
+  "id": "x-5-5kw-hv-mppt-akilli-inverter-sorotec",
+  "cat": "akilli-inverterler",
+  "brand": "Sorotec",
+  "name": "Sorotec 5,5 kW HV MPPT Akıllı İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Tam Sinüs"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/5-5kw-hv-mppt-akilli-inverter-sorotec.webp"
+  ],
+  "code": "GM-X-5-5KW-HV-MPPT-AKILLI-INVERTER-SOROTEC",
+  "cost": 16162,
+  "desc": "Sorotec 5,5 kW HV MPPT Akıllı İnverter, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir.",
+  "saleUsd": 417.74,
+  "costUsd": 342.41
+ },
+ {
+  "id": "x-30kw-on-grid-trifaze-inverter",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "30 kW On-Grid Trifaze İnverter",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/30kw-on-grid-trifaze-inverter.webp"
+  ],
+  "code": "GM-X-30KW-ON-GRID-TRIFAZE-INVERTER",
+  "cost": 62338,
+  "desc": "30 kW On-Grid Trifaze İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz.",
+  "saleUsd": 1611.27,
+  "costUsd": 1320.71
+ },
+ {
+  "id": "x-25kw-hibrit-trifaze-inverter-hv",
+  "cat": "hibrit-inverterler",
+  "brand": "Deye",
+  "name": "25 kW Hibrit Trifaze İnverter HV",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Trifaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/25kw-hibrit-trifaze-inverter-hv.webp"
+  ],
+  "code": "GM-X-25KW-HIBRIT-TRIFAZE-INVERTER-HV",
+  "cost": 172583,
+  "desc": "25 kW Hibrit Trifaze İnverter HV; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir.",
+  "saleUsd": 4460.83,
+  "costUsd": 3656.42
+ },
+ {
+  "id": "x-220w-16bb-etfe-210r-esnek-topcon-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Lexron",
+  "name": "220 W 16BB ETFE 210R Esnek TopCon Güneş Paneli",
+  "supplier": "enerjipazari",
+  "tags": [
+   "Esnek"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/220w-16bb-etfe-210r-esnek-topcon-gunes-paneli.webp"
+  ],
+  "code": "GM-X-220W-16BB-ETFE-210R-ESNEK-TOPCON-GUNES-PANELI",
+  "cost": 22857,
+  "desc": "220 W 16BB ETFE 210R Esnek TopCon Güneş Paneli,  gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz.",
+  "saleUsd": 590.8,
+  "costUsd": 484.26
+ },
+ {
+  "id": "x-tam-sinus-12v-300w",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs İnverter 12V 300 W",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-12v-300w.webp",
+   "public/images/products/tam-sinus-12v-300w-2.webp",
+   "public/images/products/tam-sinus-12v-300w-3.webp",
+   "public/images/products/tam-sinus-12v-300w-4.webp",
+   "public/images/products/tam-sinus-12v-300w-5.webp",
+   "public/images/products/tam-sinus-12v-300w-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-12V-300W",
+  "cost": null,
+  "desc": "Tam Sinüs İnverter 12V 300 W, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-tam-sinus-12v-1500w",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs İnverter 12V 1500 W",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-12v-1500w.webp",
+   "public/images/products/tam-sinus-12v-1500w-2.webp",
+   "public/images/products/tam-sinus-12v-1500w-3.webp",
+   "public/images/products/tam-sinus-12v-1500w-4.webp",
+   "public/images/products/tam-sinus-12v-1500w-5.webp",
+   "public/images/products/tam-sinus-12v-1500w-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-12V-1500W",
+  "cost": null,
+  "desc": "Tam Sinüs İnverter 12V 1500 W, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-tam-sinus-12v-4000w",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs İnverter 12V 4000 W",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-12v-4000w.webp",
+   "public/images/products/tam-sinus-12v-4000w-2.webp",
+   "public/images/products/tam-sinus-12v-4000w-3.webp",
+   "public/images/products/tam-sinus-12v-4000w-4.webp",
+   "public/images/products/tam-sinus-12v-4000w-5.webp",
+   "public/images/products/tam-sinus-12v-4000w-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-12V-4000W",
+  "cost": null,
+  "desc": "Tam Sinüs İnverter 12V 4000 W, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-tam-sinus-24v-1500w",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs İnverter 24V 1500 W",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "24V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-24v-1500w.webp",
+   "public/images/products/tam-sinus-24v-1500w-2.webp",
+   "public/images/products/tam-sinus-24v-1500w-3.webp",
+   "public/images/products/tam-sinus-24v-1500w-4.webp",
+   "public/images/products/tam-sinus-24v-1500w-5.webp",
+   "public/images/products/tam-sinus-24v-1500w-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-24V-1500W",
+  "cost": null,
+  "desc": "Tam Sinüs İnverter 24V 1500 W, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-tam-sinus-24v-2000w",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs İnverter 24V 2000 W",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "24V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-24v-2000w.webp",
+   "public/images/products/tam-sinus-24v-2000w-2.webp",
+   "public/images/products/tam-sinus-24v-2000w-3.webp",
+   "public/images/products/tam-sinus-24v-2000w-4.webp",
+   "public/images/products/tam-sinus-24v-2000w-5.webp",
+   "public/images/products/tam-sinus-24v-2000w-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-24V-2000W",
+  "cost": null,
+  "desc": "Tam Sinüs İnverter 24V 2000 W, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-tam-sinus-24v-3000wts",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs İnverter 24V 3000 W",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "24V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-24v-3000wts.webp",
+   "public/images/products/tam-sinus-24v-3000wts-2.webp",
+   "public/images/products/tam-sinus-24v-3000wts-3.webp",
+   "public/images/products/tam-sinus-24v-3000wts-4.webp",
+   "public/images/products/tam-sinus-24v-3000wts-5.webp",
+   "public/images/products/tam-sinus-24v-3000wts-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-24V-3000WTS",
+  "cost": null,
+  "desc": "Tam Sinüs İnverter 24V 3000 W, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-tam-sinus-ups-remote-ekran-12v-600w",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs UPS İnverter 12V 600 W (Uzaktan Ekranlı)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "UPS",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-600w.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-600w-2.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-600w-3.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-600w-4.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-600w-5.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-600w-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-UPS-REMOTE-EKRAN-12V-600W",
+  "cost": null,
+  "desc": "Tam Sinüs UPS İnverter 12V 600 W (Uzaktan Ekranlı), MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-tam-sinus-ups-remote-ekran-12v-3000w",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Tam Sinüs UPS İnverter 12V 3000 W (Uzaktan Ekranlı)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "UPS",
+   "12V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-3000w.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-3000w-2.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-3000w-3.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-3000w-4.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-3000w-5.webp",
+   "public/images/products/tam-sinus-ups-remote-ekran-12v-3000w-6.webp"
+  ],
+  "code": "GM-X-TAM-SINUS-UPS-REMOTE-EKRAN-12V-3000W",
+  "cost": null,
+  "desc": "Tam Sinüs UPS İnverter 12V 3000 W (Uzaktan Ekranlı), MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-mexx-p4kw-premium-24v-4kw",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Mexxun P4KW Premium 4 kW Akıllı İnverter 24V",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "24V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/mexx-p4kw-premium-24v-4kw.webp",
+   "public/images/products/mexx-p4kw-premium-24v-4kw-2.webp",
+   "public/images/products/mexx-p4kw-premium-24v-4kw-3.webp",
+   "public/images/products/mexx-p4kw-premium-24v-4kw-4.webp",
+   "public/images/products/mexx-p4kw-premium-24v-4kw-5.webp",
+   "public/images/products/mexx-p4kw-premium-24v-4kw-6.webp"
+  ],
+  "code": "GM-X-MEXX-P4KW-PREMIUM-24V-4KW",
+  "cost": null,
+  "desc": "Mexxun P4KW Premium 4 kW Akıllı İnverter 24V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-mexx-p6kw-premium-48v-6kw",
+  "cat": "akilli-inverterler",
+  "brand": "Mexxun",
+  "name": "Mexxun P6KW Premium 6 kW Akıllı İnverter 48V",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Tam Sinüs",
+   "48V"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/mexx-p6kw-premium-48v-6kw.webp",
+   "public/images/products/mexx-p6kw-premium-48v-6kw-2.webp",
+   "public/images/products/mexx-p6kw-premium-48v-6kw-3.webp",
+   "public/images/products/mexx-p6kw-premium-48v-6kw-4.webp",
+   "public/images/products/mexx-p6kw-premium-48v-6kw-5.webp",
+   "public/images/products/mexx-p6kw-premium-48v-6kw-6.webp"
+  ],
+  "code": "GM-X-MEXX-P6KW-PREMIUM-48V-6KW",
+  "cost": null,
+  "desc": "Mexxun P6KW Premium 6 kW Akıllı İnverter 48V, MPPT şarj kontrolünü ve tam sinüs çıkışı tek cihazda birleştiren off-grid inverterdir.  sürekli güç sağlar; şebekenin olmadığı bağ evi, karavan ve şantiye sistemlerinin kalbidir."
+ },
+ {
+  "id": "x-deye-optimizer-sun-xl02-b",
+  "cat": "solar-ekipmanlar",
+  "brand": "Deye",
+  "name": "Deye Optimizer SUN-XL02-B",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "İzleme"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/deye-optimizer-sun-xl02-b.webp"
+  ],
+  "code": "GM-X-DEYE-OPTIMIZER-SUN-XL02-B",
+  "cost": null,
+  "desc": "Deye Optimizer SUN-XL02-B — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-deye-optimizer-concentrator-sun-xl20-b",
+  "cat": "solar-ekipmanlar",
+  "brand": "Deye",
+  "name": "Deye Optimizer Concentrator SUN-XL20-B",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "İzleme"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/deye-optimizer-concentrator-sun-xl20-b.webp"
+  ],
+  "code": "GM-X-DEYE-OPTIMIZER-CONCENTRATOR-SUN-XL20-B",
+  "cost": null,
+  "desc": "Deye Optimizer Concentrator SUN-XL20-B — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-auxsol-8kw-monofaze",
+  "cat": "sebeke-inverterleri",
+  "brand": "Auxsol",
+  "name": "Auxsol 8 kW Monofaze On-Grid İnverter",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Monofaze",
+   "≤10 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/auxsol-8kw-monofaze.webp",
+   "public/images/products/auxsol-8kw-monofaze-2.webp",
+   "public/images/products/auxsol-8kw-monofaze-3.webp",
+   "public/images/products/auxsol-8kw-monofaze-4.webp",
+   "public/images/products/auxsol-8kw-monofaze-5.webp",
+   "public/images/products/auxsol-8kw-monofaze-6.webp"
+  ],
+  "code": "GM-X-AUXSOL-8KW-MONOFAZE",
+  "cost": null,
+  "desc": "Auxsol 8 kW Monofaze On-Grid İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz."
+ },
+ {
+  "id": "x-deye-33kw-trifaze11",
+  "cat": "sebeke-inverterleri",
+  "brand": "Deye",
+  "name": "Deye 33 kW Trifaze On-Grid İnverter",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Trifaze",
+   "30+ kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/deye-33kw-trifaze11.webp",
+   "public/images/products/deye-33kw-trifaze11-2.webp",
+   "public/images/products/deye-33kw-trifaze11-3.webp",
+   "public/images/products/deye-33kw-trifaze11-4.webp"
+  ],
+  "code": "GM-X-DEYE-33KW-TRIFAZE11",
+  "cost": null,
+  "desc": "Deye 33 kW Trifaze On-Grid İnverter, aküsüz şebekeye bağlı (on-grid) sistemler için yüksek verimli inverterdir. Çatı GES ve ticari öz tüketim projelerinde kullanılır; proje ve devreye alma desteği sunuyoruz."
+ },
+ {
+  "id": "x-mexxsun-12-kw-hibrit-monofaze-lv-48v",
+  "cat": "hibrit-inverterler",
+  "brand": "Mexxun",
+  "name": "Mexxun 12 kW Hibrit Monofaze İnverter LV 48V",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Monofaze",
+   "10–30 kW"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/12-kw-hibrit-monofaze-lv-48v.webp",
+   "public/images/products/12-kw-hibrit-monofaze-lv-48v-2.webp",
+   "public/images/products/12-kw-hibrit-monofaze-lv-48v-3.webp",
+   "public/images/products/12-kw-hibrit-monofaze-lv-48v-4.webp",
+   "public/images/products/12-kw-hibrit-monofaze-lv-48v-5.webp"
+  ],
+  "code": "GM-X-MEXXSUN-12-KW-HIBRIT-MONOFAZE-LV-48V",
+  "cost": null,
+  "desc": "Mexxun 12 kW Hibrit Monofaze İnverter LV 48V; güneş paneli, akü ve şebekeyi tek noktadan yönetir. Kesintide otomatik aküye geçer, fazla üretimde mahsuplaşma yapılabilir.  bağlantı içindir."
+ },
+ {
+  "id": "x-pwm-12-24v-cm3",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "Mexxun CM3 PWM Şarj Kontrol Cihazı (12/24V)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "PWM"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/pwm-12-24v-cm3.webp",
+   "public/images/products/pwm-12-24v-cm3-2.webp",
+   "public/images/products/pwm-12-24v-cm3-3.webp",
+   "public/images/products/pwm-12-24v-cm3-4.webp",
+   "public/images/products/pwm-12-24v-cm3-5.webp",
+   "public/images/products/pwm-12-24v-cm3-6.webp"
+  ],
+  "code": "GM-X-PWM-12-24V-CM3",
+  "cost": null,
+  "desc": "Mexxun CM3 PWM Şarj Kontrol Cihazı (12/24V), panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "x-ac-dc-aku-sarj-cihazi-12v-20a",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "AC-DC Akü Şarj Cihazı 12V 20A",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "AC-DC Şarj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-20a.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-20a-2.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-20a-3.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-20a-4.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-20a-5.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-20a-6.webp"
+  ],
+  "code": "GM-X-AC-DC-AKU-SARJ-CIHAZI-12V-20A",
+  "cost": null,
+  "desc": "AC-DC Akü Şarj Cihazı 12V 20A, panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "x-ac-dc-aku-sarj-cihazi-12v-40a",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "AC-DC Akü Şarj Cihazı 12V 40A",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "AC-DC Şarj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-40a.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-40a-2.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-40a-3.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-40a-4.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-40a-5.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-12v-40a-6.webp"
+  ],
+  "code": "GM-X-AC-DC-AKU-SARJ-CIHAZI-12V-40A",
+  "cost": null,
+  "desc": "AC-DC Akü Şarj Cihazı 12V 40A, panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "x-ac-dc-aku-sarj-cihazi-24v-20a",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "AC-DC Akü Şarj Cihazı 24V 20A",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "AC-DC Şarj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/ac-dc-aku-sarj-cihazi-24v-20a.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-24v-20a-2.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-24v-20a-3.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-24v-20a-4.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-24v-20a-5.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-24v-20a-6.webp"
+  ],
+  "code": "GM-X-AC-DC-AKU-SARJ-CIHAZI-24V-20A",
+  "cost": null,
+  "desc": "AC-DC Akü Şarj Cihazı 24V 20A, panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "x-ac-dc-aku-sarj-cihazi-48v-20a",
+  "cat": "sarj-regulatorleri",
+  "brand": "Mexxun",
+  "name": "AC-DC Akü Şarj Cihazı 48V 20A",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "AC-DC Şarj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/ac-dc-aku-sarj-cihazi-48v-20a.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-48v-20a-2.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-48v-20a-3.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-48v-20a-4.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-48v-20a-5.webp",
+   "public/images/products/ac-dc-aku-sarj-cihazi-48v-20a-6.webp"
+  ],
+  "code": "GM-X-AC-DC-AKU-SARJ-CIHAZI-48V-20A",
+  "cost": null,
+  "desc": "AC-DC Akü Şarj Cihazı 48V 20A, panelden aküye şarjı  teknolojisiyle yönetir. Aşırı şarj, derin deşarj ve ters polarite korumaları standarttır."
+ },
+ {
+  "id": "x-mexxsun-lityum-aku-51-2v-300ah-lifepo4",
+  "cat": "lityum-akuler",
+  "brand": "Mexxun",
+  "name": "Mexxun 300 Ah 51,2V LiFePO4 Lityum Akü (15,36 kWh)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "300 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/lityum-aku-51-2v-300ah-lifepo4.webp",
+   "public/images/products/lityum-aku-51-2v-300ah-lifepo4-2.webp",
+   "public/images/products/lityum-aku-51-2v-300ah-lifepo4-3.webp",
+   "public/images/products/lityum-aku-51-2v-300ah-lifepo4-4.webp",
+   "public/images/products/lityum-aku-51-2v-300ah-lifepo4-5.webp",
+   "public/images/products/lityum-aku-51-2v-300ah-lifepo4-6.webp"
+  ],
+  "code": "GM-X-MEXXSUN-LITYUM-AKU-51-2V-300AH-LIFEPO4",
+  "cost": null,
+  "desc": "Mexxun 300 Ah 51,2V LiFePO4 Lityum Akü (15,36 kWh),  kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar."
+ },
+ {
+  "id": "x-mexxsun-lityum-aku-12-8v-300ah-lifepo4-3840wh",
+  "cat": "lityum-akuler",
+  "brand": "Mexxun",
+  "name": "Mexxun 300 Ah 12,8V LiFePO4 Lityum Akü (3,84 kWh)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "300 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/lityum-aku-12-8v-300ah-lifepo4-3840wh-3121.webp",
+   "public/images/products/lityum-aku-12-8v-300ah-lifepo4-3840wh-3121-2.webp",
+   "public/images/products/lityum-aku-12-8v-300ah-lifepo4-3840wh-3121-3.webp",
+   "public/images/products/lityum-aku-12-8v-300ah-lifepo4-3840wh-3121-4.webp",
+   "public/images/products/lityum-aku-12-8v-300ah-lifepo4-3840wh-3121-5.webp"
+  ],
+  "code": "GM-X-MEXXSUN-LITYUM-AKU-12-8V-300AH-LIFEPO4-3840WH",
+  "cost": null,
+  "desc": "Mexxun 300 Ah 12,8V LiFePO4 Lityum Akü (3,84 kWh),  kapasiteli LiFePO4 (lityum demir fosfat) enerji depolama çözümüdür. Dahili BMS hücre koruması standarttır. Solar sistemlerde jel aküye göre kat kat uzun çevrim ömrü sunar."
+ },
+ {
+  "id": "x-jel-aku-12v-100ah-orbus",
+  "cat": "jel-akuler",
+  "brand": "Orbus",
+  "name": "Orbus 100 Ah 12V Jel Akü",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Jel",
+   "100 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/jel-aku-12v-100ah-orbus.webp"
+  ],
+  "code": "GM-X-JEL-AKU-12V-100AH-ORBUS",
+  "cost": null,
+  "desc": "Orbus 100 Ah 12V Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir."
+ },
+ {
+  "id": "x-jel-aku-12v-150ah-orbus",
+  "cat": "jel-akuler",
+  "brand": "Orbus",
+  "name": "Orbus 150 Ah 12V Jel Akü",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Jel",
+   "150 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/jel-aku-12v-150ah-orbus.webp"
+  ],
+  "code": "GM-X-JEL-AKU-12V-150AH-ORBUS",
+  "cost": null,
+  "desc": "Orbus 150 Ah 12V Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir."
+ },
+ {
+  "id": "x-jel-aku-12v-200ah-orbus",
+  "cat": "jel-akuler",
+  "brand": "Orbus",
+  "name": "Orbus 200 Ah 12V Jel Akü",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Jel",
+   "200 Ah"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/jel-aku-12v-200ah-orbus.webp"
+  ],
+  "code": "GM-X-JEL-AKU-12V-200AH-ORBUS",
+  "cost": null,
+  "desc": "Orbus 200 Ah 12V Jel Akü, bakım gerektirmeyen derin döngü jel teknolojisiyle ekonomik enerji depolama sağlar. Bağ evi, karavan ve yedek güç sistemleri için uygundur; %50 deşarj derinliğinde en uzun ömrü verir."
+ },
+ {
+  "id": "x-solar-surucu-uzaktan-kontrol-cihazi-mx600-serisi",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "MX600 Serisi Sürücü Uzaktan Kumanda Cihazı",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "İzleme"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/solar-surucu-uzaktan-kontrol-cihazi-mx600-serisi.webp",
+   "public/images/products/solar-surucu-uzaktan-kontrol-cihazi-mx600-serisi-2.webp",
+   "public/images/products/solar-surucu-uzaktan-kontrol-cihazi-mx600-serisi-3.webp",
+   "public/images/products/solar-surucu-uzaktan-kontrol-cihazi-mx600-serisi-4.webp",
+   "public/images/products/solar-surucu-uzaktan-kontrol-cihazi-mx600-serisi-5.webp",
+   "public/images/products/solar-surucu-uzaktan-kontrol-cihazi-mx600-serisi-6.webp"
+  ],
+  "code": "GM-X-SOLAR-SURUCU-UZAKTAN-KONTROL-CIHAZI-MX600-SERISI",
+  "cost": null,
+  "desc": "MX600 Serisi Sürücü Uzaktan Kumanda Cihazı — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-175hp-132-kw-solar-pompa-surucusu-trifaze",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "175 Hp (132 kW) Solar Pompa Sürücüsü Trifaze",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Sürücü"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/175hp-132-kw-solar-pompa-surucusu-trifaze.webp",
+   "public/images/products/175hp-132-kw-solar-pompa-surucusu-trifaze-2.webp",
+   "public/images/products/175hp-132-kw-solar-pompa-surucusu-trifaze-3.webp",
+   "public/images/products/175hp-132-kw-solar-pompa-surucusu-trifaze-4.webp"
+  ],
+  "code": "GM-X-175HP-132-KW-SOLAR-POMPA-SURUCUSU-TRIFAZE",
+  "cost": null,
+  "desc": "175 Hp (132 kW) Solar Pompa Sürücüsü Trifaze, mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-yuzey-pompa-2hp-750w-sfp6-20-750w-72v",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Yüzey Pompası 2 Hp 750 W 72V (SFP6-20)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-yuzey-pompa-2hp-750w-sfp6-20-750w-72v.webp",
+   "public/images/products/dc-yuzey-pompa-2hp-750w-sfp6-20-750w-72v-2.webp",
+   "public/images/products/dc-yuzey-pompa-2hp-750w-sfp6-20-750w-72v-3.webp",
+   "public/images/products/dc-yuzey-pompa-2hp-750w-sfp6-20-750w-72v-4.webp",
+   "public/images/products/dc-yuzey-pompa-2hp-750w-sfp6-20-750w-72v-5.webp",
+   "public/images/products/dc-yuzey-pompa-2hp-750w-sfp6-20-750w-72v-6.webp"
+  ],
+  "code": "GM-X-DC-YUZEY-POMPA-2HP-750W-SFP6-20-750W-72V",
+  "cost": null,
+  "desc": "DC Yüzey Pompası 2 Hp 750 W 72V (SFP6-20), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-yuzey-pompa-1-5hp-1100w-sfp20-17-1100w-96v",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Yüzey Pompası 1,5 Hp 1100 W 96V (SFP20-17)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-yuzey-pompa-1-5hp-1100w-sfp20-17-1100w-96v.webp",
+   "public/images/products/dc-yuzey-pompa-1-5hp-1100w-sfp20-17-1100w-96v-2.webp",
+   "public/images/products/dc-yuzey-pompa-1-5hp-1100w-sfp20-17-1100w-96v-3.webp",
+   "public/images/products/dc-yuzey-pompa-1-5hp-1100w-sfp20-17-1100w-96v-4.webp",
+   "public/images/products/dc-yuzey-pompa-1-5hp-1100w-sfp20-17-1100w-96v-5.webp",
+   "public/images/products/dc-yuzey-pompa-1-5hp-1100w-sfp20-17-1100w-96v-6.webp"
+  ],
+  "code": "GM-X-DC-YUZEY-POMPA-1-5HP-1100W-SFP20-17-1100W-96V",
+  "cost": null,
+  "desc": "DC Yüzey Pompası 1,5 Hp 1100 W 96V (SFP20-17), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-pompa-0-4-hp-300w-24v-3rdc3-35-24",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Dalgıç Pompa 0,4 Hp 300 W 24V (3RDC3-35)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-pompa-0-4-hp-300w-24v-3rdc3-35-24-300.webp",
+   "public/images/products/dc-pompa-0-4-hp-300w-24v-3rdc3-35-24-300-2.webp",
+   "public/images/products/dc-pompa-0-4-hp-300w-24v-3rdc3-35-24-300-3.webp",
+   "public/images/products/dc-pompa-0-4-hp-300w-24v-3rdc3-35-24-300-4.webp",
+   "public/images/products/dc-pompa-0-4-hp-300w-24v-3rdc3-35-24-300-5.webp"
+  ],
+  "code": "GM-X-DC-POMPA-0-4-HP-300W-24V-3RDC3-35-24",
+  "cost": null,
+  "desc": "DC Dalgıç Pompa 0,4 Hp 300 W 24V (3RDC3-35), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-pompa-0-8hp-600w-4ss600-48n",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Dalgıç Pompa 0,8 Hp 600 W 48V (4SS600)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-pompa-0-8hp-600w-4ss600-48n.webp",
+   "public/images/products/dc-pompa-0-8hp-600w-4ss600-48n-2.webp",
+   "public/images/products/dc-pompa-0-8hp-600w-4ss600-48n-3.webp"
+  ],
+  "code": "GM-X-DC-POMPA-0-8HP-600W-4SS600-48N",
+  "cost": null,
+  "desc": "DC Dalgıç Pompa 0,8 Hp 600 W 48V (4SS600), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-pompa-1-hp-750w-72v-4dc6-56-72-750pm",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Dalgıç Pompa 1 Hp 750 W 72V (4DC6-56)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-pompa-1-hp-750w-72v-4dc6-56-72-750pm.webp",
+   "public/images/products/dc-pompa-1-hp-750w-72v-4dc6-56-72-750pm-2.webp",
+   "public/images/products/dc-pompa-1-hp-750w-72v-4dc6-56-72-750pm-3.webp",
+   "public/images/products/dc-pompa-1-hp-750w-72v-4dc6-56-72-750pm-4.webp",
+   "public/images/products/dc-pompa-1-hp-750w-72v-4dc6-56-72-750pm-5.webp"
+  ],
+  "code": "GM-X-DC-POMPA-1-HP-750W-72V-4DC6-56-72-750PM",
+  "cost": null,
+  "desc": "DC Dalgıç Pompa 1 Hp 750 W 72V (4DC6-56), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-pompa-1-5hp-1100w-72v-4dc6-84-72-1100",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Dalgıç Pompa 1,5 Hp 1100 W 72V (4DC6-84)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-pompa-1-5hp-1100w-72v-4dc6-84-72-1100-826.webp",
+   "public/images/products/dc-pompa-1-5hp-1100w-72v-4dc6-84-72-1100-826-2.webp",
+   "public/images/products/dc-pompa-1-5hp-1100w-72v-4dc6-84-72-1100-826-3.webp",
+   "public/images/products/dc-pompa-1-5hp-1100w-72v-4dc6-84-72-1100-826-4.webp",
+   "public/images/products/dc-pompa-1-5hp-1100w-72v-4dc6-84-72-1100-826-5.webp"
+  ],
+  "code": "GM-X-DC-POMPA-1-5HP-1100W-72V-4DC6-84-72-1100",
+  "cost": null,
+  "desc": "DC Dalgıç Pompa 1,5 Hp 1100 W 72V (4DC6-84), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-pompa-1-6hp-1300w-110v-4dc6-112-110",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Dalgıç Pompa 1,6 Hp 1300 W 110V (4DC6-112)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-pompa-1-6hp-1300w-110v-4dc6-112-110-1300.webp",
+   "public/images/products/dc-pompa-1-6hp-1300w-110v-4dc6-112-110-1300-2.webp",
+   "public/images/products/dc-pompa-1-6hp-1300w-110v-4dc6-112-110-1300-3.webp",
+   "public/images/products/dc-pompa-1-6hp-1300w-110v-4dc6-112-110-1300-4.webp",
+   "public/images/products/dc-pompa-1-6hp-1300w-110v-4dc6-112-110-1300-5.webp",
+   "public/images/products/dc-pompa-1-6hp-1300w-110v-4dc6-112-110-1300-6.webp"
+  ],
+  "code": "GM-X-DC-POMPA-1-6HP-1300W-110V-4DC6-112-110",
+  "cost": null,
+  "desc": "DC Dalgıç Pompa 1,6 Hp 1300 W 110V (4DC6-112), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-pompa-2hp-1500w-110v-3rdc3-8-180-110",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Dalgıç Pompa 2 Hp 1500 W 110V (3RDC3-8-180)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-pompa-2hp-1500w-110v-3rdc3-8-180-110-1500.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-3rdc3-8-180-110-1500-2.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-3rdc3-8-180-110-1500-3.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-3rdc3-8-180-110-1500-4.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-3rdc3-8-180-110-1500-5.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-3rdc3-8-180-110-1500-6.webp"
+  ],
+  "code": "GM-X-DC-POMPA-2HP-1500W-110V-3RDC3-8-180-110",
+  "cost": null,
+  "desc": "DC Dalgıç Pompa 2 Hp 1500 W 110V (3RDC3-8-180), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-dc-pompa-2hp-1500w-110v-ss-impeller-4rdss4-8-203-110",
+  "cat": "tarimsal-sulama",
+  "brand": "Mexxun",
+  "name": "DC Dalgıç Pompa 2 Hp 1500 W 110V Paslanmaz Impeller (4RDSS4)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "DC Pompa"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-pompa-2hp-1500w-110v-ss-impeller-4rdss4-8-203-110-1500.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-ss-impeller-4rdss4-8-203-110-1500-2.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-ss-impeller-4rdss4-8-203-110-1500-3.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-ss-impeller-4rdss4-8-203-110-1500-4.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-ss-impeller-4rdss4-8-203-110-1500-5.webp",
+   "public/images/products/dc-pompa-2hp-1500w-110v-ss-impeller-4rdss4-8-203-110-1500-6.webp"
+  ],
+  "code": "GM-X-DC-POMPA-2HP-1500W-110V-SS-IMPELLER-4RDSS4-8-203-110",
+  "cost": null,
+  "desc": "DC Dalgıç Pompa 2 Hp 1500 W 110V Paslanmaz Impeller (4RDSS4), mevcut trifaze dalgıç pompanızı doğrudan güneş panellerinden çalıştırır; mazot ve şebeke maliyetini ortadan kaldırır. MPPT algoritması gün boyu maksimum su basar; kuru çalışma koruması dahildir. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
+ },
+ {
+  "id": "x-50w-monokristal-gunes-paneli",
+  "cat": "gunes-panelleri",
+  "brand": "Mexxun",
+  "name": "50 W Monokristal Güneş Paneli",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "≤100 W"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/50w-monokristal-gunes-paneli.webp",
+   "public/images/products/50w-monokristal-gunes-paneli-2.webp",
+   "public/images/products/50w-monokristal-gunes-paneli-3.webp"
+  ],
+  "code": "GM-X-50W-MONOKRISTAL-GUNES-PANELI",
+  "cost": null,
+  "desc": "50 W Monokristal Güneş Paneli,  gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz."
+ },
+ {
+  "id": "x-tsm210-210w-12v-monokristal-solar-panel",
+  "cat": "gunes-panelleri",
+  "brand": "Mexxun",
+  "name": "TSM210 210 W 12V Monokristal Güneş Paneli",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/tsm210-210w-12v-monokristal-solar-panel.webp"
+  ],
+  "code": "GM-X-TSM210-210W-12V-MONOKRISTAL-SOLAR-PANEL",
+  "cost": null,
+  "desc": "TSM210 210 W 12V Monokristal Güneş Paneli,  gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz."
+ },
+ {
+  "id": "x-205w-monokristal-pantec-panel",
+  "cat": "gunes-panelleri",
+  "brand": "Pantec",
+  "name": "Pantec 205 W Monokristal Güneş Paneli",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "100–300 W"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/205w-monokristal-pantec-panel.webp"
+  ],
+  "code": "GM-X-205W-MONOKRISTAL-PANTEC-PANEL",
+  "cost": null,
+  "desc": "Pantec 205 W Monokristal Güneş Paneli,  gücünde, düşük gölge kaybı için half-cut hücre mimarisiyle üretilmiş bir güneş panelidir. Çatı ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Sipariş öncesi stok ve kargo koşulları için bize WhatsApp'tan ulaşabilirsiniz."
+ },
+ {
+  "id": "x-solar-kablo-2-5mm-siyah",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Solar Kablo 2,5 mm² Siyah",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Kablo"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/solar-kablo-2-5mm-siyah.webp"
+  ],
+  "code": "GM-X-SOLAR-KABLO-2-5MM-SIYAH",
+  "cost": null,
+  "desc": "Solar Kablo 2,5 mm² Siyah — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-solar-kablo-16mm-siyah",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Solar Kablo 16 mm² Siyah",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Kablo"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/solar-kablo-16mm-siyah.webp",
+   "public/images/products/solar-kablo-16mm-siyah-2.webp",
+   "public/images/products/solar-kablo-16mm-siyah-3.webp"
+  ],
+  "code": "GM-X-SOLAR-KABLO-16MM-SIYAH",
+  "cost": null,
+  "desc": "Solar Kablo 16 mm² Siyah — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-solar-kablo-16mm-kirmizi",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Solar Kablo 16 mm² Kırmızı",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Kablo"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/solar-kablo-16mm-kirmizi.webp",
+   "public/images/products/solar-kablo-16mm-kirmizi-2.webp",
+   "public/images/products/solar-kablo-16mm-kirmizi-3.webp"
+  ],
+  "code": "GM-X-SOLAR-KABLO-16MM-KIRMIZI",
+  "cost": null,
+  "desc": "Solar Kablo 16 mm² Kırmızı — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-solar-twin-kablo-2-5mm",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Solar Twin Kablo 2,5 mm²",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Kablo"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/solar-twin-kablo-2-5mm.webp"
+  ],
+  "code": "GM-X-SOLAR-TWIN-KABLO-2-5MM",
+  "cost": null,
+  "desc": "Solar Twin Kablo 2,5 mm² — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-dc-sigorta-sigorta-yuvasi-16a-1000v-12-adet",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "DC Sigorta + Yuva Seti 16A/1000V (12'li)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Sigorta"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-sigorta-sigorta-yuvasi-16a-1000v-12-adet.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-16a-1000v-12-adet-2.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-16a-1000v-12-adet-3.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-16a-1000v-12-adet-4.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-16a-1000v-12-adet-5.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-16a-1000v-12-adet-6.webp"
+  ],
+  "code": "GM-X-DC-SIGORTA-SIGORTA-YUVASI-16A-1000V-12-ADET",
+  "cost": null,
+  "desc": "DC Sigorta + Yuva Seti 16A/1000V (12'li) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-dc-sigorta-sigorta-yuvasi-20a-1000v-12-adet",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "DC Sigorta + Yuva Seti 20A/1000V (12'li)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Sigorta"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-sigorta-sigorta-yuvasi-20a-1000v-12-adet.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-20a-1000v-12-adet-2.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-20a-1000v-12-adet-3.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-20a-1000v-12-adet-4.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-20a-1000v-12-adet-5.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-20a-1000v-12-adet-6.webp"
+  ],
+  "code": "GM-X-DC-SIGORTA-SIGORTA-YUVASI-20A-1000V-12-ADET",
+  "cost": null,
+  "desc": "DC Sigorta + Yuva Seti 20A/1000V (12'li) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-dc-sigorta-sigorta-yuvasi-32-1000v-12-adet",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "DC Sigorta + Yuva Seti 32A/1000V (12'li)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Sigorta"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/dc-sigorta-sigorta-yuvasi-32-1000v-12-adet.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-32-1000v-12-adet-2.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-32-1000v-12-adet-3.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-32-1000v-12-adet-4.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-32-1000v-12-adet-5.webp",
+   "public/images/products/dc-sigorta-sigorta-yuvasi-32-1000v-12-adet-6.webp"
+  ],
+  "code": "GM-X-DC-SIGORTA-SIGORTA-YUVASI-32-1000V-12-ADET",
+  "cost": null,
+  "desc": "DC Sigorta + Yuva Seti 32A/1000V (12'li) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-solar-konnektor-set-30a-1000v-50-adet",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "MC4 Konnektör Seti 30A/1000V (50'li Paket)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Konnektör"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/solar-konnektor-set-30a-1000v-50-adet.webp"
+  ],
+  "code": "GM-X-SOLAR-KONNEKTOR-SET-30A-1000V-50-ADET",
+  "cost": null,
+  "desc": "MC4 Konnektör Seti 30A/1000V (50'li Paket) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-panel-sonlandirici-35mm-50-ad",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Panel Sonlandırıcı 35 mm (50'li Paket)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/panel-sonlandirici-35mm-50-ad.webp",
+   "public/images/products/panel-sonlandirici-35mm-50-ad-2.webp",
+   "public/images/products/panel-sonlandirici-35mm-50-ad-3.webp"
+  ],
+  "code": "GM-X-PANEL-SONLANDIRICI-35MM-50-AD",
+  "cost": null,
+  "desc": "Panel Sonlandırıcı 35 mm (50'li Paket) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-panel-sonlandirici-50-ad",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Panel Sonlandırıcı (50'li Paket)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/panel-sonlandirici-50-ad.webp",
+   "public/images/products/panel-sonlandirici-50-ad-2.webp",
+   "public/images/products/panel-sonlandirici-50-ad-3.webp",
+   "public/images/products/panel-sonlandirici-50-ad-4.webp"
+  ],
+  "code": "GM-X-PANEL-SONLANDIRICI-50-AD",
+  "cost": null,
+  "desc": "Panel Sonlandırıcı (50'li Paket) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-hareketli-kiremit-kancasi-20-ad",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Hareketli Kiremit Kancası (20'li Paket)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/hareketli-kiremit-kancasi-20-ad.webp",
+   "public/images/products/hareketli-kiremit-kancasi-20-ad-2.webp",
+   "public/images/products/hareketli-kiremit-kancasi-20-ad-3.webp"
+  ],
+  "code": "GM-X-HAREKETLI-KIREMIT-KANCASI-20-AD",
+  "cost": null,
+  "desc": "Hareketli Kiremit Kancası (20'li Paket) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-40x40-sigma-profil",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "40×40 Sigma Montaj Profili",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/40x40-sigma-profil.webp"
+  ],
+  "code": "GM-X-40X40-SIGMA-PROFIL",
+  "cost": null,
+  "desc": "40×40 Sigma Montaj Profili — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-karavan-montaj-takimi-4-kose-2-orta-buat",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Karavan Montaj Takımı (4 Köşe + 2 Orta + Buat)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/karavan-montaj-takimi-4-kose-2-orta-buat.webp"
+  ],
+  "code": "GM-X-KARAVAN-MONTAJ-TAKIMI-4-KOSE-2-ORTA-BUAT",
+  "cost": null,
+  "desc": "Karavan Montaj Takımı (4 Köşe + 2 Orta + Buat) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-sivri-uclu-cati-vidasi-m5-5x27",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Sivri Uçlu Çatı Vidası M5,5×27",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/sivri-uclu-cati-vidasi-m5-5x27.webp",
+   "public/images/products/sivri-uclu-cati-vidasi-m5-5x27-2.webp",
+   "public/images/products/sivri-uclu-cati-vidasi-m5-5x27-3.webp",
+   "public/images/products/sivri-uclu-cati-vidasi-m5-5x27-4.webp"
+  ],
+  "code": "GM-X-SIVRI-UCLU-CATI-VIDASI-M5-5X27",
+  "cost": null,
+  "desc": "Sivri Uçlu Çatı Vidası M5,5×27 — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-a-tipi-h55-asik-profil-55cm",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "A Tipi H55 Aşık Profil (55 cm)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/a-tipi-h55-asik-profil-55cm.webp",
+   "public/images/products/a-tipi-h55-asik-profil-55cm-2.webp"
+  ],
+  "code": "GM-X-A-TIPI-H55-ASIK-PROFIL-55CM",
+  "cost": null,
+  "desc": "A Tipi H55 Aşık Profil (55 cm) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ },
+ {
+  "id": "x-trapez-profil-3-5m",
+  "cat": "solar-ekipmanlar",
+  "brand": "Mexxun",
+  "name": "Trapez Montaj Profili (3,5 m)",
+  "supplier": "mexxsun",
+  "onRequest": true,
+  "tags": [
+   "Montaj"
+  ],
+  "specs": {},
+  "img": [
+   "public/images/products/trapez-profil-3-5m.webp",
+   "public/images/products/trapez-profil-3-5m-2.webp",
+   "public/images/products/trapez-profil-3-5m-3.webp",
+   "public/images/products/trapez-profil-3-5m-4.webp"
+  ],
+  "code": "GM-X-TRAPEZ-PROFIL-3-5M",
+  "cost": null,
+  "desc": "Trapez Montaj Profili (3,5 m) — solar kurulumların güvenli ve uzun ömürlü olması için doğru ekipman şarttır. TSE/IEC uyumlu malzeme kullanılır."
+ }
+]

@@ -24,6 +24,23 @@ const ADMIN_PASS = process.env.ADMIN_PASS || (CFG.admin && CFG.admin.pass) || ""
 const DATA_DIR = process.env.DATA_DIR || path.join(ROOT, "data");
 const KUR_FILE = path.join(DATA_DIR, "kur.json");
 
+// ---------- Katalog API ----------
+// TEK KAYNAK: data/catalog.json (build-catalog.js CSV'den üretir, repoda durur).
+// Site ürün/kategori verisini /api/products + /api/categories'ten çeker;
+// gömülü assets/data.js kaldırıldı (çift katalog tutarsızlığının köküydü).
+const CATALOG_FILE = path.join(ROOT, "data", "catalog.json");
+let CATALOG = { categories: [], products: [] };
+function loadCatalog() {
+  try {
+    CATALOG = JSON.parse(fs.readFileSync(CATALOG_FILE, "utf8"));
+    console.log("[katalog] " + (CATALOG.products || []).length + " ürün, " +
+      (CATALOG.categories || []).length + " kategori yüklendi");
+  } catch (e) {
+    console.error("[katalog] data/catalog.json okunamadı — `npm run build` çalıştırın");
+  }
+}
+loadCatalog();
+
 function readKur() {
   try {
     const j = JSON.parse(fs.readFileSync(KUR_FILE, "utf8"));
@@ -172,6 +189,16 @@ const server = http.createServer((req, res) => {
   catch (e) { return send(res, 400, "Bad Request", { "Content-Type": "text/plain" }); }
 
   if (urlPath === "/api/kur") return handleKurApi(req, res);
+  if (urlPath === "/api/products") {
+    return send(res, 200, JSON.stringify(CATALOG.products || []), {
+      "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache"
+    });
+  }
+  if (urlPath === "/api/categories") {
+    return send(res, 200, JSON.stringify(CATALOG.categories || []), {
+      "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache"
+    });
+  }
 
   if (urlPath === "/") urlPath = "/index.html";
   if (!path.extname(urlPath)) urlPath += ".html"; // /sepet -> /sepet.html

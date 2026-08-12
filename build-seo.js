@@ -1,15 +1,14 @@
-/* sitemap.xml üreticisi — kaynak: assets/config.js + assets/data.js
-   Çalıştır: node build-seo.js  (ürün/kategori değişince yeniden üret + commit) */
+/* sitemap.xml üreticisi — kaynak: assets/config.js + data/catalog.json
+   Çalıştır: node build-seo.js  (npm run build önce build-catalog.js koşar) */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 
 global.window = global; // tarayıcı globali şimi
 require("./assets/config.js");
-require("./assets/data.js");
 
 const cfg = global.GESM.config;
-const products = global.GESM.data.products;
+const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "catalog.json"), "utf8"));
 const BASE = cfg.company.domain;
 const today = new Date().toISOString().slice(0, 10);
 
@@ -24,12 +23,9 @@ const staticPages = [
   { u: "/iade-degisim.html", p: "0.4" }
 ];
 
-// Şimdilik gizli kategoriler (config.hiddenCategories) ve ürünleri sitemap dışı
-const hidden = new Set(cfg.hiddenCategories || []);
-
 let urls = staticPages.map(s => ({ loc: BASE + s.u, pri: s.p }));
-cfg.categories.filter(c => !hidden.has(c.slug)).forEach(c => urls.push({ loc: BASE + "/kategori.html?k=" + c.slug, pri: "0.8" }));
-products.filter(p => !hidden.has(p.cat)).forEach(p => urls.push({ loc: BASE + "/urun.html?u=" + p.id, pri: "0.7" }));
+(catalog.categories || []).forEach(c => urls.push({ loc: BASE + "/kategori.html?k=" + c.slug, pri: "0.8" }));
+(catalog.products || []).forEach(p => urls.push({ loc: BASE + "/urun.html?u=" + p.id, pri: "0.7" }));
 
 const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
