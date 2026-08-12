@@ -12,20 +12,23 @@ const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "catalog
 const BASE = cfg.company.domain;
 const today = new Date().toISOString().slice(0, 10);
 
+// SPA rotaları — server.js eski .html URL'lerini bunlara 301 yönlendirir
 const staticPages = [
   { u: "/", p: "1.0" },
-  { u: "/kategori.html", p: "0.8" },
-  { u: "/sistem-kur.html", p: "0.9" },
-  { u: "/hakkimizda.html", p: "0.5" },
-  { u: "/sss.html", p: "0.6" },
-  { u: "/iletisim.html", p: "0.5" },
-  { u: "/kargo-teslimat.html", p: "0.4" },
-  { u: "/iade-degisim.html", p: "0.4" }
+  { u: "/kategori", p: "0.8" },
+  { u: "/hesaplayici", p: "0.9" },
+  { u: "/hakkimizda", p: "0.5" },
+  { u: "/sss", p: "0.6" },
+  { u: "/iletisim", p: "0.5" },
+  { u: "/kargo-teslimat", p: "0.4" },
+  { u: "/iade-degisim", p: "0.4" },
+  { u: "/mesafeli-satis", p: "0.3" },
+  { u: "/kvkk", p: "0.3" }
 ];
 
 let urls = staticPages.map(s => ({ loc: BASE + s.u, pri: s.p }));
-(catalog.categories || []).forEach(c => urls.push({ loc: BASE + "/kategori.html?k=" + c.slug, pri: "0.8" }));
-(catalog.products || []).forEach(p => urls.push({ loc: BASE + "/urun.html?u=" + p.id, pri: "0.7" }));
+(catalog.categories || []).forEach(c => urls.push({ loc: BASE + "/kategori/" + c.slug, pri: "0.8" }));
+(catalog.products || []).forEach(p => urls.push({ loc: BASE + "/urun/" + p.id, pri: "0.7" }));
 
 const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

@@ -129,7 +129,12 @@ GESM.config = {
         desc: "Yüksek tüketim — soğutma, aydınlatma, ofis yükleri.",
         chem: "lityum", autonomyDays: 0.5,
         items: { led: 12, buzdolabi: 2, tv: 1, sarj: 2, klima: 2, pompa: 1 },
-        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] }
+        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] },
+      { id: "sulama", label: "Tarımsal Sulama", icon: "🌾",
+        desc: "Gündüz güneşle çalışan pompa — bahçe, sera ve tarla.",
+        chem: "jel", autonomyDays: 0.5,
+        items: { pompa: 1, led: 2 },
+        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "350w-ecosol-polykristal-gunes-paneli"] }
     ],
     // Katalog eşlemesi — /api/products id'leri (w=Wp, wh=akü Wh, kw/v=inverter)
     catalog: {
@@ -168,7 +173,7 @@ GESM.config = {
 
   seo: {
     titleTemplate: "%s | GES MARKETİM",
-    defaultTitle: "GES MARKETİM — Solar Enerji Marketi | Panel, Akü, İnverter, Paket",
-    defaultDesc: "Güneş paneli, LiFePO4 lityum akü, hibrit ve akıllı inverter, solar paket ve tarımsal sulama çözümleri. KDV dahil şeffaf fiyat, hızlı kargo, WhatsApp destek."
+    defaultTitle: "GES MARKETİM — Solar Enerji Marketi | Panel, Akü, İnverter, Pompa",
+    defaultDesc: "Lexron güneş panelleri, LiFePO4 lityum aküler, MPPT akıllı inverterler ve solar pompa çözümleri. KDV dahil şeffaf fiyat, günlük kur, hızlı kargo, WhatsApp destek."
   }
 };

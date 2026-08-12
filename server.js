@@ -41,6 +41,18 @@ function loadCatalog() {
 }
 loadCatalog();
 
+// /api/config — GÜVENLİ alt küme (K1): admin şifresi ve tedarikçi bilgisi
+// ASLA çıkmaz. React SPA iletişim/kur/kargo katsayılarını buradan okur.
+const PUBLIC_CFG = JSON.stringify({
+  company: CFG.company,
+  announcement: CFG.announcement,
+  commerce: CFG.commerce,
+  pricing: { roundTo: CFG.pricing.roundTo, fxBufferPct: CFG.pricing.fxBufferPct },
+  brands: CFG.brands,
+  builder: CFG.builder,
+  seo: CFG.seo
+});
+
 function readKur() {
   try {
     const j = JSON.parse(fs.readFileSync(KUR_FILE, "utf8"));
@@ -166,46 +178,80 @@ function send(res, code, body, headers) {
   res.end(body);
 }
 
-function serveFile(res, filePath) {
+function serveFile(res, filePath, cacheOverride) {
   const ext = path.extname(filePath).toLowerCase();
   const mime = MIME[ext] || "application/octet-stream";
   fs.readFile(filePath, (err, data) => {
-    if (err) return serve404(res);
-    const cache = ext === ".html" ? "no-cache" : "public, max-age=86400";
+    if (err) return send(res, 404, "404 Not Found", { "Content-Type": "text/plain; charset=utf-8" });
+    const cache = cacheOverride || (ext === ".html" ? "no-cache" : "public, max-age=86400");
     send(res, 200, data, { "Content-Type": mime, "Cache-Control": cache });
   });
 }
 
-function serve404(res) {
-  fs.readFile(path.join(ROOT, "404.html"), (err, data) => {
-    if (err) return send(res, 404, "404 Not Found", { "Content-Type": "text/plain" });
-    send(res, 404, data, { "Content-Type": "text/html; charset=utf-8" });
-  });
+/* SPA (React) dist/'ten servis edilir; dist commit'lidir (Railway'de build yok).
+   Eski çok-sayfalı URL'ler SEO için yeni rotalara 301 yönlendirilir. */
+const DIST = path.join(ROOT, "dist");
+const LEGACY = {
+  "/index.html": "/", "/sistem-kur.html": "/hesaplayici", "/sepet.html": "/sepet",
+  "/iletisim.html": "/iletisim", "/hakkimizda.html": "/hakkimizda", "/sss.html": "/sss",
+  "/kargo-teslimat.html": "/kargo-teslimat", "/iade-degisim.html": "/iade-degisim",
+  "/mesafeli-satis.html": "/mesafeli-satis", "/gizlilik.html": "/kvkk",
+  "/favoriler.html": "/", "/404.html": "/"
+};
+function legacyRedirect(urlPath, query) {
+  if (urlPath === "/urun.html") return "/urun/" + encodeURIComponent(query.get("u") || "");
+  if (urlPath === "/kategori.html") {
+    const k = query.get("k"), q = query.get("q");
+    return k ? "/kategori/" + encodeURIComponent(k) : (q ? "/kategori?q=" + encodeURIComponent(q) : "/kategori");
+  }
+  return LEGACY[urlPath] || null;
 }
 
 const server = http.createServer((req, res) => {
-  let urlPath;
-  try { urlPath = decodeURIComponent(new URL(req.url, "http://x").pathname); }
-  catch (e) { return send(res, 400, "Bad Request", { "Content-Type": "text/plain" }); }
+  let urlPath, query;
+  try {
+    const u = new URL(req.url, "http://x");
+    urlPath = decodeURIComponent(u.pathname);
+    query = u.searchParams;
+  } catch (e) { return send(res, 400, "Bad Request", { "Content-Type": "text/plain" }); }
 
+  /* ---------- API ---------- */
   if (urlPath === "/api/kur") return handleKurApi(req, res);
-  if (urlPath === "/api/products") {
-    return send(res, 200, JSON.stringify(CATALOG.products || []), {
-      "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache"
-    });
+  const JSON_HDR = { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache" };
+  if (urlPath === "/api/products") return send(res, 200, JSON.stringify(CATALOG.products || []), JSON_HDR);
+  if (urlPath === "/api/categories") return send(res, 200, JSON.stringify(CATALOG.categories || []), JSON_HDR);
+  if (urlPath === "/api/config") return send(res, 200, PUBLIC_CFG, JSON_HDR);
+  if (urlPath.startsWith("/api/products/")) {
+    const id = urlPath.slice("/api/products/".length);
+    const p = (CATALOG.products || []).find((x) => x.id === id);
+    return p ? send(res, 200, JSON.stringify(p), JSON_HDR)
+             : send(res, 404, '{"error":"bulunamadi"}', JSON_HDR);
   }
-  if (urlPath === "/api/categories") {
-    return send(res, 200, JSON.stringify(CATALOG.categories || []), {
-      "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache"
-    });
+  if (urlPath.startsWith("/api/")) return send(res, 404, '{"error":"bulunamadi"}', JSON_HDR);
+
+  /* ---------- Eski URL'ler → SPA rotaları (301) ---------- */
+  const redir = legacyRedirect(urlPath, query);
+  if (redir) return send(res, 301, "", { Location: redir });
+
+  /* ---------- Statik dosyalar ---------- */
+  // Ürün görselleri repo kökündeki public/ altında durur (dist'e kopyalanmaz).
+  if (urlPath.startsWith("/public/")) {
+    const fp = path.join(ROOT, urlPath);
+    if (!fp.startsWith(ROOT + path.sep)) return send(res, 404, "404", { "Content-Type": "text/plain" });
+    return serveFile(res, fp);
   }
-
-  if (urlPath === "/") urlPath = "/index.html";
-  if (!path.extname(urlPath)) urlPath += ".html"; // /sepet -> /sepet.html
-
-  const filePath = path.join(ROOT, urlPath);
-  if (!filePath.startsWith(ROOT + path.sep) && filePath !== ROOT) return serve404(res);
-  serveFile(res, filePath);
+  if (urlPath === "/sitemap.xml" || urlPath === "/robots.txt") {
+    return serveFile(res, path.join(ROOT, urlPath));
+  }
+  if (path.extname(urlPath)) {
+    const fp = path.join(DIST, urlPath);
+    if (!fp.startsWith(DIST + path.sep)) return send(res, 404, "404", { "Content-Type": "text/plain" });
+    // Vite çıktıları isim-hash'lidir → uzun önbellek; diğerleri 1 gün
+    const cache = urlPath.startsWith("/assets/") ? "public, max-age=31536000, immutable" : null;
+    return serveFile(res, fp, cache);
+  }
+  // Uzantısız her GET → SPA (history fallback); rotayı React çözer
+  serveFile(res, path.join(DIST, "index.html"), "no-cache");
 });
 
 server.listen(PORT, () => {
