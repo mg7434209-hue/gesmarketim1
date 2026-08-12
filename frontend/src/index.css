@@ -31,10 +31,14 @@
 @keyframes sunbreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 @keyframes flow { to { stroke-dashoffset: -48; } }
 @keyframes shine { 0% { transform: translateX(-120%); } 60%,100% { transform: translateX(160%); } }
-.anim-rays { animation: sunspin 20s linear infinite; transform-origin: center; }
-.anim-sun { animation: sunbreathe 4s ease-in-out infinite; transform-origin: center; }
+@keyframes panelsweep { 0% { transform: translateX(-90px) skewX(-18deg); } 55%,100% { transform: translateX(300px) skewX(-18deg); } }
+@keyframes windowglow { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+.anim-rays { animation: sunspin 20s linear infinite; transform-origin: center; transform-box: fill-box; }
+.anim-sun { animation: sunbreathe 4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
 .anim-flow { stroke-dasharray: 10 14; animation: flow 1.6s linear infinite; }
 .anim-shine { animation: shine 6s ease-in-out infinite; }
+.anim-sweep { animation: panelsweep 5.5s ease-in-out infinite; }
+.anim-glow { animation: windowglow 3.5s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .anim-rays, .anim-sun, .anim-flow, .anim-shine { animation: none !important; }
+  .anim-rays, .anim-sun, .anim-flow, .anim-shine, .anim-sweep, .anim-glow { animation: none !important; }
 }

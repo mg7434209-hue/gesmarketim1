@@ -101,45 +101,82 @@ function Hero() {
   );
 }
 
+/* Güneş → panel → inverter/akü → ev enerji akışı — tamamı SVG çizim,
+   dış görsel yok. Animasyonlar yalnız transform/opacity (GPU dostu);
+   prefers-reduced-motion'da index.css hepsini kapatır. */
 function HeroScene() {
   return (
-    <div className="relative max-w-md mx-auto w-full" aria-hidden="true">
-      {/* Dönen ışınlı güneş */}
-      <svg viewBox="0 0 120 120" className="absolute -top-8 -left-8 w-28 h-28 md:w-36 md:h-36 z-10">
-        <g className="anim-rays" stroke="#FDC722" strokeWidth="4" strokeLinecap="round">
+    <div className="max-w-xl mx-auto w-full" aria-hidden="true">
+      <svg viewBox="0 0 560 380" className="w-full">
+        <defs>
+          <radialGradient id="hSunGlow">
+            <stop offset="0" stopColor="#FDC722" stopOpacity=".45" />
+            <stop offset="1" stopColor="#FDC722" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="hCell" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#3c6180" />
+            <stop offset="1" stopColor="#2b4a66" />
+          </linearGradient>
+          <clipPath id="hPanelClip"><rect x="112" y="187" width="176" height="111" rx="6" /></clipPath>
+        </defs>
+
+        {/* Zemin */}
+        <ellipse cx="290" cy="350" rx="250" ry="16" fill="#6ABF89" opacity=".14" />
+        <line x1="60" y1="346" x2="520" y2="346" stroke="#47494822" strokeWidth="2" strokeLinecap="round" />
+
+        {/* Güneş — dönen ışınlar + nefes */}
+        <circle cx="82" cy="84" r="58" fill="url(#hSunGlow)" />
+        <g className="anim-rays" stroke="#FDC722" strokeWidth="5" strokeLinecap="round">
           {Array.from({ length: 12 }, (_, i) => {
             const a = (i * 30 * Math.PI) / 180;
             return <line key={i}
-              x1={60 + Math.cos(a) * 34} y1={60 + Math.sin(a) * 34}
-              x2={60 + Math.cos(a) * 48} y2={60 + Math.sin(a) * 48} />;
+              x1={82 + Math.cos(a) * 40} y1={84 + Math.sin(a) * 40}
+              x2={82 + Math.cos(a) * 54} y2={84 + Math.sin(a) * 54} />;
           })}
         </g>
-        <circle className="anim-sun" cx="60" cy="60" r="26" fill="#FDC722" />
-        <circle cx="60" cy="60" r="26" fill="url(#hg)" opacity=".25" />
-        <defs>
-          <radialGradient id="hg"><stop offset="0" stopColor="#fff" /><stop offset="1" stopColor="#FDC722" /></radialGradient>
-        </defs>
-      </svg>
+        <circle className="anim-sun" cx="82" cy="84" r="29" fill="#FDC722" />
 
-      {/* Gerçek panel fotoğrafı + parlama süpürmesi */}
-      <div className="card overflow-hidden relative">
-        <img src="/hero-panel.webp" alt="Lexron half-cut TopCon güneş paneli"
-          width="800" height="800" fetchpriority="high" decoding="async"
-          className="w-full aspect-square object-cover" />
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="anim-shine absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-12" />
-        </div>
-      </div>
+        {/* Güneş ışığı → panele akış */}
+        <path className="anim-flow" d="M116 116 Q150 150 178 180" stroke="#FDC722" strokeWidth="3" fill="none" strokeLinecap="round" opacity=".8" />
 
-      {/* Enerji akışı: panel → inverter → ev */}
-      <svg viewBox="0 0 400 70" className="w-full mt-3">
-        <path className="anim-flow" d="M60 35 H165" stroke="#36C5EC" strokeWidth="3" fill="none" strokeLinecap="round" />
-        <path className="anim-flow" d="M235 35 H340" stroke="#6ABF89" strokeWidth="3" fill="none" strokeLinecap="round" />
-        <text x="35" y="43" fontSize="26" textAnchor="middle">🔆</text>
-        <text x="200" y="43" fontSize="26" textAnchor="middle">🔌</text>
-        <text x="365" y="43" fontSize="26" textAnchor="middle">🏠</text>
-        <text x="112" y="20" fontSize="11" textAnchor="middle" fill="#47494899">DC</text>
-        <text x="287" y="20" fontSize="11" textAnchor="middle" fill="#47494899">AC 220V</text>
+        {/* Panel dizisi (ayaklı) + parlama süpürmesi */}
+        <line x1="152" y1="298" x2="152" y2="346" stroke="#9aa7ac" strokeWidth="6" strokeLinecap="round" />
+        <line x1="248" y1="298" x2="248" y2="346" stroke="#9aa7ac" strokeWidth="6" strokeLinecap="round" />
+        <rect x="108" y="183" width="184" height="119" rx="9" fill="#dfe7ea" />
+        <rect x="112" y="187" width="176" height="111" rx="6" fill="url(#hCell)" />
+        <g stroke="#ffffff" strokeOpacity=".28" strokeWidth="2">
+          {[1, 2, 3, 4, 5].map((i) => <line key={"c" + i} x1={112 + i * 29.33} y1="187" x2={112 + i * 29.33} y2="298" />)}
+          {[1, 2].map((i) => <line key={"r" + i} x1="112" y1={187 + i * 37} x2="288" y2={187 + i * 37} />)}
+        </g>
+        <g clipPath="url(#hPanelClip)">
+          <rect className="anim-sweep" x="96" y="175" width="38" height="135" fill="#ffffff" opacity=".33" />
+        </g>
+
+        {/* DC hattı: panel → inverter kabini */}
+        <path className="anim-flow" d="M200 302 C200 330 280 322 324 318" stroke="#36C5EC" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+        <text x="258" y="308" fontSize="13" fontWeight="700" textAnchor="middle" fill="#2b97b5">DC</text>
+
+        {/* İnverter + akü kabini */}
+        <rect x="326" y="288" width="40" height="58" rx="6" fill="#ffffff" stroke="#d5dde0" strokeWidth="2" />
+        <rect x="333" y="296" width="26" height="14" rx="3" fill="#36C5EC" opacity=".85" />
+        <circle cx="337" cy="320" r="3" fill="#6ABF89" />
+        <circle cx="347" cy="320" r="3" fill="#F65863" opacity=".7" />
+        <rect x="333" y="329" width="26" height="10" rx="2" fill="#6ABF89" opacity=".9" />
+        <rect x="335" y="331" width="16" height="6" rx="1" fill="#ffffff" opacity=".5" />
+
+        {/* AC hattı: inverter → ev */}
+        <path className="anim-flow" d="M366 316 C380 316 388 316 402 316" stroke="#6ABF89" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+        <text x="384" y="296" fontSize="12" fontWeight="700" textAnchor="middle" fill="#4d9668">AC</text>
+        <text x="384" y="308" fontSize="9" fontWeight="600" textAnchor="middle" fill="#4d9668">220V</text>
+
+        {/* Ev */}
+        <rect x="402" y="228" width="128" height="118" rx="4" fill="#ffffff" stroke="#e0e6e3" strokeWidth="2" />
+        <polygon points="390,230 466,158 542,230" fill="#5b7f8f" />
+        <polygon points="404,222 466,164 528,222" fill="#6e93a3" />
+        <rect className="anim-glow" x="424" y="252" width="30" height="30" rx="4" fill="#FDC722" />
+        <g stroke="#ffffff" strokeWidth="2"><line x1="439" y1="252" x2="439" y2="282" /><line x1="424" y1="267" x2="454" y2="267" /></g>
+        <rect x="482" y="290" width="34" height="56" rx="3" fill="#47494826" />
+        <circle cx="510" cy="319" r="2.5" fill="#474948" opacity=".6" />
       </svg>
     </div>
   );
