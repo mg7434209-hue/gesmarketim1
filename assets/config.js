@@ -57,66 +57,32 @@ GESM.config = {
     havensis:     { label: "Havensis" }
   },
 
-  // 11 birleşik kategori (spec 8.2)
-  categories: [
-    { slug: "gunes-panelleri",     name: "Güneş Panelleri",              icon: "☀️", desc: "Polikristal, monokristal ve TopCon güneş panelleri — 12 W'tan 750 W'a.",
-      seo: "Güneş paneli seçerken ilk bakılması gereken değer panel gücüdür (Wp). Karavan ve küçük bağ evi sistemlerinde 245–300 W paneller yeterli olurken, ev tipi ve tarımsal sistemlerde 450–600 W half-cut monokristal veya TopCon paneller hem çatı alanından hem kablolamadan tasarruf sağlar. A+ hücre sınıfı, düşük sıcaklık katsayısı ve 10 yıl ürün / 25 yıl performans garantisi kalite göstergeleridir. Kaç panele ihtiyacınız olduğunu bilmiyorsanız AI asistanımıza günlük tüketiminizi yazın, size doğru gücü önersin." },
-    { slug: "lityum-akuler",       name: "Lityum Aküler",                icon: "🔋", desc: "LiFePO4 lityum aküler — 12/24/36/51V, Bluetooth takipli modeller.",
-      seo: "LiFePO4 (lityum demir fosfat) aküler, jel akülere göre 3–5 kat daha uzun çevrim ömrü (3000–6000 çevrim), %90'a varan kullanılabilir kapasite ve çok daha hızlı şarj sunar. Voltaj seçimi inverterinize göre yapılır: 12V küçük sistemler, 24V orta boy, 48/51,2V ev tipi sistemler içindir. Bluetooth'lu modellerde hücre dengesi ve şarj durumu telefondan izlenir. Ah değeri × voltaj = depolanan enerji (Wh) formülüyle ihtiyacınızı hesaplayabilirsiniz." },
-    { slug: "jel-akuler",          name: "Jel Aküler",                   icon: "🪫", desc: "Lexron nano karbon derin döngü jel aküler — 14 Ah'ten 210 Ah'e.",
-      seo: "Jel aküler, ekonomik başlangıç sistemleri ve düşük döngülü kullanım (hafta sonu bağ evi, yedek güç) için uygun maliyetli çözümdür. Derin deşarj toleransı %50 civarında tutulmalı, yani 200 Ah jel akünün pratik kapasitesi ~100 Ah kabul edilmelidir. Sık ve derin deşarj gerektiren günlük kullanımlarda lityum aküye geçiş toplam sahip olma maliyetini düşürür." },
-    { slug: "hibrit-inverterler",  name: "Hibrit İnverterler",           icon: "⚡", desc: "Şebeke + akü + panel birlikte: Deye ve muadili hibrit inverterler.",
-      seo: "Hibrit inverterler; güneş paneli, akü ve şebekeyi tek cihazda yönetir. Elektrik kesintisinde akülerden beslemeye milisaniyeler içinde geçer, fazla üretimi şebekeye satabilir (mahsuplaşma). Monofaze 10 kW'a kadar konutlar, trifaze modeller işletmeler ve tarımsal aboneler içindir. Akü voltajı (LV 48V / HV) inverterle uyumlu seçilmelidir." },
-    { slug: "akilli-inverterler",  name: "Akıllı İnverterler (Off-Grid)", icon: "🔌", desc: "MPPT şarjlı tam sinüs akıllı inverterler — şebekeden bağımsız sistemler.",
-      seo: "Off-grid akıllı inverterler, MPPT şarj kontrol cihazını ve tam sinüs inverteri tek kutuda birleştirir; bağ evi, karavan, şantiye gibi şebekesiz noktaların standart çözümüdür. Seçimde üç değer kritiktir: sürekli çıkış gücü (kW), akü voltajı (12/24/48V) ve maksimum PV giriş gerilimi (HV modeller daha az panel dizisi kablosu ister). Buzdolabı + aydınlatma + TV içeren tipik bağ evi için 3 kW, klima/pompa varsa 4,2–6,2 kW önerilir." },
-    { slug: "sebeke-inverterleri", name: "Şebeke (On-Grid) İnverterleri", icon: "🏭", desc: "Mahsuplaşma ve öz tüketim için on-grid inverterler.",
-      seo: "On-grid inverterler aküsüz çalışır; ürettiğiniz enerjiyi anlık tüketir, fazlasını şebekeye aktarırsınız. Çatı GES yatırımlarında kW başına en düşük maliyetli sistemdir. Bağlantı gücünüz ve sayaç tipiniz (monofaze/trifaze) inverter seçimini belirler; 30 kW üzeri ticari projelerde keşif ve proje onayı gerekir — teklif alın, süreci birlikte yürütelim." },
-    { slug: "sarj-regulatorleri",  name: "Şarj Regülatörleri",           icon: "🎛️", desc: "PWM ve MPPT şarj kontrol cihazları — 10A'dan 100A'ya.",
-      seo: "Şarj regülatörü panelden gelen enerjiyi aküye güvenle aktarır. PWM regülatörler ekonomiktir ve panel voltajı akü voltajına yakın küçük sistemlerde yeterlidir. MPPT regülatörler panelden %20–30 daha fazla enerji hasadı yapar ve yüksek voltajlı panel dizilerine izin verir. Amper seçimi: panel gücü (W) ÷ akü voltajı (V) × 1,25 güvenlik payı formülüyle yapılır." },
-    { slug: "solar-paketler",      name: "Solar Paketler",               icon: "📦", desc: "Kullanıma hazır TOPCon solar paket sistemler — 1 kW'tan 15 kW'a.",
-      seo: "Solar paketlerimiz panel, inverter, akü, regülatör ve montaj malzemesini uyumlu şekilde bir araya getirir — tek tek ürün seçme derdi olmadan, kutudan çıkar çalışır. Karavan/konteyner için kompakt paketler, bağ evi için 3–4 kW, sürekli yaşanan evler için 6–12 kW lityum paketler sunuyoruz. Aynı güçte Ekonomik / Standart / Pro seçenekleri bütçenize göre bileşen kalitesini ölçekler. Hangi paketin size uygun olduğundan emin değilseniz AI asistan üç soruda önerir." },
-    { slug: "tarimsal-sulama",     name: "Tarımsal Sulama",              icon: "💧", desc: "Solar pompa sürücüleri 2 Hp – 120 Hp ve sulama çözümleri.",
-      seo: "Güneş enerjili tarımsal sulama, mazot ve şebeke maliyetini sıfırlar; sürücü, panellerden gelen DC enerjiyi mevcut trifaze dalgıç pompanıza uygun AC'ye çevirir. Sürücü gücü pompa etiket gücünün bir üst kademesi seçilmeli, panel gücü ise pompa gücünün yaklaşık 1,3 katı kurulmalıdır. 2 Hp'den 120 Hp'ye tüm sürücüler stoktan; kuyu derinliği ve günlük su ihtiyacınızı iletin, sistemi ücretsiz boyutlandıralım." },
-    { slug: "solar-ekipmanlar",    name: "Solar Ekipmanlar",             icon: "🧰", desc: "Solar kablo, MC4 konnektör, DC sigorta ve montaj ekipmanları.",
-      seo: "Sistemin görünmeyen kahramanları: doğru kesitte solar kablo gerilim düşümünü, DC sigorta ve parafudr yıldırım/ark riskini, kaliteli MC4 konnektör temas direncini önler. Panel montaj setleri kiremit, trapez sac ve düz çatı için ayrı tiplerde sunulur. Kablo kesiti seçiminde 100 metreye kadar %2 gerilim düşümü hedeflenmelidir." },
-    { slug: "aksesuar",            name: "Aksesuar & Diğer",             icon: "🧩", desc: "Monoblok ısı pompaları ve tamamlayıcı çözümler.",
-      seo: "Solar yaşamı kolaylaştıran niş ürünler: güneş enerjili otomatik saksı sulama cihazları, uzun kesintiler için sessiz jeneratörler ve tamamlayıcı aksesuarlar. Aradığınız özel bir ürün varsa WhatsApp'tan sorun — tedarik ağımızla bulup fiyatlandıralım." }
-  ],
+  // Kategoriler artık /api/categories'ten gelir (kaynak: data/catalog.json —
+  // build-catalog.js üretir); burada kategori listesi TUTULMAZ.
 
-  // Geçerli marka listesi (whitelist) — katalog temizliği 11.08.2026:
-  // whitelist dışı markalı hayali/demo ürünler data.js purge bloğunda silindi.
-  brands: ["Lexron", "Mexxun", "Havensis", "Arçelik", "Bakırlar", "Smart", "Jinko", "Deye", "EVE", "Sorotec", "Ecosol"],
-
-  // ŞİMDİLİK GİZLİ kategoriler: listelerde/aramada/sitemap'te görünmez, ürün
-  // verisi data.js'te DURUR (doğrudan ürün URL'si çalışmaya devam eder).
-  // Geri açmak = slug'ı bu listeden çıkar + nav'ı geri al + npm run build.
-  // "Hazır paketler" yerine Sistem Kurucu (sistem-kur.html) sunulur.
-  hiddenCategories: ["solar-paketler"],
+  brands: ["Lexron"],
+  hiddenCategories: [],
 
   // Ana menü yapısı — cat: kategori slug'ı · children: açılır menü grubu.
   // Child öğe: kategori slug'ı (string) YA DA { label, cat, tag } nesnesi
   // (tag → kategori sayfası o özellik filtresiyle açılır, ?t= parametresi).
   nav: [
     { label: "Ana Sayfa", href: "index.html", key: "home" },
-    { cat: "gunes-panelleri" },
-    { label: "Aküler", children: ["lityum-akuler", "jel-akuler"] },
-    { label: "İnverterler", children: ["akilli-inverterler", "hibrit-inverterler", "sebeke-inverterleri"] },
-    { label: "Şarj Regülatörleri", children: [
-      { label: "MPPT Regülatörler", cat: "sarj-regulatorleri", tag: "MPPT" },
-      { label: "PWM Regülatörler", cat: "sarj-regulatorleri", tag: "PWM" },
-      { label: "Tüm Şarj Regülatörleri", cat: "sarj-regulatorleri" }
-    ] },
+    { cat: "panel" },
+    { cat: "inverter" },
+    { cat: "aku-batarya" },
+    { cat: "sarj-kontrol" },
+    { cat: "solar-pompa" },
     { label: "Sistem Kur 🛠️", href: "sistem-kur.html", key: "sistem-kur" },
-    { cat: "tarimsal-sulama" },
-    { label: "Ekipman", children: ["solar-ekipmanlar", "aksesuar"] },
+    { label: "Ekipman", children: ["aydinlatma", "kablo-konnektor"] },
     { label: "İletişim", href: "iletisim.html", key: "iletisim" }
   ],
 
   // ============================================================
   // Sistem Kurucu (sistem-kur.html) — "Kendi Projenizi Oluşturun"
   // TÜM katsayılar ve katalog eşlemesi burada; app.js koda sayı gömmez.
-  // Ürün ref'leri data.js id'leridir — ürün silinirse satır düşer (app.js
-  // ref bulunamayınca o kalemi zarifçe atlar).
+  // Ürün ref'leri /api/products id'leridir (data/catalog.json — Lexron
+  // aşaması). Ürün yoksa ya da stokta değilse app.js o adayı atlar.
   // ============================================================
   builder: {
     sizing: {
@@ -145,57 +111,55 @@ GESM.config = {
     // Senaryolar: varsayılan cihaz seti + akü kimyası + özerklik + panel adayları
     presets: [
       { id: "karavan", label: "Karavan / Tekne", icon: "🚐",
-        desc: "12/24V kompakt sistem — buzdolabı, aydınlatma, şarj.",
+        desc: "Kompakt sistem — buzdolabı, aydınlatma, şarj.",
         chem: "lityum", autonomyDays: 1,
         items: { led: 4, buzdolabi: 1, tv: 1, sarj: 1 },
-        panels: ["pnl-285w-half-cut-monokristal-gunes-paneli", "pnl-175w-half-cut-topcon-gunes-paneli", "pnl-160w-monokristal-gunes-paneli"] },
+        panels: ["285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim", "175w-half-cut-topcon-mono-gunes-paneli", "160w-32-cell-16bb-half-cut-topcon-gunes-paneli"] },
       { id: "bagevi", label: "Bağ Evi (hafta sonu)", icon: "🏡",
         desc: "Temel konfor: buzdolabı, TV, aydınlatma, su pompası.",
         chem: "jel", autonomyDays: 1,
         items: { led: 6, buzdolabi: 1, tv: 1, sarj: 1, pompa: 1 },
-        panels: ["pnl-655w-half-cut-topcon-mono-gunes-paneli", "pnl-450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "pnl-350w-ecosol-polykristal-gunes-paneli"] },
+        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "350w-ecosol-polykristal-gunes-paneli"] },
       { id: "ev", label: "Müstakil Ev (sürekli)", icon: "🏠",
         desc: "Çamaşır makinesi ve klima dahil tam ev yükü.",
         chem: "lityum", autonomyDays: 1,
         items: { led: 8, buzdolabi: 1, tv: 1, sarj: 1, camasir: 1, pompa: 1, klima: 1 },
-        panels: ["pnl-655w-half-cut-topcon-mono-gunes-paneli", "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] },
+        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] },
       { id: "ticari", label: "İşletme / Ticari", icon: "🏭",
         desc: "Yüksek tüketim — soğutma, aydınlatma, ofis yükleri.",
         chem: "lityum", autonomyDays: 0.5,
         items: { led: 12, buzdolabi: 2, tv: 1, sarj: 2, klima: 2, pompa: 1 },
-        panels: ["pnl-655w-half-cut-topcon-mono-gunes-paneli", "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] }
+        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] }
     ],
-    // Katalog eşlemesi — data.js ürünleri (w=Wp, wh=akü enerjisi, kw/v=inverter)
+    // Katalog eşlemesi — /api/products id'leri (w=Wp, wh=akü Wh, kw/v=inverter)
     catalog: {
       panels: {
-        "pnl-160w-monokristal-gunes-paneli": 160,
-        "pnl-175w-half-cut-topcon-gunes-paneli": 175,
-        "pnl-285w-half-cut-monokristal-gunes-paneli": 285,
-        "pnl-350w-ecosol-polykristal-gunes-paneli": 350,
-        "pnl-450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli": 450,
-        "pnl-655w-half-cut-topcon-mono-gunes-paneli": 655,
-        "pnl-750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli": 750
+        "160w-32-cell-16bb-half-cut-topcon-gunes-paneli": 160,
+        "175w-half-cut-topcon-mono-gunes-paneli": 175,
+        "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim": 285,
+        "350w-ecosol-polykristal-gunes-paneli": 350,
+        "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli": 450,
+        "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli": 655,
+        "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli": 750
       },
-      // Mexxsun ürünleri fiyat yayınından kalktığı için (11.08.2026) lityum
-      // banka ACS fiyatlı ürünlerden kurulur; app.js fiyatı yayında olmayan
-      // (onRequest) adayları zaten atlar.
       batteries: [
-        { ref: "aku-mc-200b", chem: "lityum", v: 12, wh: 2560 },
-        { ref: "x-200ah-25-6v-lityum-batarya", chem: "lityum", v: 24, wh: 5120 },
-        { ref: "x-314ah-51-2v-premium-serisi-lityum-batarya", chem: "lityum", v: 48, wh: 16077 },
-        { ref: "jel-105", chem: "jel", v: 12, wh: 1260 },
-        { ref: "jel-160", chem: "jel", v: 12, wh: 1920 },
-        { ref: "jel-210", chem: "jel", v: 12, wh: 2520 }
+        { ref: "100ah-12-8v-lityum-batarya",  chem: "lityum", v: 12, wh: 1280 },
+        { ref: "200ah-12-8v-lityum-batarya",  chem: "lityum", v: 12, wh: 2560 },
+        { ref: "100ah-25-6v-lityum-batarya",  chem: "lityum", v: 24, wh: 2560 },
+        { ref: "200ah-25-6v-lityum-batarya",  chem: "lityum", v: 24, wh: 5120 },
+        { ref: "100ah-48v-lityum-batarya",    chem: "lityum", v: 48, wh: 4800 },
+        { ref: "314ah-51-2v-premium-serisi-lityum-batarya", chem: "lityum", v: 48, wh: 16077 },
+        { ref: "105ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 1260 },
+        { ref: "160ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 1920 },
+        { ref: "210ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 2520 }
       ],
       inverters: [
-        { ref: "inv-1kw",   kw: 1,   v: 12 },
-        { ref: "inv-1-6kw", kw: 1.6, v: 12 },
-        { ref: "inv-3kw",   kw: 3.5, v: 24 },
-        { ref: "x-5-5kw-hv-mppt-akilli-inverter-sorotec", kw: 5.5, v: 48 },
-        { ref: "inv-6-2kw", kw: 6.2, v: 48 },
-        { ref: "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1", kw: 11, v: 48 }
+        { ref: "3kw-hv-mppt-akilli-inverter-24v",    kw: 3,   v: 24 },
+        { ref: "6-2kw-hv-mppt-akilli-inverter-48v",  kw: 6.2, v: 48 },
+        { ref: "8kw-hv-mppt-akilli-inverter-48v",    kw: 8,   v: 48 },
+        { ref: "11kw-hv-2xmppt-akilli-inverter-48v", kw: 11,  v: 48 }
       ],
-      extras: { cable: "eq-kablo6", mc4: "eq-mc4" }
+      extras: { cable: "6mm2-solar-kablo", mc4: "mc4-konnektor-1500v" }
     }
   },
 

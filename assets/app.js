@@ -6,15 +6,29 @@
 (function () {
   "use strict";
   var cfg = GESM.config;
-  var ALL = GESM.data.products;
-  // Gerçek ürün görselleri (assets/img-map.js — tools/gorselleri_isle.py üretir)
-  var IMGMAP = GESM.imgmap || {};
-  ALL.forEach(function (p) { if (IMGMAP[p.id]) p.img = IMGMAP[p.id]; });
-  // Şimdilik gizli kategoriler (config.hiddenCategories): liste/arama/ana
-  // sayfada görünmez; veri durur, doğrudan ürün URL'si çalışır.
+  // KATALOG TEK KAYNAKTAN: /api/products + /api/categories (sunucu,
+  // data/catalog.json'dan servis eder — build-catalog.js CSV'den üretir).
+  // Gömülü assets/data.js KALDIRILDI; çift katalog tutarsızlığı bitti.
+  var ALL = [];   // ürünler — loadCatalog() doldurur
+  var CATS = [];  // kategoriler — loadCatalog() doldurur
+  var VISIBLE = [];
   var HIDDEN_CATS = cfg.hiddenCategories || [];
   function isHiddenCat(slug) { return HIDDEN_CATS.indexOf(slug) >= 0; }
-  var VISIBLE = ALL.filter(function (p) { return !isHiddenCat(p.cat); });
+  function loadCatalog(done) {
+    Promise.all([
+      fetch("/api/products").then(function (r) { if (!r.ok) throw new Error("api"); return r.json(); }),
+      fetch("/api/categories").then(function (r) { if (!r.ok) throw new Error("api"); return r.json(); })
+    ]).then(function (res) {
+      ALL = Array.isArray(res[0]) ? res[0] : [];
+      CATS = Array.isArray(res[1]) ? res[1] : [];
+      VISIBLE = ALL.filter(function (p) { return !isHiddenCat(p.cat); });
+      done();
+    }).catch(function () {
+      document.body.insertAdjacentHTML("afterbegin",
+        '<div class="announce" style="background:#fdecea;color:#8a2b22">Katalog yüklenemedi — lütfen sayfayı yenileyin.</div>');
+      done();
+    });
+  }
 
   /* ================= Yardımcılar ================= */
   function $(s, r) { return (r || document).querySelector(s); }
@@ -38,7 +52,7 @@
     document.body.appendChild(t); setTimeout(function () { t.remove(); }, 2600);
   }
   function byId(id) { for (var i = 0; i < ALL.length; i++) if (ALL[i].id === id) return ALL[i]; return null; }
-  function catOf(slug) { for (var i = 0; i < cfg.categories.length; i++) if (cfg.categories[i].slug === slug) return cfg.categories[i]; return null; }
+  function catOf(slug) { for (var i = 0; i < CATS.length; i++) if (CATS[i].slug === slug) return CATS[i]; return null; }
   function waLink(text) { return "https://wa.me/" + cfg.company.phone.wa + "?text=" + encodeURIComponent(text); }
   function prodUrl(p) { return "urun.html?u=" + encodeURIComponent(p.id); }
   function catUrl(c) { return "kategori.html?k=" + encodeURIComponent(c.slug); }
@@ -150,6 +164,7 @@
   function setCart(c) { store(CART_KEY, c); updateBadges(); }
   function addToCart(id, qty) {
     var p = byId(id); if (!p || p.onRequest) return;
+    if (p.inStock === false) { toast("Bu ürün şu an stokta yok."); return; }
     var c = cart(); c[id] = (c[id] || 0) + (qty || 1); setCart(c);
     toast("Sepete eklendi: " + p.name);
   }
@@ -269,7 +284,7 @@
         '<a href="tel:' + cfg.company.phone.tel + '">📞 ' + esc(cfg.company.phone.display) + "</a><br>" +
         '<a href="mailto:' + cfg.company.email + '">✉️ ' + esc(cfg.company.email) + "</a></p></div>" +
         "<div><h4>Kategoriler</h4><ul>" +
-        cfg.categories.slice(0, 6).map(function (c) { return '<li><a href="' + catUrl(c) + '">' + esc(c.name) + "</a></li>"; }).join("") +
+        CATS.slice(0, 6).map(function (c) { return '<li><a href="' + catUrl(c) + '">' + esc(c.name) + "</a></li>"; }).join("") +
         "</ul></div>" +
         "<div><h4>Kurumsal</h4><ul>" +
         '<li><a href="hakkimizda.html">Hakkımızda</a></li>' +
@@ -323,8 +338,10 @@
   /* ================= Ürün kartı ================= */
   function cardHTML(p) {
     var pr = priceOf(p);
+    var oos = p.inStock === false;
     var ribbons = "";
-    if (pr.discountPct) ribbons += '<span class="ribbon">%' + pr.discountPct + " İNDİRİM</span>";
+    if (oos) ribbons += '<span class="ribbon oos">STOKTA YOK</span>';
+    else if (pr.discountPct) ribbons += '<span class="ribbon">%' + pr.discountPct + " İNDİRİM</span>";
     else if (p.isNew) ribbons += '<span class="ribbon new">YENİ</span>';
     else if (p.tier) ribbons += '<span class="ribbon tier">' + esc(p.tier.toUpperCase()) + "</span>";
     var isFav = favs().indexOf(p.id) >= 0;
@@ -337,6 +354,9 @@
         "KDV dahil · Havale ile " + fmt0(havalePrice(pr.price)) + "</div></div>";
     var actions = p.onRequest
       ? '<div class="prod-actions"><a class="btn btn-sm btn-primary" href="' + prodUrl(p) + '">Teklif Al</a></div>'
+      : oos
+      ? '<div class="prod-actions"><button class="btn btn-sm" disabled>Stokta Yok</button>' +
+        '<a class="btn btn-sm btn-ghost" href="' + prodUrl(p) + '">İncele</a></div>'
       : '<div class="prod-actions"><button class="btn btn-sm btn-primary" data-add="' + p.id + '">Sepete Ekle</button>' +
         '<a class="btn btn-sm btn-ghost" href="' + prodUrl(p) + '">İncele</a></div>';
     return '<article class="prod-card">' + ribbons +
@@ -386,11 +406,11 @@
     var stats = $("#heroStats");
     if (stats) stats.innerHTML =
       "<div><b>" + VISIBLE.length + "+</b><span class='muted small'>ürün çeşidi</span></div>" +
-      "<div><b>" + cfg.categories.filter(function (c) { return !isHiddenCat(c.slug); }).length + "</b><span class='muted small'>kategori</span></div>" +
+      "<div><b>" + CATS.filter(function (c) { return !isHiddenCat(c.slug); }).length + "</b><span class='muted small'>kategori</span></div>" +
       "<div><b>3 dk</b><span class='muted small'>sistem kurucu ile proje</span></div>" +
       "<div><b>14 gün</b><span class='muted small'>koşulsuz iade</span></div>";
     var cg = $("#catGrid");
-    if (cg) cg.innerHTML = cfg.categories.filter(function (c) { return !isHiddenCat(c.slug); }).map(function (c) {
+    if (cg) cg.innerHTML = CATS.filter(function (c) { return !isHiddenCat(c.slug); }).map(function (c) {
       var n = VISIBLE.filter(function (p) { return p.cat === c.slug; }).length;
       return '<a class="cat-card" href="' + catUrl(c) + '"><div class="ico">' + c.icon + "</div><b>" + esc(c.name) + "</b><span>" + n + " ürün</span></a>";
     }).join("");
@@ -414,7 +434,7 @@
     var appById = {}; B.appliances.forEach(function (a) { appById[a.id] = a; });
     function presetOf(id) { for (var i = 0; i < B.presets.length; i++) if (B.presets[i].id === id) return B.presets[i]; return B.presets[0]; }
     // Katalogda gerçekten var olan ürünlere indirge (ürün silinirse zarifçe düş)
-    function existingPanels(list) { return (list || []).filter(function (r) { return byId(r) && B.catalog.panels[r]; }); }
+    function existingPanels(list) { return (list || []).filter(function (r) { var p = byId(r); return p && B.catalog.panels[r] && !p.onRequest && p.inStock !== false; }); }
 
     var st = store(BLD_KEY) || {};
     var tipParam = param("tip");
@@ -447,7 +467,7 @@
 
       // İnverter: gücü karşılayan, FİYATI YAYINDA olan en küçük model
       // (onRequest ürünler öneriye girmez — sepette fiyatsız kalem olmasın)
-      function invOk(c) { var p = byId(c.ref); return p && !p.onRequest; }
+      function invOk(c) { var p = byId(c.ref); return p && !p.onRequest && p.inStock !== false; }
       var inv = null;
       for (var i = 0; i < B.catalog.inverters.length; i++) {
         var cand = B.catalog.inverters[i];
@@ -467,7 +487,8 @@
       var bat = null, batQty = 0, batCost = Infinity;
       if (inv) {
         B.catalog.batteries.forEach(function (b) {
-          if (b.chem !== st.chem || !byId(b.ref)) return;
+          var bp = byId(b.ref);
+          if (b.chem !== st.chem || !bp || bp.onRequest || bp.inStock === false) return;
           var seriesOf = inv.v / b.v;
           if (seriesOf < 1 || seriesOf % 1 !== 0) return;
           var units = Math.max(seriesOf, Math.ceil(needWh / b.wh));
@@ -675,7 +696,7 @@
     fEl.innerHTML = "<h3>Filtrele</h3>" +
       '<div class="filter-group"><b>Fiyat (₺)</b><div class="price-inputs">' +
       '<input type="number" id="fMin" placeholder="Min" min="0"><input type="number" id="fMax" placeholder="Max" min="0"></div></div>' +
-      (Object.keys(brands).length > 1 ? '<div class="filter-group"><b>Marka</b>' +
+      (Object.keys(brands).length > 0 ? '<div class="filter-group"><b>Marka</b>' +
         Object.keys(brands).sort().map(function (b) { return '<label><input type="checkbox" data-brand="' + esc(b) + '"> ' + esc(b) + "</label>"; }).join("") + "</div>" : "") +
       (Object.keys(tags).length > 1 ? '<div class="filter-group"><b>Özellik</b>' +
         Object.keys(tags).sort().map(function (t) { return '<label><input type="checkbox" data-tag="' + esc(t) + '"> ' + esc(t) + "</label>"; }).join("") + "</div>" : "") +
@@ -777,9 +798,14 @@
             fmtKur(currentKur()) + " ₺) hesaplanır ve günlük güncellenir.</div>"
           : '<div class="muted small">KDV dahil fiyattır.</div>') +
         '<div class="havale-note">💰 Havale/EFT ile: <b>' + fmt0(havalePrice(pr.price)) + "</b> (%" + cfg.commerce.havaleDiscountPct + " indirimli)</div>" +
-        '<div class="qty-row" style="margin-top:14px">' +
-        '<div class="qty"><button type="button" id="qMinus">−</button><input id="qtyInp" type="number" value="1" min="1" max="99"><button type="button" id="qPlus">+</button></div>' +
-        '<button class="btn btn-primary" id="pdAdd" style="flex:1">🛒 Sepete Ekle</button></div>' +
+        (p.inStock === false
+          ? '<div class="oos-note">⛔ <b>Stokta Yok</b> — tedarik edilince satışa açılacak.</div>' +
+            '<a class="btn btn-wa btn-block" style="margin-top:12px" href="' +
+            waLink("Merhaba, stok gelince haber verir misiniz: " + p.name + " (" + p.code + ")") +
+            '" target="_blank" rel="noopener">💬 Stok Gelince Haber Ver</a>'
+          : '<div class="qty-row" style="margin-top:14px">' +
+            '<div class="qty"><button type="button" id="qMinus">−</button><input id="qtyInp" type="number" value="1" min="1" max="99"><button type="button" id="qPlus">+</button></div>' +
+            '<button class="btn btn-primary" id="pdAdd" style="flex:1">🛒 Sepete Ekle</button></div>') +
         '<div style="display:flex;gap:8px;margin-top:10px">' +
         '<button class="btn btn-sm" id="pdFav">' + (isFav ? "♥ Favorilerde" : "♡ Favorilere Ekle") + "</button>" +
         '<a class="btn btn-sm btn-wa" href="' + waLink("Merhaba, şu ürün hakkında bilgi almak istiyorum: " + p.name + " (" + p.code + ")") + '" target="_blank" rel="noopener">💬 WhatsApp\'tan Sor</a></div></div>';
@@ -862,12 +888,14 @@
         $("#" + b.getAttribute("data-tab")).classList.remove("hidden");
       });
     });
-    // Satın alma etkileşimleri
+    // Satın alma etkileşimleri (Stokta Yok'ta adet/sepet alanı hiç çizilmez)
     if (!p.onRequest) {
       var qi = $("#qtyInp");
-      $("#qMinus").addEventListener("click", function () { qi.value = Math.max(1, +qi.value - 1); });
-      $("#qPlus").addEventListener("click", function () { qi.value = Math.min(99, +qi.value + 1); });
-      $("#pdAdd").addEventListener("click", function () { addToCart(p.id, Math.max(1, +qi.value || 1)); });
+      if (qi) {
+        $("#qMinus").addEventListener("click", function () { qi.value = Math.max(1, +qi.value - 1); });
+        $("#qPlus").addEventListener("click", function () { qi.value = Math.min(99, +qi.value + 1); });
+        $("#pdAdd").addEventListener("click", function () { addToCart(p.id, Math.max(1, +qi.value || 1)); });
+      }
       $("#pdFav").addEventListener("click", function () {
         var on = toggleFav(p.id);
         this.textContent = on ? "♥ Favorilerde" : "♡ Favorilere Ekle";
@@ -915,8 +943,8 @@
       var c = cart(), ids = Object.keys(c).filter(function (id) { return byId(id); });
       if (!ids.length) {
         root.innerHTML = '<div class="section" style="text-align:center"><div style="font-size:52px">🛒</div><h1>Sepetiniz boş</h1>' +
-          '<p class="muted">Solar paketlerimize göz atarak başlayabilirsiniz.</p>' +
-          '<a class="btn btn-primary" href="kategori.html?k=solar-paketler">Solar Paketleri İncele</a></div>';
+          '<p class="muted">Kataloğumuza göz atarak başlayabilirsiniz.</p>' +
+          '<a class="btn btn-primary" href="kategori.html">Ürünleri İncele</a></div>';
         return;
       }
       var subtotal = 0;
@@ -1137,7 +1165,7 @@
     var st = adminState();
     function save() { store(ADMIN_KEY, st); toast("Kaydedildi ✔"); drawTable(); }
     var supOpts = Object.keys(cfg.suppliers).map(function (s) { return '<option value="' + s + '">' + esc(cfg.suppliers[s].label) + "</option>"; }).join("");
-    var catOpts = cfg.categories.map(function (c) { return '<option value="' + c.slug + '">' + esc(c.name) + "</option>"; }).join("");
+    var catOpts = CATS.map(function (c) { return '<option value="' + c.slug + '">' + esc(c.name) + "</option>"; }).join("");
     root.innerHTML =
       '<div class="container section">' +
       '<div class="section-head"><h1>🔧 Yönetim Paneli</h1><span class="pill">Değişiklikler yalnız bu cihazda saklanır — kalıcı yayın için config/data dosyasına işleyip commit edin.</span></div>' +
@@ -1268,9 +1296,11 @@
 
   /* ================= Başlat ================= */
   document.addEventListener("DOMContentLoaded", function () {
-    // Önce günlük kur (sunucudan, önbellekli) — sonra sayfa çizimi; böylece
-    // tüm ₺ fiyatlar güncel kurla basılır.
-    initKur(function () {
+    // Kur (sunucudan, önbellekli) ve katalog (/api) PARALEL yüklenir;
+    // ikisi de hazır olunca sayfa çizilir — ₺ fiyatlar güncel kurla basılır.
+    var pending = 2;
+    function ready() {
+      if (--pending > 0) return;
       renderChrome();
       var page = pageActive();
       if (page === "home") pageHome();
@@ -1282,6 +1312,8 @@
       else if (page === "iletisim") pageContact();
       else if (page === "admin") pageAdmin();
       else pageContact(); // statik sayfalardaki data-c alanları için
-    });
+    }
+    initKur(ready);
+    loadCatalog(ready);
   });
 })();

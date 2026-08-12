@@ -435,3 +435,7 @@ button.cat-card.bld-scen { font: inherit; text-align: center; cursor: pointer; }
 /* ---------- Kur rozeti (duyuru bandı) ---------- */
 .announce { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
 .fx-badge { background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 2px 12px; font-weight: 700; font-size: .8rem; color: var(--accent-2); white-space: nowrap; }
+
+/* ---------- Stok rozeti ---------- */
+.ribbon.oos { background: #6b7280; }
+.oos-note { margin-top: 12px; background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 10px; padding: 10px 14px; color: #4b5563; font-size: .92rem; }

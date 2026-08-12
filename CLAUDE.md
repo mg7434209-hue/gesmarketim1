@@ -10,9 +10,16 @@ sunucu (`server.js`, Railway uyumlu). Sunucu tarafı yok; sepet/favori/admin
 verileri istemcide (localStorage, `gesm.` öneki) tutulur. Tema: beyaza yakın
 bej/krem (kullanıcı kararı — spec'teki dark theme yerine).
 
+KATALOG MİMARİSİ (12.08.2026 — kritik): ürünler/kategoriler SUNUCUDAN gelir:
+`/api/products` + `/api/categories` ← `data/catalog.json` ← `build-catalog.js`
+← tedarikçi fiyat listesi CSV'si (`data/*.csv`). Gömülü `assets/data.js`
+KALDIRILDI (çift katalog tutarsızlığının köküydü). AŞAMALI KURULUM: şu an
+SADECE LEXRON aşaması (82 ürün, 7 kategori); yeni marka = yeni CSV +
+build-catalog.js güncellemesi. Kataloğa maliyet alanı ASLA yazılmaz (K1).
+
 Sayfalar (kök dizinde):
 `index.html` (hero + kategori grid + "Kendi Projenizi Oluşturun" bölümü +
-kampanya/çok satan/yeni — paket vitrini ŞİMDİLİK kaldırıldı, aşağıya bak) ·
+kampanya/çok satan/yeni) ·
 `sistem-kur.html` (Sistem Kurucu: senaryo → cihaz adetleri → ihtiyaç
 hesabı → katalogdan panel/akü/inverter/ekipman önerisi → sepete ekle +
 WhatsApp teklif; mantık `app.js pageBuilder()`, TÜM katsayılar ve katalog
@@ -29,13 +36,13 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 `<div id="chrome-top">` / `<div id="chrome-footer">` yer tutucuları vardır.
 
 ## DEĞİŞMEZ İŞ KURALLARI (spec 8.1)
-- **K1**: Tedarikçi bilgisi (Mexxsun, Enerji Pazarı) müşteri arayüzünde HİÇBİR
-  yerde görünmez — yalnız `admin.html`. `data.js` içindeki `supplier`/`cost`
-  alanlarını müşteri sayfalarında ASLA render etme.
+- **K1**: Tedarikçi ve MALİYET bilgisi müşteri arayüzünde HİÇBİR yerde
+  görünmez; `data/catalog.json`'a maliyet alanı hiç yazılmaz (kaynak CSV'ler
+  yalnız backend/veri deposunda kalır).
 - **K2**: Enerji Pazarı ürünlerinde varsayılan marj %20 (`config.pricing`).
 - **K3**: Fiyat yönetimi: toplu + tekil, yüzdesel + manuel, tedarikçi + kategori
   bazlı — `admin.html` üzerinden, localStorage'da (`gesm.admin`). Kalıcı yayın =
-  değerleri `config.js`/`data.js`'e işleyip commit.
+  CSV/`build-catalog.js` üzerinden yeni catalog.json üretip commit.
 - **K4**: Ön yüz AI asistanlı (kural tabanlı, `app.js` chat IIFE). Tema, spec'te
   dark yazsa da kullanıcı talebiyle açık bej'e çevrildi — geri dönme.
 - **K5**: Ürün açıklamaları ÖZGÜN — rakip metin/görsel kopyalanmaz. Görseller
@@ -43,25 +50,24 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
   tedarikçi/üretici kaynaklı dosya koy, dış siteden hotlink YAPMA.
 - "FİYAT SORUN" ürünlerinde fiyat alanı render edilmez → `onRequest: true` +
   Teklif Al formu (WhatsApp deep-link).
-- **K6 — Hazır paketler ŞİMDİLİK gizli** (`config.hiddenCategories:
-  ["solar-paketler"]`): listelerde/aramada/ana sayfada/sitemap'te görünmez,
-  nav'da yerini "Sistem Kur" aldı; ürün VERİSİ data.js'te durur ve doğrudan
-  `urun.html?u=pkt*` URL'leri çalışır. Geri açmak = slug'ı listeden çıkar +
-  nav'ı geri al + index paket bölümünü geri koy + `npm run build`.
+- **K6 — Paket Sistemler bu aşamada YOK** (aşamalı kurulum): kendi
+  bundle'larımız ileriki aşamada kendi kategorisiyle eklenecek.
+- Stokta olmayan ürün (catalog.json `inStock:false`) yayında kalır:
+  "STOKTA YOK" rozeti, sepete eklenemez, detayda "stok gelince haber ver".
 
 ## TEK DOĞRU KAYNAK — `assets/config.js`
-İletişim, duyuru bandı, kargo/havale katsayıları, marj kuralları, 11 kategori
-(+SEO rehber metinleri), admin şifresi YALNIZCA burada. Sayfalara sayı gömme.
+İletişim, duyuru bandı, kargo/havale katsayıları, marj/kur kuralları, nav,
+Sistem Kurucu katsayıları, admin şifresi YALNIZCA burada. Kategoriler ve
+ürünler /api'den gelir (bkz. Katalog Mimarisi). Sayfalara sayı gömme.
 
 ## Dosya mimarisi
 - `assets/config.js` — konfig (yukarıda).
-- `assets/data.js`   — ürün kataloğu (247 gerçek tedarikçi ürünü, 19 paket dahil;
-  tümü görselli — görselsiz/temsili ürünler kaldırıldı). Paketlerde `components[]`
-  bileşen listesi (ref → ürün id; ref'siz bileşen düz metin render edilir).
-  Havensis ürünleri (`hvs-*`, fiyat listesi 02/2026 sıra 11–33) **USD fiyatlıdır**:
-  `priceUsd` alanı + `config.commerce.usdTry` kuru → kartta $ ve yaklaşık ₺
-  gösterilir, sepet ₺ üzerinden işler, JSON-LD offer USD olur. Kur admin panelden
-  geçici (localStorage), config'ten kalıcı güncellenir.
+- `build-catalog.js` — TEK DOĞRU KAYNAK zinciri: tedarikçi CSV'si →
+  `data/catalog.json` (82 Lexron ürünü, 7 kategori, saleUsd, inStock,
+  görseller `public/images/products/<slug>*` + `data/gorsel-eslesme.json`
+  devralmaları). Yeni liste = CSV koy + `npm run build` + commit.
+- `data/catalog.json` — ÜRETİLİR (elle düzenlenmez); server.js bunu
+  `/api/products` + `/api/categories` olarak servis eder.
 - `assets/app.js`    — fiyat motoru (`priceOf`: tekil override > açık fiyat >
   maliyet×marj, sonra toplu % ayarları), sepet, favoriler, arama, kategori
   filtreleri, ürün detay, WhatsApp sipariş, AI asistan, admin panel.
@@ -87,7 +93,8 @@ Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
 - Tüm fiyat gösterimi KDV dahil; havale fiyatı `havalePrice()` ile hesaplanır.
 - JSON-LD: Organization her sayfada, WebSite+SearchAction ana sayfada, Product+
   BreadcrumbList ürün sayfasında, FAQPage `sss.html`'de statik.
-- Yeni ürün eklerken `data.js`'e `add({...})` + `npm run build` (sitemap).
+- Yeni ürün/liste eklerken: CSV'yi `data/` altına koy, `build-catalog.js`
+  kaynağını güncelle, `npm run build` + commit (catalog.json + sitemap).
 
 ## Ağ Kısıtı (ÖNEMLİ)
 Buluttaki Claude Code dış sitelere erişemez (egress izin listesi). Dış veri
