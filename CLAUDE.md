@@ -5,108 +5,103 @@
 ## Proje
 gesmarketim.com — **solar dropshipping e-ticaret sitesi**. bahcesolar.com rakip
 analizinden türetilen build spec'e göre inşa edildi (bkz. `docs/build-spec.md`).
-Çok sayfalı statik site: saf HTML + CSS + Vanilla JS, bağımlılıksız Node statik
-sunucu (`server.js`, Railway uyumlu). Sunucu tarafı yok; sepet/favori/admin
-verileri istemcide (localStorage, `gesm.` öneki) tutulur. Tema: beyaza yakın
-bej/krem (kullanıcı kararı — spec'teki dark theme yerine).
+**React 18 + Vite + Tailwind SPA** (12.08.2026'da sıfırdan kuruldu) +
+bağımlılıksız Node sunucu (`server.js`, Railway uyumlu). Sepet/tercihler
+istemcide (localStorage, `gesm.` öneki). Tema: beyaza yakın bej/krem; marka
+paleti Tailwind token'larında (`frontend/tailwind.config.js` — mavi #36C5EC,
+yeşil #6ABF89, lime #A2C864, amber #FDC722, kırmızı #F65863, metin #474948).
 
-KATALOG MİMARİSİ (12.08.2026 — kritik): ürünler/kategoriler SUNUCUDAN gelir:
-`/api/products` + `/api/categories` ← `data/catalog.json` ← `build-catalog.js`
-← tedarikçi fiyat listesi CSV'si (`data/*.csv`). Gömülü `assets/data.js`
-KALDIRILDI (çift katalog tutarsızlığının köküydü). AŞAMALI KURULUM: şu an
-SADECE LEXRON aşaması (82 ürün, 7 kategori); yeni marka = yeni CSV +
-build-catalog.js güncellemesi. Kataloğa maliyet alanı ASLA yazılmaz (K1).
+KATALOG MİMARİSİ (kritik): ürünler/kategoriler SUNUCUDAN gelir:
+`/api/products` + `/api/categories` + `/api/products/:id` ← `data/catalog.json`
+← `build-catalog.js` ← tedarikçi fiyat listesi CSV'si (`data/*.csv`).
+AŞAMALI KURULUM: şu an SADECE LEXRON aşaması (82 ürün, 7 kategori); yeni
+marka = yeni CSV + build-catalog.js güncellemesi. Kataloğa maliyet alanı
+ASLA yazılmaz (K1). `/api/config` GÜVENLİ config alt kümesini verir
+(company/announcement/commerce/pricing{roundTo,fxBufferPct}/brands/builder/seo
+— admin şifresi ve tedarikçi bilgisi ASLA çıkmaz).
 
-Sayfalar (kök dizinde):
-`index.html` (hero + kategori grid + "Kendi Projenizi Oluşturun" bölümü +
-kampanya/çok satan/yeni) ·
-`sistem-kur.html` (Sistem Kurucu: senaryo → cihaz adetleri → ihtiyaç
-hesabı → katalogdan panel/akü/inverter/ekipman önerisi → sepete ekle +
-WhatsApp teklif; mantık `app.js pageBuilder()`, TÜM katsayılar ve katalog
-eşlemesi `config.builder`'da — koda sayı gömme; durum localStorage
-`gesm.builder`, `?tip=<senaryo>` ön seçim yapar) ·
-`kategori.html?k=slug|?q=arama` (filtre paneli + sıralama + sayfalama + SEO
-rehber metni) · `urun.html?u=id` (galeri, fiyat/Teklif Al, sekmeler, paket
-bileşen listesi + ayrı alım karşılaştırması, JSON-LD Product) · `sepet.html`
-(sepet + WhatsApp sipariş akışı) · `favoriler.html` · `iletisim.html` ·
-`hakkimizda.html` · `sss.html` (FAQPage JSON-LD) · `kargo-teslimat.html` ·
-`iade-degisim.html` · `mesafeli-satis.html` · `gizlilik.html` · `404.html` ·
-`admin.html` (fiyat/duyuru yönetimi — menüde yok, robots'ta engelli).
-Header/nav/footer `app.js renderChrome()` ile enjekte edilir — sayfalarda
-`<div id="chrome-top">` / `<div id="chrome-footer">` yer tutucuları vardır.
+SPA rotaları (react-router; server.js history fallback yapar):
+`/` (hero animasyonu + sayan istatistikler + kategori grid + "Yapay Zekâ ile
+Projenizi Tasarlayın" 3 profil kartı (karavan/ev/sulama → `/hesaplayici?profil=X`)
++ çok satanlar) · `/kategori` + `/kategori/:slug` + `/kategori?q=arama`
+(fiyat aralığı/marka/stok filtreleri, sıralama, sayfalama, kategori SEO metni) ·
+`/urun/:id` (galeri, fiyat bloğu, sepete ekle, JSON-LD Product, benzer ürünler) ·
+`/sepet` (adet/kaldır, kargo+havale özeti, WhatsApp sipariş) · `/hesaplayici`
+(Sistem Kurucu sihirbazı — eski pageBuilder portu; `?profil=` veya `?tip=`
+ön seçim) · `/iletisim` · statikler: `/hakkimizda` `/sss` (FAQPage JSON-LD)
+`/kargo-teslimat` `/iade-degisim` `/mesafeli-satis` `/kvkk` · SPA 404.
+Eski `.html` URL'leri server.js 301 ile yeni rotalara yönlendirir (SEO).
 
 ## DEĞİŞMEZ İŞ KURALLARI (spec 8.1)
 - **K1**: Tedarikçi ve MALİYET bilgisi müşteri arayüzünde HİÇBİR yerde
-  görünmez; `data/catalog.json`'a maliyet alanı hiç yazılmaz (kaynak CSV'ler
-  yalnız backend/veri deposunda kalır).
-- **K2**: Enerji Pazarı ürünlerinde varsayılan marj %20 (`config.pricing`).
-- **K3**: Fiyat yönetimi: toplu + tekil, yüzdesel + manuel, tedarikçi + kategori
-  bazlı — `admin.html` üzerinden, localStorage'da (`gesm.admin`). Kalıcı yayın =
-  CSV/`build-catalog.js` üzerinden yeni catalog.json üretip commit.
-- **K4**: Ön yüz AI asistanlı (kural tabanlı, `app.js` chat IIFE). Tema, spec'te
-  dark yazsa da kullanıcı talebiyle açık bej'e çevrildi — geri dönme.
-- **K5**: Ürün açıklamaları ÖZGÜN — rakip metin/görsel kopyalanmaz. Görseller
-  SVG yer tutucu (`thumbSVG`); gerçek görsel eklenecekse `assets/img/` altına
-  tedarikçi/üretici kaynaklı dosya koy, dış siteden hotlink YAPMA.
+  görünmez; `data/catalog.json`'a maliyet alanı hiç yazılmaz. server.js
+  `data/`, `backup/`, `assets/` klasörlerini SERVİS ETMEZ (yalnız dist/ +
+  public/ + sitemap/robots) — kaynak CSV'ler dışarı sızmaz.
+- **K3**: Fiyat yönetimi CSV/`build-catalog.js` üzerinden: yeni catalog.json
+  üretip commit'le (eski admin.html paneli SPA geçişinde kaldırıldı; kur elle
+  yayınlama `POST /api/kur` ile yapılır — ADMIN_PASS).
+- **K5**: Ürün açıklamaları ÖZGÜN — rakip metin/görsel kopyalanmaz. Görselsiz
+  ürün markalı SVG yer tutucu gösterir (`PlaceholderImg`); dış hotlink YAPMA.
 - **K7 — GÖRSELDE MARKA KURALI**: bir ürünün görselinde FARKLI marka
-  görünemez. Görsel devralma/eşleştirme yalnız AYNI MARKA içinde yapılır —
-  `build-catalog.js` bunu zorlar (`data/gorsel-eslesme.json` kayıtlarının
-  `kaynakMarka`sı ürün markasıyla eşleşmeli; `_dislama` listesindeki kaynağı
-  doğrulanamayan dosyalar hiç kullanılmaz). Yanlış görsel, görselsizlikten
-  kötüdür → emin olunamayan ürün SVG yer tutucuda kalır.
-- "FİYAT SORUN" ürünlerinde fiyat alanı render edilmez → `onRequest: true` +
-  Teklif Al formu (WhatsApp deep-link).
-- **K6 — Paket Sistemler bu aşamada YOK** (aşamalı kurulum): kendi
-  bundle'larımız ileriki aşamada kendi kategorisiyle eklenecek.
-- Stokta olmayan ürün (catalog.json `inStock:false`) yayında kalır:
-  "STOKTA YOK" rozeti, sepete eklenemez, detayda "stok gelince haber ver".
+  görünemez. Görsel devralma/eşleştirme yalnız AYNI MARKA içinde —
+  `build-catalog.js` zorlar (`data/gorsel-eslesme.json` `kaynakMarka` eşleşmeli;
+  `_dislama` listesindeki dosyalar hiç kullanılmaz). Yanlış görsel,
+  görselsizlikten kötüdür → emin olunamayan ürün SVG yer tutucuda kalır.
+- **K6 — Paket Sistemler bu aşamada YOK** (aşamalı kurulum).
+- Stokta olmayan ürün (`inStock:false`) yayında kalır: "STOKTA YOK" rozeti,
+  sepete eklenemez, detayda "stok gelince haber ver" (WhatsApp).
 
 ## TEK DOĞRU KAYNAK — `assets/config.js`
-İletişim, duyuru bandı, kargo/havale katsayıları, marj/kur kuralları, nav,
-Sistem Kurucu katsayıları, admin şifresi YALNIZCA burada. Kategoriler ve
-ürünler /api'den gelir (bkz. Katalog Mimarisi). Sayfalara sayı gömme.
+İletişim, duyuru bandı, kargo/havale katsayıları, kur tamponu/yuvarlama,
+Sistem Kurucu katsayıları (`config.builder`), admin şifresi YALNIZCA burada.
+server.js bunu okur ve güvenli alt kümesini `/api/config` ile SPA'ya verir —
+React tarafına sayı gömme. Tarayıcıya bu dosya artık servis edilmez.
 
 ## Dosya mimarisi
-- `assets/config.js` — konfig (yukarıda).
-- `build-catalog.js` — TEK DOĞRU KAYNAK zinciri: tedarikçi CSV'si →
-  `data/catalog.json` (82 Lexron ürünü, 7 kategori, saleUsd, inStock,
-  görseller `public/images/products/<slug>*` + `data/gorsel-eslesme.json`
-  devralmaları). Yeni liste = CSV koy + `npm run build` + commit.
-- `data/catalog.json` — ÜRETİLİR (elle düzenlenmez); server.js bunu
-  `/api/products` + `/api/categories` olarak servis eder.
-- `assets/app.js`    — fiyat motoru (`priceOf`: tekil override > açık fiyat >
-  maliyet×marj, sonra toplu % ayarları), sepet, favoriler, arama, kategori
-  filtreleri, ürün detay, WhatsApp sipariş, AI asistan, admin panel.
-- `assets/style.css` — açık bej tema tasarım sistemi (CSS değişkenleri).
-- `server.js`        — statik sunucu; uzantısız yol → `.html` eşlemesi yapar.
-- `build-seo.js`     — `sitemap.xml` üretir (`npm run build`); ürün/kategori
-  değişince yeniden üret ve çıktıyı commit'le.
+- `frontend/` — React SPA kaynağı (Vite + Tailwind). `src/api.js` (store,
+  fiyat: ₺ = saleUsd × kur × (1+fxBufferPct/100) → roundTo'ya yuvarla; sepet),
+  `src/hooks.js` (useCountUp, useSeo), `src/components/` (Layout, ui),
+  `src/pages/` (Home/Category/Product/Cart/Builder/Contact/Static/NotFound).
+  Değişiklik sonrası `npm run build:web` (kökten) → `dist/` üretir.
+- `dist/` — ÜRETİLİR ama COMMIT EDİLİR (Railway'de frontend build koşmaz;
+  server.js SPA'yı buradan servis eder). frontend değişince yeniden build +
+  commit. `frontend/public/` içindekiler (favicon, hero-panel.webp) dist'e
+  kopyalanır; ürün görselleri ise kökteki `public/images/products/`ta kalır.
+- `assets/config.js` — konfig (yukarıda; server-side).
+- `build-catalog.js` — CSV → `data/catalog.json` (saleUsd, inStock, görseller
+  `public/images/products/<slug>*` + `data/gorsel-eslesme.json` devralmaları).
+- `data/catalog.json` — ÜRETİLİR (elle düzenlenmez); `/api/products` kaynağı.
+- `server.js` — API (/api/products[,/:id], /api/categories, /api/config,
+  /api/kur GET/POST) + dist/ SPA fallback + eski URL 301 + otomatik kur.
+- `build-seo.js` — `sitemap.xml` üretir (SPA rotalarıyla; `npm run build`).
+- `tools/gorsel_yerlestir.py` — Lexron görsel zip'i geldiğinde bulanık
+  eşleştirme + WebP optimizasyon + rapor (DRY-RUN varsayılan, `--uygula` yazar).
 
 ## Konvansiyonlar
-- Sayfa linkleri `.html` uzantılı; ürün `urun.html?u=id`, kategori
-  `kategori.html?k=slug`, arama `kategori.html?q=...`.
-- localStorage anahtarları `gesm.` önekiyle başlar.
-- **FİYATLAR USD TABANLIDIR**: her fiyatlı üründe `saleUsd` (veya Havensis
-  `priceUsd`) bulunur; ₺ = USD × güncel kur × (1+`pricing.fxBufferPct`/100),
-  `priceOf()` içinde hesaplanır — ürünlere statik ₺ yazma. Kur kaynağı sırası:
-  admin cihaz-yerel deneme > sunucu günlük kuru (`/api/kur` → localStorage
-  `gesm.kur`) > `config.commerce.usdTry`. Kur SUNUCUDA OTOMATİK güncellenir:
-  açılışta + 6 saatte bir (KUR_REFRESH_HOURS) open.er-api.com/frankfurter.app
-  piyasa kurundan çekilir (`server.js autoUpdateKur`; %15+ sıçrama reddedilir;
-  kapatma: AUTO_KUR=false). Admin panelden "Kuru Yayınla" elle yazar ve 24 saat
-  otomatiğe ezdirilmez. Kalıcılık: `DATA_DIR/kur.json` (Railway Volume önerilir).
-  Duyuru bandındaki `.fx-badge` rozeti güncel kuru gösterir.
-- Tüm fiyat gösterimi KDV dahil; havale fiyatı `havalePrice()` ile hesaplanır.
-- JSON-LD: Organization her sayfada, WebSite+SearchAction ana sayfada, Product+
-  BreadcrumbList ürün sayfasında, FAQPage `sss.html`'de statik.
-- Yeni ürün/liste eklerken: CSV'yi `data/` altına koy, `build-catalog.js`
-  kaynağını güncelle, `npm run build` + commit (catalog.json + sitemap).
+- Rotalar UZANTISIZ: ürün `/urun/:id`, kategori `/kategori/:slug`, arama
+  `/kategori?q=...`. localStorage anahtarları `gesm.` önekiyle başlar
+  (sepet `gesm.cart` = {id: adet}, kurucu `gesm.builder`).
+- **FİYATLAR USD TABANLIDIR**: üründe `saleUsd`; ₺ hesabı İSTEMCİDE
+  `frontend/src/api.js priceTL()` ile — statik ₺ yazma. Kur sırası: sunucu
+  günlük kuru (`/api/kur`) > `config.commerce.usdTry`. Kur SUNUCUDA OTOMATİK
+  güncellenir: açılışta + 6 saatte bir (KUR_REFRESH_HOURS) open.er-api.com/
+  frankfurter.app (%15+ sıçrama reddedilir; kapatma AUTO_KUR=false). Elle kur:
+  `POST /api/kur {usdTry, pass}` — 24 saat otomatiğe ezdirilmez. Kalıcılık:
+  `DATA_DIR/kur.json` (Railway Volume önerilir). Duyuru bandındaki rozet
+  güncel kuru gösterir.
+- Tüm fiyat gösterimi KDV dahil; havale fiyatı `havaleTL()` (%havaleDiscountPct).
+- SEO: sayfa başına dinamik title/description (`useSeo`), JSON-LD Product
+  (ürün), BreadcrumbList (kategori), FAQPage (/sss). Görseller lazy (hero hariç
+  — `fetchpriority=high` LCP).
+- Yeni ürün/liste: CSV'yi `data/`ya koy, `build-catalog.js` güncelle,
+  `npm run build` + commit (catalog.json + sitemap).
 
 ## Ağ Kısıtı (ÖNEMLİ)
 Buluttaki Claude Code dış sitelere erişemez (egress izin listesi). Dış veri
 gerekiyorsa dosya olarak repoya ekle.
 
 ## Çalıştırma & Test (commit öncesi)
-- `npm test`  → tüm JS söz dizimi kontrolü.
-- `npm run build` → sitemap.xml.
-- `npm start` → http://localhost:3000 ; ana sayfaların 200 döndüğünü doğrula.
+- `npm test` → sunucu/build betikleri söz dizimi.
+- `npm run build` → catalog + sitemap; `npm run build:web` → React → dist/.
+- `npm start` → http://localhost:3000 ; `/`, `/kategori/panel`, `/urun/:id`,
+  `/api/products`, `/api/config` 200 döndüğünü doğrula (SPA fallback dahil).

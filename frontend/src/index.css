@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-surface text-brand-ink font-sans antialiased; }
+  h1, h2, h3 { @apply font-bold tracking-tight text-brand-ink; }
+}
+
+@layer components {
+  .wrap { @apply max-w-wrap mx-auto px-4; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-btn px-5 py-2.5 font-semibold text-sm
+         border border-surface-line bg-surface-card transition hover:-translate-y-px hover:shadow-card
+         disabled:opacity-50 disabled:pointer-events-none; }
+  .btn-primary { @apply bg-brand-amber border-brand-amber text-[#3d3005] shadow-btn hover:brightness-105; }
+  .btn-ghost { @apply bg-transparent; }
+  .btn-wa { @apply bg-brand-green border-brand-green text-white; }
+  .card { @apply bg-surface-card border border-surface-line rounded-card shadow-card; }
+  .badge { @apply inline-block text-[11px] font-extrabold tracking-wide rounded-full px-2.5 py-0.5; }
+  .input { @apply w-full rounded-btn border border-surface-line bg-surface-card px-3 py-2 text-sm
+           focus:outline-none focus:ring-2 focus:ring-brand-blue/40; }
+  .prose-static h2 { @apply text-xl mt-8 mb-3; }
+  .prose-static h3 { @apply text-lg mt-6 mb-2; }
+  .prose-static p, .prose-static li { @apply text-[15px] leading-7 text-brand-ink/90 mb-3; }
+  .prose-static ul { @apply list-disc pl-6 mb-4; }
+  .prose-static a { @apply text-brand-blue underline; }
+}
+
+/* ---------- Hero animasyonları (yalnız transform/opacity — GPU dostu) ---------- */
+@keyframes sunspin { to { transform: rotate(360deg); } }
+@keyframes sunbreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes flow { to { stroke-dashoffset: -48; } }
+@keyframes shine { 0% { transform: translateX(-120%); } 60%,100% { transform: translateX(160%); } }
+.anim-rays { animation: sunspin 20s linear infinite; transform-origin: center; }
+.anim-sun { animation: sunbreathe 4s ease-in-out infinite; transform-origin: center; }
+.anim-flow { stroke-dasharray: 10 14; animation: flow 1.6s linear infinite; }
+.anim-shine { animation: shine 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .anim-rays, .anim-sun, .anim-flow, .anim-shine { animation: none !important; }
+}
