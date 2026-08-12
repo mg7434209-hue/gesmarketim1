@@ -721,5 +721,122 @@
     });
   })();
 
+  /* ============ KATALOG TEMİZLİĞİ 11.08.2026 — marka whitelist ============
+     Whitelist: Lexron, Mexxun, Havensis, Arçelik, Bakırlar, Smart, Jinko,
+     Deye, EVE, Sorotec, Ecosol. Whitelist DIŞI markalı ve hiçbir tedarikçi
+     listesine (ACS / Mexxsun / Havensis) bağlanamayan ürünler KALICI
+     kaldırıldı — hayali/demo kayıtlar, gerçek SKU geçmişi yok.
+     Korunanlar: Mexxsun/Havensis tedarikçili ürünler, gizli paketler ve
+     Lexron sinüs inverter serisi (markası "GESM Power" yazılmıştı,
+     görsellerdeki gerçek markası Lexron — yeniden markalandı).
+     BRAND_FIX: eşleşen ürünlerde marka ACS listesindeki markaya çekildi. */
+  var PURGE_IDS = [
+    "x-2hp-pompa-tarimsal-sulama-sistemi-1", // GESM Power | 2 Hp Pompa Tarımsal Sulama Sistemi
+    "x-4hp-pompa-tarimsal-sulama-sistemi", // GESM Power | 4 Hp Pompa Tarımsal Sulama Sistemi
+    "x-5-5hp-pompa-tarimsal-sulama-sistemi", // GESM Power | 5,5 Hp Pompa Tarımsal Sulama Sistemi
+    "x-10hp-pompa-tarimsal-sulama-sistemi", // GESM Power | 10 Hp Pompa Tarımsal Sulama Sistemi
+    "x-15hp-pompa-tarimsal-sulama-sistemi", // GESM Power | 15 Hp Pompa Tarımsal Sulama Sistemi
+    "x-20hp-pompa-tarimsal-sulama-sistemi", // GESM Power | 20 Hp Pompa Tarımsal Sulama Sistemi
+    "x-25hp-dalgic-pompa-tarimsal-sulama-sistemi", // GESM Power | 25 Hp Dalgıç Pompa Tarımsal Sulama Sistemi
+    "x-30hp-dalgic-pompa-tarimsal-sulama-sistemi", // GESM Power | 30 Hp Dalgıç Pompa Tarımsal Sulama Sistemi
+    "x-40hp-dalgic-pompa-tarimsal-sulama-sistemi", // GESM Power | 40 Hp Dalgıç Pompa Tarımsal Sulama Sistemi
+    "x-50kw-on-grid-trifaze-inverter-1", // GESM Power | 50 kW On-Grid Trifaze İnverter
+    "x-20kw-on-grid-trifaze-inverter-1", // GESM Power | 20 kW On-Grid Trifaze İnverter
+    "x-10kw-on-grid-trifaze-inverter-1", // GESM Power | 10 kW On-Grid Trifaze İnverter
+    "x-2hp-solar-pompa-inverter-yeni-nesil", // GESM Power | 2 Hp Solar Pompa İnverter Yeni Nesil
+    "x-eastron-meter", // Eastron | Eastron Akıllı Sayaç (Meter)
+    "x-off-grid-inverter-logger", // GESM Power | Off-Grid İnverter Wi-Fi Logger
+    "x-lg-9kw-monoblok-isi-pompasi", // LG | LG 9 kW Monoblok Isı Pompası
+    "x-lg-12kw-monoblok-isi-pompasi", // LG | LG 12 kW Monoblok Isı Pompası
+    "x-lg-16kw-monoblok-isi-pompasi", // LG | LG 16 kW Monoblok Isı Pompası
+    "x-black-series-140w-16bb-topcon-esnek-gunes-paneli", // GESM Power | Black Series 140 W 16BB TopCon Esnek Güneş Paneli
+    "x-2000w-2kw-tasinabilir-guc-istasyonu", // GESM Power | 2000 W Taşınabilir Güç İstasyonu
+  ];
+  var BRAND_FIX = {
+    "aku-mc-200b": "Lexron",
+    "eq-3branch": "",
+    "eq-kablo4": "",
+    "eq-kablo6": "",
+    "eq-mc4": "",
+    "eq-orta-tutucu": "",
+    "eq-sigorta": "Lexron",
+    "eq-sonlandirici": "",
+    "eq-tbranch": "",
+    "pnl-350w-ecosol-polykristal-gunes-paneli": "Lexron",
+    "x-1000w-12v-tam-sinus-inverter": "Lexron",
+    "x-1000w-12v-tam-sinus-inverter-ups-1": "Lexron",
+    "x-1000w-24v-tam-sinus-inverter": "Lexron",
+    "x-10kw-on-grid-monofaze-inverter": "Deye",
+    "x-11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1": "Lexron",
+    "x-1200w-12v-modifiye-sinus-inverter": "Lexron",
+    "x-1200w-24v-modifiye-sinus-inverter-1": "Lexron",
+    "x-1200w-solar-aydinlatma": "Lexron",
+    "x-150hp-110kw-solar-pompa-inverteri-yeni-nesil": "Lexron",
+    "x-15kw-hibrit-trifaze-inverter-lv": "Deye",
+    "x-15kw-on-grid-trifaze-inverter": "Deye",
+    "x-16kw-hibrit-monofaze-inverter-lv": "Deye",
+    "x-180hp-132kw-solar-pompa-inverteri-yeni-nesil": "Lexron",
+    "x-195w-10bb-etfe-esnek-monokristal-gunes-paneli": "Lexron",
+    "x-20-48kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": "EVE",
+    "x-2000w-12v-modifiye-sinus-inverter": "Lexron",
+    "x-2000w-12v-tam-sinus-inverter-1": "Lexron",
+    "x-2000w-12v-tam-sinus-inverter-ups-1": "Lexron",
+    "x-2000w-24v-modifiye-sinus-inverter-1": "Lexron",
+    "x-200ah-25-6v-lityum-batarya": "Lexron",
+    "x-200w-solar-projektor": "Lexron",
+    "x-20kw-hibrit-trifaze-inverter-lv": "Deye",
+    "x-210hp-160kw-solar-pompa-inverteri-yeni-nesil": "Lexron",
+    "x-220w-16bb-etfe-210r-esnek-topcon-gunes-paneli": "Lexron",
+    "x-2400w-solar-aydinlatma": "Lexron",
+    "x-25kw-hibrit-trifaze-inverter-hv": "Deye",
+    "x-3000w-12v-tam-sinus-inverter-1": "Lexron",
+    "x-300w-12v-modifiye-sinus-inverter-1": "Lexron",
+    "x-30kw-hibrit-trifaze-inverter-hv": "Deye",
+    "x-30kw-on-grid-trifaze-inverter": "Deye",
+    "x-314ah-51-2v-premium-serisi-lityum-batarya": "Lexron",
+    "x-3kva-3000w-mppt-hv-akilli-inverter-1": "Lexron",
+    "x-3kw-on-grid-monofaze-inverter-1": "Deye",
+    "x-40-96kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": "EVE",
+    "x-40a-mppt-sarj-kontrol-cihazi": "Lexron",
+    "x-40a-pwm-sarj-kontrol-cihazi": "Lexron",
+    "x-50hp-solar-pompa-inverter-yeni-nesil": "Smart",
+    "x-50kw-hibrit-trifaze-inverter-hv": "Deye",
+    "x-5kw-hibrit-monofaze-inverter": "Deye",
+    "x-5kw-on-grid-monofaze-inverter-1": "Deye",
+    "x-5kw-on-grid-trifaze-inverter": "Deye",
+    "x-600w-12v-modifiye-sinus-inverter": "Lexron",
+    "x-600w-12v-tam-sinus-inverter-1": "Lexron",
+    "x-60a-pwm-sarj-kontrol-cihazi": "Lexron",
+    "x-60hp-solar-pompa-inverter-yeni-nesil": "Lexron",
+    "x-60kw-hibrit-trifaze-inverter-hv": "Deye",
+    "x-7-5hp-solar-pompa-inverter-yeni-nesil": "Lexron",
+    "x-700w-solar-aydinlatma": "Lexron",
+    "x-75hp-solar-pompa-inverter-yeni-nesil": "Smart",
+    "x-80a-hv-15-230v-mppt-sarj-kontrol-cihazi": "Lexron",
+    "x-80kw-hibrit-trifaze-inverter-hv": "Deye",
+    "x-8kw-hibrit-monofaze-inverter-lv-1": "Deye",
+    "x-8kw-hibrit-trifaze-inverter-lv": "Deye",
+    "x-dc-sigorta-1000v-30a": "Lexron",
+    "x-eve-61-44kwh-lifepo4-hv-yuksek-voltaj-batarya-sistemi": "EVE",
+    "x-gprs-kit": "",
+  };
+  // Mexxsun tedarikçili TSM210'un markası da yer tutucu "GESM Power" idi —
+  // tedarikçisinin markasına çekildi (ürün korumalı, silinmez).
+  BRAND_FIX["x-tsm210-210w-12v-monokristal-solar-panel"] = "Mexxun";
+  var NAME_FIX = {
+    // Megacell hayali markaydı; ACS listesindeki gerçek adına çekildi
+    "aku-mc-200b": "200 Ah 12,8V LiFePO4 Lityum Akü — ABS Bluetooth (2,56 kWh)"
+  };
+  (function () {
+    P = P.filter(function (p) { return PURGE_IDS.indexOf(p.id) < 0; });
+    P.forEach(function (p) {
+      if (Object.prototype.hasOwnProperty.call(BRAND_FIX, p.id)) p.brand = BRAND_FIX[p.id];
+      if (NAME_FIX[p.id]) {
+        p.name = NAME_FIX[p.id];
+        p.desc = (CAT_DESC[p.cat] || function () { return p.name; })(p);
+      }
+    });
+  })();
+
   GESM.data = { products: P };
 })();

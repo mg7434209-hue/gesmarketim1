@@ -670,7 +670,7 @@
     // Filtre durumu — ?t= parametresi özellik filtresini önceden seçer (menüden gelir)
     var state = { brands: [], tags: preTag ? [preTag] : [], min: null, max: null, sort: "featured", page: 1, per: 24 };
     var brands = {}; var tags = {};
-    base.forEach(function (p) { brands[p.brand] = 1; (p.tags || []).forEach(function (t) { tags[t] = 1; }); });
+    base.forEach(function (p) { if (p.brand) brands[p.brand] = 1; (p.tags || []).forEach(function (t) { tags[t] = 1; }); });
     var fEl = $("#filters");
     fEl.innerHTML = "<h3>Filtrele</h3>" +
       '<div class="filter-group"><b>Fiyat (₺)</b><div class="price-inputs">' +

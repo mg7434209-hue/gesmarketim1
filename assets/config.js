@@ -83,7 +83,9 @@ GESM.config = {
       seo: "Solar yaşamı kolaylaştıran niş ürünler: güneş enerjili otomatik saksı sulama cihazları, uzun kesintiler için sessiz jeneratörler ve tamamlayıcı aksesuarlar. Aradığınız özel bir ürün varsa WhatsApp'tan sorun — tedarik ağımızla bulup fiyatlandıralım." }
   ],
 
-  brands: ["Arçelik", "Lexron", "Mexxun", "TitanX", "Havensis", "Ecosol", "Sako", "Sorotec", "Gazioğlu", "Megacell", "Deye", "GESM Power", "Tescom"],
+  // Geçerli marka listesi (whitelist) — katalog temizliği 11.08.2026:
+  // whitelist dışı markalı hayali/demo ürünler data.js purge bloğunda silindi.
+  brands: ["Lexron", "Mexxun", "Havensis", "Arçelik", "Bakırlar", "Smart", "Jinko", "Deye", "EVE", "Sorotec", "Ecosol"],
 
   // ŞİMDİLİK GİZLİ kategoriler: listelerde/aramada/sitemap'te görünmez, ürün
   // verisi data.js'te DURUR (doğrudan ürün URL'si çalışmaya devam eder).
