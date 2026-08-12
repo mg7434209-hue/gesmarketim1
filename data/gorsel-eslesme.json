@@ -1,167 +1,163 @@
 {
- "_kural": "Görsel devri yalnız AYNI MARKA içinde yapılır (kaynakMarka ürün markasıyla eşleşmeli); _dislama'daki dosyalar kaynağı doğrulanamadığı için kullanılmaz.",
- "_dislama": [
-  "100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya.webp",
-  "10a-pwm-sarj-kontrol-cihazi.webp",
-  "120hp-90kw-solar-pompa-inverteri-yeni-nesil.webp",
-  "195w-16bb-etfe-esnek-topcon-gunes-paneli-ecosol.webp",
-  "200w-solar-projektor-1.webp",
-  "314ah-51-2v-premium-serisi-lityum-batarya-1.webp",
-  "3lu-branch.webp",
-  "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli-kopya.webp",
-  "8kw-hv-mppt-akilli-inverter-48v.webp",
-  "gprs-kit.webp",
-  "mc4-konnektor-1500v.webp",
-  "orta-tutucu.webp",
-  "sonlandirici.webp"
- ],
- "devralmalar": {
-  "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim": {
-   "img": [
-    "public/images/products/285w-half-cut-monokristal-gunes-paneli.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "285 W Half-Cut Monokristal Güneş Paneli"
-  },
-  "175w-half-cut-topcon-mono-gunes-paneli": {
-   "img": [
-    "public/images/products/175w-half-cut-topcon-gunes-paneli.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "175 W Half-Cut TopCon Güneş Paneli"
-  },
-  "140w-ecosol-half-cut-topcon-mono-gunes-paneli": {
-   "img": [
-    "public/images/products/140w-half-cut-topcon-gunes-paneli.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "140 W Half-Cut TopCon Güneş Paneli"
-  },
-  "160w-32-cell-16bb-half-cut-topcon-gunes-paneli": {
-   "img": [
-    "public/images/products/160w-monokristal-gunes-paneli.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "160 W 32-Cell 16BB Half-Cut TopCon Güneş Paneli"
-  },
-  "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli": {
-   "img": [
-    "public/images/products/655w-half-cut-topcon-mono-gunes-paneli.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "655 W Half-Cut TopCon Monokristal Güneş Paneli"
-  },
-  "200ah-12-8v-lityum-batarya": {
-   "img": [
-    "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "200 Ah 12,8V LiFePO4 Lityum Akü — ABS Bluetooth (2,56 kWh)"
-  },
-  "15ah-12v-nano-karbon-jel-aku": {
-   "img": [
-    "public/images/products/14ah-lexron-nano-karbon-jel-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 15 Ah 12V Nano Karbon Jel Akü"
-  },
-  "43ah-12v-nano-karbon-jel-aku": {
-   "img": [
-    "public/images/products/42ah-lexron-nano-karbon-jel-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 43 Ah 12V Nano Karbon Jel Akü"
-  },
-  "70ah-12v-nano-karbon-jel-aku": {
-   "img": [
-    "public/images/products/65ah-lexron-nano-karbon-jel-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 70 Ah 12V Nano Karbon Jel Akü"
-  },
-  "7ah-12v-agm-aku": {
-   "img": [
-    "public/images/products/7ah-lexron-agm-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 7 Ah 12V AGM Akü"
-  },
-  "7-2ah-12v-agm-aku": {
-   "img": [
-    "public/images/products/7-2ah-lexron-agm-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 7,2 Ah 12V AGM Akü"
-  },
-  "12ah-12v-agm-aku": {
-   "img": [
-    "public/images/products/12ah-12v-lexron-agm-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 12 Ah 12V AGM Akü"
-  },
-  "105ah-12v-nano-karbon-jel-aku": {
-   "img": [
-    "public/images/products/105ah-lexron-nano-karbon-jel-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 105 Ah 12V Nano Karbon Jel Akü"
-  },
-  "160ah-12v-nano-karbon-jel-aku": {
-   "img": [
-    "public/images/products/160ah-lexron-nano-karbon-jel-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 160 Ah 12V Nano Karbon Jel Akü"
-  },
-  "210ah-12v-nano-karbon-jel-aku": {
-   "img": [
-    "public/images/products/210ah-lexron-nano-karbon-jel-aku-1.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 210 Ah 12V Nano Karbon Jel Akü"
-  },
-  "25ah-12v-nano-karbon-jel-aku": {
-   "img": [
-    "public/images/products/24ah-lexron-nano-karbon-jel-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 25 Ah 12V Nano Karbon Jel Akü"
-  },
-  "9ah-12v-agm-aku": {
-   "img": [
-    "public/images/products/9ah-lexron-agm-aku.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 9 Ah 12V AGM Akü"
-  },
-  "11kw-hv-2xmppt-akilli-inverter-48v": {
-   "img": [
-    "public/images/products/11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "11 kW 2×100A MPPT Akıllı İnverter (Paralellenebilir)"
-  },
-  "6-2kw-hv-mppt-akilli-inverter-48v": {
-   "img": [
-    "public/images/products/6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "Lexron 6,2 kW HV MPPT Akıllı İnverter 48V"
-  },
-  "60hp-45kw-solar-pompa-inverter-yeni-nesil": {
-   "img": [
-    "public/images/products/60hp-solar-pompa-inverter-yeni-nesil.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "60 Hp Solar Pompa İnverter Yeni Nesil"
-  },
-  "7-5hp-5-5kw-solar-pompa-inverter-yeni-nesil": {
-   "img": [
-    "public/images/products/7-5hp-solar-pompa-inverter-yeni-nesil.webp"
-   ],
-   "kaynakMarka": "Lexron",
-   "kaynakUrun": "7,5 Hp Solar Pompa İnverter Yeni Nesil"
+  "_kural": "Görsel devri yalnız AYNI MARKA içinde yapılır (kaynakMarka ürün markasıyla eşleşmeli); _dislama'daki dosyalar kaynağı doğrulanamadığı için kullanılmaz.",
+  "_dislama": [
+    "10a-pwm-sarj-kontrol-cihazi.webp",
+    "195w-16bb-etfe-esnek-topcon-gunes-paneli-ecosol.webp",
+    "200w-solar-projektor-1.webp",
+    "314ah-51-2v-premium-serisi-lityum-batarya-1.webp",
+    "3lu-branch.webp",
+    "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli-kopya.webp",
+    "mc4-konnektor-1500v.webp",
+    "orta-tutucu.webp",
+    "sonlandirici.webp"
+  ],
+  "devralmalar": {
+    "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim": {
+      "img": [
+        "public/images/products/285w-half-cut-monokristal-gunes-paneli.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "285 W Half-Cut Monokristal Güneş Paneli"
+    },
+    "175w-half-cut-topcon-mono-gunes-paneli": {
+      "img": [
+        "public/images/products/175w-half-cut-topcon-gunes-paneli.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "175 W Half-Cut TopCon Güneş Paneli"
+    },
+    "140w-ecosol-half-cut-topcon-mono-gunes-paneli": {
+      "img": [
+        "public/images/products/140w-half-cut-topcon-gunes-paneli.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "140 W Half-Cut TopCon Güneş Paneli"
+    },
+    "160w-32-cell-16bb-half-cut-topcon-gunes-paneli": {
+      "img": [
+        "public/images/products/160w-monokristal-gunes-paneli.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "160 W 32-Cell 16BB Half-Cut TopCon Güneş Paneli"
+    },
+    "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli": {
+      "img": [
+        "public/images/products/655w-half-cut-topcon-mono-gunes-paneli.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "655 W Half-Cut TopCon Monokristal Güneş Paneli"
+    },
+    "200ah-12-8v-lityum-batarya": {
+      "img": [
+        "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "200 Ah 12,8V LiFePO4 Lityum Akü — ABS Bluetooth (2,56 kWh)"
+    },
+    "15ah-12v-nano-karbon-jel-aku": {
+      "img": [
+        "public/images/products/14ah-lexron-nano-karbon-jel-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 15 Ah 12V Nano Karbon Jel Akü"
+    },
+    "43ah-12v-nano-karbon-jel-aku": {
+      "img": [
+        "public/images/products/42ah-lexron-nano-karbon-jel-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 43 Ah 12V Nano Karbon Jel Akü"
+    },
+    "70ah-12v-nano-karbon-jel-aku": {
+      "img": [
+        "public/images/products/65ah-lexron-nano-karbon-jel-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 70 Ah 12V Nano Karbon Jel Akü"
+    },
+    "7ah-12v-agm-aku": {
+      "img": [
+        "public/images/products/7ah-lexron-agm-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 7 Ah 12V AGM Akü"
+    },
+    "7-2ah-12v-agm-aku": {
+      "img": [
+        "public/images/products/7-2ah-lexron-agm-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 7,2 Ah 12V AGM Akü"
+    },
+    "12ah-12v-agm-aku": {
+      "img": [
+        "public/images/products/12ah-12v-lexron-agm-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 12 Ah 12V AGM Akü"
+    },
+    "105ah-12v-nano-karbon-jel-aku": {
+      "img": [
+        "public/images/products/105ah-lexron-nano-karbon-jel-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 105 Ah 12V Nano Karbon Jel Akü"
+    },
+    "160ah-12v-nano-karbon-jel-aku": {
+      "img": [
+        "public/images/products/160ah-lexron-nano-karbon-jel-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 160 Ah 12V Nano Karbon Jel Akü"
+    },
+    "210ah-12v-nano-karbon-jel-aku": {
+      "img": [
+        "public/images/products/210ah-lexron-nano-karbon-jel-aku-1.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 210 Ah 12V Nano Karbon Jel Akü"
+    },
+    "25ah-12v-nano-karbon-jel-aku": {
+      "img": [
+        "public/images/products/24ah-lexron-nano-karbon-jel-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 25 Ah 12V Nano Karbon Jel Akü"
+    },
+    "9ah-12v-agm-aku": {
+      "img": [
+        "public/images/products/9ah-lexron-agm-aku.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 9 Ah 12V AGM Akü"
+    },
+    "11kw-hv-2xmppt-akilli-inverter-48v": {
+      "img": [
+        "public/images/products/11-kw-2x100a-mppt-akilli-inverter-paralellenebilir-1.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "11 kW 2×100A MPPT Akıllı İnverter (Paralellenebilir)"
+    },
+    "6-2kw-hv-mppt-akilli-inverter-48v": {
+      "img": [
+        "public/images/products/6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "Lexron 6,2 kW HV MPPT Akıllı İnverter 48V"
+    },
+    "60hp-45kw-solar-pompa-inverter-yeni-nesil": {
+      "img": [
+        "public/images/products/60hp-solar-pompa-inverter-yeni-nesil.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "60 Hp Solar Pompa İnverter Yeni Nesil"
+    },
+    "7-5hp-5-5kw-solar-pompa-inverter-yeni-nesil": {
+      "img": [
+        "public/images/products/7-5hp-solar-pompa-inverter-yeni-nesil.webp"
+      ],
+      "kaynakMarka": "Lexron",
+      "kaynakUrun": "7,5 Hp Solar Pompa İnverter Yeni Nesil"
+    }
   }
- }
 }

@@ -103,7 +103,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/350w-polykristal-gunes-paneli.webp"
+   ],
    "desc": "350W POLYKRISTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
   },
   {
@@ -307,7 +309,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/195w-16bb-etfe-esnek-topcon-gunes-paneli.webp"
+   ],
    "desc": "195W 16BB ETFE ESNEK TOPCON GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
   },
   {
@@ -337,7 +341,9 @@
    "bestseller": true,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/100ah-12-8v-lityum-batarya.webp"
+   ],
    "desc": "100AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -351,7 +357,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/100ah-25-6v-lityum-batarya.webp"
+   ],
    "desc": "100AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -365,7 +373,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/100ah-48v-lityum-batarya.webp"
+   ],
    "desc": "100AH 48V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -379,7 +389,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/100ah-51-2v-premium-serisi-duvar-tipi-lityum-batarya.webp"
+   ],
    "desc": "100AH 51.2V PREMİUM SERİSİ (DUVAR TİPİ) LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -425,7 +437,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/100ah-51-2v-premium-serisi-lityum-batarya.webp"
+   ],
    "desc": "100AH 51.2V PREMİUM SERİSİ LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
@@ -663,7 +677,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/8kw-hv-mppt-akilli-inverter-48v.webp"
+   ],
    "desc": "8KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
   },
   {
@@ -693,7 +709,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/3kw-hv-mppt-akilli-inverter-24v.webp"
+   ],
    "desc": "3KW HV MPPT AKILLI İNVERTER 24V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
   },
   {
@@ -707,7 +725,9 @@
    "bestseller": true,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/gprs-kit.webp"
+   ],
    "desc": "GPRS KİT — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -737,7 +757,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/5-5hp-4kw-3x220v-solar-pompa-inverteri.webp"
+   ],
    "desc": "5.5HP 4kW (3x220V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -783,7 +805,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/120hp-90kw-solar-pompa-inverteri-yeni-nesil.webp"
+   ],
    "desc": "120HP 90KW SOLAR POMPA INVERTERİ (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -829,7 +853,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/3hp-2-2kw-3x220v-solar-pompa-inverteri.webp"
+   ],
    "desc": "3HP 2.2kW (3x220V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -843,7 +869,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/3hp-2-2kw-380v-solar-pompa-inverteri.webp"
+   ],
    "desc": "3HP 2.2KW (380V) SOLAR POMPA INVERTERİ — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -857,7 +885,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/5-5hp-4kw-solar-pompa-inverter-yeni-nesil.webp"
+   ],
    "desc": "5.5HP 4KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -887,7 +917,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/10hp-7-5kw-solar-pompa-inverter-yeni-nesil.webp"
+   ],
    "desc": "10HP 7.5KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -901,7 +933,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/15hp-11kw-solar-pompa-inverter-yeni-nesil.webp"
+   ],
    "desc": "15HP 11KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -915,7 +949,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/20hp-15kw-solar-pompa-inverter-yeni-nesil.webp"
+   ],
    "desc": "20HP 15KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -929,7 +965,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/25hp-18-5kwsolar-pompa-inverter-yeni-nesil.webp"
+   ],
    "desc": "25HP 18.5KWSOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -943,7 +981,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/30hp-22kw-solar-pompa-inverter-yeni-nesil.webp"
+   ],
    "desc": "30HP 22KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
@@ -957,7 +997,9 @@
    "bestseller": false,
    "tags": [],
    "specs": {},
-   "img": [],
+   "img": [
+    "public/images/products/40hp-30kw-solar-pompa-inverter-yeni-nesil.webp"
+   ],
    "desc": "40HP 30KW SOLAR POMPA INVERTER (YENİ NESİL) — tarımsal sulamada mazot ve şebeke maliyetini sıfırlar. Kuyu bilgilerinizi iletin, panel sayısını ücretsiz boyutlandıralım."
   },
   {
