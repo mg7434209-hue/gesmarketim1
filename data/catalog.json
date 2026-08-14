@@ -130,7 +130,7 @@
    "cat": "panel",
    "brand": "Lexron",
    "name": "55W MONOKRİSTAL GÜNEŞ PANELİ",
-   "saleUsd": 49.24,
+   "saleUsd": 61.52,
    "inStock": true,
    "bestseller": false,
    "tags": [],
@@ -138,8 +138,7 @@
    "img": [
     "public/images/products/55w-monokristal-gunes-paneli.webp"
    ],
-   "desc": "55W MONOKRİSTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz.",
-   "priceTL": 3000
+   "desc": "55W MONOKRİSTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
   },
   {
    "id": "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim",
@@ -353,7 +352,7 @@
    "cat": "aku-batarya",
    "brand": "Lexron",
    "name": "100AH 25.6V LİTYUM BATARYA",
-   "saleUsd": 738.5,
+   "saleUsd": 799.73,
    "inStock": true,
    "bestseller": false,
    "tags": [],
@@ -361,8 +360,7 @@
    "img": [
     "public/images/products/100ah-25-6v-lityum-batarya.webp"
    ],
-   "desc": "100AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz.",
-   "priceTL": 39000
+   "desc": "100AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
    "id": "100ah-48v-lityum-batarya",
@@ -450,7 +448,7 @@
    "cat": "aku-batarya",
    "brand": "Lexron",
    "name": "200AH 12.8V LİTYUM BATARYA",
-   "saleUsd": 738.5,
+   "saleUsd": 799.73,
    "inStock": true,
    "bestseller": false,
    "tags": [],
@@ -458,8 +456,7 @@
    "img": [
     "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"
    ],
-   "desc": "200AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz.",
-   "priceTL": 39000
+   "desc": "200AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
   },
   {
    "id": "15ah-12v-nano-karbon-jel-aku",
@@ -691,7 +688,7 @@
    "cat": "inverter",
    "brand": "Lexron",
    "name": "6.2KW HV MPPT AKILLI İNVERTER 48V",
-   "saleUsd": 417.74,
+   "saleUsd": 512.65,
    "inStock": true,
    "bestseller": false,
    "tags": [],
@@ -699,8 +696,7 @@
    "img": [
     "public/images/products/6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir.webp"
    ],
-   "desc": "6.2KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın.",
-   "priceTL": 25000
+   "desc": "6.2KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
   },
   {
    "id": "3kw-hv-mppt-akilli-inverter-24v",
@@ -708,7 +704,7 @@
    "cat": "inverter",
    "brand": "Lexron",
    "name": "3KW HV MPPT AKILLI İNVERTER 24V",
-   "saleUsd": 238.71,
+   "saleUsd": 297.34,
    "inStock": true,
    "bestseller": false,
    "tags": [],
@@ -716,8 +712,7 @@
    "img": [
     "public/images/products/3kw-hv-mppt-akilli-inverter-24v.webp"
    ],
-   "desc": "3KW HV MPPT AKILLI İNVERTER 24V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın.",
-   "priceTL": 14500
+   "desc": "3KW HV MPPT AKILLI İNVERTER 24V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
   },
   {
    "id": "gprs-kit",
