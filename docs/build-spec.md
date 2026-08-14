@@ -12,7 +12,7 @@ gesmarketim.com için yapılacak geliştirmelerin tamamını içerir.
 Proje
 gesmarketim.com — Solar dropshipping e-ticaret platformu
 Sahip
-Gespa Enerji / Göksoylar İletişim Ltd. Şti. — Mustafa Göksoylar
+Gespa Enerji Sanayi Ticaret Ltd. Şti. — Mustafa Göksoylar
 Tedarikçiler
 Mexxsun + Enerji Pazarı (285 ürün) — müşteriye ASLA gösterilmez
 Referans site

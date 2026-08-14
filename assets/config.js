@@ -8,7 +8,7 @@ window.GESM = window.GESM || {};
 GESM.config = {
   company: {
     brand: "GES MARKETİM",
-    legal: "Göksoylar İletişim Ltd. Şti.",
+    legal: "Gespa Enerji Sanayi Ticaret Ltd. Şti.",
     domain: "https://www.gesmarketim.com", // kanonik adres — Railway custom domain'i www
     phone: {
       display: "0543 743 42 09",
