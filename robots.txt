@@ -3,4 +3,4 @@ Allow: /
 Disallow: /sepet
 Disallow: /data/
 
-Sitemap: https://gesmarketim.com/sitemap.xml
+Sitemap: https://www.gesmarketim.com/sitemap.xml

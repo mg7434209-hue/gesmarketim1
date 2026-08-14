@@ -223,11 +223,13 @@ const server = http.createServer((req, res) => {
     query = u.searchParams;
   } catch (e) { return send(res, 400, "Bad Request", { "Content-Type": "text/plain" }); }
 
-  // HTTPS + kanonik host zorlaması (yalnız proxy arkasında)
+  // HTTPS + kanonik host zorlaması (yalnız proxy arkasında).
+  // www'lu/www'suz karşı biçim her iki yönde kanonik adrese çevrilir.
   const proto = req.headers["x-forwarded-proto"];
   const host = String(req.headers.host || "").toLowerCase().split(":")[0];
   if (proto && CANON_HOST) {
-    const target = host === "www." + CANON_HOST ? CANON_HOST : host;
+    const target = (host === "www." + CANON_HOST || CANON_HOST === "www." + host)
+      ? CANON_HOST : host;
     if (proto !== "https" || target !== host) {
       return send(res, 301, "", { Location: "https://" + target + req.url });
     }

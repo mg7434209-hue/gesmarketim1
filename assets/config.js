@@ -9,7 +9,7 @@ GESM.config = {
   company: {
     brand: "GES MARKETİM",
     legal: "Göksoylar İletişim Ltd. Şti.",
-    domain: "https://gesmarketim.com",
+    domain: "https://www.gesmarketim.com", // kanonik adres — Railway custom domain'i www
     phone: {
       display: "0543 743 42 09",
       intl: "+90 543 743 42 09",
