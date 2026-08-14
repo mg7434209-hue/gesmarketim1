@@ -91,8 +91,21 @@ const PUBLIC_CFG = JSON.stringify({
   pricing: { roundTo: CFG.pricing.roundTo, fxBufferPct: CFG.pricing.fxBufferPct },
   brands: CFG.brands,
   builder: CFG.builder,
+  visitors: CFG.visitors || null,
   seo: CFG.seo
 });
+
+/* ---------- Ziyaretçi sayacı ---------- */
+// Çerez başına günde 1 artış, botlar sayılmaz. Kalıcı veri DATA_DIR/visitors.json.
+const VISITORS_FILE = path.join(DATA_DIR, "visitors.json");
+function readVisitors() {
+  try {
+    const j = JSON.parse(fs.readFileSync(VISITORS_FILE, "utf8"));
+    if (j && Number.isFinite(j.count) && j.count >= 0) return j;
+  } catch (e) { /* yok */ }
+  return { count: 0 };
+}
+const BOT_RE = /bot|crawl|spider|slurp|preview|fetch|monitor|curl|wget|python|headless|lighthouse/i;
 
 function readKur() {
   try {
@@ -281,6 +294,25 @@ const server = http.createServer((req, res) => {
   /* ---------- API ---------- */
   if (urlPath === "/api/kur") return handleKurApi(req, res);
   const JSON_HDR = { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache" };
+
+  // Ziyaretçi sayacı: bot değilse ve bugünün çerezi yoksa 1 artır
+  if (urlPath === "/api/visitors") {
+    const ua = String(req.headers["user-agent"] || "");
+    const isBot = !ua || BOT_RE.test(ua);
+    const today = new Date().toISOString().slice(0, 10);
+    const seen = /(?:^|;\s*)gesm_v=([0-9-]+)/.exec(String(req.headers.cookie || ""));
+    const v = readVisitors();
+    const headers = Object.assign({}, JSON_HDR);
+    if (!isBot && (!seen || seen[1] !== today)) {
+      v.count++;
+      try {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+        fs.writeFileSync(VISITORS_FILE, JSON.stringify({ count: v.count }));
+      } catch (e) { /* yazılamazsa sessizce yalnız göster */ }
+      headers["Set-Cookie"] = "gesm_v=" + today + "; Path=/; Max-Age=86400; SameSite=Lax";
+    }
+    return send(res, 200, JSON.stringify({ count: v.count }), headers);
+  }
   if (urlPath === "/api/products") return send(res, 200, JSON.stringify(mergedProducts()), JSON_HDR);
   if (urlPath === "/api/categories") return send(res, 200, JSON.stringify(CATALOG.categories || []), JSON_HDR);
   if (urlPath === "/api/config") return send(res, 200, PUBLIC_CFG, JSON_HDR);

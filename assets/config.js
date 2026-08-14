@@ -168,6 +168,11 @@ GESM.config = {
     }
   },
 
+  // Ziyaretçi sayacı — footer rozeti. Gösterilen toplam = base + sunucu sayacı
+  // (sunucu /api/visitors ile çerez başına günde 1 sayar, botları filtreler;
+  // kalıcı veri DATA_DIR/visitors.json — Railway Volume önerilir).
+  visitors: { base: 1000, show: true },
+
   // Admin panel (statik sitede yalnızca caydırıcı)
   admin: { pass: "gesm2026" },
 
