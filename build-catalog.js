@@ -140,8 +140,9 @@ for (const r of rows) {
   });
 }
 
-// Sabit ₺ fiyat override'ları (data/fiyat-override.json, commit'li — K3):
-// priceTL'li ürünün ₺ fiyatı kurdan bağımsız sabittir; saleUsd bilgi amaçlı kalır.
+// Fiyat override'ları (data/fiyat-override.json, commit'li — K3):
+// saleUsd = dolar tabanı değişir, ₺ günlük kurla dalgalanır;
+// priceTL = sabit ₺, kurdan bağımsız (arayüz ≈$ satırını gizler).
 const PRICE_OVR = (() => {
   try { return JSON.parse(fs.readFileSync(path.join(__dirname, "data", "fiyat-override.json"), "utf8")); }
   catch (e) { return {}; }
@@ -149,7 +150,9 @@ const PRICE_OVR = (() => {
 let ovrCount = 0;
 for (const p of products) {
   const o = PRICE_OVR[p.id];
-  if (o && Number.isFinite(o.priceTL) && o.priceTL > 0) { p.priceTL = o.priceTL; ovrCount++; }
+  if (!o) continue;
+  if (Number.isFinite(o.saleUsd) && o.saleUsd > 0) { p.saleUsd = r2(o.saleUsd); ovrCount++; }
+  if (Number.isFinite(o.priceTL) && o.priceTL > 0) { p.priceTL = o.priceTL; ovrCount++; }
 }
 for (const slug of Object.keys(PRICE_OVR)) {
   if (slug[0] !== "_" && !products.some((p) => p.id === slug)) {
@@ -167,6 +170,6 @@ fs.writeFileSync(OUT, JSON.stringify(catalog, null, 1));
 const perCat = {};
 products.forEach((p) => { perCat[p.cat] = (perCat[p.cat] || 0) + 1; });
 console.log("catalog.json üretildi —", products.length, "ürün ·", CATEGORIES.length, "kategori" +
-  (ovrCount ? " · sabit ₺ fiyat: " + ovrCount : ""));
+  (ovrCount ? " · fiyat override: " + ovrCount : ""));
 console.log("dağılım:", JSON.stringify(perCat));
 console.log("görselli:", products.filter((p) => p.img.length).length, "· stokta yok:", products.filter((p) => !p.inStock).length);

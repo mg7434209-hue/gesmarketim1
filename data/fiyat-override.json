@@ -1,8 +1,8 @@
 {
-  "_kural": "Sabit ₺ satış fiyatı override'ları — build-catalog.js catalog.json'a priceTL olarak işler. priceTL'li üründe ₺ fiyat kurdan bağımsız sabittir; kaldırmak = satırı silip npm run build + commit. Admin panelin geçici override'ları (DATA_DIR/overrides.json) bunun ÜZERİNE biner.",
-  "55w-monokristal-gunes-paneli": { "priceTL": 3000 },
-  "6-2kw-hv-mppt-akilli-inverter-48v": { "priceTL": 25000 },
-  "3kw-hv-mppt-akilli-inverter-24v": { "priceTL": 14500 },
-  "100ah-25-6v-lityum-batarya": { "priceTL": 39000 },
-  "200ah-12-8v-lityum-batarya": { "priceTL": 39000 }
+  "_kural": "Fiyat override'ları — build-catalog.js catalog.json'a işler. İki tür: saleUsd = dolar tabanını değiştirir (₺ fiyat günlük kurla dalgalanmaya devam eder); priceTL = sabit ₺ (kurdan bağımsız, arayüz ≈$ satırını gizler). Kaldırmak = satırı silip npm run build + commit. Admin panelin geçici override'ları (DATA_DIR/overrides.json) bunların ÜZERİNE biner.",
+  "55w-monokristal-gunes-paneli": { "saleUsd": 61.52 },
+  "6-2kw-hv-mppt-akilli-inverter-48v": { "saleUsd": 512.65 },
+  "3kw-hv-mppt-akilli-inverter-24v": { "saleUsd": 297.34 },
+  "100ah-25-6v-lityum-batarya": { "saleUsd": 799.73 },
+  "200ah-12-8v-lityum-batarya": { "saleUsd": 799.73 }
 }
