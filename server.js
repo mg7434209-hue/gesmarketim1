@@ -207,6 +207,14 @@ function legacyRedirect(urlPath, query) {
   return LEGACY[urlPath] || null;
 }
 
+// Kanonik alan adı (config.company.domain) — www ve http istekleri buraya
+// 301'lenir. Railway edge'i x-forwarded-proto başlığı verir; başlık yoksa
+// (yerel geliştirme) yönlendirme yapılmaz. Sertifikanın kendisi Railway
+// panelinde "Custom Domain" olarak apex + www eklenerek üretilir.
+const CANON_HOST = (() => {
+  try { return new URL(CFG.company.domain).host.toLowerCase(); } catch (e) { return null; }
+})();
+
 const server = http.createServer((req, res) => {
   let urlPath, query;
   try {
@@ -214,6 +222,18 @@ const server = http.createServer((req, res) => {
     urlPath = decodeURIComponent(u.pathname);
     query = u.searchParams;
   } catch (e) { return send(res, 400, "Bad Request", { "Content-Type": "text/plain" }); }
+
+  // HTTPS + kanonik host zorlaması (yalnız proxy arkasında)
+  const proto = req.headers["x-forwarded-proto"];
+  const host = String(req.headers.host || "").toLowerCase().split(":")[0];
+  if (proto && CANON_HOST) {
+    const target = host === "www." + CANON_HOST ? CANON_HOST : host;
+    if (proto !== "https" || target !== host) {
+      return send(res, 301, "", { Location: "https://" + target + req.url });
+    }
+    // Sertifika doğrulanmış bağlantılarda HSTS (1 yıl)
+    res.setHeader("Strict-Transport-Security", "max-age=31536000");
+  }
 
   /* ---------- API ---------- */
   if (urlPath === "/api/kur") return handleKurApi(req, res);
