@@ -10,6 +10,7 @@ const Cart = lazy(() => import("./pages/Cart.jsx"));
 const Builder = lazy(() => import("./pages/Builder.jsx"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
 const Static = lazy(() => import("./pages/Static.jsx"));
+const Admin = lazy(() => import("./pages/Admin.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound.jsx"));
 
 function Fallback() {
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="iade-degisim" element={<Static page="iade" />} />
           <Route path="mesafeli-satis" element={<Static page="mesafeli" />} />
           <Route path="kvkk" element={<Static page="kvkk" />} />
+          <Route path="admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

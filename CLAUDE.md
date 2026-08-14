@@ -29,17 +29,27 @@ Projenizi Tasarlayın" 3 profil kartı (karavan/ev/sulama → `/hesaplayici?prof
 `/sepet` (adet/kaldır, kargo+havale özeti, WhatsApp sipariş) · `/hesaplayici`
 (Sistem Kurucu sihirbazı — eski pageBuilder portu; `?profil=` veya `?tip=`
 ön seçim) · `/iletisim` · statikler: `/hakkimizda` `/sss` (FAQPage JSON-LD)
-`/kargo-teslimat` `/iade-degisim` `/mesafeli-satis` `/kvkk` · SPA 404.
+`/kargo-teslimat` `/iade-degisim` `/mesafeli-satis` `/kvkk` · `/admin`
+(yönetim: fiyat override + siparişler + kur yayınlama; menüde YOK, robots
+engelli, noindex; şifre ADMIN_PASS env > config.admin.pass) · SPA 404.
 Eski `.html` URL'leri server.js 301 ile yeni rotalara yönlendirir (SEO).
+SİPARİŞLER: sepet WhatsApp'a ek `POST /api/orders` ile sunucuya da yazar
+(tutar sunucuda hesaplanır; `DATA_DIR/orders.json`, son 500). Admin uçları:
+GET `/api/admin/orders|overrides` (x-admin-pass başlığı), POST
+`/api/admin/price|order-status` (gövdede pass). KALICILIK: Railway'de
+Volume bağlanıp `DATA_DIR` ona işaret etmezse kur/override/sipariş verileri
+her deploy'da sıfırlanır.
 
 ## DEĞİŞMEZ İŞ KURALLARI (spec 8.1)
 - **K1**: Tedarikçi ve MALİYET bilgisi müşteri arayüzünde HİÇBİR yerde
   görünmez; `data/catalog.json`'a maliyet alanı hiç yazılmaz. server.js
   `data/`, `backup/`, `assets/` klasörlerini SERVİS ETMEZ (yalnız dist/ +
   public/ + sitemap/robots) — kaynak CSV'ler dışarı sızmaz.
-- **K3**: Fiyat yönetimi CSV/`build-catalog.js` üzerinden: yeni catalog.json
-  üretip commit'le (eski admin.html paneli SPA geçişinde kaldırıldı; kur elle
-  yayınlama `POST /api/kur` ile yapılır — ADMIN_PASS).
+- **K3**: Fiyat yönetimi üç katman (üstteki alttakini ezer):
+  (1) admin paneli `/admin` geçici override'ı (`DATA_DIR/overrides.json` —
+  Volume yoksa deploy'da silinir), (2) KALICI sabit ₺: `data/fiyat-override.json`
+  → build `priceTL` olarak işler → commit, (3) taban: CSV maliyet × marj = saleUsd.
+  `priceTL`'li üründe ₺ kurdan bağımsız sabittir, arayüz "≈ $" satırını gizler.
 - **K5**: Ürün açıklamaları ÖZGÜN — rakip metin/görsel kopyalanmaz. Görselsiz
   ürün markalı SVG yer tutucu gösterir (`PlaceholderImg`); dış hotlink YAPMA.
 - **K7 — GÖRSELDE MARKA KURALI**: bir ürünün görselinde FARKLI marka
