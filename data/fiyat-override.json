@@ -1,0 +1,8 @@
+{
+  "_kural": "Sabit ₺ satış fiyatı override'ları — build-catalog.js catalog.json'a priceTL olarak işler. priceTL'li üründe ₺ fiyat kurdan bağımsız sabittir; kaldırmak = satırı silip npm run build + commit. Admin panelin geçici override'ları (DATA_DIR/overrides.json) bunun ÜZERİNE biner.",
+  "55w-monokristal-gunes-paneli": { "priceTL": 3000 },
+  "6-2kw-hv-mppt-akilli-inverter-48v": { "priceTL": 25000 },
+  "3kw-hv-mppt-akilli-inverter-24v": { "priceTL": 14500 },
+  "100ah-25-6v-lityum-batarya": { "priceTL": 39000 },
+  "200ah-12-8v-lityum-batarya": { "priceTL": 39000 }
+}

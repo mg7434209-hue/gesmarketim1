@@ -41,6 +41,47 @@ function loadCatalog() {
 }
 loadCatalog();
 
+/* ---------- Admin: çalışma zamanı fiyat override'ları + siparişler ----------
+   Kalıcılık DATA_DIR'dedir (Railway Volume önerilir; Volume yoksa deploy'da
+   sıfırlanır). KALICI fiyat = data/fiyat-override.json + npm run build + commit. */
+const OVR_FILE = path.join(DATA_DIR, "overrides.json");
+const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
+let OVERRIDES = {};
+try { OVERRIDES = JSON.parse(fs.readFileSync(OVR_FILE, "utf8")) || {}; } catch (e) { /* yok */ }
+
+function saveOverrides() {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(OVR_FILE, JSON.stringify(OVERRIDES));
+}
+function readOrders() {
+  try { return JSON.parse(fs.readFileSync(ORDERS_FILE, "utf8")) || []; } catch (e) { return []; }
+}
+function writeOrders(list) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(ORDERS_FILE, JSON.stringify(list.slice(-500))); // son 500 sipariş
+}
+function mergedProducts() {
+  return (CATALOG.products || []).map((p) => {
+    const o = OVERRIDES[p.id];
+    return o && Number.isFinite(o.priceTL) && o.priceTL > 0
+      ? Object.assign({}, p, { priceTL: o.priceTL }) : p;
+  });
+}
+// Sunucu tarafı ₺ hesabı (istemcideki priceTL ile aynı formül) — sipariş tutarı
+function tlOf(p) {
+  const step = (CFG.pricing && CFG.pricing.roundTo) || 1;
+  if (Number.isFinite(p.priceTL) && p.priceTL > 0) return Math.round(p.priceTL / step) * step;
+  const kur = readKur().usdTry;
+  const raw = p.saleUsd * kur * (1 + ((CFG.pricing && CFG.pricing.fxBufferPct) || 0) / 100);
+  return Math.round(raw / step) * step;
+}
+function adminOk(pass) { return Boolean(ADMIN_PASS) && pass === ADMIN_PASS; }
+function readBody(req, limit, cb) {
+  let b = "";
+  req.on("data", (c) => { b += c; if (b.length > limit) req.destroy(); });
+  req.on("end", () => { let d; try { d = JSON.parse(b); } catch (e) { d = null; } cb(d); });
+}
+
 // /api/config — GÜVENLİ alt küme (K1): admin şifresi ve tedarikçi bilgisi
 // ASLA çıkmaz. React SPA iletişim/kur/kargo katsayılarını buradan okur.
 const PUBLIC_CFG = JSON.stringify({
@@ -240,15 +281,93 @@ const server = http.createServer((req, res) => {
   /* ---------- API ---------- */
   if (urlPath === "/api/kur") return handleKurApi(req, res);
   const JSON_HDR = { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache" };
-  if (urlPath === "/api/products") return send(res, 200, JSON.stringify(CATALOG.products || []), JSON_HDR);
+  if (urlPath === "/api/products") return send(res, 200, JSON.stringify(mergedProducts()), JSON_HDR);
   if (urlPath === "/api/categories") return send(res, 200, JSON.stringify(CATALOG.categories || []), JSON_HDR);
   if (urlPath === "/api/config") return send(res, 200, PUBLIC_CFG, JSON_HDR);
   if (urlPath.startsWith("/api/products/")) {
     const id = urlPath.slice("/api/products/".length);
-    const p = (CATALOG.products || []).find((x) => x.id === id);
+    const p = mergedProducts().find((x) => x.id === id);
     return p ? send(res, 200, JSON.stringify(p), JSON_HDR)
              : send(res, 404, '{"error":"bulunamadi"}', JSON_HDR);
   }
+
+  // Sipariş bırakma (herkese açık) — sepet WhatsApp'a ek olarak buraya da yazar
+  if (urlPath === "/api/orders" && req.method === "POST") {
+    return readBody(req, 32768, (d) => {
+      if (!d || !String(d.name || "").trim() || !String(d.phone || "").trim() ||
+          !String(d.addr || "").trim() || !Array.isArray(d.items) || !d.items.length || d.items.length > 60) {
+        return send(res, 400, '{"error":"eksik_alan"}', JSON_HDR);
+      }
+      const all = mergedProducts();
+      const items = [];
+      let subtotal = 0;
+      for (const it of d.items) {
+        const p = all.find((x) => x.id === it.id);
+        const qty = Math.min(999, Math.max(1, parseInt(it.qty, 10) || 0));
+        if (!p || !qty) continue;
+        const tl = tlOf(p);
+        subtotal += tl * qty;
+        items.push({ id: p.id, name: p.name, code: p.code, qty, tl });
+      }
+      if (!items.length) return send(res, 400, '{"error":"gecersiz_kalem"}', JSON_HDR);
+      const shipping = subtotal >= CFG.commerce.freeShippingLimit ? 0 : CFG.commerce.shippingFlat;
+      const pay = d.pay === "kart" ? "kart" : "havale";
+      const disc = pay === "havale" ? (CFG.commerce.havaleDiscountPct || 0) / 100 : 0;
+      const total = Math.round(subtotal * (1 - disc)) + shipping;
+      const order = {
+        no: "GM" + Date.now().toString().slice(-8),
+        createdAt: new Date().toISOString(),
+        name: String(d.name).slice(0, 120), phone: String(d.phone).slice(0, 40),
+        addr: String(d.addr).slice(0, 500), note: String(d.note || "").slice(0, 500),
+        pay, items, subtotal, shipping, total, done: false
+      };
+      try {
+        const list = readOrders(); list.push(order); writeOrders(list);
+      } catch (e) { return send(res, 500, '{"error":"yazilamadi"}', JSON_HDR); }
+      console.log("[sipariş]", order.no, "·", items.length, "kalem ·", total, "₺");
+      send(res, 200, JSON.stringify({ ok: true, no: order.no }), JSON_HDR);
+    });
+  }
+
+  /* ---------- Admin API (ADMIN_PASS) ---------- */
+  if (urlPath === "/api/admin/orders" && req.method === "GET") {
+    if (!adminOk(req.headers["x-admin-pass"])) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
+    return send(res, 200, JSON.stringify(readOrders().slice().reverse()), JSON_HDR);
+  }
+  if (urlPath === "/api/admin/order-status" && req.method === "POST") {
+    return readBody(req, 4096, (d) => {
+      if (!d || !adminOk(d.pass)) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
+      const list = readOrders();
+      const o = list.find((x) => x.no === d.no);
+      if (!o) return send(res, 404, '{"error":"bulunamadi"}', JSON_HDR);
+      o.done = Boolean(d.done);
+      try { writeOrders(list); } catch (e) { return send(res, 500, '{"error":"yazilamadi"}', JSON_HDR); }
+      send(res, 200, '{"ok":true}', JSON_HDR);
+    });
+  }
+  if (urlPath === "/api/admin/price" && req.method === "POST") {
+    return readBody(req, 4096, (d) => {
+      if (!d || !adminOk(d.pass)) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
+      const p = (CATALOG.products || []).find((x) => x.id === d.id);
+      if (!p) return send(res, 404, '{"error":"urun_yok"}', JSON_HDR);
+      const tl = Number(d.priceTL);
+      if (d.priceTL == null || d.priceTL === "") {
+        delete OVERRIDES[p.id]; // override kaldır → katalog fiyatına dön
+      } else if (Number.isFinite(tl) && tl > 0 && tl < 100000000) {
+        OVERRIDES[p.id] = { priceTL: Math.round(tl), updatedAt: new Date().toISOString() };
+      } else {
+        return send(res, 400, '{"error":"gecersiz_fiyat"}', JSON_HDR);
+      }
+      try { saveOverrides(); } catch (e) { return send(res, 500, '{"error":"yazilamadi"}', JSON_HDR); }
+      console.log("[fiyat]", p.id, "→", OVERRIDES[p.id] ? OVERRIDES[p.id].priceTL + " ₺" : "katalog fiyatı");
+      send(res, 200, JSON.stringify({ ok: true, id: p.id, priceTL: OVERRIDES[p.id] ? OVERRIDES[p.id].priceTL : null }), JSON_HDR);
+    });
+  }
+  if (urlPath === "/api/admin/overrides" && req.method === "GET") {
+    if (!adminOk(req.headers["x-admin-pass"])) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
+    return send(res, 200, JSON.stringify(OVERRIDES), JSON_HDR);
+  }
+
   if (urlPath.startsWith("/api/")) return send(res, 404, '{"error":"bulunamadi"}', JSON_HDR);
 
   /* ---------- Eski URL'ler → SPA rotaları (301) ---------- */

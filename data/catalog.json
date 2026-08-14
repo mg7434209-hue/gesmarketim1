@@ -138,7 +138,8 @@
    "img": [
     "public/images/products/55w-monokristal-gunes-paneli.webp"
    ],
-   "desc": "55W MONOKRİSTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz."
+   "desc": "55W MONOKRİSTAL GÜNEŞ PANELİ — Lexron kalitesiyle güneş paneli. Çatı, karavan ve arazi uygulamalarında kullanılır; 10 yıl ürün, 25 yıl performans garantisi kapsamındadır. Stok ve kargo için WhatsApp'tan ulaşabilirsiniz.",
+   "priceTL": 3000
   },
   {
    "id": "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim",
@@ -360,7 +361,8 @@
    "img": [
     "public/images/products/100ah-25-6v-lityum-batarya.webp"
    ],
-   "desc": "100AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+   "desc": "100AH 25.6V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz.",
+   "priceTL": 39000
   },
   {
    "id": "100ah-48v-lityum-batarya",
@@ -456,7 +458,8 @@
    "img": [
     "public/images/products/200ah-12-8v-lifepo4-batarya-1.webp"
    ],
-   "desc": "200AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz."
+   "desc": "200AH 12.8V LİTYUM BATARYA — solar enerji depolama çözümü. Dahili koruma devreleri standarttır; doğru voltaj ve kapasite seçimi için Sistem Kurucu'yu kullanabilirsiniz.",
+   "priceTL": 39000
   },
   {
    "id": "15ah-12v-nano-karbon-jel-aku",
@@ -696,7 +699,8 @@
    "img": [
     "public/images/products/6-2kw-mppt-paralel-90-500v-pv-input-100a-mppt-inverter-parallenebilir.webp"
    ],
-   "desc": "6.2KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
+   "desc": "6.2KW HV MPPT AKILLI İNVERTER 48V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın.",
+   "priceTL": 25000
   },
   {
    "id": "3kw-hv-mppt-akilli-inverter-24v",
@@ -712,7 +716,8 @@
    "img": [
     "public/images/products/3kw-hv-mppt-akilli-inverter-24v.webp"
    ],
-   "desc": "3KW HV MPPT AKILLI İNVERTER 24V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın."
+   "desc": "3KW HV MPPT AKILLI İNVERTER 24V — güç elektroniği Lexron güvencesinde. Şebekesiz sistemlerde panel, akü ve yükleri tek noktadan yönetir. Kurulum desteği için bize ulaşın.",
+   "priceTL": 14500
   },
   {
    "id": "gprs-kit",

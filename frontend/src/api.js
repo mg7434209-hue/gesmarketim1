@@ -21,11 +21,12 @@ export async function loadAll() {
   };
 }
 
-/* ---------- Fiyat: ₺ = saleUsd × güncel kur × (1 + tampon) ---------- */
+/* ---------- Fiyat: sabit ₺ (priceTL) > saleUsd × güncel kur × (1 + tampon) ---------- */
 export function priceTL(p, store) {
   const { pricing } = store.config;
-  const raw = p.saleUsd * store.kur * (1 + (pricing.fxBufferPct || 0) / 100);
   const step = pricing.roundTo || 1;
+  if (p.priceTL > 0) return Math.round(p.priceTL / step) * step; // admin/katalog sabit fiyatı
+  const raw = p.saleUsd * store.kur * (1 + (pricing.fxBufferPct || 0) / 100);
   return Math.round(raw / step) * step;
 }
 export function havaleTL(tl, store) {

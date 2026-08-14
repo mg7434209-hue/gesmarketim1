@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /sepet
+Disallow: /admin
 Disallow: /data/
 
 Sitemap: https://www.gesmarketim.com/sitemap.xml

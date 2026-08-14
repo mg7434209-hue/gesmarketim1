@@ -34,12 +34,26 @@ export default function Cart() {
   const havaleTotal = havaleTL(subtotal, store) + shipping;
   const cardTotal = subtotal + shipping;
 
-  const send = () => {
+  const send = async () => {
     if (!form.name.trim() || !form.phone.trim() || !form.addr.trim())
       return setErr("Lütfen ad, telefon ve adres alanlarını doldurun.");
     if (!form.kvkk) return setErr("Lütfen sözleşme onay kutusunu işaretleyin.");
     setErr("");
-    const no = "GM" + String(Date.now()).slice(-8);
+    // Sipariş sunucuya da yazılır (admin panel "Siparişler" listesi);
+    // sunucuya ulaşılamazsa yalnız WhatsApp ile devam edilir.
+    let no = "GM" + String(Date.now()).slice(-8);
+    try {
+      const r = await fetch("/api/orders", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(), phone: form.phone.trim(), addr: form.addr.trim(),
+          note: form.note.trim(), pay: form.pay,
+          items: items.map((it) => ({ id: it.p.id, qty: it.qty })),
+        }),
+        signal: AbortSignal.timeout(2500),
+      }).then((x) => x.json());
+      if (r && r.no) no = r.no;
+    } catch { /* statik yayında sipariş yalnız WhatsApp'a düşer */ }
     const lines = items.map((it) =>
       `• ${it.qty} × ${it.p.name} (${it.p.code}) — ${fmtTL(priceTL(it.p, store) * it.qty)}`).join("\n");
     const total = form.pay === "havale" ? havaleTotal : cardTotal;

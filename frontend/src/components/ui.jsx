@@ -52,7 +52,7 @@ export function PriceBlock({ product, size = "sm" }) {
         {fmtTL(tl)}
       </div>
       <div className="text-xs text-brand-ink/60 leading-5">
-        ≈ {fmtUSD(product.saleUsd)} · günlük kur · KDV dahil
+        {product.priceTL > 0 ? "KDV dahil" : <>≈ {fmtUSD(product.saleUsd)} · günlük kur · KDV dahil</>}
         <br />
         💰 Havale ile <b className="text-brand-green">{fmtTL(havaleTL(tl, store))}</b>
       </div>
