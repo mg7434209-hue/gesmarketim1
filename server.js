@@ -207,6 +207,75 @@ function handleKurApi(req, res) {
   send(res, 405, '{"error":"method"}', { "Content-Type": "application/json" });
 }
 
+/* ---------- Sistem Kur v2 — backend proxy ----------
+   /api/hesapla, /api/asistan, /api/leads istekleri gesmarketim backend'ine
+   (SISTEMKUR_API env — ör. https://backend.up.railway.app) aktarılır; SPA
+   aynı origin'de kalır, CORS gerekmez. Env yoksa uçlar 503 döner — asistan
+   "kapalı" mesajı verir, sihirbaz çalışmaya devam eder. */
+const SISTEMKUR_API = (process.env.SISTEMKUR_API || "").replace(/\/+$/, "");
+const SK_TIMEOUT = { "/api/hesapla": 20000, "/api/asistan": 90000, "/api/leads": 20000 };
+const SK_KAPALI = {
+  "/api/asistan": '{"error":"asistan_kapali","message":"AI asistan şu an kullanılamıyor. Sihirbazla devam edebilirsiniz."}',
+  "/api/hesapla": '{"error":"servis_kapali","message":"Hesap servisi şu an kullanılamıyor. Lütfen WhatsApp üzerinden ulaşın."}',
+  "/api/leads": '{"error":"servis_kapali","message":"Kayıt servisi şu an kullanılamıyor. Lütfen WhatsApp üzerinden ulaşın."}'
+};
+// Asistan pahalı (LLM çağrısı) → IP başına saatte 20 istek yerel sınır; proxy
+// arkasında backend'in kendi limiti site geneline düşeceği için asıl koruma bu.
+const SK_LIMIT = { windowMs: 60 * 60 * 1000, max: 20 };
+const skBuckets = new Map();
+function skClientIp(req) {
+  const xf = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  return xf || req.socket.remoteAddress || "?";
+}
+function skLimited(ip) {
+  const now = Date.now();
+  let b = skBuckets.get(ip);
+  if (!b || b.resetAt <= now) { b = { count: 0, resetAt: now + SK_LIMIT.windowMs }; skBuckets.set(ip, b); }
+  if (skBuckets.size > 5000) { for (const [k, v] of skBuckets) if (v.resetAt <= now) skBuckets.delete(k); }
+  b.count++;
+  return b.count > SK_LIMIT.max;
+}
+function proxySistemKur(req, res, apiPath) {
+  const HDR = { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-cache" };
+  if (req.method !== "POST") return send(res, 405, '{"error":"method"}', HDR);
+  if (!SISTEMKUR_API) return send(res, 503, SK_KAPALI[apiPath], HDR);
+  const ip = skClientIp(req);
+  if (apiPath === "/api/asistan" && skLimited(ip)) {
+    return send(res, 429, '{"error":"rate_limited","message":"Asistan için saatlik istek sınırına ulaşıldı. Lütfen biraz sonra tekrar deneyin."}', HDR);
+  }
+  let body = "";
+  req.on("data", (c) => { body += c; if (body.length > 65536) req.destroy(); });
+  req.on("end", () => {
+    let target;
+    try { target = new URL(SISTEMKUR_API + apiPath); } catch (e) {
+      return send(res, 503, SK_KAPALI[apiPath], HDR);
+    }
+    const mod = target.protocol === "https:" ? https : http;
+    const up = mod.request(target, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Content-Length": Buffer.byteLength(body),
+        // Gerçek ziyaretçi IP'sini ilet — backend rate limit'i kişi başına kalsın
+        "X-Forwarded-For": ip
+      }
+    }, (r2) => {
+      let out = "";
+      r2.on("data", (c) => { out += c; if (out.length > 1048576) up.destroy(); });
+      r2.on("end", () => send(res, r2.statusCode || 502, out || "{}", HDR));
+    });
+    up.setTimeout(SK_TIMEOUT[apiPath], () => {
+      up.destroy();
+      send(res, 504, '{"error":"zaman_asimi","message":"Yanıt alınamadı. Lütfen tekrar deneyin."}', HDR);
+    });
+    up.on("error", () => {
+      if (!res.headersSent) send(res, 502, SK_KAPALI[apiPath], HDR);
+    });
+    up.end(body);
+  });
+}
+
 const MIME = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -399,6 +468,9 @@ const server = http.createServer((req, res) => {
     if (!adminOk(req.headers["x-admin-pass"])) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
     return send(res, 200, JSON.stringify(OVERRIDES), JSON_HDR);
   }
+
+  // Sistem Kur v2 (AI danışman + hesap + lead) → gesmarketim backend proxy'si
+  if (SK_TIMEOUT[urlPath]) return proxySistemKur(req, res, urlPath);
 
   if (urlPath.startsWith("/api/")) return send(res, 404, '{"error":"bulunamadi"}', JSON_HDR);
 

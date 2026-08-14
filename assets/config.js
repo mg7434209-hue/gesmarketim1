@@ -85,6 +85,9 @@ GESM.config = {
   // aşaması). Ürün yoksa ya da stokta değilse app.js o adayı atlar.
   // ============================================================
   builder: {
+    // Solar pompa sürücü kademeleri (HP) — Sistem Kur tarımsal sulama seçicisi.
+    // Backend /api/hesapla sürücüyü bu basamaklara YUKARI yuvarlar.
+    pompaHpKademeleri: [3, 5.5, 7.5, 10, 15, 20, 25, 30, 40],
     sizing: {
       sunHours: 4.2,        // TR ortalama güneşlenme (kWh/kWp/gün, temkinli)
       systemEff: 0.75,      // panel→priz toplam sistem verimi
@@ -114,11 +117,27 @@ GESM.config = {
         desc: "Kompakt sistem — buzdolabı, aydınlatma, şarj.",
         chem: "lityum", autonomyDays: 1,
         items: { led: 4, buzdolabi: 1, tv: 1, sarj: 1 },
+        profiles: [
+          { id: "minimal",  label: "Minimal",  desc: "Aydınlatma + şarj",
+            items: { led: 2, sarj: 1 } },
+          { id: "standart", label: "Standart", desc: "+ buzdolabı, TV",
+            items: { led: 4, buzdolabi: 1, tv: 1, sarj: 1 } },
+          { id: "konforlu", label: "Konforlu", desc: "+ mikrodalga, ekstra şarj",
+            items: { led: 6, buzdolabi: 1, tv: 1, sarj: 2, mikro: 1 } }
+        ],
         panels: ["285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim", "175w-half-cut-topcon-mono-gunes-paneli", "160w-32-cell-16bb-half-cut-topcon-gunes-paneli"] },
       { id: "bagevi", label: "Bağ Evi (hafta sonu)", icon: "🏡",
         desc: "Temel konfor: buzdolabı, TV, aydınlatma, su pompası.",
         chem: "jel", autonomyDays: 1,
         items: { led: 6, buzdolabi: 1, tv: 1, sarj: 1, pompa: 1 },
+        profiles: [
+          { id: "minimal",  label: "Minimal",  desc: "Aydınlatma + şarj",
+            items: { led: 4, sarj: 1 } },
+          { id: "standart", label: "Standart", desc: "+ buzdolabı, TV, su pompası",
+            items: { led: 6, buzdolabi: 1, tv: 1, sarj: 1, pompa: 1 } },
+          { id: "konforlu", label: "Konforlu", desc: "+ çamaşır makinesi",
+            items: { led: 8, buzdolabi: 1, tv: 1, sarj: 2, pompa: 1, camasir: 1 } }
+        ],
         panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "350w-ecosol-polykristal-gunes-paneli"] },
       { id: "ev", label: "Müstakil Ev (sürekli)", icon: "🏠",
         desc: "Çamaşır makinesi ve klima dahil tam ev yükü.",
