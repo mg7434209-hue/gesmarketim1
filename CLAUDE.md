@@ -100,6 +100,9 @@ React tarafına sayı gömme. Tarayıcıya bu dosya artık servis edilmez.
   `DATA_DIR/kur.json` (Railway Volume önerilir). Duyuru bandındaki rozet
   güncel kuru gösterir.
 - Tüm fiyat gösterimi KDV dahil; havale fiyatı `havaleTL()` (%havaleDiscountPct).
+- Ziyaretçi sayacı: footer rozeti (`Layout.jsx VisitCounter`) = `config.visitors.base`
+  + sunucu sayacı (`/api/visitors` — çerezle günde 1, bot/headless filtreli; kalıcı
+  veri `DATA_DIR/visitors.json`, gitignore'da). Kapatma: `visitors.show=false`.
 - SEO: sayfa başına dinamik title/description (`useSeo`), JSON-LD Product
   (ürün), BreadcrumbList (kategori), FAQPage (/sss). Görseller lazy (hero hariç
   — `fetchpriority=high` LCP).

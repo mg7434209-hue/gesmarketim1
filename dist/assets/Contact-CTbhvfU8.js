@@ -1,4 +1,4 @@
-import{u as m,c as p,r as h,j as e,w as t}from"./index-DLBusIsi.js";const r=["Ürün / fiyat bilgisi","Sistem boyutlandırma","Sipariş takibi","İade / değişim","Diğer"];function u(){const i=m(),{company:s}=i.config;p({title:"İletişim | "+s.brand,description:"GES MARKETİM iletişim: telefon, WhatsApp, e-posta ve adres. Boyutlandırma ve keşif desteği ücretsizdir."});const[a,o]=h.useState({name:"",phone:"",topic:r[0],msg:""}),l=n=>d=>o({...a,[n]:d.target.value}),c=()=>{const n=`📩 İLETİŞİM FORMU
+import{u as m,c as p,r as h,j as e,w as t}from"./index-B9QsGrQh.js";const r=["Ürün / fiyat bilgisi","Sistem boyutlandırma","Sipariş takibi","İade / değişim","Diğer"];function u(){const i=m(),{company:s}=i.config;p({title:"İletişim | "+s.brand,description:"GES MARKETİM iletişim: telefon, WhatsApp, e-posta ve adres. Boyutlandırma ve keşif desteği ücretsizdir."});const[a,o]=h.useState({name:"",phone:"",topic:r[0],msg:""}),l=n=>d=>o({...a,[n]:d.target.value}),c=()=>{const n=`📩 İLETİŞİM FORMU
 Konu: `+a.topic+(a.name?`
 👤 `+a.name:"")+(a.phone?`
 📞 `+a.phone:"")+(a.msg?`

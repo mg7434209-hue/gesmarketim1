@@ -106,13 +106,36 @@ export default function Layout() {
           </div>
         </div>
         <div className="border-t border-surface-line">
-          <div className="wrap py-4 text-xs text-brand-ink/60 flex flex-wrap justify-between gap-2">
+          <div className="wrap py-4 text-xs text-brand-ink/60 flex flex-wrap justify-between items-center gap-2">
             <span>© {new Date().getFullYear()} {company.legal} — Tüm hakları saklıdır.</span>
+            <VisitCounter />
             <span>🔒 256-bit SSL · 14 gün koşulsuz iade · Havale/EFT indirimi</span>
           </div>
         </div>
       </footer>
     </div>
+  );
+}
+
+/* Ziyaretçi sayacı rozeti — gösterilen toplam = config.visitors.base +
+   sunucu sayacı (/api/visitors çerezle günde 1 sayar, botları saymaz).
+   API'ye ulaşılamazsa yalnız taban gösterilir. */
+function VisitCounter() {
+  const store = useStore();
+  const cfg = store.config.visitors;
+  const [n, setN] = useState(null);
+  useEffect(() => {
+    if (!cfg || !cfg.show) return;
+    fetch("/api/visitors")
+      .then((r) => r.json())
+      .then((j) => setN((cfg.base || 0) + (Number(j.count) || 0)))
+      .catch(() => setN(cfg.base || 0));
+  }, []);
+  if (!cfg || !cfg.show || n == null) return null;
+  return (
+    <span className="badge bg-surface-card border border-surface-line" title="Toplam ziyaretçi">
+      👥 {new Intl.NumberFormat("tr-TR").format(n)} ziyaretçi
+    </span>
   );
 }
 
