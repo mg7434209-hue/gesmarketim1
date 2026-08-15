@@ -109,12 +109,63 @@ export default function Builder() {
       {mode === "oem" && <OemKurucu store={store} B={B} />}
       {mode === "sulama" && <SulamaSihirbazi store={store} B={B} />}
       {mode === "paketler" && <Paketler store={store} B={B} />}
+
+      <KurulumBlok store={store} />
     </div>
   );
 }
 
 /* ========================================================================
-   1) OEM KURUCU — akordeonlarla parça seçimi + canlı uyumluluk
+   Yörenizdeki bayiden KURULUM HİZMETİ — il/ilçe bırak, bayi arasın
+   ======================================================================== */
+function KurulumBlok({ store }) {
+  const [acik, setAcik] = useState(false);
+  return (
+    <section className="card mt-8 p-5 md:p-7 bg-gradient-to-r from-brand-green/10 to-brand-blue/10">
+      <div className="flex flex-wrap items-start gap-4">
+        <span className="text-3xl" aria-hidden="true">🔧</span>
+        <div className="grow min-w-0 basis-64">
+          <h2 className="text-lg md:text-xl">Yörenizdeki bayiden kurulum hizmeti</h2>
+          <p className="text-sm text-brand-ink/70 mt-1 max-w-2xl">
+            Sistemi kendiniz kurmak istemiyor musunuz? İl ve ilçenizi bırakın —
+            bölgenizdeki yetkili bayimiz ücretsiz keşif ve montaj teklifi için sizi arasın.
+          </p>
+          <ul className="flex flex-wrap gap-x-5 gap-y-1 mt-2.5 text-xs font-semibold text-brand-ink/70">
+            <li>✓ Keşif ücretsiz</li>
+            <li>✓ Türkiye genelinde bayi ağı</li>
+            <li>✓ Montaj ve devreye alma garantili</li>
+          </ul>
+        </div>
+        <div className="w-full sm:w-auto sm:min-w-[280px]">
+          {!acik ? (
+            <button type="button" className="btn btn-primary w-full" onClick={() => setAcik(true)}>
+              Kurulum hizmeti iste
+            </button>
+          ) : (
+            <LeadFormu tip="dogrulama" ilSor
+              ozet={{ kaynak: "kurulum" }}
+              basarili="Talebiniz alındı — bölgenizdeki yetkili bayimiz en geç 1 iş günü içinde arayacak."
+              gonderMetni="Beni arayın" onKapat={() => setAcik(false)} />
+          )}
+        </div>
+      </div>
+      <p className="text-xs text-brand-ink/50 mt-4">
+        Dilerseniz doğrudan da ulaşabilirsiniz:{" "}
+        <a className="text-brand-blue hover:underline" target="_blank" rel="noopener noreferrer"
+          href={waLink(store, "Merhaba! Bölgemde solar sistem kurulum hizmeti almak istiyorum.")}>
+          WhatsApp
+        </a>{" "}
+        · {store.config.company.phone.display}
+      </p>
+    </section>
+  );
+}
+
+/* ========================================================================
+   1) OEM KURUCU — 5 adımlı akordeon + canlı uyumluluk
+   Satırlar görselsiz/kompakt; seçilen satırda adet kutusu; seçim yapılınca
+   bölüm kapanır ve sıradaki İLGİLİ adım açılır (hibrit inverterde şarj
+   kontrol adımı atlanır — MPPT şarj inverterde dahilidir).
    ======================================================================== */
 function OemKurucu({ store, B }) {
   const byId = (ref) => store.products.find((p) => p.id === ref);
@@ -123,44 +174,55 @@ function OemKurucu({ store, B }) {
   const [sel, setSel] = useState(() => {
     try {
       const s = JSON.parse(localStorage.getItem(OEM_KEY)) || {};
-      return { panelRef: s.panelRef || null, panelQty: s.panelQty || 0,
-        invRef: s.invRef || null, batRef: s.batRef || null, batQty: s.batQty || 0,
-        cableM: s.cableM || 0, mc4: s.mc4 || 0 };
+      return {
+        panelRef: s.panelRef || null, panelQty: s.panelQty || 0,
+        invRef: s.invRef || null, skRef: s.skRef || null,
+        batRef: s.batRef || null, batQty: s.batQty || 0,
+        aksesuar: (s.aksesuar && typeof s.aksesuar === "object") ? s.aksesuar : {},
+      };
     } catch {
-      return { panelRef: null, panelQty: 0, invRef: null, batRef: null, batQty: 0, cableM: 0, mc4: 0 };
+      return { panelRef: null, panelQty: 0, invRef: null, skRef: null, batRef: null, batQty: 0, aksesuar: {} };
     }
   });
   useEffect(() => { localStorage.setItem(OEM_KEY, JSON.stringify(sel)); }, [sel]);
-  const [acik, setAcik] = useState("panel"); // açık akordeon
+  const [acik, setAcik] = useState("panel");
   const [toast, setToast] = useState("");
 
   const inv = B.catalog.inverters.find((i) => i.ref === sel.invRef) || null;
+  const hibrit = inv ? inv.tip === "hibrit" : null; // null = inverter seçilmedi
   const panelDef = sel.panelRef ? B.catalog.panels[sel.panelRef] : null;
   const bat = B.catalog.batteries.find((b) => b.ref === sel.batRef) || null;
+  const sk = B.catalog.sarjKontrol.find((k) => k.ref === sel.skRef) || null;
 
-  /* ---- uyumluluk hesapları (tüm eşikler config'ten) ---- */
-  // Akü ↔ inverter: seri adet = inverter V / akü sınıf V (tam sayı olmalı)
+  /* ---- uyumluluk hesapları (eşikler config'ten) ---- */
   const batSeriFor = (b) => {
     if (!inv) return null;
     const s = inv.v / batSinif(b.v);
     return s >= 1 && s % 1 === 0 ? s : 0; // 0 = uyumsuz
   };
-  // Panel ↔ MPPT: bu panelden kaç adet seri bağlanabilir?
+
+  // Panel dizisinin denetleneceği PV penceresi: hibritte inverter MPPT'si,
+  // MPPT kontrolörde onun penceresi; PWM'de pencere denetimi yapılmaz.
+  const pvPencere = hibrit ? inv.mppt : (sk && sk.tip === "mppt" ? sk.pv : null);
+
   const seriAralik = (pd) => {
-    if (!inv || !pd) return null;
-    const [mMin, mMax] = inv.mppt;
-    const sMin = Math.ceil(mMin / pd.voc);
-    const sMax = Math.floor(mMax / pd.voc);
-    return sMax >= 1 && sMin <= sMax ? [sMin, sMax] : [0, 0]; // [0,0] = uyumsuz
+    if (!pvPencere || !pd) return null;
+    const sMin = Math.ceil(pvPencere[0] / pd.voc);
+    const sMax = Math.floor(pvPencere[1] / pd.voc);
+    return sMax >= 1 && sMin <= sMax ? [sMin, sMax] : [0, 0];
   };
-  // Adet, seri×paralel olarak MPPT aralığına oturuyor mu?
+
   const panelDurum = useMemo(() => {
     if (!panelDef || !sel.panelQty) return null;
-    if (!inv) return { ok: true, bilgi: "İnverter seçince dizi kontrolü yapılır." };
+    if (!pvPencere) {
+      if (sk && sk.tip === "pwm")
+        return { ok: true, bilgi: "PWM kontrolörde dizi denetimi yapılmaz — 12/24V nominal panellerle kullanın (MPPT önerilir)." };
+      return { ok: true, bilgi: "İnverter (veya MPPT şarj kontrol) seçince dizi kontrolü yapılır." };
+    }
     const [sMin, sMax] = seriAralik(panelDef);
-    if (sMax === 0) return { ok: false, neden: "Bu panelin gerilimi bu inverterin MPPT aralığına uymuyor — farklı panel ya da inverter seçin." };
+    if (sMax === 0) return { ok: false, neden: "Bu panelin gerilimi seçilen cihazın MPPT aralığına uymuyor — farklı panel ya da cihaz seçin." };
     if (sel.panelQty < sMin)
-      return { ok: false, neden: "Bu inverter için en az " + sMin + " panel seri bağlanmalı.", oneri: sMin };
+      return { ok: false, neden: "Bu sistem için en az " + sMin + " panel seri bağlanmalı.", oneri: sMin };
     let dizi = null;
     for (let s = sMax; s >= sMin; s--) if (sel.panelQty % s === 0) { dizi = [s, sel.panelQty / s]; break; }
     if (!dizi) {
@@ -168,14 +230,15 @@ function OemKurucu({ store, B }) {
       return { ok: false, neden: "Adet " + sMin + "–" + sMax + " seri dizilere bölünemiyor.", oneri };
     }
     return { ok: true, dizi, aralik: [sMin, sMax] };
-  }, [panelDef, sel.panelQty, inv]);
-  // Toplam PV gücü inverter sınırında mı?
+  }, [panelDef, sel.panelQty, inv, sk]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const pvDurum = useMemo(() => {
-    if (!inv || !panelDef || !sel.panelQty) return null;
+    if (!hibrit || !panelDef || !sel.panelQty) return null;
     const toplamW = panelDef.w * sel.panelQty;
     const maxW = inv.kw * 1000 * (B.oem.pvHeadroom || 1.3);
     return { ok: toplamW <= maxW, toplamW, maxW };
-  }, [inv, panelDef, sel.panelQty]);
+  }, [inv, panelDef, sel.panelQty]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const batDurum = useMemo(() => {
     if (!bat || !sel.batQty) return null;
     if (!inv) return { ok: true, bilgi: "İnverter seçince voltaj kontrolü yapılır." };
@@ -184,22 +247,37 @@ function OemKurucu({ store, B }) {
     if (sel.batQty % seri !== 0)
       return { ok: false, neden: fmtV(inv.v) + " sistem için akü adedi " + seri + "'in katı olmalı.", oneri: Math.max(seri, Math.ceil(sel.batQty / seri) * seri) };
     return { ok: true, seri, banka: sel.batQty / seri };
-  }, [bat, sel.batQty, inv]);
+  }, [bat, sel.batQty, inv]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Şarj kontrolörü ihtiyacı ve amper denetimi: akü inverterli sistemde panel
+  // varsa kontrolör şarttır (akü seçimini beklemeden amper rozetleri görünür).
+  const skGerekli = hibrit === false && Boolean(panelDef && sel.panelQty);
+  const bankV = inv ? inv.v : (bat ? batSinif(bat.v) : null);
+  const gerekliA = skGerekli && bankV ? Math.ceil((panelDef.w * sel.panelQty) / bankV) : null;
+  const skDurum = useMemo(() => {
+    if (hibrit) return { ok: true, bilgi: "Hibrit inverterde MPPT şarj dahili — ayrıca kontrolör gerekmez." };
+    if (!skGerekli) return null;
+    if (!sk) return { ok: false, neden: "Panel + akü için şarj kontrol cihazı gerekli (en az " + Math.ceil(gerekliA * (B.oem.sarjMarj || 1.25)) + "A önerilir).", adim: "sk" };
+    if (sk.a < gerekliA) return { ok: false, neden: sk.a + "A kontrolör yetersiz — bu panel gücü için en az " + Math.ceil(gerekliA * (B.oem.sarjMarj || 1.25)) + "A seçin.", adim: "sk" };
+    return { ok: true, bilgi: sk.a + "A " + sk.tip.toUpperCase() + " kontrolör — gerekli ~" + gerekliA + "A ✓" + (sk.tip === "pwm" ? " (MPPT %20-30 daha verimli olur)" : "") };
+  }, [hibrit, skGerekli, sk, gerekliA]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* ---- satırlar + toplam ---- */
   const satirlar = useMemo(() => {
     const out = [];
     const push = (ref, qty, rol) => { const p = byId(ref); if (p && qty > 0) out.push({ ref, qty, rol, p }); };
     push(sel.panelRef, sel.panelQty, "Güneş paneli");
-    if (sel.invRef) push(sel.invRef, 1, "Akıllı inverter (MPPT)");
+    if (sel.invRef) push(sel.invRef, 1, "İnverter");
+    if (!hibrit && sel.skRef) push(sel.skRef, 1, "Şarj kontrol");
     push(sel.batRef, sel.batQty, "Akü");
-    if (B.catalog.extras.cable) push(B.catalog.extras.cable, sel.cableM, "Solar kablo (metre)");
-    if (B.catalog.extras.mc4) push(B.catalog.extras.mc4, sel.mc4, "MC4 konnektör (çift)");
+    for (const [ref, qty] of Object.entries(sel.aksesuar)) push(ref, qty, "Aksesuar");
     return out;
-  }, [sel, store.products]);
+  }, [sel, store.products, hibrit]); // eslint-disable-line react-hooks/exhaustive-deps
   const toplam = satirlar.reduce((s, l) => s + priceTL(l.p, store) * l.qty, 0);
-  const sertHata = (batDurum && !batDurum.ok && !batDurum.oneri) || (panelDurum && !panelDurum.ok && !panelDurum.oneri);
-  const herhangiUyari = [panelDurum, pvDurum, batDurum].some((d) => d && !d.ok);
+  const sertHata =
+    (batDurum && !batDurum.ok && !batDurum.oneri) ||
+    (panelDurum && !panelDurum.ok && !panelDurum.oneri) ||
+    (skDurum && !skDurum.ok);
 
   const sepeteEkle = () => {
     let n = 0;
@@ -212,36 +290,52 @@ function OemKurucu({ store, B }) {
     satirlar.map((l) => "• " + l.qty + " × " + l.p.name).join("\n") +
     (toplam ? "\nTahmini toplam: " + fmtTL(toplam) : "") + "\nKesin teklif rica ediyorum.";
 
-  /* ---- seçim yardımcıları (akıllı varsayılan adetler) ---- */
+  /* ---- seçim + otomatik ilerleme ---- */
+  const sonrakiAdim = (suanki) => {
+    if (suanki === "panel") return "inv";
+    if (suanki === "inv") return hibrit === false ? "sk" : "aku";
+    if (suanki === "sk") return "aku";
+    if (suanki === "aku") return "ekstra";
+    return "";
+  };
   const panelSec = (ref) => {
     const pd = B.catalog.panels[ref];
     let qty = sel.panelRef === ref && sel.panelQty ? sel.panelQty : 2;
-    if (inv && pd) { const [sMin, sMax] = seriAralik(pd); if (sMax > 0) qty = sMin; }
+    if (pd && pvPencere) { const [sMin, sMax] = seriAralik(pd); if (sMax > 0) qty = sMin; }
     setSel((s) => ({ ...s, panelRef: ref, panelQty: qty }));
+    setAcik(sonrakiAdim("panel"));
   };
-  const invSec = (ref) => setSel((s) => ({ ...s, invRef: ref }));
+  const invSec = (x) => {
+    setSel((s) => ({ ...s, invRef: x.ref, skRef: x.tip === "hibrit" ? null : s.skRef }));
+    setAcik(x.tip === "hibrit" ? "aku" : "sk");
+  };
+  const skSec = (ref) => { setSel((s) => ({ ...s, skRef: ref })); setAcik("aku"); };
   const batSec = (b) => {
     const seri = inv ? (inv.v / batSinif(b.v)) : 1;
     const qty = seri >= 1 && seri % 1 === 0 ? seri : 1;
     setSel((s) => ({ ...s, batRef: b.ref, batQty: qty }));
+    setAcik("ekstra");
   };
 
   const panelList = Object.entries(B.catalog.panels)
-    .map(([ref, pd]) => ({ ref, ...pd, p: byId(ref) }))
-    .filter((x) => stokta(x.p));
+    .map(([ref, pd]) => ({ ref, ...pd, p: byId(ref) })).filter((x) => stokta(x.p));
   const invList = B.catalog.inverters.map((i) => ({ ...i, p: byId(i.ref) })).filter((x) => stokta(x.p));
+  const skList = B.catalog.sarjKontrol.map((k) => ({ ...k, p: byId(k.ref) })).filter((x) => stokta(x.p));
   const batList = B.catalog.batteries.map((b) => ({ ...b, p: byId(b.ref) })).filter((x) => stokta(x.p));
+  const invTipAd = { hibrit: "Hibrit · MPPT dahili", modifiye: "Modifiye sinüs", tamsinus: "Tam sinüs" };
+
+  const toggle = (k) => setAcik(acik === k ? "" : k);
 
   return (
     <div>
       <div className="space-y-3">
-        {/* -------- PANEL -------- */}
-        <Akordeon acikMi={acik === "panel"} onToggle={() => setAcik(acik === "panel" ? "" : "panel")}
-          icon="☀️" baslik="Güneş Paneli"
-          ozet={sel.panelRef && byId(sel.panelRef) ? sel.panelQty + " × " + byId(sel.panelRef).name : "Seçilmedi"}>
-          <div className="space-y-2">
+        {/* -------- 1 · PANEL -------- */}
+        <Akordeon adim="1" acikMi={acik === "panel"} onToggle={() => toggle("panel")}
+          icon="☀️" baslik="Güneş Paneli" tamam={Boolean(sel.panelRef && sel.panelQty)}
+          ozet={sel.panelRef && byId(sel.panelRef) ? sel.panelQty + " × " + byId(sel.panelRef).name : "Seçin"}>
+          <div className="space-y-1.5">
             {panelList.map((x) => {
-              const aralik = inv ? seriAralik(x) : null;
+              const aralik = pvPencere ? seriAralik(x) : null;
               const uyumsuz = aralik && aralik[1] === 0;
               return (
                 <SecimSatiri key={x.ref} p={x.p} store={store} secili={sel.panelRef === x.ref}
@@ -250,37 +344,82 @@ function OemKurucu({ store, B }) {
                     ? { tip: "kotu", metin: "MPPT aralığına uymuyor" }
                     : aralik ? { tip: "iyi", metin: aralik[0] + "–" + aralik[1] + " adet seri bağlanabilir" }
                       : { tip: "notr", metin: x.w + " W · Voc " + fmtV(x.voc) }}
-                  onSec={() => panelSec(x.ref)} />
+                  onSec={() => panelSec(x.ref)}
+                  stepper={sel.panelRef === x.ref
+                    ? { deger: sel.panelQty, min: 1, max: 200, onDegis: (q) => setSel((s) => ({ ...s, panelQty: q })) }
+                    : null} />
               );
             })}
           </div>
-          {sel.panelRef && (
-            <AdetSecici etiket="Panel adedi" deger={sel.panelQty}
-              onDegis={(q) => setSel((s) => ({ ...s, panelQty: q }))} min={0} max={200} />
-          )}
         </Akordeon>
 
-        {/* -------- İNVERTER -------- */}
-        <Akordeon acikMi={acik === "inv"} onToggle={() => setAcik(acik === "inv" ? "" : "inv")}
-          icon="⚡" baslik="İnverter"
-          ozet={sel.invRef && byId(sel.invRef) ? byId(sel.invRef).name : "Seçilmedi"}>
-          <div className="space-y-2">
+        {/* -------- 2 · İNVERTER -------- */}
+        <Akordeon adim="2" acikMi={acik === "inv"} onToggle={() => toggle("inv")}
+          icon="⚡" baslik="İnverter" tamam={Boolean(sel.invRef)}
+          ozet={sel.invRef && byId(sel.invRef) ? byId(sel.invRef).name : "Seçin"}>
+          <div className="space-y-1.5">
             {invList.map((x) => (
               <SecimSatiri key={x.ref} p={x.p} store={store} secili={sel.invRef === x.ref}
-                rozet={{ tip: "notr", metin: x.kw + " kW · " + fmtV(x.v) + " akü · MPPT " + x.mppt[0] + "–" + x.mppt[1] + "V" }}
-                onSec={() => invSec(x.ref)} />
+                rozet={{
+                  tip: x.tip === "hibrit" ? "iyi" : "notr",
+                  metin: (invTipAd[x.tip] || x.tip) + " · " + x.kw + " kW · " + fmtV(x.v) + " akü" +
+                    (x.mppt ? " · MPPT " + x.mppt[0] + "–" + x.mppt[1] + "V" : " · şarj kontrol gerekir"),
+                }}
+                onSec={() => invSec(x)} />
             ))}
           </div>
           <p className="text-xs text-brand-ink/50 mt-3">
-            💡 İnverteri seçince panel ve akü listelerinde uyumluluk rozetleri görünür.
+            💡 Hibrit inverterde panel doğrudan bağlanır; modifiye/tam sinüs inverterde panel için şarj kontrol cihazı eklenir (3. adım).
           </p>
         </Akordeon>
 
-        {/* -------- AKÜ -------- */}
-        <Akordeon acikMi={acik === "aku"} onToggle={() => setAcik(acik === "aku" ? "" : "aku")}
-          icon="🔋" baslik="Akü / Batarya"
-          ozet={sel.batRef && byId(sel.batRef) ? sel.batQty + " × " + byId(sel.batRef).name : "Seçilmedi (şebeke bağlantılıysa gerekmez)"}>
-          <div className="space-y-2">
+        {/* -------- 3 · ŞARJ KONTROL (hibritte gerekmez) -------- */}
+        <Akordeon adim="3" acikMi={acik === "sk"} onToggle={() => toggle("sk")}
+          icon="🎛️" baslik="Şarj Kontrol Cihazı" tamam={hibrit === true || Boolean(sel.skRef)}
+          ozet={hibrit
+            ? "Gerekmez — hibrit inverterde MPPT şarj dahili ✓"
+            : sel.skRef && byId(sel.skRef) ? byId(sel.skRef).name
+              : skGerekli ? "Gerekli — seçin (öneri: ≥" + Math.ceil((gerekliA || 0) * (B.oem.sarjMarj || 1.25)) + "A)" : "Akü inverterli sistemlerde gerekir"}>
+          {hibrit ? (
+            <p className="text-sm text-brand-ink/60">
+              ✓ Seçtiğiniz hibrit inverter MPPT şarj kontrolünü içerir; ayrıca cihaz almanıza gerek yok.
+              Yine de ayrı bir sistem için kontrolör isterseniz{" "}
+              <Link to="/kategori/sarj-kontrol" className="text-brand-blue hover:underline">Şarj Kontrol kategorisine</Link> bakabilirsiniz.
+            </p>
+          ) : (
+            <>
+              {gerekliA && (
+                <p className="text-xs text-brand-ink/60 mb-2">
+                  Seçili panel gücü için gerekli akım ~{gerekliA}A · önerilen ≥{Math.ceil(gerekliA * (B.oem.sarjMarj || 1.25))}A
+                </p>
+              )}
+              <div className="space-y-1.5">
+                {skList.map((x) => {
+                  const yetersiz = gerekliA ? x.a < gerekliA : false;
+                  return (
+                    <SecimSatiri key={x.ref} p={x.p} store={store} secili={sel.skRef === x.ref}
+                      disabled={yetersiz}
+                      rozet={yetersiz
+                        ? { tip: "kotu", metin: "Yetersiz — ≥" + gerekliA + "A gerekli" }
+                        : { tip: x.tip === "mppt" ? "iyi" : "notr",
+                            metin: x.a + "A · " + x.tip.toUpperCase() + (x.pv ? " · PV " + x.pv[0] + "–" + x.pv[1] + "V" : " · 12/24V paneller") }}
+                      onSec={() => skSec(x.ref)} />
+                  );
+                })}
+              </div>
+              {sel.skRef && (
+                <button type="button" className="text-xs text-brand-blue hover:underline mt-2"
+                  onClick={() => setSel((s) => ({ ...s, skRef: null }))}>Kontrolörü kaldır ✕</button>
+              )}
+            </>
+          )}
+        </Akordeon>
+
+        {/* -------- 4 · AKÜ -------- */}
+        <Akordeon adim="4" acikMi={acik === "aku"} onToggle={() => toggle("aku")}
+          icon="🔋" baslik="Akü / Batarya" tamam={Boolean(sel.batRef && sel.batQty)}
+          ozet={sel.batRef && byId(sel.batRef) ? sel.batQty + " × " + byId(sel.batRef).name : "Seçin (şebeke bağlantılıysa gerekmez)"}>
+          <div className="space-y-1.5">
             {batList.map((x) => {
               const seri = inv ? batSeriFor(x) : null;
               const uyumsuz = seri === 0;
@@ -291,45 +430,50 @@ function OemKurucu({ store, B }) {
                     ? { tip: "kotu", metin: fmtV(inv.v) + " inverterle uyumsuz" }
                     : seri ? { tip: "iyi", metin: seri === 1 ? "Tek başına uyumlu" : seri + " adet seri = " + fmtV(inv.v) + " banka" }
                       : { tip: "notr", metin: fmtV(x.v) + " · " + (x.wh / 1000).toFixed(1).replace(".", ",") + " kWh · " + (x.chem === "jel" ? "Jel" : "LiFePO4") }}
-                  onSec={() => batSec(x)} />
+                  onSec={() => batSec(x)}
+                  stepper={sel.batRef === x.ref
+                    ? { deger: sel.batQty, min: 1, max: 64, onDegis: (q) => setSel((s) => ({ ...s, batQty: q })) }
+                    : null} />
               );
             })}
           </div>
           {sel.batRef && (
-            <div className="flex flex-wrap items-center gap-3 mt-3">
-              <AdetSecici etiket="Akü adedi" deger={sel.batQty}
-                onDegis={(q) => setSel((s) => ({ ...s, batQty: q }))} min={0} max={64} />
-              <button type="button" className="text-xs text-brand-blue hover:underline"
-                onClick={() => setSel((s) => ({ ...s, batRef: null, batQty: 0 }))}>
-                Akü istemiyorum ✕
-              </button>
-            </div>
+            <button type="button" className="text-xs text-brand-blue hover:underline mt-2"
+              onClick={() => setSel((s) => ({ ...s, batRef: null, batQty: 0 }))}>Akü istemiyorum ✕</button>
           )}
         </Akordeon>
 
-        {/* -------- KABLO & MONTAJ -------- */}
-        <Akordeon acikMi={acik === "ekstra"} onToggle={() => setAcik(acik === "ekstra" ? "" : "ekstra")}
-          icon="🔌" baslik="Kablo & Bağlantı"
-          ozet={(sel.cableM ? sel.cableM + " m kablo" : "") + (sel.cableM && sel.mc4 ? " · " : "") + (sel.mc4 ? sel.mc4 + " çift MC4" : "") || "İsteğe bağlı"}>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {B.catalog.extras.cable && byId(B.catalog.extras.cable) && (
-              <div>
-                <p className="text-sm font-semibold mb-1">{byId(B.catalog.extras.cable).name}</p>
-                <AdetSecici etiket="Metre" deger={sel.cableM}
-                  onDegis={(q) => setSel((s) => ({ ...s, cableM: q }))} min={0} max={500} />
+        {/* -------- 5 · MONTAJ & AKSESUAR -------- */}
+        <Akordeon adim="5" acikMi={acik === "ekstra"} onToggle={() => toggle("ekstra")}
+          icon="🔩" baslik="Panel Tutucu · Kablo & Aksesuar"
+          tamam={Object.values(sel.aksesuar).some((q) => q > 0)}
+          ozet={Object.entries(sel.aksesuar).filter(([, q]) => q > 0).length
+            ? Object.entries(sel.aksesuar).filter(([, q]) => q > 0)
+                .map(([ref, q]) => q + "× " + (byId(ref)?.name || ref)).join(" · ")
+            : "İsteğe bağlı — tutucu, kablo, konnektör"}>
+          {(B.catalog.aksesuar || []).map((grup) => (
+            <div key={grup.grup} className="mb-4">
+              <p className="text-xs font-bold uppercase tracking-wide text-brand-ink/50 mb-1.5">{grup.grup}</p>
+              <div className="space-y-1.5">
+                {grup.refs.map((ref) => {
+                  const p = byId(ref);
+                  if (!stokta(p)) return null;
+                  const q = sel.aksesuar[ref] || 0;
+                  return (
+                    <SecimSatiri key={ref} p={p} store={store} secili={q > 0}
+                      rozet={{ tip: "notr", metin: grup.birim === "metre" ? "metre başı fiyat" : "adet başı fiyat" }}
+                      onSec={() => setSel((s) => ({ ...s, aksesuar: { ...s.aksesuar, [ref]: q > 0 ? 0 : 1 } }))}
+                      stepper={q > 0
+                        ? { deger: q, min: 0, max: 500, onDegis: (n) => setSel((s) => ({ ...s, aksesuar: { ...s.aksesuar, [ref]: n } })) }
+                        : null} />
+                  );
+                })}
               </div>
-            )}
-            {B.catalog.extras.mc4 && byId(B.catalog.extras.mc4) && (
-              <div>
-                <p className="text-sm font-semibold mb-1">{byId(B.catalog.extras.mc4).name}</p>
-                <AdetSecici etiket="Çift" deger={sel.mc4}
-                  onDegis={(q) => setSel((s) => ({ ...s, mc4: q }))} min={0} max={100} />
-                {panelDurum && panelDurum.ok && panelDurum.dizi && (
-                  <p className="text-xs text-brand-ink/50 mt-1">Öneri: dizi başına 1 çift ({panelDurum.dizi[1]} paralel dizi)</p>
-                )}
-              </div>
-            )}
-          </div>
+            </div>
+          ))}
+          {panelDurum && panelDurum.ok && panelDurum.dizi && (
+            <p className="text-xs text-brand-ink/50">💡 Öneri: MC4 konnektör dizi başına 1 çift ({panelDurum.dizi[1]} paralel dizi) · tutucular panel başına 2 orta + kenarlar için sonlandırıcı.</p>
+          )}
         </Akordeon>
       </div>
 
@@ -350,7 +494,6 @@ function OemKurucu({ store, B }) {
             ))}
           </div>
 
-          {/* uyum kontrol listesi */}
           <ul className="mt-4 space-y-1.5 text-sm">
             {batDurum && (
               <KontrolSatiri ok={batDurum.ok}
@@ -363,7 +506,7 @@ function OemKurucu({ store, B }) {
             {panelDurum && (
               <KontrolSatiri ok={panelDurum.ok}
                 metin={panelDurum.ok
-                  ? (panelDurum.bilgi || "Panel dizisi: " + panelDurum.dizi[0] + " seri × " + panelDurum.dizi[1] + " paralel (MPPT " + inv.mppt[0] + "–" + inv.mppt[1] + "V) ✓")
+                  ? (panelDurum.bilgi || "Panel dizisi: " + panelDurum.dizi[0] + " seri × " + panelDurum.dizi[1] + " paralel (pencere " + pvPencere[0] + "–" + pvPencere[1] + "V) ✓")
                   : panelDurum.neden}
                 oneri={panelDurum.oneri}
                 onDuzelt={panelDurum.oneri ? () => setSel((s) => ({ ...s, panelQty: panelDurum.oneri })) : null} />
@@ -373,6 +516,12 @@ function OemKurucu({ store, B }) {
                 metin={pvDurum.ok
                   ? "PV gücü " + (pvDurum.toplamW / 1000).toFixed(2).replace(".", ",") + " kW — inverter sınırında ✓"
                   : "PV gücü inverter sınırını aşıyor (azami ~" + (pvDurum.maxW / 1000).toFixed(1).replace(".", ",") + " kW) — panel adedini azaltın ya da büyük inverter seçin."} />
+            )}
+            {skDurum && (
+              <KontrolSatiri ok={skDurum.ok}
+                metin={skDurum.ok ? skDurum.bilgi : skDurum.neden}
+                onDuzelt={!skDurum.ok && skDurum.adim ? () => setAcik(skDurum.adim) : null}
+                oneriMetni="Şarj kontrol seç →" />
             )}
             {!inv && (sel.panelRef || sel.batRef) && (
               <li className="text-brand-ink/50 text-xs">💡 İnverter seçince voltaj ve dizi uyumluluğu burada denetlenir.</li>
@@ -395,7 +544,7 @@ function OemKurucu({ store, B }) {
               WhatsApp ile Teklif İste
             </a>
           </div>
-          {sertHata && <p className="text-xs text-brand-red font-semibold mt-2">Uyumsuz seçim var — yukarıdaki uyarıları giderin.</p>}
+          {sertHata && <p className="text-xs text-brand-red font-semibold mt-2">Uyumsuz ya da eksik seçim var — yukarıdaki uyarıları giderin.</p>}
           {toast && <p className="text-sm text-brand-green mt-3">✓ {toast} <Link to="/sepet" className="underline">Sepete git →</Link></p>}
         </div>
       )}
@@ -403,18 +552,24 @@ function OemKurucu({ store, B }) {
       {satirlar.length > 0 && (
         <UyariDogrulama vurgulu={Boolean(panelDef && sel.panelQty && panelDef.w * sel.panelQty > 10000)}
           ozet={{ kaynak: "oem",
-            urunler: satirlar.map((l) => ({ ad: l.p.name, adet: l.qty })), toplamTL: toplam,
-            uyari: herhangiUyari ? "uyum uyarısı var" : undefined }} />
+            urunler: satirlar.map((l) => ({ ad: l.p.name, adet: l.qty })), toplamTL: toplam }} />
       )}
     </div>
   );
 }
 
-function Akordeon({ icon, baslik, ozet, acikMi, onToggle, children }) {
+function Akordeon({ adim, icon, baslik, ozet, tamam, acikMi, onToggle, children }) {
   return (
     <section className="card overflow-hidden">
       <button type="button" onClick={onToggle} aria-expanded={acikMi}
         className="w-full flex items-center gap-3 p-4 text-left hover:bg-surface-alt transition">
+        {adim && (
+          <span className={"w-6 h-6 shrink-0 rounded-full text-xs flex items-center justify-center font-extrabold " +
+            (tamam ? "bg-brand-green text-white" : "bg-brand-amber text-[#3d3005]")}
+            aria-hidden="true">
+            {tamam ? "✓" : adim}
+          </span>
+        )}
         <span className="text-xl" aria-hidden="true">{icon}</span>
         <span className="grow min-w-0">
           <b className="block text-sm">{baslik}</b>
@@ -429,19 +584,22 @@ function Akordeon({ icon, baslik, ozet, acikMi, onToggle, children }) {
   );
 }
 
-function SecimSatiri({ p, store, secili, disabled, rozet, onSec }) {
+/* Kompakt, görselsiz seçim satırı: sol ad + rozet, sağ fiyat (+ seçiliyse
+   adet kutusu). Satır tıklaması seçer; adet düğmeleri seçim akışını bozmaz. */
+function SecimSatiri({ p, store, secili, disabled, rozet, onSec, stepper }) {
   return (
-    <button type="button" onClick={onSec} disabled={disabled}
-      className={"w-full card p-2.5 flex items-center gap-3 text-left transition " +
-        (secili ? "ring-2 ring-brand-amber " : "hover:border-brand-amber/60 ") +
-        (disabled ? "opacity-45" : "")}>
-      <span className="w-14 h-12 shrink-0 rounded-btn overflow-hidden bg-surface-alt">
-        {p.img && p.img.length
-          ? <img src={"/" + p.img[0]} alt="" loading="lazy" className="w-full h-full object-cover" />
-          : <PlaceholderImg product={p} className="w-full h-full" />}
+    <div role="button" tabIndex={disabled ? -1 : 0} aria-pressed={secili} aria-disabled={disabled}
+      onClick={() => { if (!disabled) onSec(); }}
+      onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); onSec(); } }}
+      className={"rounded-btn border px-3 py-2 flex flex-wrap items-center gap-x-3 gap-y-1 transition cursor-pointer " +
+        (secili ? "border-brand-amber ring-1 ring-brand-amber bg-brand-amber/10 "
+          : "border-surface-line bg-surface-card hover:border-brand-amber/60 ") +
+        (disabled ? "opacity-45 cursor-not-allowed" : "")}>
+      <span className={"w-4 shrink-0 text-center text-sm " + (secili ? "text-brand-green" : "text-brand-ink/25")} aria-hidden="true">
+        {secili ? "●" : "○"}
       </span>
-      <span className="grow min-w-0">
-        <span className="block text-sm font-semibold leading-snug line-clamp-2">{p.name}</span>
+      <span className="grow min-w-0 basis-52">
+        <span className="block text-sm font-semibold leading-snug">{p.name}</span>
         {rozet && (
           <span className={"badge mt-0.5 " +
             (rozet.tip === "iyi" ? "bg-brand-green/15 text-brand-green"
@@ -451,29 +609,25 @@ function SecimSatiri({ p, store, secili, disabled, rozet, onSec }) {
           </span>
         )}
       </span>
-      <b className="shrink-0 text-sm">{fmtTL(priceTL(p, store))}</b>
-    </button>
+      <b className="shrink-0 text-sm ml-auto">{fmtTL(priceTL(p, store))}</b>
+      {stepper && (
+        <span className="flex items-center border border-surface-line rounded-btn bg-surface-card shrink-0"
+          onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
+          <button type="button" className="px-2.5 py-1 font-bold" aria-label="Azalt"
+            onClick={() => stepper.onDegis(Math.max(stepper.min ?? 0, stepper.deger - 1))}>−</button>
+          <input type="number" value={stepper.deger} min={stepper.min ?? 0} max={stepper.max ?? 99}
+            aria-label="Adet"
+            onChange={(e) => stepper.onDegis(Math.min(stepper.max ?? 99, Math.max(stepper.min ?? 0, Math.floor(Number(e.target.value) || 0))))}
+            className="w-12 text-center text-sm font-bold bg-transparent focus:outline-none" />
+          <button type="button" className="px-2.5 py-1 font-bold" aria-label="Artır"
+            onClick={() => stepper.onDegis(Math.min(stepper.max ?? 99, stepper.deger + 1))}>+</button>
+        </span>
+      )}
+    </div>
   );
 }
 
-function AdetSecici({ etiket, deger, onDegis, min = 0, max = 99 }) {
-  return (
-    <label className="inline-flex items-center gap-2 text-sm text-brand-ink/70 mt-3">
-      {etiket}
-      <span className="flex items-center border border-surface-line rounded-btn bg-surface-card">
-        <button type="button" className="px-2.5 py-1 font-bold" aria-label="Azalt"
-          onClick={() => onDegis(Math.max(min, deger - 1))}>−</button>
-        <input type="number" value={deger} min={min} max={max}
-          onChange={(e) => onDegis(Math.min(max, Math.max(min, Math.floor(Number(e.target.value) || 0))))}
-          className="w-14 text-center text-sm font-bold bg-transparent focus:outline-none" />
-        <button type="button" className="px-2.5 py-1 font-bold" aria-label="Artır"
-          onClick={() => onDegis(Math.min(max, deger + 1))}>+</button>
-      </span>
-    </label>
-  );
-}
-
-function KontrolSatiri({ ok, metin, onDuzelt, oneri }) {
+function KontrolSatiri({ ok, metin, onDuzelt, oneri, oneriMetni }) {
   return (
     <li className={"flex items-start gap-2 " + (ok ? "text-brand-green" : "text-brand-red")}>
       <span aria-hidden="true">{ok ? "✓" : "⚠"}</span>
@@ -481,7 +635,7 @@ function KontrolSatiri({ ok, metin, onDuzelt, oneri }) {
         {!ok && onDuzelt && (
           <button type="button" onClick={onDuzelt}
             className="ml-2 text-xs font-bold text-brand-blue hover:underline">
-            {oneri} adede getir ↺
+            {oneriMetni || (oneri + " adede getir ↺")}
           </button>
         )}
       </span>
@@ -1025,10 +1179,12 @@ function UyariDogrulama({ vurgulu, ozet }) {
 }
 
 /* ---- Ortak mini lead formu (honeypot'lu) ---- */
-function LeadFormu({ tip, ozet, basarili, gonderMetni, emailZorunlu = false, onKapat }) {
+function LeadFormu({ tip, ozet, basarili, gonderMetni, emailZorunlu = false, ilSor = false, onKapat }) {
   const [ad, setAd] = useState("");
   const [telefon, setTelefon] = useState("");
   const [email, setEmail] = useState("");
+  const [il, setIl] = useState("");
+  const [ilce, setIlce] = useState("");
   const [website, setWebsite] = useState(""); // honeypot — insan görmez
   const [busy, setBusy] = useState(false);
   const [hata, setHata] = useState("");
@@ -1040,9 +1196,11 @@ function LeadFormu({ tip, ozet, basarili, gonderMetni, emailZorunlu = false, onK
     if (ad.trim().length < 2) return setHata("Adınızı girin.");
     if (!TEL_RE.test(telefon.trim())) return setHata("Geçerli bir telefon numarası girin.");
     if (emailZorunlu && !EMAIL_RE.test(email.trim())) return setHata("Geçerli bir e-posta adresi girin.");
+    if (ilSor && il.trim().length < 2) return setHata("İlinizi girin.");
     setBusy(true);
     try {
-      const payload = { tip, ad: ad.trim(), telefon: telefon.trim(), ozet };
+      const ozetSon = ilSor ? { ...(ozet || {}), il: il.trim(), ilce: ilce.trim() || undefined } : ozet;
+      const payload = { tip, ad: ad.trim(), telefon: telefon.trim(), ozet: ozetSon };
       if (email.trim()) payload.email = email.trim();
       if (website) payload.website = website;
       await leadGonder(payload);
@@ -1076,6 +1234,20 @@ function LeadFormu({ tip, ozet, basarili, gonderMetni, emailZorunlu = false, onK
             <input className="input mt-1" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
               autoComplete="email" />
           </label>
+        )}
+        {ilSor && (
+          <div className="grid grid-cols-2 gap-2.5">
+            <label className="block text-xs font-semibold text-brand-ink/70">
+              İl
+              <input className="input mt-1" value={il} onChange={(e) => setIl(e.target.value)}
+                autoComplete="address-level1" placeholder="Örn: Antalya" />
+            </label>
+            <label className="block text-xs font-semibold text-brand-ink/70">
+              İlçe <span className="font-normal text-brand-ink/40">(isteğe bağlı)</span>
+              <input className="input mt-1" value={ilce} onChange={(e) => setIlce(e.target.value)}
+                autoComplete="address-level2" placeholder="Örn: Manavgat" />
+            </label>
+          </div>
         )}
         <div className="hidden" aria-hidden="true">
           <label>Web siteniz
