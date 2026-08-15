@@ -79,112 +79,95 @@ GESM.config = {
   ],
 
   // ============================================================
-  // Sistem Kurucu (sistem-kur.html) — "Kendi Projenizi Oluşturun"
-  // TÜM katsayılar ve katalog eşlemesi burada; app.js koda sayı gömmez.
+  // Sistem Kur (/hesaplayici) — 3 bölüm: OEM kurucu · Solar Sulama · Paketler
+  // TÜM katsayılar ve katalog eşlemesi burada; React koda sayı gömmez.
   // Ürün ref'leri /api/products id'leridir (data/catalog.json — Lexron
-  // aşaması). Ürün yoksa ya da stokta değilse app.js o adayı atlar.
+  // aşaması). Ürün yoksa ya da stokta değilse arayüz o adayı atlar.
   // ============================================================
   builder: {
-    // Solar pompa sürücü kademeleri (HP) — Sistem Kur tarımsal sulama seçicisi.
-    // Backend /api/hesapla sürücüyü bu basamaklara YUKARI yuvarlar.
-    pompaHpKademeleri: [3, 5.5, 7.5, 10, 15, 20, 25, 30, 40],
-    sizing: {
-      sunHours: 4.2,        // TR ortalama güneşlenme (kWh/kWp/gün, temkinli)
-      systemEff: 0.75,      // panel→priz toplam sistem verimi
-      invEff: 0.93,         // inverter/şarj verimi (akü boyutunda)
-      simultaneity: 0.7,    // cihazların aynı anda çalışma oranı
-      surgeHeadroom: 1.25,  // inverter gücü emniyet payı
-      cableBaseM: 10,       // temel solar kablo (m)
-      cablePerKwM: 5,       // kurulu kW başına ek kablo (m)
-      dod: { lityum: 0.9, jel: 0.5 } // kullanılabilir kapasite oranı
+    // ---- OEM kurucu (Kendi Projeni Kendin Oluştur) ----
+    oem: {
+      pvHeadroom: 1.3   // inverter kW × bu katsayı = kabul edilen azami PV gücü
     },
-    // Cihazlar: w = güç (W), h = günlük kullanım (saat), surge = kalkış çarpanı
-    appliances: [
-      { id: "led",       name: "LED aydınlatma (ampul başı)", icon: "💡", w: 10,   h: 6,   surge: 1 },
-      { id: "buzdolabi", name: "Buzdolabı (A++)",             icon: "🧊", w: 100,  h: 10,  surge: 3 },
-      { id: "tv",        name: "TV + uydu",                   icon: "📺", w: 80,   h: 5,   surge: 1 },
-      { id: "sarj",      name: "Telefon / laptop şarjı",      icon: "🔌", w: 60,   h: 3,   surge: 1 },
-      { id: "camasir",   name: "Çamaşır makinesi",            icon: "🌀", w: 600,  h: 1,   surge: 2 },
-      { id: "pompa",     name: "Su pompası / hidrofor",       icon: "🚿", w: 750,  h: 1.5, surge: 3 },
-      { id: "klima",     name: "Klima (12.000 BTU inverter)", icon: "❄️", w: 1000, h: 4,   surge: 2 },
-      { id: "kettle",    name: "Kettle / su ısıtıcı",         icon: "☕", w: 1800, h: 0.3, surge: 1 },
-      { id: "mikro",     name: "Mikrodalga",                  icon: "🍲", w: 900,  h: 0.3, surge: 1 },
-      { id: "supurge",   name: "Elektrikli süpürge",          icon: "🧹", w: 900,  h: 0.2, surge: 1.5 }
-    ],
-    // Senaryolar: varsayılan cihaz seti + akü kimyası + özerklik + panel adayları
-    presets: [
-      { id: "karavan", label: "Karavan / Tekne", icon: "🚐",
-        desc: "Kompakt sistem — buzdolabı, aydınlatma, şarj.",
-        chem: "lityum", autonomyDays: 1,
-        items: { led: 4, buzdolabi: 1, tv: 1, sarj: 1 },
-        profiles: [
-          { id: "minimal",  label: "Minimal",  desc: "Aydınlatma + şarj",
-            items: { led: 2, sarj: 1 } },
-          { id: "standart", label: "Standart", desc: "+ buzdolabı, TV",
-            items: { led: 4, buzdolabi: 1, tv: 1, sarj: 1 } },
-          { id: "konforlu", label: "Konforlu", desc: "+ mikrodalga, ekstra şarj",
-            items: { led: 6, buzdolabi: 1, tv: 1, sarj: 2, mikro: 1 } }
-        ],
-        panels: ["285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim", "175w-half-cut-topcon-mono-gunes-paneli", "160w-32-cell-16bb-half-cut-topcon-gunes-paneli"] },
-      { id: "bagevi", label: "Bağ Evi (hafta sonu)", icon: "🏡",
-        desc: "Temel konfor: buzdolabı, TV, aydınlatma, su pompası.",
-        chem: "jel", autonomyDays: 1,
-        items: { led: 6, buzdolabi: 1, tv: 1, sarj: 1, pompa: 1 },
-        profiles: [
-          { id: "minimal",  label: "Minimal",  desc: "Aydınlatma + şarj",
-            items: { led: 4, sarj: 1 } },
-          { id: "standart", label: "Standart", desc: "+ buzdolabı, TV, su pompası",
-            items: { led: 6, buzdolabi: 1, tv: 1, sarj: 1, pompa: 1 } },
-          { id: "konforlu", label: "Konforlu", desc: "+ çamaşır makinesi",
-            items: { led: 8, buzdolabi: 1, tv: 1, sarj: 2, pompa: 1, camasir: 1 } }
-        ],
-        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "350w-ecosol-polykristal-gunes-paneli"] },
-      { id: "ev", label: "Müstakil Ev (sürekli)", icon: "🏠",
-        desc: "Çamaşır makinesi ve klima dahil tam ev yükü.",
-        chem: "lityum", autonomyDays: 1,
-        items: { led: 8, buzdolabi: 1, tv: 1, sarj: 1, camasir: 1, pompa: 1, klima: 1 },
-        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] },
-      { id: "ticari", label: "İşletme / Ticari", icon: "🏭",
-        desc: "Yüksek tüketim — soğutma, aydınlatma, ofis yükleri.",
-        chem: "lityum", autonomyDays: 0.5,
-        items: { led: 12, buzdolabi: 2, tv: 1, sarj: 2, klima: 2, pompa: 1 },
-        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli"] },
-      { id: "sulama", label: "Tarımsal Sulama", icon: "🌾",
-        desc: "Gündüz güneşle çalışan pompa — bahçe, sera ve tarla.",
-        chem: "jel", autonomyDays: 0.5,
-        items: { pompa: 1, led: 2 },
-        panels: ["655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli", "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli", "350w-ecosol-polykristal-gunes-paneli"] }
-    ],
-    // Katalog eşlemesi — /api/products id'leri (w=Wp, wh=akü Wh, kw/v=inverter)
+
+    // Katalog eşlemesi + elektriksel değerler (uyumluluk kontrolü için).
+    //  panels: w = panel gücü (Wp), voc = açık devre gerilimi (V) — dizi
+    //          (seri) hesabında kullanılır; kesin datasheet değeriyle
+    //          güncellenebilir, mantık değişmez.
+    //  inverters: kw = güç, v = akü sistem voltajı, mppt = PV giriş MPPT
+    //          aralığı [min,max] V (yaklaşık — datasheet ile güncellenebilir).
+    //  batteries: v = nominal voltaj, wh = enerji, chem = kimya.
     catalog: {
       panels: {
-        "160w-32-cell-16bb-half-cut-topcon-gunes-paneli": 160,
-        "175w-half-cut-topcon-mono-gunes-paneli": 175,
-        "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim": 285,
-        "350w-ecosol-polykristal-gunes-paneli": 350,
-        "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli": 450,
-        "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli": 655,
-        "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli": 750
+        "160w-32-cell-16bb-half-cut-topcon-gunes-paneli":                { w: 160, voc: 19.5 },
+        "175w-half-cut-topcon-mono-gunes-paneli":                        { w: 175, voc: 24 },
+        "285w-16bb-half-cut-topcon-mono-gunes-paneli-karavan-ozel-uretim": { w: 285, voc: 33 },
+        "350w-ecosol-polykristal-gunes-paneli":                          { w: 350, voc: 46 },
+        "450w-bifacial-78-cell-16bb-half-cut-topcon-gunes-paneli":       { w: 450, voc: 34 },
+        "655w-132-cell-16bb-half-cut-topcon-16bb-gunes-paneli":          { w: 655, voc: 45.5 },
+        "750w-bifacial-132-cell-16bb-half-cut-topcon-gunes-paneli":      { w: 750, voc: 51.5 }
       },
       batteries: [
-        { ref: "100ah-12-8v-lityum-batarya",  chem: "lityum", v: 12, wh: 1280 },
-        { ref: "200ah-12-8v-lityum-batarya",  chem: "lityum", v: 12, wh: 2560 },
-        { ref: "100ah-25-6v-lityum-batarya",  chem: "lityum", v: 24, wh: 2560 },
-        { ref: "200ah-25-6v-lityum-batarya",  chem: "lityum", v: 24, wh: 5120 },
-        { ref: "100ah-48v-lityum-batarya",    chem: "lityum", v: 48, wh: 4800 },
-        { ref: "314ah-51-2v-premium-serisi-lityum-batarya", chem: "lityum", v: 48, wh: 16077 },
+        { ref: "100ah-12-8v-lityum-batarya",  chem: "lityum", v: 12.8, wh: 1280 },
+        { ref: "200ah-12-8v-lityum-batarya",  chem: "lityum", v: 12.8, wh: 2560 },
+        { ref: "100ah-25-6v-lityum-batarya",  chem: "lityum", v: 25.6, wh: 2560 },
+        { ref: "200ah-25-6v-lityum-batarya",  chem: "lityum", v: 25.6, wh: 5120 },
+        { ref: "100ah-48v-lityum-batarya",    chem: "lityum", v: 51.2, wh: 4800 },
+        { ref: "314ah-51-2v-premium-serisi-lityum-batarya", chem: "lityum", v: 51.2, wh: 16077 },
         { ref: "105ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 1260 },
         { ref: "160ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 1920 },
         { ref: "210ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 2520 }
       ],
       inverters: [
-        { ref: "3kw-hv-mppt-akilli-inverter-24v",    kw: 3,   v: 24 },
-        { ref: "6-2kw-hv-mppt-akilli-inverter-48v",  kw: 6.2, v: 48 },
-        { ref: "8kw-hv-mppt-akilli-inverter-48v",    kw: 8,   v: 48 },
-        { ref: "11kw-hv-2xmppt-akilli-inverter-48v", kw: 11,  v: 48 }
+        { ref: "3kw-hv-mppt-akilli-inverter-24v",    kw: 3,   v: 24, mppt: [60, 450] },
+        { ref: "6-2kw-hv-mppt-akilli-inverter-48v",  kw: 6.2, v: 48, mppt: [90, 450] },
+        { ref: "8kw-hv-mppt-akilli-inverter-48v",    kw: 8,   v: 48, mppt: [90, 450] },
+        { ref: "11kw-hv-2xmppt-akilli-inverter-48v", kw: 11,  v: 48, mppt: [90, 450] }
       ],
       extras: { cable: "6mm2-solar-kablo", mc4: "mc4-konnektor-1500v" }
-    }
+    },
+
+    // ---- Solar Sulama (SMART VFD500 MPPT pompa sürücüsü datasheet'i) ----
+    // siniflar: çıkış voltaj sınıfına göre PV tarafı değerleri —
+    //   mppt = önerilen MPPT aralığı (VDC), oneriV = önerilen PV giriş
+    //   gerilimi, maxDcV = azami DC giriş. Kaynak: SMART_DATASHEET_1.pdf.
+    // suruculer: hp = pompa gücü, kw = sürücü gücü, faz = "220" (3×220V çıkış,
+    //   monofaze şebeke sınıfı) | "380" (3×380V trifaze), ref = katalogdaki
+    //   ürün (yoksa null → fiyat için teklif CTA'sı gösterilir).
+    sulama: {
+      pvOversize: 1.35,   // panel gücü ≈ sürücü kW × bu katsayı
+      siniflar: {
+        "220": { mppt: [250, 350], oneriV: 305, maxDcV: 450, cikis: "3×220V" },
+        "380": { mppt: [600, 650], oneriV: 530, maxDcV: 800, cikis: "3×380V" }
+      },
+      suruculer: [
+        { hp: 3,   kw: 2.2, faz: "220", ref: "3hp-2-2kw-3x220v-solar-pompa-inverteri" },
+        { hp: 5.5, kw: 4,   faz: "220", ref: "5-5hp-4kw-3x220v-solar-pompa-inverteri" },
+        { hp: 3,   kw: 2.2, faz: "380", ref: "3hp-2-2kw-380v-solar-pompa-inverteri" },
+        { hp: 5.5, kw: 4,   faz: "380", ref: "5-5hp-4kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 7.5, kw: 5.5, faz: "380", ref: "7-5hp-5-5kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 10,  kw: 7.5, faz: "380", ref: "10hp-7-5kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 15,  kw: 11,  faz: "380", ref: "15hp-11kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 20,  kw: 15,  faz: "380", ref: "20hp-15kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 25,  kw: 18.5, faz: "380", ref: "25hp-18-5kwsolar-pompa-inverter-yeni-nesil" },
+        { hp: 30,  kw: 22,  faz: "380", ref: "30hp-22kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 40,  kw: 30,  faz: "380", ref: "40hp-30kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 50,  kw: 37,  faz: "380", ref: null },
+        { hp: 60,  kw: 45,  faz: "380", ref: "60hp-45kw-solar-pompa-inverter-yeni-nesil" },
+        { hp: 75,  kw: 55,  faz: "380", ref: null },
+        { hp: 100, kw: 75,  faz: "380", ref: null },
+        { hp: 120, kw: 90,  faz: "380", ref: "120hp-90kw-solar-pompa-inverteri-yeni-nesil" },
+        { hp: 150, kw: 110, faz: "380", ref: "150hp-110kw-solar-pompa-inverteri-yeni-nesil" },
+        { hp: 180, kw: 132, faz: "380", ref: "180hp-132kw-solar-pompa-inverteri-yeni-nesil" },
+        { hp: 210, kw: 160, faz: "380", ref: "210hp-160kw-solar-pompa-inverteri-yeni-nesil" }
+      ]
+    },
+
+    // ---- Size Özel Paketler ----
+    // Doldurulunca sayfada otomatik listelenir. Şema:
+    //   { id: "karavan-baslangic", ad: "Karavan Başlangıç Paketi",
+    //     aciklama: "...", etiket: "Yeni", urunler: [{ ref: "<urun-id>", adet: 2 }] }
+    paketler: []
   },
 
   // Ziyaretçi sayacı — footer rozeti. Gösterilen toplam = base + sunucu sayacı

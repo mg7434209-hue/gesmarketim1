@@ -1,27 +1,29 @@
-// Sistem Kur v2 — /hesaplayici (rota ve menü adı değişmedi)
+// Sistem Kur — /hesaplayici (rota ve menü adı değişmez)
 //
-// Üç katman:
-//  1) HERO doğal dil girişi → /api/asistan (server.js → gesmarketim backend
-//     proxy'si). tip=soru → sohbet balonu; tip=teklif → teklif kartı.
-//  2) "veya hazır senaryodan başlayın" → mevcut sihirbaz (küçültülmüş senaryo
-//     kartları). Tarımsal sulamada cihaz listesi YOK: pompa HP + günlük saat
-//     → /api/hesapla. Karavan/bağ evi: Minimal/Standart/Konforlu profilleri +
-//     "özelleştir" ile detay listesi. Müstakil ev/işletme: detay listesi.
-//  3) Sonucun altında uyarı + ücretsiz proje doğrulaması (→ /api/leads).
+// SADE 3 BÖLÜM (sekme kartları):
+//  1) 🧩 Kendi Projeni Kendin Oluştur — panel/inverter/akü kayar-açılır (akordeon)
+//     menülerle seçilir; UYUMLULUK canlı denetlenir (akü bankası ↔ inverter
+//     voltajı, panel dizisi ↔ MPPT aralığı, PV gücü ↔ inverter sınırı).
+//  2) 💧 Solar Sulama — pompa HP + faz seçilir; SMART VFD500 datasheet
+//     değerleriyle sürücü + panel önerilir (katalog ürünü varsa fiyatıyla).
+//  3) 📦 Size Özel Paketler — config.builder.paketler doldurulunca listelenir.
+// Üstte ince "AI Danışman" şeridi (isteğe bağlı, /api/asistan) durur; teklif
+// dönerse teklif kartı gösterilir. Her sonucun altında ücretsiz proje
+// doğrulaması bloğu (/api/leads) vardır.
 //
-// Fiyat kuralı: teklif satırları YEREL kataloğa eşlenir ve priceTL() ile
-// gösterilir — koda fiyat gömülmez; eşleşmeyen satır sepete eklenmez.
+// KURAL: hiçbir katsayı/fiyat koda gömülmez — katsayılar config.builder'dan,
+// fiyatlar canlı /api/products + priceTL()'den gelir.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useStore, priceTL, havaleTL, fmtTL, cartGet, cartAdd, waLink } from "../api.js";
 import { useSeo } from "../hooks.js";
 import { PlaceholderImg } from "../components/ui.jsx";
 import {
-  asistanSor, hesaplaApi, leadGonder, matchLocalProduct, teklifPanelWatt,
-  SENARYO_MAP, AsistanKapaliError, SistemKurApiError,
+  asistanSor, leadGonder, matchLocalProduct, teklifPanelWatt,
+  AsistanKapaliError, SistemKurApiError,
 } from "../sistemkur.js";
 
-const BLD_KEY = "gesm.builder";
+const OEM_KEY = "gesm.oem";
 const ORNEKLER = [
   "Bağ evinde buzdolabı, 5 lamba, akşam 3 saat TV",
   "10 beygir pompam var, günde 6 saat sulama",
@@ -29,568 +31,868 @@ const ORNEKLER = [
 const TEL_RE = /^[0-9+\s()-]{10,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/* Akü nominal voltajını sistem sınıfına indirger: 12,8→12 · 25,6→24 · 51,2→48 */
+const batSinif = (v) => (v <= 13.5 ? 12 : v <= 27 ? 24 : 48);
+const fmtV = (v) => String(v).replace(".", ",") + "V";
+
 export default function Builder() {
   const store = useStore();
   const B = store.config.builder;
   const [sp] = useSearchParams();
   useSeo({
-    title: "Sistem Kur — İhtiyacınıza Göre Güneş Enerjisi Sistemi | " + store.config.company.brand,
-    description: "İhtiyacınızı yazın ya da senaryo seçin: panel, akü ve inverteri yapay zekâ destekli danışmanla boyutlandırın, canlı fiyatlarla paket teklifi alın.",
+    title: "Sistem Kur — Kendi Solar Projenizi Oluşturun | " + store.config.company.brand,
+    description:
+      "Panel, inverter ve aküyü uyumluluk kontrolüyle kendiniz seçin; solar sulama pompanıza uygun sürücü ve panel önerisi alın ya da hazır paketlere göz atın.",
   });
 
-  const byId = (ref) => store.products.find((p) => p.id === ref);
-  const presetOf = (id) => B.presets.find((p) => p.id === id) || B.presets[0];
-  const existingPanels = (list) =>
-    (list || []).filter((r) => { const p = byId(r); return p && B.catalog.panels[r] && p.inStock !== false; });
+  // ?profil=sulama → sulama sekmesi; diğerleri OEM
+  const [mode, setMode] = useState(() => {
+    const p = (sp.get("profil") || sp.get("tip") || "").toLowerCase();
+    if (p === "sulama") return "sulama";
+    if (p.startsWith("paket")) return "paketler";
+    return "oem";
+  });
 
-  /* ================= Asistan sohbeti ================= */
-  const [chat, setChat] = useState([]);
-  const [mesaj, setMesaj] = useState("");
-  const [busyAI, setBusyAI] = useState(false);
-  const [asistanKapali, setAsistanKapali] = useState(false);
-  const [aiHata, setAiHata] = useState("");
+  // --- AI danışman (isteğe bağlı ince şerit) + teklif ---
   const [teklif, setTeklif] = useState(null);
   const teklifRef = useRef(null);
-  const chatEndRef = useRef(null);
-
   useEffect(() => {
     if (teklif) teklifRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [teklif]);
+
+  const MODLAR = [
+    { id: "oem", icon: "🧩", ad: "Kendi Projeni Kendin Oluştur",
+      desc: "Panel, inverter ve aküyü kendin seç — uyumluluğu biz kontrol edelim." },
+    { id: "sulama", icon: "💧", ad: "Solar Sulama Sistemi",
+      desc: "Pompanın gücünü söyle; sürücüyü ve paneli biz önerelim." },
+    { id: "paketler", icon: "📦", ad: "Size Özel Paketler",
+      desc: "Kullanıma hazır, uyumu test edilmiş sistem paketleri." },
+  ];
+
+  return (
+    <div className="wrap py-8">
+      <h1 className="text-2xl md:text-3xl">🛠️ Sistem Kur</h1>
+      <p className="text-brand-ink/60 mt-1 mb-5 max-w-2xl">
+        Projenizi üç yoldan kurun: kendiniz seçin, sulama pompanıza göre önerelim
+        ya da hazır paketlerden başlayın.
+      </p>
+
+      <AiDanisman onTeklif={setTeklif} />
+
+      <div ref={teklifRef}>
+        {teklif && (
+          <>
+            <TeklifKarti teklif={teklif} store={store} />
+            <UyariDogrulama
+              vurgulu={teklifPanelWatt(teklif.urunler) > 10000}
+              ozet={{ kaynak: "asistan", paketSku: teklif.paketSku,
+                urunler: teklif.urunler.map((u) => ({ ad: u.ad, adet: u.adet })) }}
+            />
+          </>
+        )}
+      </div>
+
+      {/* --- 3 bölüm kartı --- */}
+      <div className="grid sm:grid-cols-3 gap-3 mt-6 mb-6">
+        {MODLAR.map((m) => (
+          <button key={m.id} type="button" onClick={() => setMode(m.id)}
+            aria-pressed={mode === m.id}
+            className={"card p-4 text-left transition hover:-translate-y-0.5 " +
+              (mode === m.id ? "ring-2 ring-brand-amber bg-brand-amber/10" : "")}>
+            <span className="text-2xl">{m.icon}</span>
+            <b className="block mt-1">{m.ad}</b>
+            <span className="text-xs text-brand-ink/60 leading-5 block mt-0.5">{m.desc}</span>
+          </button>
+        ))}
+      </div>
+
+      {mode === "oem" && <OemKurucu store={store} B={B} />}
+      {mode === "sulama" && <SulamaSihirbazi store={store} B={B} />}
+      {mode === "paketler" && <Paketler store={store} B={B} />}
+    </div>
+  );
+}
+
+/* ========================================================================
+   1) OEM KURUCU — akordeonlarla parça seçimi + canlı uyumluluk
+   ======================================================================== */
+function OemKurucu({ store, B }) {
+  const byId = (ref) => store.products.find((p) => p.id === ref);
+  const stokta = (p) => p && p.inStock !== false;
+
+  const [sel, setSel] = useState(() => {
+    try {
+      const s = JSON.parse(localStorage.getItem(OEM_KEY)) || {};
+      return { panelRef: s.panelRef || null, panelQty: s.panelQty || 0,
+        invRef: s.invRef || null, batRef: s.batRef || null, batQty: s.batQty || 0,
+        cableM: s.cableM || 0, mc4: s.mc4 || 0 };
+    } catch {
+      return { panelRef: null, panelQty: 0, invRef: null, batRef: null, batQty: 0, cableM: 0, mc4: 0 };
+    }
+  });
+  useEffect(() => { localStorage.setItem(OEM_KEY, JSON.stringify(sel)); }, [sel]);
+  const [acik, setAcik] = useState("panel"); // açık akordeon
+  const [toast, setToast] = useState("");
+
+  const inv = B.catalog.inverters.find((i) => i.ref === sel.invRef) || null;
+  const panelDef = sel.panelRef ? B.catalog.panels[sel.panelRef] : null;
+  const bat = B.catalog.batteries.find((b) => b.ref === sel.batRef) || null;
+
+  /* ---- uyumluluk hesapları (tüm eşikler config'ten) ---- */
+  // Akü ↔ inverter: seri adet = inverter V / akü sınıf V (tam sayı olmalı)
+  const batSeriFor = (b) => {
+    if (!inv) return null;
+    const s = inv.v / batSinif(b.v);
+    return s >= 1 && s % 1 === 0 ? s : 0; // 0 = uyumsuz
+  };
+  // Panel ↔ MPPT: bu panelden kaç adet seri bağlanabilir?
+  const seriAralik = (pd) => {
+    if (!inv || !pd) return null;
+    const [mMin, mMax] = inv.mppt;
+    const sMin = Math.ceil(mMin / pd.voc);
+    const sMax = Math.floor(mMax / pd.voc);
+    return sMax >= 1 && sMin <= sMax ? [sMin, sMax] : [0, 0]; // [0,0] = uyumsuz
+  };
+  // Adet, seri×paralel olarak MPPT aralığına oturuyor mu?
+  const panelDurum = useMemo(() => {
+    if (!panelDef || !sel.panelQty) return null;
+    if (!inv) return { ok: true, bilgi: "İnverter seçince dizi kontrolü yapılır." };
+    const [sMin, sMax] = seriAralik(panelDef);
+    if (sMax === 0) return { ok: false, neden: "Bu panelin gerilimi bu inverterin MPPT aralığına uymuyor — farklı panel ya da inverter seçin." };
+    if (sel.panelQty < sMin)
+      return { ok: false, neden: "Bu inverter için en az " + sMin + " panel seri bağlanmalı.", oneri: sMin };
+    let dizi = null;
+    for (let s = sMax; s >= sMin; s--) if (sel.panelQty % s === 0) { dizi = [s, sel.panelQty / s]; break; }
+    if (!dizi) {
+      const oneri = Math.ceil(sel.panelQty / sMin) * sMin;
+      return { ok: false, neden: "Adet " + sMin + "–" + sMax + " seri dizilere bölünemiyor.", oneri };
+    }
+    return { ok: true, dizi, aralik: [sMin, sMax] };
+  }, [panelDef, sel.panelQty, inv]);
+  // Toplam PV gücü inverter sınırında mı?
+  const pvDurum = useMemo(() => {
+    if (!inv || !panelDef || !sel.panelQty) return null;
+    const toplamW = panelDef.w * sel.panelQty;
+    const maxW = inv.kw * 1000 * (B.oem.pvHeadroom || 1.3);
+    return { ok: toplamW <= maxW, toplamW, maxW };
+  }, [inv, panelDef, sel.panelQty]);
+  const batDurum = useMemo(() => {
+    if (!bat || !sel.batQty) return null;
+    if (!inv) return { ok: true, bilgi: "İnverter seçince voltaj kontrolü yapılır." };
+    const seri = batSeriFor(bat);
+    if (!seri) return { ok: false, neden: fmtV(inv.v) + " inverter " + fmtV(bat.v) + " aküyle uyumsuz — " + fmtV(inv.v) + " sınıfı akü seçin." };
+    if (sel.batQty % seri !== 0)
+      return { ok: false, neden: fmtV(inv.v) + " sistem için akü adedi " + seri + "'in katı olmalı.", oneri: Math.max(seri, Math.ceil(sel.batQty / seri) * seri) };
+    return { ok: true, seri, banka: sel.batQty / seri };
+  }, [bat, sel.batQty, inv]);
+
+  /* ---- satırlar + toplam ---- */
+  const satirlar = useMemo(() => {
+    const out = [];
+    const push = (ref, qty, rol) => { const p = byId(ref); if (p && qty > 0) out.push({ ref, qty, rol, p }); };
+    push(sel.panelRef, sel.panelQty, "Güneş paneli");
+    if (sel.invRef) push(sel.invRef, 1, "Akıllı inverter (MPPT)");
+    push(sel.batRef, sel.batQty, "Akü");
+    if (B.catalog.extras.cable) push(B.catalog.extras.cable, sel.cableM, "Solar kablo (metre)");
+    if (B.catalog.extras.mc4) push(B.catalog.extras.mc4, sel.mc4, "MC4 konnektör (çift)");
+    return out;
+  }, [sel, store.products]);
+  const toplam = satirlar.reduce((s, l) => s + priceTL(l.p, store) * l.qty, 0);
+  const sertHata = (batDurum && !batDurum.ok && !batDurum.oneri) || (panelDurum && !panelDurum.ok && !panelDurum.oneri);
+  const herhangiUyari = [panelDurum, pvDurum, batDurum].some((d) => d && !d.ok);
+
+  const sepeteEkle = () => {
+    let n = 0;
+    satirlar.forEach((l) => { cartAdd(l.ref, l.qty); n += l.qty; });
+    void cartGet();
+    setToast(n + " ürün sepete eklendi.");
+    setTimeout(() => setToast(""), 3500);
+  };
+  const waMsg = "Merhaba! Sistem Kur'da kendi projemi oluşturdum:\n" +
+    satirlar.map((l) => "• " + l.qty + " × " + l.p.name).join("\n") +
+    (toplam ? "\nTahmini toplam: " + fmtTL(toplam) : "") + "\nKesin teklif rica ediyorum.";
+
+  /* ---- seçim yardımcıları (akıllı varsayılan adetler) ---- */
+  const panelSec = (ref) => {
+    const pd = B.catalog.panels[ref];
+    let qty = sel.panelRef === ref && sel.panelQty ? sel.panelQty : 2;
+    if (inv && pd) { const [sMin, sMax] = seriAralik(pd); if (sMax > 0) qty = sMin; }
+    setSel((s) => ({ ...s, panelRef: ref, panelQty: qty }));
+  };
+  const invSec = (ref) => setSel((s) => ({ ...s, invRef: ref }));
+  const batSec = (b) => {
+    const seri = inv ? (inv.v / batSinif(b.v)) : 1;
+    const qty = seri >= 1 && seri % 1 === 0 ? seri : 1;
+    setSel((s) => ({ ...s, batRef: b.ref, batQty: qty }));
+  };
+
+  const panelList = Object.entries(B.catalog.panels)
+    .map(([ref, pd]) => ({ ref, ...pd, p: byId(ref) }))
+    .filter((x) => stokta(x.p));
+  const invList = B.catalog.inverters.map((i) => ({ ...i, p: byId(i.ref) })).filter((x) => stokta(x.p));
+  const batList = B.catalog.batteries.map((b) => ({ ...b, p: byId(b.ref) })).filter((x) => stokta(x.p));
+
+  return (
+    <div>
+      <div className="space-y-3">
+        {/* -------- PANEL -------- */}
+        <Akordeon acikMi={acik === "panel"} onToggle={() => setAcik(acik === "panel" ? "" : "panel")}
+          icon="☀️" baslik="Güneş Paneli"
+          ozet={sel.panelRef && byId(sel.panelRef) ? sel.panelQty + " × " + byId(sel.panelRef).name : "Seçilmedi"}>
+          <div className="space-y-2">
+            {panelList.map((x) => {
+              const aralik = inv ? seriAralik(x) : null;
+              const uyumsuz = aralik && aralik[1] === 0;
+              return (
+                <SecimSatiri key={x.ref} p={x.p} store={store} secili={sel.panelRef === x.ref}
+                  disabled={uyumsuz}
+                  rozet={uyumsuz
+                    ? { tip: "kotu", metin: "MPPT aralığına uymuyor" }
+                    : aralik ? { tip: "iyi", metin: aralik[0] + "–" + aralik[1] + " adet seri bağlanabilir" }
+                      : { tip: "notr", metin: x.w + " W · Voc " + fmtV(x.voc) }}
+                  onSec={() => panelSec(x.ref)} />
+              );
+            })}
+          </div>
+          {sel.panelRef && (
+            <AdetSecici etiket="Panel adedi" deger={sel.panelQty}
+              onDegis={(q) => setSel((s) => ({ ...s, panelQty: q }))} min={0} max={200} />
+          )}
+        </Akordeon>
+
+        {/* -------- İNVERTER -------- */}
+        <Akordeon acikMi={acik === "inv"} onToggle={() => setAcik(acik === "inv" ? "" : "inv")}
+          icon="⚡" baslik="İnverter"
+          ozet={sel.invRef && byId(sel.invRef) ? byId(sel.invRef).name : "Seçilmedi"}>
+          <div className="space-y-2">
+            {invList.map((x) => (
+              <SecimSatiri key={x.ref} p={x.p} store={store} secili={sel.invRef === x.ref}
+                rozet={{ tip: "notr", metin: x.kw + " kW · " + fmtV(x.v) + " akü · MPPT " + x.mppt[0] + "–" + x.mppt[1] + "V" }}
+                onSec={() => invSec(x.ref)} />
+            ))}
+          </div>
+          <p className="text-xs text-brand-ink/50 mt-3">
+            💡 İnverteri seçince panel ve akü listelerinde uyumluluk rozetleri görünür.
+          </p>
+        </Akordeon>
+
+        {/* -------- AKÜ -------- */}
+        <Akordeon acikMi={acik === "aku"} onToggle={() => setAcik(acik === "aku" ? "" : "aku")}
+          icon="🔋" baslik="Akü / Batarya"
+          ozet={sel.batRef && byId(sel.batRef) ? sel.batQty + " × " + byId(sel.batRef).name : "Seçilmedi (şebeke bağlantılıysa gerekmez)"}>
+          <div className="space-y-2">
+            {batList.map((x) => {
+              const seri = inv ? batSeriFor(x) : null;
+              const uyumsuz = seri === 0;
+              return (
+                <SecimSatiri key={x.ref} p={x.p} store={store} secili={sel.batRef === x.ref}
+                  disabled={uyumsuz}
+                  rozet={uyumsuz
+                    ? { tip: "kotu", metin: fmtV(inv.v) + " inverterle uyumsuz" }
+                    : seri ? { tip: "iyi", metin: seri === 1 ? "Tek başına uyumlu" : seri + " adet seri = " + fmtV(inv.v) + " banka" }
+                      : { tip: "notr", metin: fmtV(x.v) + " · " + (x.wh / 1000).toFixed(1).replace(".", ",") + " kWh · " + (x.chem === "jel" ? "Jel" : "LiFePO4") }}
+                  onSec={() => batSec(x)} />
+              );
+            })}
+          </div>
+          {sel.batRef && (
+            <div className="flex flex-wrap items-center gap-3 mt-3">
+              <AdetSecici etiket="Akü adedi" deger={sel.batQty}
+                onDegis={(q) => setSel((s) => ({ ...s, batQty: q }))} min={0} max={64} />
+              <button type="button" className="text-xs text-brand-blue hover:underline"
+                onClick={() => setSel((s) => ({ ...s, batRef: null, batQty: 0 }))}>
+                Akü istemiyorum ✕
+              </button>
+            </div>
+          )}
+        </Akordeon>
+
+        {/* -------- KABLO & MONTAJ -------- */}
+        <Akordeon acikMi={acik === "ekstra"} onToggle={() => setAcik(acik === "ekstra" ? "" : "ekstra")}
+          icon="🔌" baslik="Kablo & Bağlantı"
+          ozet={(sel.cableM ? sel.cableM + " m kablo" : "") + (sel.cableM && sel.mc4 ? " · " : "") + (sel.mc4 ? sel.mc4 + " çift MC4" : "") || "İsteğe bağlı"}>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {B.catalog.extras.cable && byId(B.catalog.extras.cable) && (
+              <div>
+                <p className="text-sm font-semibold mb-1">{byId(B.catalog.extras.cable).name}</p>
+                <AdetSecici etiket="Metre" deger={sel.cableM}
+                  onDegis={(q) => setSel((s) => ({ ...s, cableM: q }))} min={0} max={500} />
+              </div>
+            )}
+            {B.catalog.extras.mc4 && byId(B.catalog.extras.mc4) && (
+              <div>
+                <p className="text-sm font-semibold mb-1">{byId(B.catalog.extras.mc4).name}</p>
+                <AdetSecici etiket="Çift" deger={sel.mc4}
+                  onDegis={(q) => setSel((s) => ({ ...s, mc4: q }))} min={0} max={100} />
+                {panelDurum && panelDurum.ok && panelDurum.dizi && (
+                  <p className="text-xs text-brand-ink/50 mt-1">Öneri: dizi başına 1 çift ({panelDurum.dizi[1]} paralel dizi)</p>
+                )}
+              </div>
+            )}
+          </div>
+        </Akordeon>
+      </div>
+
+      {/* -------- SİSTEM ÖZETİ + UYUM KONTROLÜ -------- */}
+      {satirlar.length > 0 && (
+        <div className="card p-5 mt-5">
+          <h3 className="text-lg mb-3">Sistem özetiniz</h3>
+          <div className="space-y-1.5 text-sm">
+            {satirlar.map((l) => (
+              <div key={l.ref} className="flex justify-between gap-3">
+                <span className="min-w-0">
+                  <span className="text-brand-ink/50 text-xs">{l.rol} · </span>
+                  <Link to={"/urun/" + l.ref} className="hover:text-brand-blue">{l.p.name}</Link>
+                  <span className="text-brand-ink/50"> × {l.qty}</span>
+                </span>
+                <b className="shrink-0">{fmtTL(priceTL(l.p, store) * l.qty)}</b>
+              </div>
+            ))}
+          </div>
+
+          {/* uyum kontrol listesi */}
+          <ul className="mt-4 space-y-1.5 text-sm">
+            {batDurum && (
+              <KontrolSatiri ok={batDurum.ok}
+                metin={batDurum.ok
+                  ? (batDurum.bilgi || fmtV(inv.v) + " akü bankası: " + batDurum.seri + " seri × " + batDurum.banka + " paralel ✓")
+                  : batDurum.neden}
+                oneri={batDurum.oneri}
+                onDuzelt={batDurum.oneri ? () => setSel((s) => ({ ...s, batQty: batDurum.oneri })) : null} />
+            )}
+            {panelDurum && (
+              <KontrolSatiri ok={panelDurum.ok}
+                metin={panelDurum.ok
+                  ? (panelDurum.bilgi || "Panel dizisi: " + panelDurum.dizi[0] + " seri × " + panelDurum.dizi[1] + " paralel (MPPT " + inv.mppt[0] + "–" + inv.mppt[1] + "V) ✓")
+                  : panelDurum.neden}
+                oneri={panelDurum.oneri}
+                onDuzelt={panelDurum.oneri ? () => setSel((s) => ({ ...s, panelQty: panelDurum.oneri })) : null} />
+            )}
+            {pvDurum && (
+              <KontrolSatiri ok={pvDurum.ok}
+                metin={pvDurum.ok
+                  ? "PV gücü " + (pvDurum.toplamW / 1000).toFixed(2).replace(".", ",") + " kW — inverter sınırında ✓"
+                  : "PV gücü inverter sınırını aşıyor (azami ~" + (pvDurum.maxW / 1000).toFixed(1).replace(".", ",") + " kW) — panel adedini azaltın ya da büyük inverter seçin."} />
+            )}
+            {!inv && (sel.panelRef || sel.batRef) && (
+              <li className="text-brand-ink/50 text-xs">💡 İnverter seçince voltaj ve dizi uyumluluğu burada denetlenir.</li>
+            )}
+          </ul>
+
+          <div className="flex justify-between text-lg font-extrabold mt-4 pt-3 border-t border-surface-line">
+            <span>Toplam</span><span className="text-[#9a6a12]">{fmtTL(toplam)}</span>
+          </div>
+          <div className="flex justify-between text-sm text-brand-green font-semibold mt-1">
+            <span>💰 Havale/EFT ile</span>
+            <span>{fmtTL(havaleTL(toplam, store))} (%{store.config.commerce.havaleDiscountPct} indirimli)</span>
+          </div>
+          <p className="text-xs text-brand-ink/60 mt-2">KDV dahil · kargo hariç · fiyatlar liste fiyatıdır.</p>
+          <div className="flex flex-wrap gap-2 mt-4">
+            <button className="btn btn-primary grow" onClick={sepeteEkle} disabled={Boolean(sertHata)}>
+              🛒 Sistemi Sepete Ekle
+            </button>
+            <a className="btn btn-wa grow" target="_blank" rel="noopener noreferrer" href={waLink(store, waMsg)}>
+              WhatsApp ile Teklif İste
+            </a>
+          </div>
+          {sertHata && <p className="text-xs text-brand-red font-semibold mt-2">Uyumsuz seçim var — yukarıdaki uyarıları giderin.</p>}
+          {toast && <p className="text-sm text-brand-green mt-3">✓ {toast} <Link to="/sepet" className="underline">Sepete git →</Link></p>}
+        </div>
+      )}
+
+      {satirlar.length > 0 && (
+        <UyariDogrulama vurgulu={Boolean(panelDef && sel.panelQty && panelDef.w * sel.panelQty > 10000)}
+          ozet={{ kaynak: "oem",
+            urunler: satirlar.map((l) => ({ ad: l.p.name, adet: l.qty })), toplamTL: toplam,
+            uyari: herhangiUyari ? "uyum uyarısı var" : undefined }} />
+      )}
+    </div>
+  );
+}
+
+function Akordeon({ icon, baslik, ozet, acikMi, onToggle, children }) {
+  return (
+    <section className="card overflow-hidden">
+      <button type="button" onClick={onToggle} aria-expanded={acikMi}
+        className="w-full flex items-center gap-3 p-4 text-left hover:bg-surface-alt transition">
+        <span className="text-xl" aria-hidden="true">{icon}</span>
+        <span className="grow min-w-0">
+          <b className="block text-sm">{baslik}</b>
+          <span className="block text-xs text-brand-ink/60 truncate">{ozet}</span>
+        </span>
+        <span className={"text-brand-ink/40 transition-transform " + (acikMi ? "rotate-180" : "")} aria-hidden="true">▾</span>
+      </button>
+      <div className={"transition-all duration-300 ease-in-out overflow-hidden " + (acikMi ? "max-h-[3000px]" : "max-h-0")}>
+        <div className="px-4 pb-4">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+function SecimSatiri({ p, store, secili, disabled, rozet, onSec }) {
+  return (
+    <button type="button" onClick={onSec} disabled={disabled}
+      className={"w-full card p-2.5 flex items-center gap-3 text-left transition " +
+        (secili ? "ring-2 ring-brand-amber " : "hover:border-brand-amber/60 ") +
+        (disabled ? "opacity-45" : "")}>
+      <span className="w-14 h-12 shrink-0 rounded-btn overflow-hidden bg-surface-alt">
+        {p.img && p.img.length
+          ? <img src={"/" + p.img[0]} alt="" loading="lazy" className="w-full h-full object-cover" />
+          : <PlaceholderImg product={p} className="w-full h-full" />}
+      </span>
+      <span className="grow min-w-0">
+        <span className="block text-sm font-semibold leading-snug line-clamp-2">{p.name}</span>
+        {rozet && (
+          <span className={"badge mt-0.5 " +
+            (rozet.tip === "iyi" ? "bg-brand-green/15 text-brand-green"
+              : rozet.tip === "kotu" ? "bg-brand-red/15 text-brand-red"
+                : "bg-surface-alt text-brand-ink/60")}>
+            {rozet.metin}
+          </span>
+        )}
+      </span>
+      <b className="shrink-0 text-sm">{fmtTL(priceTL(p, store))}</b>
+    </button>
+  );
+}
+
+function AdetSecici({ etiket, deger, onDegis, min = 0, max = 99 }) {
+  return (
+    <label className="inline-flex items-center gap-2 text-sm text-brand-ink/70 mt-3">
+      {etiket}
+      <span className="flex items-center border border-surface-line rounded-btn bg-surface-card">
+        <button type="button" className="px-2.5 py-1 font-bold" aria-label="Azalt"
+          onClick={() => onDegis(Math.max(min, deger - 1))}>−</button>
+        <input type="number" value={deger} min={min} max={max}
+          onChange={(e) => onDegis(Math.min(max, Math.max(min, Math.floor(Number(e.target.value) || 0))))}
+          className="w-14 text-center text-sm font-bold bg-transparent focus:outline-none" />
+        <button type="button" className="px-2.5 py-1 font-bold" aria-label="Artır"
+          onClick={() => onDegis(Math.min(max, deger + 1))}>+</button>
+      </span>
+    </label>
+  );
+}
+
+function KontrolSatiri({ ok, metin, onDuzelt, oneri }) {
+  return (
+    <li className={"flex items-start gap-2 " + (ok ? "text-brand-green" : "text-brand-red")}>
+      <span aria-hidden="true">{ok ? "✓" : "⚠"}</span>
+      <span className="grow">{metin}
+        {!ok && onDuzelt && (
+          <button type="button" onClick={onDuzelt}
+            className="ml-2 text-xs font-bold text-brand-blue hover:underline">
+            {oneri} adede getir ↺
+          </button>
+        )}
+      </span>
+    </li>
+  );
+}
+
+/* ========================================================================
+   2) SOLAR SULAMA — HP + faz → SMART datasheet değerleriyle sürücü + panel
+   ======================================================================== */
+function SulamaSihirbazi({ store, B }) {
+  const S = B.sulama;
+  const byId = (ref) => store.products.find((p) => p.id === ref);
+  const [faz, setFaz] = useState("380");
+  const liste = S.suruculer.filter((d) => d.faz === faz);
+  const [hp, setHp] = useState(liste[0]?.hp ?? 3);
   useEffect(() => {
-    if (chat.length || busyAI) chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }, [chat, busyAI]);
+    if (!liste.some((d) => d.hp === hp)) setHp(liste[0]?.hp ?? 3);
+  }, [faz]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [toast, setToast] = useState("");
+
+  const surucu = liste.find((d) => d.hp === hp) || null;
+  const sinif = S.siniflar[faz];
+  const surucuP = surucu && surucu.ref ? byId(surucu.ref) : null;
+  const surucuSatilir = surucuP && surucuP.inStock !== false;
+
+  // Panel önerisi: hedef güç = sürücü kW × pvOversize. Dizi GERİLİMİ sabit bir
+  // gereksinimdir (MPPT aralığı) — seri adet oneriV/voc'tan gelir; güç, paralel
+  // dizilerle hedefe YUKARI tamamlanır. Varsayılan panel modeli, gerilim şartını
+  // sağlarken hedefi EN AZ aşan model olarak otomatik seçilir (küçük pompaya
+  // dev panel dizisi önermemek için); kullanıcı istediği modele geçebilir.
+  const panelSecenekleri = Object.entries(B.catalog.panels)
+    .map(([ref, pd]) => ({ ref, ...pd, p: byId(ref) }))
+    .filter((x) => x.p && x.p.inStock !== false)
+    .sort((a, b) => b.w - a.w);
+
+  const diziHesabi = (pd, hedefW) => {
+    let seri = Math.max(1, Math.round(sinif.oneriV / pd.voc));
+    while (seri > 1 && seri * pd.voc > sinif.maxDcV) seri--;
+    const paralel = Math.max(1, Math.ceil(hedefW / (seri * pd.w)));
+    const adet = seri * paralel;
+    return { seri, paralel, adet, toplamW: adet * pd.w, gerilimOk: seri * pd.voc >= sinif.mppt[0] };
+  };
+
+  const enUygunRef = useMemo(() => {
+    if (!surucu || panelSecenekleri.length === 0) return null;
+    const hedefW = surucu.kw * 1000 * S.pvOversize;
+    let best = null;
+    for (const x of panelSecenekleri) {
+      const d = diziHesabi(x, hedefW);
+      const aday = { ref: x.ref, ...d, fiyat: priceTL(x.p, store) * d.adet };
+      if (!best) { best = aday; continue; }
+      // Önce gerilim şartını sağlayanlar; sonra müşteri için EN EKONOMİK dizi
+      // (toplam ₺); eşitse az panel (az montaj) tercih edilir.
+      if (aday.gerilimOk !== best.gerilimOk) { if (aday.gerilimOk) best = aday; continue; }
+      if (aday.fiyat < best.fiyat || (aday.fiyat === best.fiyat && aday.adet < best.adet)) best = aday;
+    }
+    return best ? best.ref : null;
+  }, [surucu, faz, store.products, store.kur]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const [panelManuel, setPanelManuel] = useState(null); // kullanıcı elle seçerse
+  const panelRef = panelManuel || enUygunRef;
+  const panel = panelSecenekleri.find((x) => x.ref === panelRef) || panelSecenekleri[0] || null;
+
+  const oneri = useMemo(() => {
+    if (!surucu || !panel) return null;
+    const hedefW = surucu.kw * 1000 * S.pvOversize;
+    const d = diziHesabi(panel, hedefW);
+    const uyari = !d.gerilimOk
+      ? "Bu panelle dizi gerilimi önerilen MPPT aralığının altında kalıyor — daha yüksek Voc'lu panel tercih edin ya da bize danışın."
+      : null;
+    const gerilimNotu = d.toplamW > hedefW * 1.5
+      ? "Dizi gerilimi gereksinimi (MPPT " + sinif.mppt[0] + "–" + sinif.mppt[1] + "V) nedeniyle panel gücü hedefin üzerinde çıkar — pompanız sabah ve akşam saatlerinde de tam verimle çalışır."
+      : null;
+    return { hedefW, ...d, uyari, gerilimNotu };
+  }, [surucu, panel, faz]);
+
+  const panelToplam = panel && oneri ? priceTL(panel.p, store) * oneri.adet : 0;
+  const toplam = panelToplam + (surucuSatilir ? priceTL(surucuP, store) : 0);
+
+  const sepeteEkle = () => {
+    if (!oneri) return;
+    let n = 0;
+    if (surucuSatilir) { cartAdd(surucuP.id, 1); n += 1; }
+    if (panel) { cartAdd(panel.ref, oneri.adet); n += oneri.adet; }
+    void cartGet();
+    setToast(n + " ürün sepete eklendi.");
+    setTimeout(() => setToast(""), 3500);
+  };
+
+  const waMsg = surucu
+    ? "Merhaba! Solar sulama sistemi istiyorum:\n• Pompa: " + String(surucu.hp).replace(".", ",") +
+      " HP (" + String(surucu.kw).replace(".", ",") + " kW, " + sinif.cikis + " çıkış)\n" +
+      (oneri && panel ? "• Panel: " + oneri.adet + " × " + panel.p.name + " (" + oneri.seri + " seri × " + oneri.paralel + " paralel)\n" : "") +
+      (toplam ? "Tahmini toplam: " + fmtTL(toplam) + "\n" : "") + "Kesin teklif rica ediyorum."
+    : "";
+
+  return (
+    <div>
+      <div className="card p-5">
+        <p className="font-semibold text-sm">
+          Pompanızı seçin — sulamada akü gerekmez, pompa gündüz doğrudan panelden çalışır.
+        </p>
+        <div className="grid sm:grid-cols-3 gap-4 mt-4">
+          <label className="block text-sm text-brand-ink/70">
+            Motor tipi / şebeke
+            <select className="input mt-1.5 font-semibold" value={faz} onChange={(e) => setFaz(e.target.value)}>
+              <option value="380">Trifaze (3×380V çıkış)</option>
+              <option value="220">Monofaze şebeke (3×220V çıkış)</option>
+            </select>
+          </label>
+          <label className="block text-sm text-brand-ink/70">
+            Pompa gücü
+            <select className="input mt-1.5 font-semibold" value={hp} onChange={(e) => setHp(Number(e.target.value))}>
+              {liste.map((d) => (
+                <option key={d.hp} value={d.hp}>
+                  {String(d.hp).replace(".", ",")} HP ({String(d.kw).replace(".", ",")} kW)
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block text-sm text-brand-ink/70">
+            Panel modeli
+            <select className="input mt-1.5 font-semibold" value={panelRef || ""} onChange={(e) => setPanelManuel(e.target.value)}>
+              {panelSecenekleri.map((x) => (
+                <option key={x.ref} value={x.ref}>
+                  {x.p.name}{x.ref === enUygunRef ? " (önerilen)" : ""}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </div>
+
+      {surucu && oneri && panel && (
+        <div className="card p-5 mt-4">
+          <h3 className="text-lg">Önerilen sulama sisteminiz</h3>
+
+          <div className="space-y-2 mt-3">
+            {/* Sürücü satırı */}
+            <div className="card p-3 flex items-center gap-3">
+              {surucuP ? (
+                <Link to={"/urun/" + surucuP.id} className="w-16 h-14 shrink-0 rounded-btn overflow-hidden bg-surface-alt">
+                  {surucuP.img && surucuP.img.length
+                    ? <img src={"/" + surucuP.img[0]} alt="" loading="lazy" className="w-full h-full object-cover" />
+                    : <PlaceholderImg product={surucuP} className="w-full h-full" />}
+                </Link>
+              ) : (
+                <span className="w-16 h-14 shrink-0 rounded-btn bg-surface-alt flex items-center justify-center text-xl">⚙️</span>
+              )}
+              <div className="grow min-w-0">
+                <span className="text-xs text-brand-ink/50">MPPT pompa sürücüsü</span>
+                {surucuP ? (
+                  <Link to={"/urun/" + surucuP.id} className="block font-semibold text-sm leading-snug hover:text-brand-blue line-clamp-2">
+                    {surucuP.name}
+                  </Link>
+                ) : (
+                  <span className="block font-semibold text-sm leading-snug">
+                    {String(surucu.kw).replace(".", ",")} kW MPPT sürücü ({String(surucu.hp).replace(".", ",")} HP · {sinif.cikis})
+                  </span>
+                )}
+                <span className="text-xs text-brand-ink/60">
+                  MPPT {sinif.mppt[0]}–{sinif.mppt[1]}V · önerilen PV girişi {sinif.oneriV}V · azami {sinif.maxDcV}V DC
+                </span>
+              </div>
+              <b className="shrink-0 text-sm">
+                {surucuSatilir ? fmtTL(priceTL(surucuP, store))
+                  : surucuP ? "Stok sorun" : "Teklifle"}
+              </b>
+            </div>
+
+            {/* Panel satırı */}
+            <div className="card p-3 flex items-center gap-3">
+              <Link to={"/urun/" + panel.ref} className="w-16 h-14 shrink-0 rounded-btn overflow-hidden bg-surface-alt">
+                {panel.p.img && panel.p.img.length
+                  ? <img src={"/" + panel.p.img[0]} alt="" loading="lazy" className="w-full h-full object-cover" />
+                  : <PlaceholderImg product={panel.p} className="w-full h-full" />}
+              </Link>
+              <div className="grow min-w-0">
+                <span className="text-xs text-brand-ink/50">Güneş paneli · {oneri.seri} seri × {oneri.paralel} paralel</span>
+                <Link to={"/urun/" + panel.ref} className="block font-semibold text-sm leading-snug hover:text-brand-blue line-clamp-2">
+                  {panel.p.name}
+                </Link>
+                <span className="text-xs text-brand-ink/60">
+                  {fmtTL(priceTL(panel.p, store))} × {oneri.adet} · toplam {(oneri.toplamW / 1000).toFixed(2).replace(".", ",")} kW
+                  {" (hedef ~" + (oneri.hedefW / 1000).toFixed(1).replace(".", ",") + " kW)"}
+                </span>
+              </div>
+              <b className="shrink-0 text-sm">{fmtTL(panelToplam)}</b>
+            </div>
+          </div>
+
+          {oneri.uyari && <p className="mt-3 text-xs font-semibold text-brand-red">⚠ {oneri.uyari}</p>}
+          {oneri.gerilimNotu && <p className="mt-3 text-xs text-brand-ink/60">ℹ️ {oneri.gerilimNotu}</p>}
+          {!surucuSatilir && surucuP && (
+            <p className="mt-3 text-xs font-semibold text-brand-red">⚠ Sürücü şu an stokta yok — WhatsApp'tan stok bilgisi alın.</p>
+          )}
+
+          <div className="flex justify-between text-lg font-extrabold mt-4 pt-3 border-t border-surface-line">
+            <span>Toplam{surucuSatilir ? "" : " (panel)"}</span>
+            <span className="text-[#9a6a12]">{fmtTL(toplam)}</span>
+          </div>
+          <div className="flex justify-between text-sm text-brand-green font-semibold mt-1">
+            <span>💰 Havale/EFT ile</span>
+            <span>{fmtTL(havaleTL(toplam, store))} (%{store.config.commerce.havaleDiscountPct} indirimli)</span>
+          </div>
+          <p className="text-xs text-brand-ink/60 mt-2">
+            KDV dahil · kargo hariç{surucuSatilir ? "" : " · sürücü fiyatı teklifle netleşir"} · montaj ve kablolama keşifle belirlenir.
+          </p>
+          <div className="flex flex-wrap gap-2 mt-4">
+            <button className="btn btn-primary grow" onClick={sepeteEkle}>🛒 Sistemi Sepete Ekle</button>
+            <a className="btn btn-wa grow" target="_blank" rel="noopener noreferrer" href={waLink(store, waMsg)}>
+              WhatsApp ile Teklif İste
+            </a>
+          </div>
+          {toast && <p className="text-sm text-brand-green mt-3">✓ {toast} <Link to="/sepet" className="underline">Sepete git →</Link></p>}
+        </div>
+      )}
+
+      {surucu && oneri && (
+        <UyariDogrulama vurgulu={oneri.toplamW > 10000}
+          ozet={{ kaynak: "sulama", faz, hp: surucu.hp, surucuKw: surucu.kw,
+            panel: panel ? { ad: panel.p.name, adet: oneri.adet } : null, toplamTL: toplam }} />
+      )}
+    </div>
+  );
+}
+
+/* ========================================================================
+   3) SİZE ÖZEL PAKETLER — config.builder.paketler doldurulunca listelenir
+   ======================================================================== */
+function Paketler({ store, B }) {
+  const byId = (ref) => store.products.find((p) => p.id === ref);
+  const paketler = (B.paketler || [])
+    .map((pk) => {
+      const satirlar = (pk.urunler || [])
+        .map((u) => ({ ...u, p: byId(u.ref) }))
+        .filter((u) => u.p && u.p.inStock !== false);
+      const toplam = satirlar.reduce((s, u) => s + priceTL(u.p, store) * u.adet, 0);
+      return { ...pk, satirlar, toplam };
+    })
+    .filter((pk) => pk.satirlar.length > 0);
+  const [toast, setToast] = useState("");
+
+  if (paketler.length === 0) {
+    return (
+      <div className="card p-8 text-center">
+        <span className="text-3xl" aria-hidden="true">📦</span>
+        <h3 className="text-lg mt-2">Hazır paketler çok yakında</h3>
+        <p className="text-sm text-brand-ink/60 mt-1 max-w-md mx-auto">
+          Karavan, bağ evi ve sulama için uyumu test edilmiş hazır sistem paketlerini
+          burada bulacaksınız. O zamana kadar istediğiniz sistemi WhatsApp'tan sorabilirsiniz.
+        </p>
+        <a className="btn btn-wa mt-4" target="_blank" rel="noopener noreferrer"
+          href={waLink(store, "Merhaba! Hazır solar sistem paketleri hakkında bilgi almak istiyorum.")}>
+          WhatsApp'tan Sor
+        </a>
+      </div>
+    );
+  }
+
+  const paketiEkle = (pk) => {
+    let n = 0;
+    pk.satirlar.forEach((u) => { cartAdd(u.ref, u.adet); n += u.adet; });
+    void cartGet();
+    setToast(pk.ad + " sepete eklendi (" + n + " ürün).");
+    setTimeout(() => setToast(""), 3500);
+  };
+
+  return (
+    <div>
+      <div className="grid md:grid-cols-2 gap-4">
+        {paketler.map((pk) => (
+          <div key={pk.id} className="card p-5 flex flex-col">
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="text-lg">{pk.ad}</h3>
+              {pk.etiket && <span className="badge bg-brand-amber/20 text-[#9a6a12]">{pk.etiket}</span>}
+            </div>
+            {pk.aciklama && <p className="text-sm text-brand-ink/60 mt-1">{pk.aciklama}</p>}
+            <ul className="mt-3 space-y-1 text-sm grow">
+              {pk.satirlar.map((u) => (
+                <li key={u.ref} className="flex justify-between gap-2">
+                  <Link to={"/urun/" + u.ref} className="min-w-0 truncate hover:text-brand-blue">
+                    {u.adet} × {u.p.name}
+                  </Link>
+                  <span className="shrink-0 text-brand-ink/60">{fmtTL(priceTL(u.p, store) * u.adet)}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="flex justify-between text-lg font-extrabold mt-3 pt-3 border-t border-surface-line">
+              <span>Toplam</span><span className="text-[#9a6a12]">{fmtTL(pk.toplam)}</span>
+            </div>
+            <button className="btn btn-primary mt-3" onClick={() => paketiEkle(pk)}>🛒 Paketi Sepete Ekle</button>
+          </div>
+        ))}
+      </div>
+      {toast && <p className="text-sm text-brand-green mt-3">✓ {toast} <Link to="/sepet" className="underline">Sepete git →</Link></p>}
+    </div>
+  );
+}
+
+/* ========================================================================
+   AI DANIŞMAN — ince, isteğe bağlı şerit (açılınca sohbet)
+   ======================================================================== */
+function AiDanisman({ onTeklif }) {
+  const [acik, setAcik] = useState(false);
+  const [chat, setChat] = useState([]);
+  const [mesaj, setMesaj] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [kapali, setKapali] = useState(false);
+  const [hata, setHata] = useState("");
+  const sonRef = useRef(null);
+  useEffect(() => {
+    if (chat.length || busy) sonRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [chat, busy]);
 
   async function gonder(text) {
     const temiz = String(text || "").trim();
-    if (!temiz || busyAI) return;
-    setAiHata("");
-    setBusyAI(true);
-    setMesaj("");
+    if (!temiz || busy) return;
+    setHata(""); setBusy(true); setMesaj("");
     const oncesi = chat;
     setChat([...oncesi, { rol: "user", metin: temiz }]);
     try {
       const y = await asistanSor(temiz, oncesi);
       setChat((c) => [...c, { rol: "asistan", metin: y.metin }]);
-      if (y.tip === "teklif" && y.teklif) setTeklif(y.teklif);
+      if (y.tip === "teklif" && y.teklif) onTeklif(y.teklif);
     } catch (err) {
-      if (err instanceof AsistanKapaliError) setAsistanKapali(true);
-      else setAiHata(err instanceof SistemKurApiError ? err.message
-        : "Şu an asistana ulaşılamıyor — hazır senaryolardan devam edebilirsiniz.");
-      setChat(oncesi); // yanıtsız mesajı geri al
+      if (err instanceof AsistanKapaliError) setKapali(true);
+      else setHata(err instanceof SistemKurApiError ? err.message : "Şu an asistana ulaşılamıyor — aşağıdaki bölümlerden devam edebilirsiniz.");
+      setChat(oncesi);
       setMesaj(temiz);
-    } finally {
-      setBusyAI(false);
-    }
+    } finally { setBusy(false); }
   }
-
-  /* ================= Sihirbaz durumu ================= */
-  const [st, setSt] = useState(() => {
-    let s = {};
-    try { s = JSON.parse(localStorage.getItem(BLD_KEY)) || {}; } catch { /* boş */ }
-    const tip = sp.get("profil") || sp.get("tip");
-    if (tip && presetOf(tip).id === tip && s.tip !== tip) s = { tip };
-    if (!s.tip || presetOf(s.tip).id !== s.tip) s.tip = B.presets[0].id;
-    return ensure(s);
-  });
-  useEffect(() => { localStorage.setItem(BLD_KEY, JSON.stringify(st)); }, [st]);
-
-  function ensure(s) {
-    const p = presetOf(s.tip);
-    const out = { ...s };
-    if (!out.items) out.items = { ...p.items };
-    if (!out.chem) out.chem = p.chem;
-    const panels = existingPanels(p.panels);
-    if (!out.panelRef || !panels.includes(out.panelRef)) out.panelRef = panels[0] || null;
-    out.qtyOv = out.qtyOv || {};
-    return out;
-  }
-
-  const preset = presetOf(st.tip);
-  const SZ = B.sizing;
-  const sulama = st.tip === "sulama";
-  const profiller = preset.profiles || [];
-  const [ozellestir, setOzellestir] = useState(false);
-  const [profilSecili, setProfilSecili] = useState("");
-
-  /* ---- Tarımsal sulama (pompa) ---- */
-  const HPler = B.pompaHpKademeleri || [3, 5.5, 7.5, 10, 15, 20, 25, 30, 40];
-  const [pompaHp, setPompaHp] = useState(HPler[3] || HPler[0]);
-  const [sulamaSaat, setSulamaSaat] = useState(6);
-  const [pompaSonuc, setPompaSonuc] = useState(null);
-  const [pompaBusy, setPompaBusy] = useState(false);
-  const [pompaHata, setPompaHata] = useState("");
-
-  async function pompaHesapla(e) {
-    e.preventDefault();
-    setPompaBusy(true);
-    setPompaHata("");
-    try {
-      const sonuc = await hesaplaApi({
-        senaryo: SENARYO_MAP.sulama,
-        pompa: { hp: pompaHp, gunlukSaat: sulamaSaat },
-      });
-      setPompaSonuc({ ...sonuc, girdi: { hp: pompaHp, saat: sulamaSaat } });
-    } catch (err) {
-      setPompaHata(err && err.message
-        ? err.message : "Hesap şu an yapılamadı. Lütfen tekrar deneyin.");
-    } finally {
-      setPompaBusy(false);
-    }
-  }
-
-  /* ---- Cihaz bazlı hesap (mevcut calc birebir) ---- */
-  const c = useMemo(() => {
-    let dailyWh = 0, contW = 0, maxSurge = 0, anySelected = false;
-    B.appliances.forEach((a) => {
-      const q = st.items[a.id] || 0; if (!q) return;
-      anySelected = true;
-      dailyWh += q * a.w * a.h;
-      contW += q * a.w;
-      maxSurge = Math.max(maxSurge, a.w * (a.surge || 1));
-    });
-    const invW = Math.max(contW * SZ.simultaneity, maxSurge) * SZ.surgeHeadroom;
-    const kwp = dailyWh / (SZ.sunHours * SZ.systemEff) / 1000;
-
-    const invOk = (cd) => { const p = byId(cd.ref); return p && p.inStock !== false; };
-    let inv = B.catalog.inverters.find((cd) => invOk(cd) && cd.kw * 1000 >= invW) || null;
-    if (!inv) inv = [...B.catalog.inverters].reverse().find(invOk) || null;
-
-    const panelW = st.panelRef ? B.catalog.panels[st.panelRef] : 0;
-    const panelQty = panelW ? Math.max(1, Math.ceil((kwp * 1000) / panelW - 0.05)) : 0;
-
-    const dod = SZ.dod[st.chem] || 0.8;
-    const needWh = (dailyWh * preset.autonomyDays) / dod / SZ.invEff;
-    let bat = null, batQty = 0, batCost = Infinity;
-    if (inv) {
-      B.catalog.batteries.forEach((b) => {
-        const bp = byId(b.ref);
-        if (b.chem !== st.chem || !bp || bp.inStock === false) return;
-        const seriesOf = inv.v / b.v;
-        if (seriesOf < 1 || seriesOf % 1 !== 0) return;
-        let units = Math.max(seriesOf, Math.ceil(needWh / b.wh));
-        units = Math.ceil(units / seriesOf) * seriesOf;
-        const cost = units * priceTL(bp, store);
-        if (cost < batCost) { bat = b; batQty = units; batCost = cost; }
-      });
-    }
-
-    const cableQty = Math.round(SZ.cableBaseM + SZ.cablePerKwM * kwp);
-    return { anySelected, dailyWh, invW, kwp, inv, panelQty, bat, batQty, needWh, cableQty };
-  }, [st, store.products]);
-
-  const lines = useMemo(() => {
-    const out = [];
-    if (st.panelRef && c.panelQty) out.push(["panel", st.panelRef, c.panelQty, "Güneş paneli"]);
-    if (c.bat) out.push(["bat", c.bat.ref, c.batQty, "Akü (" + (st.chem === "jel" ? "jel" : "LiFePO4") + ")"]);
-    if (c.inv) out.push(["inv", c.inv.ref, 1, "Akıllı inverter (MPPT dahili)"]);
-    if (B.catalog.extras.cable && byId(B.catalog.extras.cable) && c.cableQty)
-      out.push(["cable", B.catalog.extras.cable, c.cableQty, "Solar kablo (metre)"]);
-    if (B.catalog.extras.mc4 && byId(B.catalog.extras.mc4) && c.panelQty)
-      out.push(["mc4", B.catalog.extras.mc4, c.panelQty, "MC4 konnektör (çift)"]);
-    return out.map(([key, ref, auto, role]) => ({
-      key, ref, role, auto,
-      qty: st.qtyOv[key] != null ? st.qtyOv[key] : auto,
-      p: byId(ref),
-    })).filter((l) => l.p);
-  }, [st, c, store.products]);
-
-  const total = lines.reduce((s, l) => s + priceTL(l.p, store) * l.qty, 0);
-  const panels = existingPanels(preset.panels);
-  const [toast, setToast] = useState("");
-
-  const addAll = () => {
-    let n = 0;
-    lines.forEach((l) => { if (l.qty > 0) { cartAdd(l.ref, l.qty); n += l.qty; } });
-    void cartGet();
-    setToast(n + " ürün sepete eklendi — sepetten sipariş verebilirsiniz.");
-    setTimeout(() => setToast(""), 3500);
-  };
-
-  const waMsg = "Merhaba! Sistem Kur ile " + preset.label + " projesi hazırladım:\n" +
-    lines.filter((l) => l.qty > 0).map((l) => "• " + l.qty + " × " + l.p.name).join("\n") +
-    "\nGünlük tüketim: " + (c.dailyWh / 1000).toFixed(1) + " kWh" +
-    (total ? "\nTahmini toplam: " + fmtTL(total) : "") + "\nKesin teklif rica ediyorum.";
-
-  const num = (v, d = 1) => v.toFixed(d).replace(".", ",");
-
-  /* ---- Sihirbaz sonucundan asistana köprü ---- */
-  function pompaUrunIste() {
-    if (!pompaSonuc || busyAI) return;
-    void gonder(
-      "Tarımsal sulama için " + pompaSonuc.girdi.hp + " HP pompam var, günde " +
-      pompaSonuc.girdi.saat + " saat sulama yapıyorum. Bu ihtiyaca uygun ürünlerden bir paket teklifi hazırlar mısın?",
-    );
-  }
-
-  /* ---- 10 kW vurgusu + lead özeti ---- */
-  const panelWattToplam = teklif
-    ? teklifPanelWatt(teklif.urunler)
-    : sulama
-      ? (pompaSonuc ? pompaSonuc.gereksinim.panelWatt : 0)
-      : (st.panelRef ? (B.catalog.panels[st.panelRef] || 0) * c.panelQty : 0);
-  const buyukSistem = panelWattToplam > 10000;
-
-  const leadOzet = teklif
-    ? { kaynak: "asistan", paketSku: teklif.paketSku, toplamTL: teklif.toplamTL,
-        urunler: teklif.urunler.map((u) => ({ ad: u.ad, adet: u.adet, birimFiyat: u.birimFiyat })),
-        hesapOzeti: teklif.hesapOzeti }
-    : sulama && pompaSonuc
-      ? { kaynak: "pompa", girdi: pompaSonuc.girdi, gereksinim: pompaSonuc.gereksinim, tasarruf: pompaSonuc.tasarruf }
-      : { kaynak: "sihirbaz", senaryo: preset.label,
-          gunlukKwh: Math.round(c.dailyWh / 100) / 10,
-          urunler: lines.filter((l) => l.qty > 0).map((l) => ({ ad: l.p.name, adet: l.qty })),
-          toplamTL: total };
-
-  const sonucVar = Boolean(teklif || (sulama && pompaSonuc) || (!sulama && c.anySelected && lines.length));
 
   return (
-    <div className="wrap py-8">
-      <h1 className="text-2xl md:text-3xl">🛠️ Sistem Kur</h1>
+    <section className="card overflow-hidden bg-gradient-to-r from-brand-amber/10 to-brand-blue/10">
+      <button type="button" onClick={() => setAcik(!acik)} aria-expanded={acik}
+        className="w-full flex items-center gap-3 p-4 text-left">
+        <span className="text-xl" aria-hidden="true">🤖</span>
+        <span className="grow">
+          <b className="block text-sm">Kararsız mısınız? İhtiyacınızı yazın, yapay zekâ sistemi önersin</b>
+          <span className="block text-xs text-brand-ink/60">"Bağ evimde buzdolabı ve 5 lamba var" demeniz yeter — paket teklifi hazırlar.</span>
+        </span>
+        <span className={"text-brand-ink/40 transition-transform " + (acik ? "rotate-180" : "")} aria-hidden="true">▾</span>
+      </button>
 
-      {/* ================= 1) HERO — doğal dil ================= */}
-      <section className="card mt-4 p-5 md:p-7 bg-gradient-to-br from-brand-amber/15 via-surface-card to-brand-blue/10">
-        <h2 className="text-xl md:text-2xl">İhtiyacınızı yazın, sistemi biz hesaplayalım</h2>
-        <p className="text-brand-ink/60 text-sm mt-1 max-w-2xl">
-          Cihazlarınızı ya da pompanızı kendi cümlenizle anlatın; yapay zekâ destekli danışmanımız
-          panel, akü ve inverteri boyutlandırıp canlı fiyatlarla paket teklifi hazırlasın.
-        </p>
-
-        {asistanKapali ? (
-          <p role="status" className="mt-4 rounded-btn border border-surface-line bg-surface-alt px-4 py-3 text-sm">
-            ⚡ Şu an asistana ulaşılamıyor — aşağıdaki hazır senaryolardan devam edebilirsiniz.
-          </p>
-        ) : (
-          <div className="mt-4 max-w-2xl">
-            {(chat.length > 0 || busyAI) && (
-              <div className="mb-3 flex max-h-80 flex-col gap-2 overflow-y-auto rounded-card bg-surface-alt p-3" aria-live="polite">
-                {chat.map((m, i) => (
-                  <div key={i}
-                    className={"max-w-[85%] whitespace-pre-wrap rounded-card px-3.5 py-2.5 text-sm leading-relaxed " +
-                      (m.rol === "user"
-                        ? "self-end bg-brand-amber/90 text-[#3d3005]"
-                        : "self-start bg-surface-card border border-surface-line")}>
-                    {m.metin}
-                  </div>
-                ))}
-                {busyAI && (
-                  <div className="self-start flex flex-col gap-1.5 rounded-card bg-surface-card border border-surface-line px-3.5 py-3 w-64 max-w-[85%]" aria-hidden="true">
-                    <span className="h-2.5 w-11/12 animate-pulse rounded bg-surface-line" />
-                    <span className="h-2.5 w-full animate-pulse rounded bg-surface-line" />
-                    <span className="h-2.5 w-2/3 animate-pulse rounded bg-surface-line" />
-                  </div>
-                )}
-                <div ref={chatEndRef} />
-              </div>
-            )}
-
-            <form onSubmit={(e) => { e.preventDefault(); void gonder(mesaj); }}>
-              <label htmlFor="sk-mesaj" className="sr-only">İhtiyacınızı yazın</label>
-              <textarea id="sk-mesaj" rows={3} maxLength={2000} disabled={busyAI}
-                value={mesaj} onChange={(e) => setMesaj(e.target.value)}
-                onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void gonder(mesaj); } }}
-                placeholder={chat.length ? "Cevabınızı yazın…" : "Örn: Bağ evimde buzdolabı ve 5 lamba var, akşamları 3 saat TV izliyoruz…"}
-                className="input resize-none !py-3 text-base disabled:opacity-60" />
-              {aiHata && <p role="alert" className="mt-2 text-sm font-semibold text-brand-red">{aiHata}</p>}
-              <div className="mt-3 flex flex-wrap items-center gap-3">
-                <button type="submit" className="btn btn-primary" disabled={busyAI || !mesaj.trim()}>
-                  {busyAI ? "Hesaplanıyor…" : "Hesapla"}
-                </button>
-                {busyAI && <span className="text-xs text-brand-ink/60">Asistan sizin için hesaplıyor — bu 15-30 saniye sürebilir.</span>}
-              </div>
-            </form>
-
-            {chat.length === 0 && !busyAI && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {ORNEKLER.map((o) => (
-                  <button key={o} type="button" onClick={() => void gonder(o)}
-                    className="rounded-full border border-surface-line bg-surface-card px-3.5 py-2 text-xs font-medium hover:border-brand-amber hover:bg-brand-amber/10 transition">
-                    “{o}”
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </section>
-
-      {/* ================= Asistan teklifi ================= */}
-      <div ref={teklifRef}>
-        {teklif && <TeklifKarti teklif={teklif} store={store} />}
-      </div>
-
-      {/* ================= 2) Hazır senaryolar ================= */}
-      <h2 className="text-lg mt-10 mb-3 text-brand-ink/80">… veya hazır senaryodan başlayın</h2>
-
-      {/* Senaryo kartları (küçültülmüş ikincil sıra) */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 mb-6">
-        {B.presets.map((p) => (
-          <button key={p.id}
-            onClick={() => { setSt(ensure({ tip: p.id })); setOzellestir(false); setProfilSecili(""); setPompaSonuc(null); }}
-            className={"card p-3 text-left transition hover:-translate-y-0.5 " +
-              (p.id === st.tip ? "ring-2 ring-brand-amber bg-brand-amber/10" : "")}>
-            <span className="text-xl">{p.icon}</span>
-            <b className="block text-sm mt-0.5">{p.label}</b>
-            <span className="text-[11px] text-brand-ink/60 leading-4 block mt-0.5">{p.desc}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* ---- TARIMSAL SULAMA: cihaz listesi YOK, pompa formu ---- */}
-      {sulama ? (
-        <>
-          <form onSubmit={pompaHesapla} className="card p-5 max-w-2xl">
-            <p className="font-semibold text-sm">
-              Pompanızı seçin — tarımsal sulamada akü gerekmez, pompa gündüz doğrudan panelden çalışır.
+      {acik && (
+        <div className="px-4 pb-4">
+          {kapali ? (
+            <p role="status" className="rounded-btn border border-surface-line bg-surface-card px-4 py-3 text-sm">
+              ⚡ Şu an asistana ulaşılamıyor — aşağıdaki bölümlerden devam edebilirsiniz.
             </p>
-            <div className="grid sm:grid-cols-2 gap-4 mt-4">
-              <label className="block text-sm text-brand-ink/70">
-                Pompa gücü
-                <select className="input mt-1.5 font-semibold" value={pompaHp}
-                  onChange={(e) => setPompaHp(Number(e.target.value))}>
-                  {HPler.map((hp) => <option key={hp} value={hp}>{String(hp).replace(".", ",")} HP</option>)}
-                </select>
-              </label>
-              <label className="block text-sm text-brand-ink/70">
-                Günlük sulama süresi (saat)
-                <input type="number" min="1" max="24" step="0.5" className="input mt-1.5 font-semibold"
-                  value={sulamaSaat} onChange={(e) => setSulamaSaat(Number(e.target.value))} />
-              </label>
-            </div>
-            {pompaHata && <p role="alert" className="mt-3 text-sm font-semibold text-brand-red">{pompaHata}</p>}
-            <button type="submit" className="btn btn-primary mt-4" disabled={pompaBusy}>
-              {pompaBusy ? "Hesaplanıyor…" : "Sistemi hesapla"}
-            </button>
-          </form>
-
-          {pompaSonuc && (
-            <section className="card p-5 mt-5">
-              <h3 className="text-lg">Sulama sisteminiz için gereksinim</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
-                {[
-                  [num(pompaSonuc.gereksinim.panelWatt / 1000, 2) + " kWp", "panel gücü"],
-                  [String(pompaSonuc.gereksinim.pompaSurucuHp).replace(".", ",") + " HP", "pompa sürücüsü"],
-                  [String(pompaSonuc.gereksinim.pompaSurucuKw).replace(".", ",") + " kW", "sürücü gücü"],
-                  [num(pompaSonuc.gunlukTuketimWh / 1000) + " kWh", "günlük tüketim"],
-                ].map(([v, l]) => (
-                  <div key={l} className="card p-4 text-center">
-                    <b className="text-xl text-[#9a6a12]">{v}</b>
-                    <span className="block text-xs text-brand-ink/60 mt-1">{l}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-3 rounded-btn bg-brand-green/10 px-4 py-3 text-sm font-semibold">
-                ☀️ Bu sistem yılda ~{new Intl.NumberFormat("tr-TR").format(pompaSonuc.tasarruf.yillikUretimKwh)} kWh
-                üretir ≈ {fmtTL(pompaSonuc.tasarruf.yillikTasarrufTL)} fatura tasarrufu
-              </p>
-              {pompaSonuc.notlar && pompaSonuc.notlar.length > 0 && (
-                <ul className="mt-3 space-y-1 text-xs text-brand-ink/60">
-                  {pompaSonuc.notlar.map((n, i) => <li key={i}>ℹ️ {n}</li>)}
-                </ul>
-              )}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {!asistanKapali && (
-                  <button className="btn btn-primary" onClick={pompaUrunIste} disabled={busyAI}>
-                    {busyAI ? "Ürünler seçiliyor…" : "Bu sisteme uygun ürünleri getir"}
-                  </button>
-                )}
-                <Link className="btn" to="/kategori/solar-pompa">Solar pompa ürünleri →</Link>
-                <a className="btn btn-wa" target="_blank" rel="noopener noreferrer"
-                  href={waLink(store,
-                    "Merhaba! Tarımsal sulama için " + pompaSonuc.girdi.hp + " HP pompa, günde " +
-                    pompaSonuc.girdi.saat + " saat sulama. Önerilen: " +
-                    num(pompaSonuc.gereksinim.panelWatt / 1000, 2) + " kWp panel + " +
-                    pompaSonuc.gereksinim.pompaSurucuHp + " HP sürücü. Teklif rica ediyorum.")}>
-                  WhatsApp ile Teklif İste
-                </a>
-              </div>
-            </section>
-          )}
-        </>
-      ) : (
-        <>
-          {/* ---- Karavan / Bağ evi: hazır profiller ---- */}
-          {profiller.length > 0 && !ozellestir && (
-            <section className="mb-8">
-              <p className="text-sm text-brand-ink/70 mb-3">
-                Hazır profil seçin ya da <button type="button" className="font-semibold text-brand-blue hover:underline"
-                  onClick={() => setOzellestir(true)}>cihazları tek tek işaretleyin →</button>
-              </p>
-              <div className="grid sm:grid-cols-3 gap-2.5 max-w-3xl">
-                {profiller.map((pr) => (
-                  <button key={pr.id} type="button"
-                    onClick={() => { setSt((s) => ({ ...s, items: { ...pr.items }, qtyOv: {} })); setProfilSecili(pr.id); }}
-                    className={"card p-4 text-left transition hover:-translate-y-0.5 " +
-                      (profilSecili === pr.id ? "ring-2 ring-brand-green bg-brand-green/10" : "")}>
-                    <b className="block text-sm">{pr.label}</b>
-                    <span className="text-[11px] text-brand-ink/60 block mt-0.5">{pr.desc}</span>
-                    <span className="text-[11px] text-brand-ink/50 block mt-1.5 leading-4">
-                      {Object.entries(pr.items).map(([id, q]) => {
-                        const a = B.appliances.find((x) => x.id === id);
-                        return a ? q + "× " + a.name.split(" (")[0] : null;
-                      }).filter(Boolean).join(" · ")}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* ---- Detaylı cihaz listesi (müstakil ev / işletme / özelleştir) ---- */}
-          {(profiller.length === 0 || ozellestir) && (
-            <Step n="1" t="Cihazlarınız ve adetleri">
-              {profiller.length > 0 && (
-                <button type="button" className="text-sm font-semibold text-brand-blue hover:underline mb-3"
-                  onClick={() => setOzellestir(false)}>← Hazır profillere dön</button>
-              )}
-              <div className="grid md:grid-cols-2 gap-2">
-                {B.appliances.map((a) => {
-                  const q = st.items[a.id] || 0;
-                  return (
-                    <div key={a.id} className={"card px-3 py-2.5 flex items-center gap-3 " + (q ? "ring-1 ring-brand-green/50" : "")}>
-                      <span className="text-xl">{a.icon}</span>
-                      <span className="grow text-sm">
-                        {a.name}
-                        <span className="text-brand-ink/50 text-xs"> · {a.w} W × {String(a.h).replace(".", ",")} sa/gün</span>
-                      </span>
-                      <span className="flex items-center border border-surface-line rounded-btn">
-                        <button className="px-2.5 py-1 font-bold" aria-label="Azalt"
-                          onClick={() => setSt((s) => ({ ...s, items: { ...s.items, [a.id]: Math.max(0, q - 1) }, qtyOv: {} }))}>−</button>
-                        <b className="w-7 text-center text-sm">{q}</b>
-                        <button className="px-2.5 py-1 font-bold" aria-label="Artır"
-                          onClick={() => setSt((s) => ({ ...s, items: { ...s.items, [a.id]: q + 1 }, qtyOv: {} }))}>+</button>
-                      </span>
+          ) : (
+            <>
+              {(chat.length > 0 || busy) && (
+                <div className="mb-3 flex max-h-72 flex-col gap-2 overflow-y-auto rounded-card bg-surface-card/70 p-3" aria-live="polite">
+                  {chat.map((m, i) => (
+                    <div key={i}
+                      className={"max-w-[85%] whitespace-pre-wrap rounded-card px-3.5 py-2.5 text-sm leading-relaxed " +
+                        (m.rol === "user" ? "self-end bg-brand-amber/90 text-[#3d3005]" : "self-start bg-surface-card border border-surface-line")}>
+                      {m.metin}
                     </div>
-                  );
-                })}
-              </div>
-            </Step>
-          )}
-
-          {/* ---- Hesaplanan ihtiyaç ---- */}
-          {c.anySelected && (
-            <Step n="2" t="Hesaplanan ihtiyacınız">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[
-                  [num(c.dailyWh / 1000) + " kWh", "günlük tüketim"],
-                  [num(c.kwp, 2) + " kWp", "önerilen panel gücü"],
-                  [num(c.needWh / 1000) + " kWh", "akü bankası"],
-                  [num(c.invW / 1000) + " kW", "inverter gücü"],
-                ].map(([v, l]) => (
-                  <div key={l} className="card p-4 text-center">
-                    <b className="text-xl text-[#9a6a12]">{v}</b>
-                    <span className="block text-xs text-brand-ink/60 mt-1">{l}</span>
-                  </div>
-                ))}
-              </div>
-            </Step>
-          )}
-
-          {/* ---- Tercihler ---- */}
-          {c.anySelected && (
-            <Step n="3" t="Tercihleriniz">
-              <div className="flex flex-wrap gap-4 items-center">
-                <div className="flex rounded-btn border border-surface-line overflow-hidden">
-                  {[["lityum", "LiFePO4 · uzun ömür"], ["jel", "Jel · ekonomik"]].map(([v, l]) => (
-                    <button key={v}
-                      onClick={() => setSt((s) => { const q = { ...s.qtyOv }; delete q.bat; return { ...s, chem: v, qtyOv: q }; })}
-                      className={"px-4 py-2 text-sm font-semibold " +
-                        (st.chem === v ? "bg-brand-amber text-[#3d3005]" : "bg-surface-card")}>
-                      {l}
+                  ))}
+                  {busy && (
+                    <div className="self-start flex flex-col gap-1.5 rounded-card bg-surface-card border border-surface-line px-3.5 py-3 w-64 max-w-[85%]" aria-hidden="true">
+                      <span className="h-2.5 w-11/12 animate-pulse rounded bg-surface-line" />
+                      <span className="h-2.5 w-full animate-pulse rounded bg-surface-line" />
+                      <span className="h-2.5 w-2/3 animate-pulse rounded bg-surface-line" />
+                    </div>
+                  )}
+                  <div ref={sonRef} />
+                </div>
+              )}
+              <form onSubmit={(e) => { e.preventDefault(); void gonder(mesaj); }} className="flex gap-2">
+                <input className="input grow" maxLength={2000} disabled={busy}
+                  value={mesaj} onChange={(e) => setMesaj(e.target.value)}
+                  placeholder={chat.length ? "Cevabınızı yazın…" : "Örn: Karavanımda buzdolabı ve TV çalışsın istiyorum…"} />
+                <button type="submit" className="btn btn-primary shrink-0" disabled={busy || !mesaj.trim()}>
+                  {busy ? "…" : "Sor"}
+                </button>
+              </form>
+              {hata && <p role="alert" className="mt-2 text-sm font-semibold text-brand-red">{hata}</p>}
+              {busy && <p className="text-xs text-brand-ink/60 mt-2">Asistan hesaplıyor — bu 15-30 saniye sürebilir.</p>}
+              {chat.length === 0 && !busy && (
+                <div className="mt-2.5 flex flex-wrap gap-2">
+                  {ORNEKLER.map((o) => (
+                    <button key={o} type="button" onClick={() => void gonder(o)}
+                      className="rounded-full border border-surface-line bg-surface-card px-3 py-1.5 text-xs font-medium hover:border-brand-amber transition">
+                      "{o}"
                     </button>
                   ))}
                 </div>
-                {panels.length > 1 && (
-                  <select className="input max-w-xs" value={st.panelRef || ""} aria-label="Panel modeli"
-                    onChange={(e) => setSt((s) => { const q = { ...s.qtyOv }; delete q.panel; delete q.mc4; return { ...s, panelRef: e.target.value, qtyOv: q }; })}>
-                    {panels.map((r) => <option key={r} value={r}>{byId(r).name}</option>)}
-                  </select>
-                )}
-              </div>
-            </Step>
+              )}
+            </>
           )}
-
-          {/* ---- Önerilen sistem (canlı yerel fiyatlar) ---- */}
-          <Step n="4" t="Önerilen sisteminiz">
-            {!c.anySelected ? (
-              <p className="text-brand-ink/60">Profil ya da cihaz seçince önerilen sistem burada listelenir.</p>
-            ) : (
-              <>
-                <div className="space-y-2">
-                  {lines.map((l) => (
-                    <div key={l.key} className="card p-3 flex items-center gap-3">
-                      <Link to={"/urun/" + l.ref} className="w-16 h-14 shrink-0 rounded-btn overflow-hidden bg-surface-alt">
-                        {l.p.img && l.p.img.length
-                          ? <img src={"/" + l.p.img[0]} alt="" loading="lazy" className="w-full h-full object-cover" />
-                          : <PlaceholderImg product={l.p} className="w-full h-full" />}
-                      </Link>
-                      <div className="grow min-w-0">
-                        <span className="text-xs text-brand-ink/50">{l.role}</span>
-                        <Link to={"/urun/" + l.ref} className="block font-semibold text-sm leading-snug hover:text-brand-blue line-clamp-2">
-                          {l.p.name}
-                        </Link>
-                        <span className="text-xs text-brand-ink/60">{fmtTL(priceTL(l.p, store))} × {l.qty}</span>
-                      </div>
-                      <span className="flex items-center border border-surface-line rounded-btn shrink-0">
-                        <button className="px-2.5 py-1 font-bold" aria-label="Azalt"
-                          onClick={() => setSt((s) => ({ ...s, qtyOv: { ...s.qtyOv, [l.key]: Math.max(l.key === "inv" ? 1 : 0, l.qty - 1) } }))}>−</button>
-                        <b className="w-7 text-center text-sm">{l.qty}</b>
-                        <button className="px-2.5 py-1 font-bold" aria-label="Artır"
-                          onClick={() => setSt((s) => ({ ...s, qtyOv: { ...s.qtyOv, [l.key]: l.qty + 1 } }))}>+</button>
-                      </span>
-                      <b className="w-24 text-right shrink-0">{fmtTL(priceTL(l.p, store) * l.qty)}</b>
-                      {l.qty !== l.auto && (
-                        <button className="text-xs text-brand-blue hover:underline shrink-0" title="Önerilen adede dön"
-                          onClick={() => setSt((s) => { const q = { ...s.qtyOv }; delete q[l.key]; return { ...s, qtyOv: q }; })}>
-                          ↺ {l.auto}
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="card p-5 mt-4 max-w-xl">
-                  <div className="flex justify-between text-lg font-extrabold">
-                    <span>Sistem toplamı</span><span className="text-[#9a6a12]">{fmtTL(total)}</span>
-                  </div>
-                  <div className="flex justify-between text-sm text-brand-green font-semibold mt-1">
-                    <span>💰 Havale/EFT ile</span>
-                    <span>{fmtTL(havaleTL(total, store))} (%{store.config.commerce.havaleDiscountPct} indirimli)</span>
-                  </div>
-                  <p className="text-xs text-brand-ink/60 mt-2">
-                    KDV dahil · kargo hariç · fiyatlar tahmini liste fiyatıdır, kesin teklif için bize ulaşın.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    <button className="btn btn-primary grow" onClick={addAll}>🛒 Sistemi Sepete Ekle</button>
-                    <a className="btn btn-wa grow" target="_blank" rel="noopener noreferrer" href={waLink(store, waMsg)}>
-                      WhatsApp ile Teklif İste
-                    </a>
-                  </div>
-                  {toast && <p className="text-sm text-brand-green mt-3">✓ {toast} <Link to="/sepet" className="underline">Sepete git →</Link></p>}
-                </div>
-              </>
-            )}
-          </Step>
-        </>
+        </div>
       )}
-
-      {/* ================= 3) Uyarı + ücretsiz proje doğrulaması ================= */}
-      {sonucVar && <UyariDogrulama vurgulu={buyukSistem} ozet={leadOzet} />}
-    </div>
+    </section>
   );
 }
 
-/* ================= Asistan teklif kartı ================= */
-// Fiyat kuralı: satırlar yerel kataloğa eşlenir; eşleşen satır YEREL priceTL()
-// ile gösterilir ve sepete o ürün eklenir. Eşleşmeyen satır bilgi amaçlı
-// backend fiyatıyla listelenir ama sepete EKLENMEZ.
+/* ========================================================================
+   AI teklif kartı — satırlar yerel kataloğa eşlenir, YEREL fiyat gösterilir
+   ======================================================================== */
 function TeklifKarti({ teklif, store }) {
   const [toast, setToast] = useState("");
   const lines = useMemo(
     () => teklif.urunler.map((u) => ({ ...u, local: matchLocalProduct(u, store.products) })),
     [teklif, store.products],
   );
-  const toplam = lines.reduce(
-    (s, l) => s + (l.local ? priceTL(l.local, store) : l.birimFiyat) * l.adet, 0);
+  const toplam = lines.reduce((s, l) => s + (l.local ? priceTL(l.local, store) : l.birimFiyat) * l.adet, 0);
   const eslesen = lines.filter((l) => l.local);
 
   const sepeteEkle = () => {
@@ -608,7 +910,7 @@ function TeklifKarti({ teklif, store }) {
     "\nToplam: " + fmtTL(toplam) + " (KDV dahil)\nKesin teklif rica ediyorum.";
 
   return (
-    <section className="card mt-5 p-5 md:p-6 ring-2 ring-brand-amber">
+    <section className="card mt-4 p-5 md:p-6 ring-2 ring-brand-amber">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="text-lg md:text-xl">Size özel paket teklifi</h2>
         <span className="text-[11px] font-bold tracking-wide text-brand-ink/50">Ref: {teklif.paketSku}</span>
@@ -676,7 +978,7 @@ function TeklifKarti({ teklif, store }) {
   );
 }
 
-/* ================= "Teklifi e-posta ile al" (lead tip=pdf) ================= */
+/* ---- "Teklifi e-posta ile al" (lead tip=pdf) ---- */
 function EpostaTeklif({ ozet }) {
   const [acik, setAcik] = useState(false);
   return (
@@ -692,11 +994,11 @@ function EpostaTeklif({ ozet }) {
   );
 }
 
-/* ================= Uyarı + ücretsiz proje doğrulaması ================= */
+/* ---- Uyarı + ücretsiz proje doğrulaması ---- */
 function UyariDogrulama({ vurgulu, ozet }) {
   const [acik, setAcik] = useState(false);
   return (
-    <section className={"card mt-8 p-5 md:p-6 " + (vurgulu ? "ring-2 ring-brand-amber bg-brand-amber/10" : "bg-surface-alt")}>
+    <section className={"card mt-5 p-5 md:p-6 " + (vurgulu ? "ring-2 ring-brand-amber bg-brand-amber/10" : "bg-surface-alt")}>
       <p className="text-sm leading-relaxed">
         ⚠️ Bu hesaplama, verdiğiniz bilgilere dayalı bir <b>ön simülasyondur</b>. Çatı yönü, gölgelenme,
         kablo mesafesi ve kurulum koşulları sonucu etkileyebilir. Kesin sistem tasarımı için sipariş
@@ -722,7 +1024,7 @@ function UyariDogrulama({ vurgulu, ozet }) {
   );
 }
 
-/* ================= Ortak mini lead formu (honeypot'lu) ================= */
+/* ---- Ortak mini lead formu (honeypot'lu) ---- */
 function LeadFormu({ tip, ozet, basarili, gonderMetni, emailZorunlu = false, onKapat }) {
   const [ad, setAd] = useState("");
   const [telefon, setTelefon] = useState("");
@@ -790,17 +1092,5 @@ function LeadFormu({ tip, ozet, basarili, gonderMetni, emailZorunlu = false, onK
         <button type="button" className="text-sm text-brand-ink/60 hover:text-brand-ink" onClick={onKapat}>Vazgeç</button>
       </div>
     </form>
-  );
-}
-
-function Step({ n, t, children }) {
-  return (
-    <section className="mb-8">
-      <h2 className="text-lg mb-3 flex items-center gap-2">
-        <span className="w-7 h-7 rounded-full bg-brand-amber text-[#3d3005] text-sm flex items-center justify-center font-extrabold">{n}</span>
-        {t}
-      </h2>
-      {children}
-    </section>
   );
 }
