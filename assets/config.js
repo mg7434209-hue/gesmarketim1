@@ -87,7 +87,8 @@ GESM.config = {
   builder: {
     // ---- OEM kurucu (Kendi Projeni Kendin Oluştur) ----
     oem: {
-      pvHeadroom: 1.3   // inverter kW × bu katsayı = kabul edilen azami PV gücü
+      pvHeadroom: 1.3,  // inverter kW × bu katsayı = kabul edilen azami PV gücü
+      sarjMarj: 1.25    // şarj kontrolörü amper emniyet payı (gerekli A × bu)
     },
 
     // Katalog eşlemesi + elektriksel değerler (uyumluluk kontrolü için).
@@ -118,13 +119,36 @@ GESM.config = {
         { ref: "160ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 1920 },
         { ref: "210ah-12v-nano-karbon-jel-aku", chem: "jel", v: 12, wh: 2520 }
       ],
+      // tip: hibrit = MPPT şarj dahili (panel doğrudan inverter'e girer);
+      //      modifiye / tamsinus = akü inverteri → panel ŞARJ KONTROLÖRÜ ister.
       inverters: [
-        { ref: "3kw-hv-mppt-akilli-inverter-24v",    kw: 3,   v: 24, mppt: [60, 450] },
-        { ref: "6-2kw-hv-mppt-akilli-inverter-48v",  kw: 6.2, v: 48, mppt: [90, 450] },
-        { ref: "8kw-hv-mppt-akilli-inverter-48v",    kw: 8,   v: 48, mppt: [90, 450] },
-        { ref: "11kw-hv-2xmppt-akilli-inverter-48v", kw: 11,  v: 48, mppt: [90, 450] }
+        { ref: "3kw-hv-mppt-akilli-inverter-24v",    kw: 3,   v: 24, tip: "hibrit", mppt: [60, 450] },
+        { ref: "6-2kw-hv-mppt-akilli-inverter-48v",  kw: 6.2, v: 48, tip: "hibrit", mppt: [90, 450] },
+        { ref: "8kw-hv-mppt-akilli-inverter-48v",    kw: 8,   v: 48, tip: "hibrit", mppt: [90, 450] },
+        { ref: "11kw-hv-2xmppt-akilli-inverter-48v", kw: 11,  v: 48, tip: "hibrit", mppt: [90, 450] },
+        { ref: "2000w-24v-modifiye-sinus-inverter",  kw: 2,   v: 24, tip: "modifiye" }
       ],
-      extras: { cable: "6mm2-solar-kablo", mc4: "mc4-konnektor-1500v" }
+      // Şarj kontrolörleri — a = amper, tip pwm/mppt, pv = PV giriş penceresi
+      // [minV, maxV] (yaklaşık; datasheet ile güncellenebilir). PWM'de dizi
+      // kontrolü yapılmaz, "12/24V nominal panel" notu gösterilir.
+      sarjKontrol: [
+        { ref: "10a-pwm-sarj-kontrol-cihazi", a: 10, tip: "pwm" },
+        { ref: "20a-pwm-sarj-kontrol-cihazi", a: 20, tip: "pwm" },
+        { ref: "30a-pwm-sarj-kontrol-cihazi", a: 30, tip: "pwm" },
+        { ref: "40a-pwm-sarj-kontrol-cihazi", a: 40, tip: "pwm" },
+        { ref: "60a-pwm-sarj-kontrol-cihazi", a: 60, tip: "pwm" },
+        { ref: "20a-mppt-sarj-kontrol-cihazi", a: 20, tip: "mppt", pv: [15, 100] },
+        { ref: "30a-mppt-sarj-kontrol-cihazi", a: 30, tip: "mppt", pv: [15, 100] },
+        { ref: "40a-mppt-sarj-kontrol-cihazi", a: 40, tip: "mppt", pv: [15, 100] },
+        { ref: "80a-hv-15-230v-mppt-sarj-kontrol-cihazi", a: 80, tip: "mppt", pv: [15, 230] }
+      ],
+      // Montaj · kablo · konnektör grupları ("Montaj & Aksesuar" adımı;
+      // çoklu seçim + adet). birim: satırda gösterilen adet birimi.
+      aksesuar: [
+        { grup: "Panel tutucu", birim: "adet", refs: ["orta-tutucu", "sonlandirici"] },
+        { grup: "Solar kablo",  birim: "metre", refs: ["6mm2-solar-kablo", "4mm2-solar-kablo"] },
+        { grup: "Konnektör",    birim: "adet", refs: ["mc4-konnektor-1500v", "2li-t-branch", "3lu-branch"] }
+      ]
     },
 
     // ---- Solar Sulama (SMART VFD500 MPPT pompa sürücüsü datasheet'i) ----
