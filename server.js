@@ -11,6 +11,7 @@ const http = require("http");
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
@@ -82,6 +83,59 @@ function readBody(req, limit, cb) {
   req.on("end", () => { let d; try { d = JSON.parse(b); } catch (e) { d = null; } cb(d); });
 }
 
+/* ---------- iyzico ödeme (Checkout Form) ----------
+   ANAHTARLAR YALNIZCA ENV'DEN OKUNUR (IYZICO_API_KEY / IYZICO_SECRET_KEY) —
+   koda/konfige ASLA yazılmaz. Env yoksa kartla ödeme seçeneği sitede
+   görünmez (payments.kart=false), havale/WhatsApp akışı aynen çalışır.
+   Akış: sepet → POST /api/orders (pay=kart) → POST /api/pay/init → iyzico
+   ödeme sayfasına yönlendirme → iyzico tarayıcıyı POST /api/pay/callback'e
+   döndürür → sunucu token ile sonucu iyzico'dan doğrular (retrieve) →
+   sipariş "odendi" işaretlenir → /odeme-sonuc sayfasına 302.
+   İmza: resmi iyzipay-node SDK'sının IYZWSv2 HMAC-SHA256 şemasıyla birebir. */
+const IYZ = {
+  key: process.env.IYZICO_API_KEY || "",
+  secret: process.env.IYZICO_SECRET_KEY || "",
+  base: (process.env.IYZICO_BASE_URL || "https://api.iyzipay.com").replace(/\/+$/, "")
+};
+const KART_AKTIF = Boolean(IYZ.key && IYZ.secret);
+const IYZ_INIT_PATH = "/payment/iyzipos/checkoutform/initialize/auth/ecom";
+const IYZ_DETAIL_PATH = "/payment/iyzipos/checkoutform/auth/ecom/detail";
+
+function iyzPost(pathName, bodyObj, cb) {
+  const payload = JSON.stringify(bodyObj);
+  const rnd = process.hrtime()[0] + Math.random().toString(8).slice(2);
+  const sig = crypto.createHmac("sha256", IYZ.secret).update(rnd + pathName + payload).digest("hex");
+  const auth = "IYZWSv2 " + Buffer.from(
+    "apiKey:" + IYZ.key + "&randomKey:" + rnd + "&signature:" + sig).toString("base64");
+  let u;
+  try { u = new URL(IYZ.base + pathName); } catch (e) { return cb(null); }
+  const mod = u.protocol === "https:" ? https : http;
+  const rq = mod.request(u, { method: "POST", headers: {
+    Authorization: auth, "x-iyzi-rnd": rnd,
+    "Content-Type": "application/json", "Content-Length": Buffer.byteLength(payload)
+  }}, (r) => {
+    let b = "";
+    r.on("data", (c) => { b += c; if (b.length > 1048576) rq.destroy(); });
+    r.on("end", () => { let j; try { j = JSON.parse(b); } catch (e) { j = null; } cb(j); });
+  });
+  rq.setTimeout(20000, () => { rq.destroy(); cb(null); });
+  rq.on("error", () => cb(null));
+  rq.end(payload);
+}
+// iyzico fiyat biçimi: ondalıklı dize ("1234.0" / "1234.5")
+const iyzFiyat = (n) => {
+  const s = String(Math.round(n * 100) / 100);
+  return s.includes(".") ? s : s + ".0";
+};
+// Telefonu +90'lı biçime getir (iyzico gsmNumber)
+function iyzTel(t) {
+  const d = String(t || "").replace(/\D/g, "");
+  if (d.startsWith("90") && d.length === 12) return "+" + d;
+  if (d.startsWith("0") && d.length === 11) return "+9" + d;
+  if (d.length === 10) return "+90" + d;
+  return "+905000000000";
+}
+
 // /api/config — GÜVENLİ alt küme (K1): admin şifresi ve tedarikçi bilgisi
 // ASLA çıkmaz. React SPA iletişim/kur/kargo katsayılarını buradan okur.
 const PUBLIC_CFG = JSON.stringify({
@@ -92,7 +146,8 @@ const PUBLIC_CFG = JSON.stringify({
   brands: CFG.brands,
   builder: CFG.builder,
   visitors: CFG.visitors || null,
-  seo: CFG.seo
+  seo: CFG.seo,
+  payments: { kart: KART_AKTIF }
 });
 
 /* ---------- Ziyaretçi sayacı ---------- */
@@ -419,8 +474,10 @@ const server = http.createServer((req, res) => {
         no: "GM" + Date.now().toString().slice(-8),
         createdAt: new Date().toISOString(),
         name: String(d.name).slice(0, 120), phone: String(d.phone).slice(0, 40),
+        email: String(d.email || "").slice(0, 120),
         addr: String(d.addr).slice(0, 500), note: String(d.note || "").slice(0, 500),
-        pay, items, subtotal, shipping, total, done: false
+        pay, items, subtotal, shipping, total, done: false,
+        odendi: false, paymentId: null
       };
       try {
         const list = readOrders(); list.push(order); writeOrders(list);
@@ -428,6 +485,91 @@ const server = http.createServer((req, res) => {
       console.log("[sipariş]", order.no, "·", items.length, "kalem ·", total, "₺");
       send(res, 200, JSON.stringify({ ok: true, no: order.no }), JSON_HDR);
     });
+  }
+
+  /* ---------- iyzico: ödeme başlat + dönüş ---------- */
+  if (urlPath === "/api/pay/init" && req.method === "POST") {
+    if (!KART_AKTIF) return send(res, 503, '{"error":"kart_kapali","message":"Kartla ödeme şu an kullanılamıyor."}', JSON_HDR);
+    return readBody(req, 4096, (d) => {
+      const list = readOrders();
+      const o = d && list.find((x) => x.no === d.no);
+      if (!o) return send(res, 404, '{"error":"siparis_yok"}', JSON_HDR);
+      if (o.pay !== "kart") return send(res, 400, '{"error":"odeme_tipi_kart_degil"}', JSON_HDR);
+      if (o.odendi) return send(res, 400, '{"error":"zaten_odendi"}', JSON_HDR);
+
+      const adParca = String(o.name).trim().split(/\s+/);
+      const ad = adParca.slice(0, -1).join(" ") || adParca[0];
+      const soyad = adParca.length > 1 ? adParca[adParca.length - 1] : "Musteri";
+      const email = o.email || "musteri@gesmarketim.com";
+      const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
+        req.socket.remoteAddress || "85.34.0.1";
+      // Callback: proxy arkasında (canlı) kanonik https adres; yerelde istek
+      // host'u (port dahil) — iyzico tarayıcıyı buraya form-POST ile döndürür.
+      const arkasindaProxy = Boolean(req.headers["x-forwarded-proto"]);
+      const cb2 = arkasindaProxy
+        ? "https://" + (CANON_HOST || String(req.headers.host || "").split(":")[0]) + "/api/pay/callback"
+        : "http://" + String(req.headers.host || ("127.0.0.1:" + PORT)) + "/api/pay/callback";
+
+      const sepet = o.items.map((it) => ({
+        id: String(it.id).slice(0, 64), name: String(it.name).slice(0, 120),
+        category1: "Solar", itemType: "PHYSICAL", price: iyzFiyat(it.tl * it.qty)
+      }));
+      if (o.shipping > 0) sepet.push({ id: "kargo", name: "Kargo", category1: "Hizmet", itemType: "PHYSICAL", price: iyzFiyat(o.shipping) });
+
+      const istek = {
+        locale: "tr", conversationId: o.no, basketId: o.no,
+        price: iyzFiyat(o.total), paidPrice: iyzFiyat(o.total), currency: "TRY",
+        paymentGroup: "PRODUCT", callbackUrl: cb2,
+        buyer: {
+          id: o.no, name: ad, surname: soyad, gsmNumber: iyzTel(o.phone), email,
+          identityNumber: "11111111111", registrationAddress: o.addr,
+          ip, city: "Belirtilmedi", country: "Turkey"
+        },
+        shippingAddress: { contactName: o.name, city: "Belirtilmedi", country: "Turkey", address: o.addr },
+        billingAddress: { contactName: o.name, city: "Belirtilmedi", country: "Turkey", address: o.addr },
+        basketItems: sepet
+      };
+
+      iyzPost(IYZ_INIT_PATH, istek, (j) => {
+        if (!j || j.status !== "success" || !j.paymentPageUrl) {
+          console.error("[iyzico] init hata:", j && (j.errorCode + " " + j.errorMessage));
+          return send(res, 502, JSON.stringify({
+            error: "odeme_baslatilamadi",
+            message: (j && j.errorMessage) || "Ödeme sayfası açılamadı. Lütfen tekrar deneyin ya da havale seçin."
+          }), JSON_HDR);
+        }
+        o.iyzToken = j.token;
+        try { writeOrders(list); } catch (e) { /* token yazılamazsa callback basketId ile bulur */ }
+        console.log("[iyzico] init", o.no, "→ ödeme sayfası");
+        send(res, 200, JSON.stringify({ ok: true, url: j.paymentPageUrl }), JSON_HDR);
+      });
+    });
+  }
+  if (urlPath === "/api/pay/callback") {
+    if (req.method !== "POST") return send(res, 302, "", { Location: "/sepet" });
+    let body = "";
+    req.on("data", (c) => { body += c; if (body.length > 8192) req.destroy(); });
+    req.on("end", () => {
+      const token = new URLSearchParams(body).get("token");
+      if (!token) return send(res, 302, "", { Location: "/odeme-sonuc?durum=hata" });
+      iyzPost(IYZ_DETAIL_PATH, { locale: "tr", token }, (j) => {
+        const list = readOrders();
+        const o = list.find((x) => x.iyzToken === token) ||
+          (j && list.find((x) => x.no === j.basketId || x.no === j.conversationId));
+        const basarili = j && j.status === "success" && j.paymentStatus === "SUCCESS";
+        if (o && basarili && !o.odendi) {
+          o.odendi = true;
+          o.paymentId = String(j.paymentId || "");
+          try { writeOrders(list); } catch (e) { console.error("[iyzico] sipariş yazılamadı", e); }
+          console.log("[iyzico] ÖDENDİ", o.no, "paymentId:", o.paymentId);
+        } else if (!basarili) {
+          console.warn("[iyzico] ödeme başarısız/iptal", o ? o.no : "?", j && j.errorMessage);
+        }
+        const q = "?durum=" + (basarili ? "basarili" : "hata") + (o ? "&no=" + encodeURIComponent(o.no) : "");
+        send(res, 302, "", { Location: "/odeme-sonuc" + q });
+      });
+    });
+    return;
   }
 
   /* ---------- Admin API (ADMIN_PASS) ---------- */
