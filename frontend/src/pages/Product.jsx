@@ -111,9 +111,11 @@ export default function Product() {
             <ul className="mt-6 space-y-2 text-sm text-brand-ink/80">
               <li>✅ Tüm fiyatlar <b>KDV dahildir</b> — sürpriz yok.</li>
               <li>💰 Havale/EFT ile <b className="text-brand-green">{fmtTL(havaleTL(tl, store) * qty)}</b> (%{commerce.havaleDiscountPct} indirim).</li>
-              <li>🚚 {freeShip
-                ? <><b>Kargo ücretsiz</b> — sipariş tutarınız limitin üzerinde.</>
-                : <>Kargo {fmtTL(commerce.shippingFlat)} · <b>{fmtTL(commerce.freeShippingLimit)}</b> üzeri ücretsiz.</>}</li>
+              <li>🚚 {commerce.kargoModu === "alici"
+                ? <>Kargo <b>alıcı ödemeli</b> — ücret teslimatta kargo firmasına ödenir.</>
+                : freeShip
+                  ? <><b>Kargo ücretsiz</b> — sipariş tutarınız limitin üzerinde.</>
+                  : <>Kargo {fmtTL(commerce.shippingFlat)} · <b>{fmtTL(commerce.freeShippingLimit)}</b> üzeri ücretsiz.</>}</li>
               <li>↩️ 14 gün koşulsuz iade hakkı.</li>
               <li>🛡️ Lexron distribütör garantisi kapsamında.</li>
             </ul>

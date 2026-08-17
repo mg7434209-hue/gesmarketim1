@@ -220,7 +220,7 @@ function OrdersTab({ pass }) {
             ))}
           </ul>
           <div className="text-xs text-brand-ink/60 mt-1.5">
-            Ara toplam {fmtTL(o.subtotal)} · Kargo {o.shipping ? fmtTL(o.shipping) : "ücretsiz"}
+            Ara toplam {fmtTL(o.subtotal)} · Kargo {o.kargo === "alici" ? "alıcı ödemeli" : (o.shipping ? fmtTL(o.shipping) : "ücretsiz")}
           </div>
         </div>
       ))}

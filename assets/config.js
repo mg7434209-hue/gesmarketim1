@@ -32,8 +32,13 @@ GESM.config = {
   commerce: {
     vatIncluded: true,          // tüm fiyatlar KDV dahil gösterilir
     havaleDiscountPct: 3,       // havale/EFT indirimi (%)
-    freeShippingLimit: 15000,   // ₺ üzeri kargo bedava
-    shippingFlat: 350,          // ₺ standart kargo (limit altı)
+    // KARGO MODU — "alici": karşı (alıcı) ödemeli; site kargo ücreti TAHSİL
+    // ETMEZ, ücret teslimatta kargo firmasına ödenir (kargo anlaşması
+    // çözülene kadar). "sabit": freeShippingLimit üzeri ücretsiz, altı
+    // shippingFlat tahsil edilir (eski davranış). Değiştir + build + commit.
+    kargoModu: "alici",
+    freeShippingLimit: 15000,   // ₺ üzeri kargo bedava (yalnız "sabit" modda)
+    shippingFlat: 350,          // ₺ standart kargo (yalnız "sabit" modda)
     codAvailable: false,
     usdTry: 47.20               // USD/TL kuru (10.08.2026) — hem Havensis priceUsd hem
                                 // ACS USD maliyet → ₺ hesabı bu kurla yapılır; admin

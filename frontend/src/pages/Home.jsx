@@ -73,6 +73,7 @@ export default function Home() {
 /* ---------- Hero: gerçek panel fotoğrafı (LCP) + CSS/SVG enerji animasyonu ---------- */
 function Hero() {
   const store = useStore();
+  const aliciOdemeli = store.config.commerce.kargoModu === "alici";
   const limit = new Intl.NumberFormat("tr-TR").format(store.config.commerce.freeShippingLimit);
   return (
     <section className="bg-gradient-to-b from-brand-blue/10 via-surface to-surface border-b border-surface-line overflow-hidden">
@@ -92,7 +93,9 @@ function Hero() {
             <Link to="/hesaplayici" className="btn text-base px-7 py-3">🛠️ Kendi Sistemini Kur</Link>
           </div>
           <p className="mt-5 text-xs text-brand-ink/60">
-            🚚 {limit} ₺ üzeri ücretsiz kargo · 💰 Havale/EFT indirimi · ↩️ 14 gün koşulsuz iade
+            {aliciOdemeli
+              ? <>🚚 Tüm Türkiye'ye kargo · 💰 Havale/EFT indirimi · ↩️ 14 gün koşulsuz iade</>
+              : <>🚚 {limit} ₺ üzeri ücretsiz kargo · 💰 Havale/EFT indirimi · ↩️ 14 gün koşulsuz iade</>}
           </p>
         </div>
         <HeroScene />

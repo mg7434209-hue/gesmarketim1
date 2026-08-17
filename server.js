@@ -466,7 +466,11 @@ const server = http.createServer((req, res) => {
         items.push({ id: p.id, name: p.name, code: p.code, qty, tl });
       }
       if (!items.length) return send(res, 400, '{"error":"gecersiz_kalem"}', JSON_HDR);
-      const shipping = subtotal >= CFG.commerce.freeShippingLimit ? 0 : CFG.commerce.shippingFlat;
+      // Kargo modu "alici" = karşı ödemeli: siparişe kargo ücreti EKLENMEZ
+      // (ücret teslimatta kargo firmasına ödenir; iyzico sepetine de girmez).
+      const aliciOdemeli = CFG.commerce.kargoModu === "alici";
+      const shipping = aliciOdemeli ? 0 :
+        (subtotal >= CFG.commerce.freeShippingLimit ? 0 : CFG.commerce.shippingFlat);
       const pay = d.pay === "kart" ? "kart" : "havale";
       const disc = pay === "havale" ? (CFG.commerce.havaleDiscountPct || 0) / 100 : 0;
       const total = Math.round(subtotal * (1 - disc)) + shipping;
@@ -477,6 +481,7 @@ const server = http.createServer((req, res) => {
         email: String(d.email || "").slice(0, 120),
         addr: String(d.addr).slice(0, 500), note: String(d.note || "").slice(0, 500),
         pay, items, subtotal, shipping, total, done: false,
+        kargo: aliciOdemeli ? "alici" : "dahil",
         odendi: false, paymentId: null
       };
       try {

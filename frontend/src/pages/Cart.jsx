@@ -33,7 +33,11 @@ export default function Cart() {
   }
 
   const subtotal = items.reduce((s, it) => s + priceTL(it.p, store) * it.qty, 0);
-  const shipping = subtotal >= commerce.freeShippingLimit ? 0 : commerce.shippingFlat;
+  // Kargo modu "alici" = karşı ödemeli: ücret tahsil edilmez, teslimatta
+  // kargo firmasına ödenir (config.commerce.kargoModu).
+  const aliciOdemeli = commerce.kargoModu === "alici";
+  const shipping = aliciOdemeli ? 0 :
+    (subtotal >= commerce.freeShippingLimit ? 0 : commerce.shippingFlat);
   const havaleTotal = havaleTL(subtotal, store) + shipping;
   const cardTotal = subtotal + shipping;
 
@@ -96,7 +100,7 @@ export default function Cart() {
       `• ${it.qty} × ${it.p.name} (${it.p.code}) — ${fmtTL(priceTL(it.p, store) * it.qty)}`).join("\n");
     const total = form.pay === "havale" ? havaleTotal : cardTotal;
     const msg = `🛒 YENİ SİPARİŞ — ${no}\n\n${lines}\n\nAra toplam: ${fmtTL(subtotal)}` +
-      `\nKargo: ${shipping ? fmtTL(shipping) : "Ücretsiz"}` +
+      `\nKargo: ${aliciOdemeli ? "Alıcı ödemeli (teslimatta kargo firmasına)" : (shipping ? fmtTL(shipping) : "Ücretsiz")}` +
       `\nÖdeme: ${form.pay === "havale" ? `Havale/EFT (%${commerce.havaleDiscountPct} indirimli)` : "Kredi kartı"}` +
       `\nTOPLAM: ${fmtTL(total)}\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.addr}` +
       (form.note.trim() ? `\n📝 ${form.note.trim()}` : "");
@@ -143,7 +147,7 @@ export default function Cart() {
           <h2 className="text-lg mb-3">Sipariş Özeti</h2>
           <div className="space-y-1.5 text-sm">
             <Row l="Ara toplam" v={fmtTL(subtotal)} />
-            <Row l="Kargo" v={shipping ? fmtTL(shipping) : "Ücretsiz 🎉"} />
+            <Row l="Kargo" v={aliciOdemeli ? "Alıcı ödemeli" : (shipping ? fmtTL(shipping) : "Ücretsiz 🎉")} />
             <div className="flex justify-between text-brand-green font-semibold">
               <span>Havale/EFT ile (%{commerce.havaleDiscountPct} indirimli)</span><b>{fmtTL(havaleTotal)}</b>
             </div>
@@ -151,11 +155,16 @@ export default function Cart() {
               <span>Toplam (kart)</span><span>{fmtTL(cardTotal)}</span>
             </div>
           </div>
-          {!shipping || (
+          {aliciOdemeli ? (
+            <p className="text-xs text-brand-ink/60 mt-2">
+              🚚 Kargo <b>karşı (alıcı) ödemeli</b> gönderilir — ücret teslimatta
+              kargo firmasına ödenir, sipariş tutarına eklenmez.
+            </p>
+          ) : (!shipping || (
             <p className="text-xs text-brand-ink/60 mt-2">
               🚚 {fmtTL(commerce.freeShippingLimit)} üzeri siparişlerde kargo ücretsiz.
             </p>
-          )}
+          ))}
 
           <h3 className="font-bold text-sm mt-5 mb-2">Teslimat Bilgileri</h3>
           <div className="space-y-2">
