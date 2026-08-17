@@ -11,6 +11,7 @@ const Builder = lazy(() => import("./pages/Builder.jsx"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
 const Static = lazy(() => import("./pages/Static.jsx"));
 const Admin = lazy(() => import("./pages/Admin.jsx"));
+const OdemeSonuc = lazy(() => import("./pages/OdemeSonuc.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound.jsx"));
 
 function Fallback() {
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="kategori/:slug" element={<Category />} />
           <Route path="urun/:id" element={<Product />} />
           <Route path="sepet" element={<Cart />} />
+          <Route path="odeme-sonuc" element={<OdemeSonuc />} />
           <Route path="hesaplayici" element={<Builder />} />
           <Route path="iletisim" element={<Contact />} />
           <Route path="hakkimizda" element={<Static page="hakkimizda" />} />

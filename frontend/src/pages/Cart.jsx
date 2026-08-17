@@ -10,9 +10,12 @@ export default function Cart() {
   useSeo({ title: "Sepetim | " + company.brand, description: "Sepetiniz ve sipariş özeti." });
 
   const [cart, setCart] = useState(cartGet());
-  const [form, setForm] = useState({ name: "", phone: "", addr: "", note: "", pay: "havale", kvkk: false });
+  const [form, setForm] = useState({ name: "", phone: "", addr: "", email: "", note: "", pay: "havale", kvkk: false });
   const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
   useEffect(() => onCart(setCart), []);
+  // iyzico env anahtarları sunucuda tanımlıysa kartla online ödeme açıktır
+  const kartAktif = Boolean(store.config.payments && store.config.payments.kart);
 
   const items = Object.entries(cart)
     .map(([id, qty]) => ({ p: store.products.find((x) => x.id === id), qty }))
@@ -38,7 +41,42 @@ export default function Cart() {
     if (!form.name.trim() || !form.phone.trim() || !form.addr.trim())
       return setErr("Lütfen ad, telefon ve adres alanlarını doldurun.");
     if (!form.kvkk) return setErr("Lütfen sözleşme onay kutusunu işaretleyin.");
+    const kartOnline = form.pay === "kart" && kartAktif;
+    if (kartOnline && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+      return setErr("Kartla ödeme için geçerli bir e-posta adresi girin (makbuz iletimi).");
     setErr("");
+
+    // --- KARTLA ONLINE ÖDEME: sipariş → iyzico ödeme sayfasına yönlendir ---
+    // Sepet burada temizlenmez; ödeme başarılı dönünce /odeme-sonuc temizler.
+    if (kartOnline) {
+      setBusy(true);
+      try {
+        const r = await fetch("/api/orders", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: form.name.trim(), phone: form.phone.trim(), addr: form.addr.trim(),
+            email: form.email.trim(), note: form.note.trim(), pay: "kart",
+            items: items.map((it) => ({ id: it.p.id, qty: it.qty })),
+          }),
+          signal: AbortSignal.timeout(8000),
+        }).then((x) => x.json());
+        if (!r || !r.no) throw new Error("siparis");
+        const p = await fetch("/api/pay/init", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ no: r.no }),
+          signal: AbortSignal.timeout(25000),
+        }).then((x) => x.json());
+        if (p && p.ok && p.url) { window.location.href = p.url; return; }
+        setErr((p && p.message) || "Ödeme sayfası açılamadı. Lütfen tekrar deneyin ya da havale seçin.");
+      } catch {
+        setErr("Ödeme başlatılamadı. Lütfen tekrar deneyin ya da havale/WhatsApp ile devam edin.");
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+
+    // --- HAVALE / WHATSAPP AKIŞI (mevcut davranış) ---
     // Sipariş sunucuya da yazılır (admin panel "Siparişler" listesi);
     // sunucuya ulaşılamazsa yalnız WhatsApp ile devam edilir.
     let no = "GM" + String(Date.now()).slice(-8);
@@ -47,7 +85,7 @@ export default function Cart() {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name.trim(), phone: form.phone.trim(), addr: form.addr.trim(),
-          note: form.note.trim(), pay: form.pay,
+          email: form.email.trim(), note: form.note.trim(), pay: form.pay,
           items: items.map((it) => ({ id: it.p.id, qty: it.qty })),
         }),
         signal: AbortSignal.timeout(2500),
@@ -130,7 +168,9 @@ export default function Cart() {
           <div className="space-y-2 mt-3">
             {[
               { v: "havale", t: <b>Havale / EFT</b>, d: `%${commerce.havaleDiscountPct} indirim — IBAN onay mesajıyla iletilir.` },
-              { v: "kart", t: <b>Kredi kartı</b>, d: "Güvenli ödeme linki WhatsApp'tan gönderilir." },
+              kartAktif
+                ? { v: "kart", t: <b>Kredi / Banka Kartı</b>, d: "iyzico güvenli ödeme sayfasında 256-bit SSL ile ödersiniz." }
+                : { v: "kart", t: <b>Kredi kartı</b>, d: "Güvenli ödeme linki WhatsApp'tan gönderilir." },
             ].map((o) => (
               <label key={o.v} className={"flex gap-2 items-start border rounded-btn p-3 text-sm cursor-pointer " +
                 (form.pay === o.v ? "border-brand-amber bg-brand-amber/10" : "border-surface-line")}>
@@ -138,6 +178,10 @@ export default function Cart() {
                 <span>{o.t} — <span className="text-brand-ink/70">{o.d}</span></span>
               </label>
             ))}
+            {form.pay === "kart" && kartAktif && (
+              <input className="input" type="email" placeholder="E-posta * (ödeme makbuzu için)"
+                value={form.email} onChange={F("email")} aria-label="E-posta" />
+            )}
           </div>
 
           <label className="flex gap-2 items-start text-xs mt-3 cursor-pointer">
@@ -149,9 +193,15 @@ export default function Cart() {
           </label>
 
           {err && <p className="text-brand-red text-sm mt-2">{err}</p>}
-          <button className="btn btn-primary w-full mt-3 py-3" onClick={send}>📲 Siparişi WhatsApp ile Gönder</button>
+          <button className="btn btn-primary w-full mt-3 py-3" onClick={send} disabled={busy}>
+            {form.pay === "kart" && kartAktif
+              ? (busy ? "Ödeme sayfası açılıyor…" : "💳 Güvenli Ödemeye Geç")
+              : "📲 Siparişi WhatsApp ile Gönder"}
+          </button>
           <p className="text-xs text-brand-ink/60 mt-2 leading-5">
-            Siparişiniz WhatsApp üzerinden ekibimize iletilir; stok teyidi ve ödeme adımı için sizi arıyoruz.
+            {form.pay === "kart" && kartAktif
+              ? "iyzico güvenli ödeme sayfasına yönlendirileceksiniz; kart bilgileriniz sitemizde tutulmaz."
+              : "Siparişiniz WhatsApp üzerinden ekibimize iletilir; stok teyidi ve ödeme adımı için sizi arıyoruz."}
           </p>
         </div>
       </div>
