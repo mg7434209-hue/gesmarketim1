@@ -53,7 +53,9 @@ function faqs(store) {
     ["Fiyatlar neden dolar bazlı, ₺ fiyat değişir mi?",
       "Solar ürünlerin tedariki döviz bazlıdır. Fiyatlarımız USD üzerinden belirlenir ve sitedeki güncel kurla ₺'ye çevrilir — üstteki kur rozeti o gün geçerli kuru gösterir. Sipariş anındaki ₺ fiyat sipariş onayınızda sabitlenir."],
     ["Kargo ücreti ne kadar, ne zaman gönderilir?",
-      `Siparişler 1–3 iş günü içinde kargoya verilir. ${fmtTL(commerce.freeShippingLimit)} üzeri siparişlerde kargo ücretsizdir; altında ${fmtTL(commerce.shippingFlat)} sabit gönderim bedeli uygulanır. Panel gibi hacimli ürünler ambar/nakliye ile gönderilir; teslimat öncesi telefonla koordine edilir.`],
+      commerce.kargoModu === "alici"
+        ? "Siparişler 1–3 iş günü içinde kargoya verilir. Gönderiler karşı (alıcı) ödemelidir: kargo ücreti sipariş tutarına eklenmez, teslimatta kargo firmasına ödenir. Panel gibi hacimli ürünler ambar/nakliye ile gönderilir; teslimat öncesi telefonla koordine edilir."
+        : `Siparişler 1–3 iş günü içinde kargoya verilir. ${fmtTL(commerce.freeShippingLimit)} üzeri siparişlerde kargo ücretsizdir; altında ${fmtTL(commerce.shippingFlat)} sabit gönderim bedeli uygulanır. Panel gibi hacimli ürünler ambar/nakliye ile gönderilir; teslimat öncesi telefonla koordine edilir.`],
     ["Ödemeyi nasıl yapabilirim?",
       `Havale/EFT (%${commerce.havaleDiscountPct} indirimli) veya kredi kartı ile ödeyebilirsiniz. Sipariş sepetten WhatsApp ile iletilir; stok teyidinden sonra ödeme bilgileri veya güvenli ödeme linki gönderilir.`],
     ["İade koşullarınız nedir?",
@@ -85,10 +87,17 @@ function Kargo({ store }) {
       <h2>Gönderim süresi</h2>
       <p>Stoktan gönderilen ürünler siparişin onaylanmasını takiben <b>1–3 iş günü</b> içinde kargoya teslim edilir. Tedarikli ürünlerde süre sipariş onayında ayrıca bildirilir.</p>
       <h2>Kargo ücreti</h2>
-      <ul>
-        <li><b>{fmtTL(commerce.freeShippingLimit)} ve üzeri</b> siparişlerde kargo <b>ücretsizdir</b>.</li>
-        <li>Bu tutarın altındaki siparişlerde sabit <b>{fmtTL(commerce.shippingFlat)}</b> gönderim bedeli uygulanır.</li>
-      </ul>
+      {commerce.kargoModu === "alici" ? (
+        <ul>
+          <li>Gönderiler <b>karşı (alıcı) ödemeli</b> yapılır — kargo ücreti sipariş tutarına <b>eklenmez</b>.</li>
+          <li>Kargo bedelini teslimat sırasında doğrudan kargo firmasına ödersiniz; tutar desi/bölgeye göre kargo firmasınca belirlenir.</li>
+        </ul>
+      ) : (
+        <ul>
+          <li><b>{fmtTL(commerce.freeShippingLimit)} ve üzeri</b> siparişlerde kargo <b>ücretsizdir</b>.</li>
+          <li>Bu tutarın altındaki siparişlerde sabit <b>{fmtTL(commerce.shippingFlat)}</b> gönderim bedeli uygulanır.</li>
+        </ul>
+      )}
       <h2>Hacimli ürünler (panel, akü grubu)</h2>
       <p>Güneş panelleri ve akü grupları boyutları gereği <b>ambar / nakliye</b> ile gönderilir. Sevkiyat öncesi telefonla teslimat günü koordine edilir. Yüklü siparişlerde adrese teslim aracı organize edilir — sipariş öncesi bizimle irtibata geçmenizi öneririz.</p>
       <h2>Teslimatta kontrol</h2>
@@ -132,7 +141,7 @@ function Mesafeli({ store }) {
       <h2>2. Konu</h2>
       <p>İşbu sözleşme, Alıcı'nın gesmarketim.com üzerinden elektronik ortamda siparişini verdiği, nitelikleri ve satış fiyatı sipariş özetinde belirtilen ürünün satışı ve teslimi ile ilgili olarak 6502 sayılı Kanun ve Mesafeli Sözleşmeler Yönetmeliği hükümleri gereğince tarafların hak ve yükümlülüklerini kapsar.</p>
       <h2>3. Ürün ve ödeme bilgileri</h2>
-      <p>Ürünün cinsi, miktarı, satış bedeli (KDV dahil), ödeme şekli ve teslimat bilgileri sipariş özetinde belirtildiği gibidir. Havale/EFT ödemelerinde sepette belirtilen indirim uygulanır. Kargo bedeli, ücretsiz kargo limitinin altındaki siparişlerde Alıcı'ya aittir ve sipariş özetinde gösterilir.</p>
+      <p>Ürünün cinsi, miktarı, satış bedeli (KDV dahil), ödeme şekli ve teslimat bilgileri sipariş özetinde belirtildiği gibidir. Havale/EFT ödemelerinde sepette belirtilen indirim uygulanır. Kargo bedeli Alıcı'ya aittir; gönderim karşı (alıcı) ödemeli yapılıyorsa bedel teslimatta kargo firmasına ödenir, aksi halde sipariş özetinde gösterilir.</p>
       <h2>4. Teslimat</h2>
       <p>Ürün, sipariş onayını takiben yasal 30 günlük süreyi aşmamak koşuluyla, stok durumuna göre 1–3 iş günü içinde kargoya verilir. Hacimli ürünlerde teslimat, Alıcı ile telefonla koordine edilerek ambar/nakliye ile yapılır.</p>
       <h2>5. Cayma hakkı</h2>
