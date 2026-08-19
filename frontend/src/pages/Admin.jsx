@@ -182,13 +182,24 @@ function OrdersTab({ pass }) {
       .then((r) => r.json()).then(setOrders).catch(() => setOrders([]));
   useEffect(() => { refresh(); }, []);
 
-  const toggle = async (no, done) => {
+  // alanlar: { done } ve/veya { odendi } — sunucu kısmi günceller
+  const toggle = async (no, alanlar) => {
     await fetch("/api/admin/order-status", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pass, no, done }),
+      body: JSON.stringify({ pass, no, ...alanlar }),
     });
     refresh();
   };
+
+  // Ödeme durumu rozeti: kartta iyzico callback'i odendi'yi otomatik yazar;
+  // havalede admin "Ödeme alındı" kutusuyla elle işaretler.
+  const odemeRozet = (o) =>
+    o.odendi
+      ? { cls: "bg-brand-green/15 text-[#3f7d55]",
+          txt: o.pay === "kart" ? "💳 Kart — ödeme ALINDI ✓" : "🏦 Havale — ödeme ALINDI ✓" }
+      : o.pay === "kart"
+        ? { cls: "bg-brand-red/15 text-brand-red", txt: "💳 Kart denendi — ödeme ALINMADI" }
+        : { cls: "bg-brand-amber/25 text-[#9a6a12]", txt: "🏦 Havale ile yapılacak — bekleniyor" };
 
   if (!orders) return <p className="text-brand-ink/60">Yükleniyor…</p>;
   if (!orders.length) return (
@@ -203,12 +214,16 @@ function OrdersTab({ pass }) {
           <div className="flex flex-wrap items-center gap-3 mb-2">
             <b>#{o.no}</b>
             <span className="text-xs text-brand-ink/60">{String(o.createdAt).slice(0, 16).replace("T", " ")}</span>
-            <span className={"badge " + (o.pay === "havale" ? "bg-brand-green/15 text-[#3f7d55]" : "bg-brand-blue/15 text-[#2b7d97]")}>
-              {o.pay === "havale" ? "Havale/EFT" : "Kredi kartı"}
-            </span>
+            <span className={"badge " + odemeRozet(o).cls}>{odemeRozet(o).txt}</span>
+            {o.paymentId && <span className="text-[10px] text-brand-ink/40">iyzico #{o.paymentId}</span>}
             <b className="ml-auto text-[#9a6a12]">{fmtTL(o.total)}</b>
+            <label className="flex items-center gap-1.5 text-xs cursor-pointer" title="Havale gelince elle işaretleyin; kart ödemelerini iyzico otomatik işler">
+              <input type="checkbox" checked={Boolean(o.odendi)}
+                onChange={(e) => toggle(o.no, { odendi: e.target.checked })} />
+              Ödeme alındı
+            </label>
             <label className="flex items-center gap-1.5 text-xs cursor-pointer">
-              <input type="checkbox" checked={o.done} onChange={(e) => toggle(o.no, e.target.checked)} />
+              <input type="checkbox" checked={o.done} onChange={(e) => toggle(o.no, { done: e.target.checked })} />
               Tamamlandı
             </label>
           </div>

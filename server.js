@@ -588,7 +588,10 @@ const server = http.createServer((req, res) => {
       const list = readOrders();
       const o = list.find((x) => x.no === d.no);
       if (!o) return send(res, 404, '{"error":"bulunamadi"}', JSON_HDR);
-      o.done = Boolean(d.done);
+      // Kısmi güncelleme: done (sipariş tamamlandı) ve/veya odendi (ödeme
+      // alındı — havalede elle işaretlenir; kartta iyzico callback'i yazar).
+      if (typeof d.done === "boolean") o.done = d.done;
+      if (typeof d.odendi === "boolean") o.odendi = d.odendi;
       try { writeOrders(list); } catch (e) { return send(res, 500, '{"error":"yazilamadi"}', JSON_HDR); }
       send(res, 200, '{"ok":true}', JSON_HDR);
     });
