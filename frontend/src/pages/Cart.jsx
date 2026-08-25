@@ -14,8 +14,14 @@ export default function Cart() {
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
   useEffect(() => onCart(setCart), []);
-  // iyzico env anahtarları sunucuda tanımlıysa kartla online ödeme açıktır
-  const kartAktif = Boolean(store.config.payments && store.config.payments.kart);
+  // Kart tahsilatı iki yoldan biriyle yapılır (config.payments):
+  // 1) kartUrl dolu → gespaenerji.com'daki iyzico "Güvenli Ödeme" link
+  //    sayfasına yönlendirilir (iyzico tek site izni — ASIL yol),
+  // 2) kartUrl boş + sunucuda iyzico env anahtarları → yerinde Checkout Form.
+  const pays = store.config.payments || {};
+  const kartUrl = pays.kartUrl || "";
+  const kartYerinde = !kartUrl && Boolean(pays.kart);
+  const kartOnline = Boolean(kartUrl) || kartYerinde;
 
   const items = Object.entries(cart)
     .map(([id, qty]) => ({ p: store.products.find((x) => x.id === id), qty }))
@@ -45,29 +51,54 @@ export default function Cart() {
     if (!form.name.trim() || !form.phone.trim() || !form.addr.trim())
       return setErr("Lütfen ad, telefon ve adres alanlarını doldurun.");
     if (!form.kvkk) return setErr("Lütfen sözleşme onay kutusunu işaretleyin.");
-    const kartOnline = form.pay === "kart" && kartAktif;
-    if (kartOnline && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+    const kartLink = form.pay === "kart" && Boolean(kartUrl);
+    const kartInit = form.pay === "kart" && kartYerinde;
+    if (kartInit && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
       return setErr("Kartla ödeme için geçerli bir e-posta adresi girin (makbuz iletimi).");
+    if (kartLink) {
+      // Sınırlar gespaenerji.com/api/pay/custom ile aynı (config'ten gelir)
+      const min = pays.kartMinTL || 0, max = pays.kartMaxTL || 0;
+      if ((min && cardTotal < min) || (max && cardTotal > max))
+        return setErr(`Kartla online ödeme ${fmtTL(min)} – ${fmtTL(max)} arası tutarlar için geçerlidir. ` +
+          "Lütfen havale/EFT seçin ya da siparişi WhatsApp ile gönderin.");
+    }
     setErr("");
 
-    // --- KARTLA ONLINE ÖDEME: sipariş → iyzico ödeme sayfasına yönlendir ---
-    // Sepet burada temizlenmez; ödeme başarılı dönünce /odeme-sonuc temizler.
-    if (kartOnline) {
+    // --- KARTLA ONLINE ÖDEME ---
+    // Sepet burada temizlenmez: başarısız/yarıda kalan denemede müşteri
+    // sepetini kaybetmesin (link akışında sonuç sayfası gespaenerji.com'dadır).
+    if (kartLink || kartInit) {
       setBusy(true);
       try {
-        const r = await fetch("/api/orders", {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: form.name.trim(), phone: form.phone.trim(), addr: form.addr.trim(),
-            email: form.email.trim(), note: form.note.trim(), pay: "kart",
-            items: items.map((it) => ({ id: it.p.id, qty: it.qty })),
-          }),
-          signal: AbortSignal.timeout(8000),
-        }).then((x) => x.json());
-        if (!r || !r.no) throw new Error("siparis");
+        let no = "", total = cardTotal;
+        try {
+          const r = await fetch("/api/orders", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: form.name.trim(), phone: form.phone.trim(), addr: form.addr.trim(),
+              email: form.email.trim(), note: form.note.trim(), pay: "kart",
+              items: items.map((it) => ({ id: it.p.id, qty: it.qty })),
+            }),
+            signal: AbortSignal.timeout(8000),
+          }).then((x) => x.json());
+          if (r && r.no) { no = r.no; if (r.total > 0) total = r.total; }
+        } catch { /* link ödemesi sipariş kaydına ulaşılamasa da yapılabilir */ }
+
+        if (kartLink) {
+          // gespaenerji.com "Güvenli Ödeme": t=tutar(₺) · a=açıklama · s=sipariş no.
+          // Tutar sunucunun hesapladığı sipariş toplamıdır; kargo öncesi ödenen
+          // tutar iyzico panelinden ayrıca doğrulanır.
+          const u = new URL(kartUrl);
+          u.searchParams.set("t", String(Math.round(total)));
+          u.searchParams.set("a", items.map((it) => `${it.qty}x ${it.p.name}`).join(", ").slice(0, 120));
+          if (no) u.searchParams.set("s", no);
+          window.location.href = u.toString();
+          return;
+        }
+        if (!no) throw new Error("siparis");
         const p = await fetch("/api/pay/init", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ no: r.no }),
+          body: JSON.stringify({ no }),
           signal: AbortSignal.timeout(25000),
         }).then((x) => x.json());
         if (p && p.ok && p.url) { window.location.href = p.url; return; }
@@ -177,8 +208,10 @@ export default function Cart() {
           <div className="space-y-2 mt-3">
             {[
               { v: "havale", t: <b>Havale / EFT</b>, d: `%${commerce.havaleDiscountPct} indirim — IBAN onay mesajıyla iletilir.` },
-              kartAktif
-                ? { v: "kart", t: <b>Kredi / Banka Kartı</b>, d: "iyzico güvenli ödeme sayfasında 256-bit SSL ile ödersiniz." }
+              kartOnline
+                ? { v: "kart", t: <b>Kredi / Banka Kartı</b>, d: kartUrl
+                    ? "Gespa Enerji'nin (gespaenerji.com) iyzico güvenli ödeme sayfasında ödersiniz — tutar ve sipariş no otomatik dolar."
+                    : "iyzico güvenli ödeme sayfasında 256-bit SSL ile ödersiniz." }
                 : { v: "kart", t: <b>Kredi kartı</b>, d: "Güvenli ödeme linki WhatsApp'tan gönderilir." },
             ].map((o) => (
               <label key={o.v} className={"flex gap-2 items-start border rounded-btn p-3 text-sm cursor-pointer " +
@@ -187,7 +220,7 @@ export default function Cart() {
                 <span>{o.t} — <span className="text-brand-ink/70">{o.d}</span></span>
               </label>
             ))}
-            {form.pay === "kart" && kartAktif && (
+            {form.pay === "kart" && kartYerinde && (
               <input className="input" type="email" placeholder="E-posta * (ödeme makbuzu için)"
                 value={form.email} onChange={F("email")} aria-label="E-posta" />
             )}
@@ -203,13 +236,15 @@ export default function Cart() {
 
           {err && <p className="text-brand-red text-sm mt-2">{err}</p>}
           <button className="btn btn-primary w-full mt-3 py-3" onClick={send} disabled={busy}>
-            {form.pay === "kart" && kartAktif
+            {form.pay === "kart" && kartOnline
               ? (busy ? "Ödeme sayfası açılıyor…" : "💳 Güvenli Ödemeye Geç")
               : "📲 Siparişi WhatsApp ile Gönder"}
           </button>
           <p className="text-xs text-brand-ink/60 mt-2 leading-5">
-            {form.pay === "kart" && kartAktif
-              ? "iyzico güvenli ödeme sayfasına yönlendirileceksiniz; kart bilgileriniz sitemizde tutulmaz."
+            {form.pay === "kart" && kartOnline
+              ? (kartUrl
+                  ? "Siparişiniz kaydedilir ve grup sitemiz gespaenerji.com'un iyzico güvenli ödeme sayfasına yönlendirilirsiniz; kart bilgileriniz sitemizde tutulmaz."
+                  : "iyzico güvenli ödeme sayfasına yönlendirileceksiniz; kart bilgileriniz sitemizde tutulmaz.")
               : "Siparişiniz WhatsApp üzerinden ekibimize iletilir; stok teyidi ve ödeme adımı için sizi arıyoruz."}
           </p>
         </div>

@@ -84,6 +84,12 @@ function readBody(req, limit, cb) {
 }
 
 /* ---------- iyzico ödeme (Checkout Form) ----------
+   NOT: iyzico tek kanaldan/tek siteden izin verdiği için kart tahsilatının
+   ASIL yolu artık gespaenerji.com'daki link ödeme sayfasıdır
+   (config.payments.kartUrl → odeme.html?t=&a=&s= — sepet oraya yönlendirir,
+   ödeme onayı admin panelde elle "Ödeme alındı" ile işaretlenir).
+   Aşağıdaki yerinde Checkout Form kodu, kartUrl boşaltılır ve env
+   anahtarları girilirse çalışan YEDEK yoldur.
    ANAHTARLAR YALNIZCA ENV'DEN OKUNUR (IYZICO_API_KEY / IYZICO_SECRET_KEY) —
    koda/konfige ASLA yazılmaz. Env yoksa kartla ödeme seçeneği sitede
    görünmez (payments.kart=false), havale/WhatsApp akışı aynen çalışır.
@@ -147,7 +153,15 @@ const PUBLIC_CFG = JSON.stringify({
   builder: CFG.builder,
   visitors: CFG.visitors || null,
   seo: CFG.seo,
-  payments: { kart: KART_AKTIF }
+  // kartUrl doluysa kart tahsilatı gespaenerji.com'daki link ödeme sayfasında
+  // yapılır (iyzico tek site izni); kart=true yalnız yerinde Checkout Form'u
+  // (env anahtarları) bildirir. Sınırlar gespaenerji /api/pay/custom ile aynı.
+  payments: {
+    kart: KART_AKTIF,
+    kartUrl: (CFG.payments && CFG.payments.kartUrl) || "",
+    kartMinTL: (CFG.payments && CFG.payments.kartMinTL) || 0,
+    kartMaxTL: (CFG.payments && CFG.payments.kartMaxTL) || 0
+  }
 });
 
 /* ---------- Ziyaretçi sayacı ---------- */
@@ -488,7 +502,8 @@ const server = http.createServer((req, res) => {
         const list = readOrders(); list.push(order); writeOrders(list);
       } catch (e) { return send(res, 500, '{"error":"yazilamadi"}', JSON_HDR); }
       console.log("[sipariş]", order.no, "·", items.length, "kalem ·", total, "₺");
-      send(res, 200, JSON.stringify({ ok: true, no: order.no }), JSON_HDR);
+      // total yanıtta döner: kart link ödemesinde tutar sunucu hesabıyla taşınır
+      send(res, 200, JSON.stringify({ ok: true, no: order.no, total: order.total }), JSON_HDR);
     });
   }
 
