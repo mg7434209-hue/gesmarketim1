@@ -45,6 +45,19 @@ GESM.config = {
                                 // panelden geçici, buradan kalıcı güncellenir
   },
 
+  // Kartla ödeme — iyzico tek kanaldan/tek siteden (gespaenerji.com) izin
+  // verdiği için tahsilat oradaki "Güvenli Ödeme" link sayfasında yapılır.
+  // Sepet, tutar/açıklama/sipariş no'yu URL parametresiyle taşır:
+  // odeme.html?t=<tutar ₺ tam sayı>&a=<açıklama>&s=<sipariş no>.
+  // kartUrl BOŞ bırakılırsa bu yol kapanır; o zaman yalnız sunucudaki
+  // IYZICO_* env anahtarları (varsa) ile yerinde Checkout Form çalışır.
+  // kartMin/MaxTL gespaenerji /api/pay/custom sınırlarının aynısıdır.
+  payments: {
+    kartUrl: "https://www.gespaenerji.com/odeme.html",
+    kartMinTL: 50,
+    kartMaxTL: 250000
+  },
+
   // Fiyatlandırma kuralları (K2/K3) — admin panel bunların üzerine yazabilir
   pricing: {
     defaultMarginPct: 20,       // Enerji Pazarı varsayılan marjı (K2)

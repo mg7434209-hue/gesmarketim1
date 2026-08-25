@@ -34,7 +34,15 @@ Projenizi Tasarlayın" 3 profil kartı (karavan/ev/sulama → `/hesaplayici?prof
 engelli, noindex; şifre ADMIN_PASS env > config.admin.pass) · SPA 404.
 Eski `.html` URL'leri server.js 301 ile yeni rotalara yönlendirir (SEO).
 SİPARİŞLER: sepet WhatsApp'a ek `POST /api/orders` ile sunucuya da yazar
-(tutar sunucuda hesaplanır; `DATA_DIR/orders.json`, son 500). Admin uçları:
+(tutar sunucuda hesaplanır ve yanıtta döner; `DATA_DIR/orders.json`, son 500).
+KART ÖDEMESİ: iyzico tek kanaldan/tek siteden izin verdiği için tahsilat
+gespaenerji.com'daki "Güvenli Ödeme" link sayfasında yapılır —
+`config.payments.kartUrl` (+ kartMin/MaxTL sınırları) → sepet, siparişi
+`/api/orders`'a yazıp `odeme.html?t=<tutar>&a=<özet>&s=<sipariş no>`'ya
+yönlendirir; ödeme onayı iyzico paneli/gespaenerji orders.json'dan doğrulanıp
+admin panelde elle "Ödeme alındı" işaretlenir (kargo ÖNCESİ tutar kontrolü!).
+kartUrl boşaltılır ve IYZICO_* env girilirse eski yerinde Checkout Form akışı
+(`/api/pay/init` + callback) yedek olarak devreye girer. Admin uçları:
 GET `/api/admin/orders|overrides` (x-admin-pass başlığı), POST
 `/api/admin/price|order-status` (gövdede pass). KALICILIK: Railway'de
 Volume bağlanıp `DATA_DIR` ona işaret etmezse kur/override/sipariş verileri
