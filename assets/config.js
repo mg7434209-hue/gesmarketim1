@@ -22,6 +22,14 @@ GESM.config = {
     social: {
       instagram: "https://instagram.com/gesmarketim",
       youtube: "https://youtube.com/@gesmarketim"
+    },
+    // Havale/EFT ödemelerinin yapılacağı ŞİRKET hesabı (gespaenerji.com ile
+    // aynı hesap). Hesap sahibi ticaret unvanıyla birebir aynı olmalı — şahıs
+    // hesabına ödeme kabul edilmez. Sepetteki havale kutusu buradan beslenir.
+    bank: {
+      name: "VakıfBank",
+      accountHolder: "Gespa Enerji Sanayi Ticaret Limited Şirketi",
+      iban: "TR89 0001 5001 5800 7320 2443 78"
     }
   },
 

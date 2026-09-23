@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useStore, priceTL, havaleTL, fmtTL, cartGet, cartSetQty, onCart, waLink } from "../api.js";
 import { useSeo } from "../hooks.js";
@@ -13,6 +13,18 @@ export default function Cart() {
   const [form, setForm] = useState({ name: "", phone: "", addr: "", email: "", note: "", pay: "havale", kvkk: false });
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const bank = company.bank;
+  const copyIban = () => {
+    const raw = bank.iban.replace(/\s+/g, "");
+    const done = () => { setCopied(true); setTimeout(() => setCopied(false), 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(raw).then(done, () => {});
+    else {
+      const t = document.createElement("textarea"); t.value = raw; document.body.appendChild(t);
+      t.select(); try { document.execCommand("copy"); done(); } catch { /* yoksay */ }
+      t.remove();
+    }
+  };
   useEffect(() => onCart(setCart), []);
   // Kart tahsilatı iki yoldan biriyle yapılır (config.payments):
   // 1) kartUrl dolu → gespaenerji.com'daki iyzico "Güvenli Ödeme" link
@@ -134,7 +146,8 @@ export default function Cart() {
       `\nKargo: ${aliciOdemeli ? "Alıcı ödemeli (teslimatta kargo firmasına)" : (shipping ? fmtTL(shipping) : "Ücretsiz")}` +
       `\nÖdeme: ${form.pay === "havale" ? `Havale/EFT (%${commerce.havaleDiscountPct} indirimli)` : "Kredi kartı"}` +
       `\nTOPLAM: ${fmtTL(total)}\n\n👤 ${form.name}\n📞 ${form.phone}\n📍 ${form.addr}` +
-      (form.note.trim() ? `\n📝 ${form.note.trim()}` : "");
+      (form.note.trim() ? `\n📝 ${form.note.trim()}` : "") +
+      (form.pay === "havale" && bank ? `\n\n🏦 Hesap: ${bank.accountHolder} · ${bank.name} · ${bank.iban}` : "");
     window.open(waLink(store, msg), "_blank", "noopener");
   };
 
@@ -207,19 +220,36 @@ export default function Cart() {
 
           <div className="space-y-2 mt-3">
             {[
-              { v: "havale", t: <b>Havale / EFT</b>, d: `%${commerce.havaleDiscountPct} indirim — IBAN onay mesajıyla iletilir.` },
+              { v: "havale", t: <b>Havale / EFT</b>, d: `%${commerce.havaleDiscountPct} indirim — ödeme yalnızca aşağıdaki şirket hesabına yapılır; dekont WhatsApp'tan iletilir.` },
               kartOnline
                 ? { v: "kart", t: <b>Kredi / Banka Kartı</b>, d: kartUrl
                     ? "Gespa Enerji'nin (gespaenerji.com) iyzico güvenli ödeme sayfasında ödersiniz — tutar ve sipariş no otomatik dolar."
                     : "iyzico güvenli ödeme sayfasında 256-bit SSL ile ödersiniz." }
                 : { v: "kart", t: <b>Kredi kartı</b>, d: "Güvenli ödeme linki WhatsApp'tan gönderilir." },
-            ].map((o) => (
-              <label key={o.v} className={"flex gap-2 items-start border rounded-btn p-3 text-sm cursor-pointer " +
+            ].map((o) => (<Fragment key={o.v}>
+              <label className={"flex gap-2 items-start border rounded-btn p-3 text-sm cursor-pointer " +
                 (form.pay === o.v ? "border-brand-amber bg-brand-amber/10" : "border-surface-line")}>
                 <input type="radio" name="pay" value={o.v} checked={form.pay === o.v} onChange={F("pay")} className="mt-0.5" />
                 <span>{o.t} — <span className="text-brand-ink/70">{o.d}</span></span>
               </label>
-            ))}
+            {o.v === "havale" && form.pay === "havale" && bank && (
+              <div className="border border-dashed border-surface-line rounded-btn p-3 text-sm space-y-2">
+                <div><div className="text-xs text-brand-ink/60">Hesap sahibi</div><b>{bank.accountHolder}</b></div>
+                <div><div className="text-xs text-brand-ink/60">Banka</div><b>{bank.name}</b></div>
+                <div>
+                  <div className="text-xs text-brand-ink/60">IBAN</div>
+                  <b className="tracking-wide select-all">{bank.iban}</b>
+                  <button type="button" onClick={copyIban} aria-label="IBAN'ı kopyala"
+                    className="block mt-1.5 text-xs border border-surface-line rounded-btn px-2 py-1 hover:bg-surface-alt">
+                    {copied ? "✓ Kopyalandı" : "📋 Kopyala"}
+                  </button>
+                </div>
+                <p className="text-xs text-brand-ink/70">
+                  ⚠️ Şahıs adına açılmış hesaplara ödeme talep etmeyiz. Açıklamaya ad-soyadınızı yazınız.
+                </p>
+              </div>
+            )}
+            </Fragment>))}
             {form.pay === "kart" && kartYerinde && (
               <input className="input" type="email" placeholder="E-posta * (ödeme makbuzu için)"
                 value={form.email} onChange={F("email")} aria-label="E-posta" />
