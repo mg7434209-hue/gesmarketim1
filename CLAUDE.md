@@ -31,7 +31,7 @@ Projenizi Tasarlayın" 3 profil kartı (karavan/ev/sulama → `/hesaplayici?prof
 ön seçim) · `/iletisim` · statikler: `/hakkimizda` `/sss` (FAQPage JSON-LD)
 `/kargo-teslimat` `/iade-degisim` `/mesafeli-satis` `/kvkk` · `/admin`
 (yönetim: fiyat override + siparişler + kur yayınlama; menüde YOK, robots
-engelli, noindex; şifre ADMIN_PASS env > config.admin.pass) · SPA 404.
+engelli, noindex; şifre YALNIZ ADMIN_PASS env — config'e yazılmaz, yoksa admin kapalı) · SPA 404.
 Eski `.html` URL'leri server.js 301 ile yeni rotalara yönlendirir (SEO).
 SİPARİŞLER: sepet WhatsApp'a ek `POST /api/orders` ile sunucuya da yazar
 (tutar sunucuda hesaplanır ve yanıtta döner; `DATA_DIR/orders.json`, son 500).
@@ -71,7 +71,8 @@ her deploy'da sıfırlanır.
 
 ## TEK DOĞRU KAYNAK — `assets/config.js`
 İletişim, duyuru bandı, kargo/havale katsayıları, kur tamponu/yuvarlama,
-Sistem Kurucu katsayıları (`config.builder`), admin şifresi YALNIZCA burada.
+Sistem Kurucu katsayıları (`config.builder`) YALNIZCA burada. Admin şifresi
+burada DEĞİL: yalnız Railway `ADMIN_PASS` (repo herkese açık).
 server.js bunu okur ve güvenli alt kümesini `/api/config` ile SPA'ya verir —
 React tarafına sayı gömme. Tarayıcıya bu dosya artık servis edilmez.
 

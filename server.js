@@ -16,11 +16,15 @@ const crypto = require("crypto");
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
-// config.js'ten varsayılan kur + admin şifresi (tarayıcı globali şimi)
+// config.js'ten varsayılan kur (tarayıcı globali şimi)
 global.window = global;
 require("./assets/config.js");
 const CFG = global.GESM.config;
-const ADMIN_PASS = process.env.ADMIN_PASS || (CFG.admin && CFG.admin.pass) || "";
+// Yönetici şifresi YALNIZ Railway ortam değişkeni ADMIN_PASS. Eskiden
+// config.admin.pass yedekti; repo herkese açık olduğu için o şifre herkesçe
+// biliniyordu (siparişler = müşteri ad/telefon/adres). Tanımlı değilse tüm
+// yönetici uçları kapalıdır (403).
+const ADMIN_PASS = String(process.env.ADMIN_PASS || "").trim();
 
 const DATA_DIR = process.env.DATA_DIR || path.join(ROOT, "data");
 const KUR_FILE = path.join(DATA_DIR, "kur.json");
@@ -76,7 +80,11 @@ function tlOf(p) {
   const raw = p.saleUsd * kur * (1 + ((CFG.pricing && CFG.pricing.fxBufferPct) || 0) / 100);
   return Math.round(raw / step) * step;
 }
-function adminOk(pass) { return Boolean(ADMIN_PASS) && pass === ADMIN_PASS; }
+function adminOk(pass) {
+  if (!ADMIN_PASS) return false;
+  const a = Buffer.from(String(pass || ""), "utf8"), b = Buffer.from(ADMIN_PASS, "utf8");
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
 function readBody(req, limit, cb) {
   let b = "";
   req.on("data", (c) => { b += c; if (b.length > limit) req.destroy(); });
@@ -257,7 +265,7 @@ function handleKurApi(req, res) {
       let data;
       try { data = JSON.parse(body); } catch (e) { data = null; }
       const rate = data && Number(data.usdTry);
-      if (!data || data.pass !== ADMIN_PASS || !ADMIN_PASS) {
+      if (!data || !adminOk(data.pass)) {
         return send(res, 403, '{"error":"yetki"}', { "Content-Type": "application/json" });
       }
       if (!Number.isFinite(rate) || rate <= 0 || rate > 10000) {
@@ -666,6 +674,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log("GES MARKETİM yayında → http://localhost:" + PORT);
+  if (!ADMIN_PASS) console.log("UYARI: ADMIN_PASS tanımlı değil — /admin ve yönetici uçları kapalı");
   // Otomatik kur: açılışta (3 sn sonra) + periyodik (varsayılan 6 saat)
   const hours = Number(process.env.KUR_REFRESH_HOURS) > 0 ? Number(process.env.KUR_REFRESH_HOURS) : 6;
   setTimeout(autoUpdateKur, 3000).unref();
