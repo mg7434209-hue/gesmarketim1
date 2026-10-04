@@ -217,8 +217,8 @@ GESM.config = {
   // kalıcı veri DATA_DIR/visitors.json — Railway Volume önerilir).
   visitors: { base: 1000, show: true },
 
-  // Admin panel (statik sitede yalnızca caydırıcı)
-  admin: { pass: "gesm2026" },
+  // Admin şifresi BURADA DEĞİL: yalnız Railway ortam değişkeni ADMIN_PASS
+  // (repo herkese açık).
 
   seo: {
     titleTemplate: "%s | GES MARKETİM",

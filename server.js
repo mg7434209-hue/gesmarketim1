@@ -16,11 +16,15 @@ const crypto = require("crypto");
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
-// config.js'ten varsayılan kur + admin şifresi (tarayıcı globali şimi)
+// config.js'ten varsayılan kur (tarayıcı globali şimi)
 global.window = global;
 require("./assets/config.js");
 const CFG = global.GESM.config;
-const ADMIN_PASS = process.env.ADMIN_PASS || (CFG.admin && CFG.admin.pass) || "";
+// Yönetici şifresi YALNIZ Railway ortam değişkeni ADMIN_PASS. Eskiden
+// config.admin.pass yedekti; repo herkese açık olduğu için o şifre herkesçe
+// biliniyordu (siparişler = müşteri ad/telefon/adres). Tanımlı değilse tüm
+// yönetici uçları kapalıdır (403).
+const ADMIN_PASS = String(process.env.ADMIN_PASS || "").trim();
 
 const DATA_DIR = process.env.DATA_DIR || path.join(ROOT, "data");
 const KUR_FILE = path.join(DATA_DIR, "kur.json");
@@ -76,7 +80,60 @@ function tlOf(p) {
   const raw = p.saleUsd * kur * (1 + ((CFG.pricing && CFG.pricing.fxBufferPct) || 0) / 100);
   return Math.round(raw / step) * step;
 }
-function adminOk(pass) { return Boolean(ADMIN_PASS) && pass === ADMIN_PASS; }
+function adminOk(pass) {
+  if (!ADMIN_PASS) return false;
+  const a = Buffer.from(String(pass || ""), "utf8"), b = Buffer.from(ADMIN_PASS, "utf8");
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+/* ---------- Gespa OS özeti (/api/os/summary) ----------
+   Gespa OS'teki JARVIS siteyi bu TEK uçtan kontrol eder: son 30 günün
+   siparişleri, katalog uyarıları, fiyat override'ları, kur, ziyaretçi.
+   YALNIZ OKUR. Yönetici şifresini DEĞİL ayrı OS_TOKEN'ı (≥32 karakter) kabul
+   eder. KVKK: siparişteki ad, telefon, e-posta, adres ve not ÇIKMAZ (test). */
+const OS_TOKEN = (() => { const t = String(process.env.OS_TOKEN || "").trim(); return t.length >= 32 ? t : ""; })();
+function osTokenOk(t) {
+  if (!OS_TOKEN) return false;
+  const a = Buffer.from(String(t || ""), "utf8"), b = Buffer.from(OS_TOKEN, "utf8");
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+function osSummary() {
+  const since = Date.now() - 30 * 864e5;
+  const orders = readOrders()
+    .filter((o) => o && o.createdAt && Date.parse(o.createdAt) >= since)
+    .reverse()
+    .map((o) => ({
+      no: o.no, createdAt: o.createdAt, pay: o.pay, total: o.total,
+      subtotal: o.subtotal, shipping: o.shipping, kargo: o.kargo || null,
+      paid: !!o.odendi, done: !!o.done,
+      items: (o.items || []).map((it) => ({ id: it.id, code: it.code, name: it.name, qty: it.qty }))
+    }));
+  const products = mergedProducts();
+  const nameOf = (id) => { const p = products.find((x) => x.id === id); return p ? p.name : id; };
+  const kur = readKur();
+  return {
+    site: "gesmarketim.com",
+    generatedAt: new Date().toISOString(),
+    dataDirFromEnv: !!process.env.DATA_DIR,
+    orders: {
+      days: 30, count: orders.length,
+      unpaid: orders.filter((o) => !o.paid).length,
+      open: orders.filter((o) => !o.done).length,
+      items: orders.slice(0, 50)
+    },
+    catalog: {
+      count: products.length,
+      categories: (CATALOG.categories || []).map((c) => ({
+        slug: c.slug, name: c.name, count: products.filter((p) => p.cat === c.slug).length
+      })),
+      outOfStock: products.filter((p) => p.inStock === false).map((p) => ({ id: p.id, code: p.code, name: p.name })),
+      noImage: products.filter((p) => !(p.img && p.img.length)).map((p) => ({ id: p.id, code: p.code, name: p.name })),
+      overrides: Object.keys(OVERRIDES).map((id) => ({ id: id, name: nameOf(id), priceTL: OVERRIDES[id].priceTL }))
+    },
+    kur: { usdTry: kur.usdTry, source: kur.source || null, updatedAt: kur.updatedAt || null },
+    visitors: { count: readVisitors().count, base: (CFG.visitors && CFG.visitors.base) || 0 },
+    pay: { kartUrl: !!(CFG.payments && CFG.payments.kartUrl), iyzico: KART_AKTIF }
+  };
+}
 function readBody(req, limit, cb) {
   let b = "";
   req.on("data", (c) => { b += c; if (b.length > limit) req.destroy(); });
@@ -257,7 +314,7 @@ function handleKurApi(req, res) {
       let data;
       try { data = JSON.parse(body); } catch (e) { data = null; }
       const rate = data && Number(data.usdTry);
-      if (!data || data.pass !== ADMIN_PASS || !ADMIN_PASS) {
+      if (!data || !adminOk(data.pass)) {
         return send(res, 403, '{"error":"yetki"}', { "Content-Type": "application/json" });
       }
       if (!Number.isFinite(rate) || rate <= 0 || rate > 10000) {
@@ -592,6 +649,14 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  /* ---------- Gespa OS özeti (salt okunur) ---------- */
+  if (urlPath === "/api/os/summary") {
+    if (req.method !== "GET") return send(res, 405, '{"error":"method"}', JSON_HDR);
+    if (!OS_TOKEN) return send(res, 503, '{"error":"OS_TOKEN tanımlı değil"}', JSON_HDR);
+    if (!osTokenOk(req.headers["x-os-token"])) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
+    return send(res, 200, JSON.stringify(osSummary()), JSON_HDR);
+  }
+
   /* ---------- Admin API (ADMIN_PASS) ---------- */
   if (urlPath === "/api/admin/orders" && req.method === "GET") {
     if (!adminOk(req.headers["x-admin-pass"])) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
@@ -666,6 +731,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log("GES MARKETİM yayında → http://localhost:" + PORT);
+  if (!ADMIN_PASS) console.log("UYARI: ADMIN_PASS tanımlı değil — /admin ve yönetici uçları kapalı");
   // Otomatik kur: açılışta (3 sn sonra) + periyodik (varsayılan 6 saat)
   const hours = Number(process.env.KUR_REFRESH_HOURS) > 0 ? Number(process.env.KUR_REFRESH_HOURS) : 6;
   setTimeout(autoUpdateKur, 3000).unref();
