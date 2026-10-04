@@ -85,6 +85,55 @@ function adminOk(pass) {
   const a = Buffer.from(String(pass || ""), "utf8"), b = Buffer.from(ADMIN_PASS, "utf8");
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
+/* ---------- Gespa OS özeti (/api/os/summary) ----------
+   Gespa OS'teki JARVIS siteyi bu TEK uçtan kontrol eder: son 30 günün
+   siparişleri, katalog uyarıları, fiyat override'ları, kur, ziyaretçi.
+   YALNIZ OKUR. Yönetici şifresini DEĞİL ayrı OS_TOKEN'ı (≥32 karakter) kabul
+   eder. KVKK: siparişteki ad, telefon, e-posta, adres ve not ÇIKMAZ (test). */
+const OS_TOKEN = (() => { const t = String(process.env.OS_TOKEN || "").trim(); return t.length >= 32 ? t : ""; })();
+function osTokenOk(t) {
+  if (!OS_TOKEN) return false;
+  const a = Buffer.from(String(t || ""), "utf8"), b = Buffer.from(OS_TOKEN, "utf8");
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+function osSummary() {
+  const since = Date.now() - 30 * 864e5;
+  const orders = readOrders()
+    .filter((o) => o && o.createdAt && Date.parse(o.createdAt) >= since)
+    .reverse()
+    .map((o) => ({
+      no: o.no, createdAt: o.createdAt, pay: o.pay, total: o.total,
+      subtotal: o.subtotal, shipping: o.shipping, kargo: o.kargo || null,
+      paid: !!o.odendi, done: !!o.done,
+      items: (o.items || []).map((it) => ({ id: it.id, code: it.code, name: it.name, qty: it.qty }))
+    }));
+  const products = mergedProducts();
+  const nameOf = (id) => { const p = products.find((x) => x.id === id); return p ? p.name : id; };
+  const kur = readKur();
+  return {
+    site: "gesmarketim.com",
+    generatedAt: new Date().toISOString(),
+    dataDirFromEnv: !!process.env.DATA_DIR,
+    orders: {
+      days: 30, count: orders.length,
+      unpaid: orders.filter((o) => !o.paid).length,
+      open: orders.filter((o) => !o.done).length,
+      items: orders.slice(0, 50)
+    },
+    catalog: {
+      count: products.length,
+      categories: (CATALOG.categories || []).map((c) => ({
+        slug: c.slug, name: c.name, count: products.filter((p) => p.cat === c.slug).length
+      })),
+      outOfStock: products.filter((p) => p.inStock === false).map((p) => ({ id: p.id, code: p.code, name: p.name })),
+      noImage: products.filter((p) => !(p.img && p.img.length)).map((p) => ({ id: p.id, code: p.code, name: p.name })),
+      overrides: Object.keys(OVERRIDES).map((id) => ({ id: id, name: nameOf(id), priceTL: OVERRIDES[id].priceTL }))
+    },
+    kur: { usdTry: kur.usdTry, source: kur.source || null, updatedAt: kur.updatedAt || null },
+    visitors: { count: readVisitors().count, base: (CFG.visitors && CFG.visitors.base) || 0 },
+    pay: { kartUrl: !!(CFG.payments && CFG.payments.kartUrl), iyzico: KART_AKTIF }
+  };
+}
 function readBody(req, limit, cb) {
   let b = "";
   req.on("data", (c) => { b += c; if (b.length > limit) req.destroy(); });
@@ -598,6 +647,14 @@ const server = http.createServer((req, res) => {
       });
     });
     return;
+  }
+
+  /* ---------- Gespa OS özeti (salt okunur) ---------- */
+  if (urlPath === "/api/os/summary") {
+    if (req.method !== "GET") return send(res, 405, '{"error":"method"}', JSON_HDR);
+    if (!OS_TOKEN) return send(res, 503, '{"error":"OS_TOKEN tanımlı değil"}', JSON_HDR);
+    if (!osTokenOk(req.headers["x-os-token"])) return send(res, 403, '{"error":"yetki"}', JSON_HDR);
+    return send(res, 200, JSON.stringify(osSummary()), JSON_HDR);
   }
 
   /* ---------- Admin API (ADMIN_PASS) ---------- */

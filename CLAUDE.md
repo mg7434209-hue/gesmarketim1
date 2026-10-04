@@ -47,6 +47,10 @@ GET `/api/admin/orders|overrides` (x-admin-pass başlığı), POST
 `/api/admin/price|order-status` (gövdede pass). KALICILIK: Railway'de
 Volume bağlanıp `DATA_DIR` ona işaret etmezse kur/override/sipariş verileri
 her deploy'da sıfırlanır.
+GESPA OS (JARVIS) ÖZETİ: `GET /api/os/summary` + `X-OS-Token` (Railway `OS_TOKEN`,
+≥32 karakter; yönetici şifresi kabul edilmez). Salt okunur: son 30 gün siparişleri,
+katalog uyarıları (stokta yok, görselsiz), override'lar, kur, ziyaretçi. Siparişteki
+ad/telefon/e-posta/adres/not ÇIKMAZ (`tests/os-summary.test.js`, `npm test`).
 
 ## DEĞİŞMEZ İŞ KURALLARI (spec 8.1)
 - **K1**: Tedarikçi ve MALİYET bilgisi müşteri arayüzünde HİÇBİR yerde
