@@ -613,9 +613,12 @@ const server = http.createServer((req, res) => {
       if (!/^\d{8}$/.test(bin)) return send(res, 400, '{"error":"bin"}', JSON_HDR);
       const istek = { binNumber: bin };
       istek.securityHash = tami.securityHash(istek);
-      tami.post(tami.PATHS.installment, istek, (j) => {
+      tami.post(tami.PATHS.installment, istek, (j, meta) => {
         const b = tami.taksitBilgi(j);
-        if (!b) return send(res, 502, '{"error":"taksit_sorgu"}', JSON_HDR);
+        if (!b) {
+          console.warn("[tami] taksit sorgu hata:", tami.hataOzet(j, meta));
+          return send(res, 502, '{"error":"taksit_sorgu"}', JSON_HDR);
+        }
         send(res, 200, JSON.stringify({ ok: true, ...b }), JSON_HDR);
       });
     });
@@ -648,8 +651,9 @@ const server = http.createServer((req, res) => {
         if (tk.n === 1) return next();
         const sor = { binNumber: k.card.number.slice(0, 8) };
         sor.securityHash = tami.securityHash(sor);
-        tami.post(tami.PATHS.installment, sor, (j) => {
+        tami.post(tami.PATHS.installment, sor, (j, meta) => {
           const b = tami.taksitBilgi(j);
+          if (!b) console.warn("[tami] taksit sorgu hata:", o.no, tami.hataOzet(j, meta));
           if (!b) return send(res, 502, '{"error":"taksit_sorgu","message":"Taksit bilgisi alınamadı. Tek çekim deneyin."}', JSON_HDR);
           if (!b.taksit) return send(res, 400, '{"error":"taksit_yok","message":"Bu kartla taksit yapılamıyor. Tek çekim seçin."}', JSON_HDR);
           next();
@@ -659,9 +663,9 @@ const server = http.createServer((req, res) => {
       if (!govde) return send(res, 500, '{"error":"tutar","message":"Sipariş tutarı doğrulanamadı."}', JSON_HDR);
       govde.securityHash = tami.securityHash(govde);
 
-      taksitOnay(() => tami.post(tami.PATHS.auth, govde, (j) => {
+      taksitOnay(() => tami.post(tami.PATHS.auth, govde, (j, meta) => {
         if (!j || !tami.truthy(j.success) || !j.threeDSHtmlContent) {
-          console.error("[tami] 3D başlatma hata:", o.no, j && (j.errorCode + " " + j.errorMessage));
+          console.error("[tami] 3D başlatma hata:", o.no, tami.hataOzet(j, meta));
           return send(res, 502, JSON.stringify({
             error: "odeme_baslatilamadi",
             message: (j && j.errorMessage) || "Ödeme başlatılamadı. Lütfen tekrar deneyin ya da havale seçin."
@@ -705,7 +709,7 @@ const server = http.createServer((req, res) => {
       }
       const istek = { orderId: o.tami.orderId };
       istek.securityHash = tami.securityHash(istek);
-      tami.post(tami.PATHS.complete, istek, (j) => {
+      tami.post(tami.PATHS.complete, istek, (j, meta) => {
         const list2 = readOrders();
         const o2 = list2.find((x) => x.no === o.no) || o;
         // Sunucudan sunucuya TLS cevabı: başarı + aynı sipariş + aynı tutar
@@ -719,7 +723,7 @@ const server = http.createServer((req, res) => {
           try { writeOrders(list2); } catch (e) { console.error("[tami] sipariş yazılamadı", e); }
           console.log("[tami] ÖDENDİ", o2.no, "ref:", o2.paymentId);
         } else if (!ok) {
-          console.warn("[tami] tamamlama başarısız", o.no, j ? (j.errorCode || "") + " " + (j.errorMessage || "") + " tutar:" + j.amount : "yanıt yok");
+          console.warn("[tami] tamamlama başarısız", o.no, tami.hataOzet(j, meta), j ? "tutar:" + j.amount : "");
         }
         git(ok, o2);
       });

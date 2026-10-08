@@ -17,7 +17,7 @@ const mock = http.createServer((req, res) => {
     assert.strictEqual(Buffer.from(p, "base64url").toString(), JSON.stringify(rest), "payload");
     const sig = crypto.createHmac("sha512", Buffer.from(K, "base64url")).update(h + "." + p).digest("base64url");
     assert.strictEqual(s, sig, "imza");
-    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Type", "application/json"); if (req.url === "/installment/installment-info" && j.binNumber === "40000000") { res.statusCode = 400; return res.end(JSON.stringify({ success: false, errorCode: "9011", errorGroup: "TEST", errorMessage: "Şu anda işlemini gerçekleştiremiyoruz" })); }
     if (req.url === "/payment/auth") {
       return res.end(JSON.stringify({ success: true, orderId: j.orderId, amount: j.amount, currency: "TRY",
         card: { maskedNumber: "4824-9105-xxxx-xx14", cardBrand: "GARANTI", cardOrganization: "VISA", cardType: "CREDIT" },
@@ -103,6 +103,9 @@ mock.listen(0, async () => {
   // --- TAKSİT ---
   const tb = await J("/api/pay/tami/taksit", { method: "POST", body: JSON.stringify({ bin: "48249105" }) });
   assert.ok(tb.ok && tb.taksit === true && tb.program === "Bonus", "taksit sorgu");
+  r = await fetch(B + "/api/pay/tami/taksit", { method: "POST", body: JSON.stringify({ bin: "40000000" }) });
+  assert.strictEqual(r.status, 502, "tami hata yanıtı");
+  assert.strictEqual(seen["/installment/installment-info"].headers.correlationid.startsWith("GM"), true);
   r = await fetch(B + "/api/pay/tami/taksit", { method: "POST", body: JSON.stringify({ bin: "4824" }) });
   assert.strictEqual(r.status, 400, "eksik BIN");
   // config oranları: kom1 %2,85, kom3 %7,95 → fark %5,55

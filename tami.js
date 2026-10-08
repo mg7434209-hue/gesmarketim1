@@ -62,16 +62,19 @@ function post(pathName, body, cb) {
   try { u = new URL(cfg.base + pathName); } catch (e) { return cb(null); }
   const payload = JSON.stringify(body);
   const mod = u.protocol === "https:" ? https : http;
+  // correlationId log'a yazılır: tami destek isteği bununla bulur
+  const meta = { cid: "GM" + crypto.randomUUID(), status: 0 };
   let bitti = false;
-  const done = (j) => { if (!bitti) { bitti = true; cb(j); } };
+  const done = (j) => { if (!bitti) { bitti = true; cb(j, meta); } };
   const rq = mod.request(u, { method: "POST", headers: {
     "Content-Type": "application/json",
     "Accept-Language": "tr",
     "Content-Length": Buffer.byteLength(payload),
-    correlationId: "GM" + crypto.randomUUID(),
+    correlationId: meta.cid,
     "PG-Auth-Token": authToken(),
     "PG-Api-Version": "v3"
   }}, (r) => {
+    meta.status = r.statusCode;
     let b = "";
     r.on("data", (c) => { b += c; if (b.length > 2097152) rq.destroy(); });
     r.on("end", () => { let j; try { j = JSON.parse(b); } catch (e) { j = null; } done(j); });
@@ -222,8 +225,15 @@ function verifyCallback(cb, pending) {
 }
 
 const truthy = (v) => v === true || String(v).toLowerCase() === "true";
+// Hata satırı (log): HTTP durumu · kod · grup · mesaj · correlationId. Kart verisi İÇERMEZ.
+function hataOzet(j, meta) {
+  const m = meta || {};
+  if (!j) return "yanıt yok/JSON değil · HTTP " + (m.status || "-") + " · cid=" + (m.cid || "-");
+  return ["HTTP " + (m.status || "-"), j.errorCode, j.errorGroup, j.errorMessage]
+    .filter(Boolean).join(" · ") + " · cid=" + (m.cid || "-");
+}
 
 module.exports = {
   cfg, PATHS, authToken, securityHash, ready,
-  post, checkCard, luhn, authBody, responseHash, verifyCallback, truthy, taksitTutar, taksitBilgi, farkPct
+  post, checkCard, luhn, authBody, responseHash, verifyCallback, truthy, taksitTutar, taksitBilgi, farkPct, hataOzet
 };
