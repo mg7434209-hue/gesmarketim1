@@ -357,7 +357,8 @@ export default function Cart() {
   );
 }
 
-// Sunucudaki tami.js taksitTutar ile AYNI formül (vade farkı kuruşa yuvarlı)
+// Vade farkı % sunucuda hesaplanıp /api/config ile gelir (tami.js farkPct);
+// tutar formülü tami.js taksitTutar ile AYNI.
 function taksitTutar(taban, n, cfg) {
   const pct = n > 1 ? Number(((cfg && cfg.farkPct) || {})[n]) || 0 : 0;
   const fark = Math.round(taban * pct) / 100;

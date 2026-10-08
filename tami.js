@@ -114,13 +114,22 @@ function checkCard(c, now = new Date()) {
 /* ---------- 3D başlatma gövdesi ---------- */
 const para = (n) => Math.round(n * 100) / 100;
 // order: orders.json kaydı (tutar SUNUCUDA hesaplanmıştır). → gövde ya da null
-// Taksit tutarı: vade farkı = taban × farkPct / 100 (kuruşa yuvarlı). Sepet
-// sayfası aynı formülü gösterir (frontend Cart.jsx taksitTutar).
+// Vade farkı %: işletmenin n taksitteki NET'i tek çekimdeki net'e eşit olsun
+// (komisyon vade farkından da kesildiği için düz fark yetmez). Kuruşa yukarı.
+function farkPct(n, taksitCfg) {
+  const k = (taksitCfg && taksitCfg.komisyonPct) || {};
+  const c1 = Number(k[1]) || 0, cn = Number(k[n]);
+  if (!(n > 1) || !(cn >= 0) || cn >= 100) return 0;
+  const f = ((1 - c1 / 100) / (1 - cn / 100) - 1) * 100;
+  return f > 0 ? Math.ceil(f * 100 - 1e-9) / 100 : 0;
+}
+// Taksit tutarı: vade farkı = taban × fark% / 100 (kuruşa yuvarlı). Sepet
+// sayfası AYNI formülü gösterir (frontend Cart.jsx taksitTutar).
 function taksitTutar(taban, n, taksitCfg) {
   if (!(n > 1)) return { n: 1, fark: 0, toplam: para(taban) };
   const t = taksitCfg || {};
   if (!(t.secenekler || []).includes(n)) return null;
-  const pct = Number((t.farkPct || {})[n]) || 0;
+  const pct = farkPct(n, t);
   const fark = Math.round(taban * pct) / 100; // Cart.jsx ile AYNI
   return { n, fark, pct, toplam: para(taban + fark) };
 }
@@ -216,5 +225,5 @@ const truthy = (v) => v === true || String(v).toLowerCase() === "true";
 
 module.exports = {
   cfg, PATHS, authToken, securityHash, ready,
-  post, checkCard, luhn, authBody, responseHash, verifyCallback, truthy, taksitTutar, taksitBilgi
+  post, checkCard, luhn, authBody, responseHash, verifyCallback, truthy, taksitTutar, taksitBilgi, farkPct
 };

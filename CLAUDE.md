@@ -53,13 +53,15 @@ tami isteğine konur — log'a, orders.json'a, e-postaya YAZILMAZ; kayda yalnız
 maskeli numara girer. Kart sitemizden geçtiği için PCI-DSS (SAQ) tami ile
 yürütülür. Env eksikse tami kapalıdır, aşağıdaki link akışı geçerli kalır.
 TAKSİT (tami): seçenekler `config.payments.taksit.secenekler` (2–12), VADE
-FARKI MÜŞTERİYE: `farkPct[n]` % (tami komisyonuna göre işletme girer; 0 =
-farksız). Kart no'nun ilk 8 hanesi girilince sepet `/api/pay/tami/taksit`
+FARKI MÜŞTERİYE: `komisyonPct` = tami paneli oranları AYNEN (1 = tek çekim);
+fark% tami.js `farkPct()` ile türetilir = ((1−kom1)/(1−komN)−1)×100, kuruşa
+yukarı → işletmenin net'i tek çekim net'ine eşit kalır. Komisyon (K1: maliyet)
+tarayıcıya GİTMEZ; /api/config yalnız hesaplanmış `farkPct` haritasını verir. Kart no'nun ilk 8 hanesi girilince sepet `/api/pay/tami/taksit`
 (→ tami `/installment/installment-info`, `isInstallment`) sorar; init'te
 sunucu taksiti YENİDEN sorar, istemciye güvenmez. Vade farkı sepete
 "vade-farki" kalemi olarak girer, `amount` = sipariş toplamı + fark;
-formül tami.js `taksitTutar` = Cart.jsx `taksitTutar` (birini değiştirirsen
-ikisini). Siparişe `tami.installmentCount` + `tami.vadeFarki` yazılır.
+tutar formülü tami.js `taksitTutar` = Cart.jsx `taksitTutar` (birini
+değiştirirsen ikisini). Siparişe `tami.installmentCount` + `tami.vadeFarki` yazılır.
 YEDEK/ESKİ YOL — iyzico tek kanaldan/tek siteden izin verdiği için tahsilat
 gespaenerji.com'daki "Güvenli Ödeme" link sayfasında yapılır —
 `config.payments.kartUrl` (+ kartMin/MaxTL sınırları) → sepet, siparişi

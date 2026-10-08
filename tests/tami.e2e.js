@@ -42,6 +42,8 @@ mock.listen(0, async () => {
   const B = "http://127.0.0.1:39811";
   const J = (u, o) => fetch(B + u, { ...o, headers: { "Content-Type": "application/json" } }).then(r => r.json());
   const cfg = await J("/api/config"); assert.strictEqual(cfg.payments.tami, true, "tami açık");
+  assert.ok(!JSON.stringify(cfg).includes("komisyon"), "komisyon oranı tarayıcıya gitmemeli (K1)");
+  assert.strictEqual(cfg.payments.taksit.farkPct[3], 5.55);
   const prods = await J("/api/products"); const p = prods.find(x => x.inStock !== false && x.saleUsd > 0) || prods[0];
   const ord = await J("/api/orders", { method: "POST", body: JSON.stringify({ name: "Ali Veli Test", phone: "0543 111 22 33", addr: "Manavgat", email: "a@b.co", pay: "kart", items: [{ id: p.id, qty: 2 }] }) });
   global.AMT = ord.total;
@@ -103,16 +105,21 @@ mock.listen(0, async () => {
   assert.ok(tb.ok && tb.taksit === true && tb.program === "Bonus", "taksit sorgu");
   r = await fetch(B + "/api/pay/tami/taksit", { method: "POST", body: JSON.stringify({ bin: "4824" }) });
   assert.strictEqual(r.status, 400, "eksik BIN");
-  global.GESM.config.payments.taksit.farkPct[3] = 4.5;
+  // config oranları: kom1 %2,85, kom3 %7,95 → fark %5,55
+  const TM = require(path.join(REPO, "tami.js"));
+  assert.strictEqual(TM.farkPct(3, global.GESM.config.payments.taksit), 5.55);
+  assert.strictEqual(TM.farkPct(12, global.GESM.config.payments.taksit), 28.37);
   const ord3 = await J("/api/orders", { method: "POST", body: JSON.stringify({ name: "T K", phone: "05431112233", addr: "X", email: "a@b.co", pay: "kart", items: [{ id: p.id, qty: 3 }] }) });
   const KRT = { holderName: "T K", number: CARD, expireMonth: 4, expireYear: 30, cvv: "123" };
-  r = await fetch(B + "/api/pay/tami/init", { method: "POST", body: JSON.stringify({ no: ord3.no, card: KRT, taksit: 7 }) });
+  r = await fetch(B + "/api/pay/tami/init", { method: "POST", body: JSON.stringify({ no: ord3.no, card: KRT, taksit: 13 }) });
   assert.strictEqual(r.status, 400, "listede olmayan taksit");
   r = await fetch(B + "/api/pay/tami/init", { method: "POST", body: JSON.stringify({ no: ord3.no, card: { ...KRT, number: "5421190122944522" }, taksit: 3 }) });
   assert.strictEqual((await r.json()).error, "taksit_yok", "taksitsiz kart");
   const i3 = await J("/api/pay/tami/init", { method: "POST", body: JSON.stringify({ no: ord3.no, card: KRT, taksit: 3 }) });
   assert.ok(i3.ok);
-  const b3 = seen["/payment/auth"].body, beklenen = Math.round((ord3.total + Math.round(ord3.total * 4.5) / 100) * 100) / 100;
+  const b3 = seen["/payment/auth"].body, beklenen = Math.round((ord3.total + Math.round(ord3.total * 5.55) / 100) * 100) / 100;
+  // işletme net'i (komisyon sonrası) tek çekim net'inden az olmamalı
+  assert.ok(beklenen * (1 - 0.0795) >= ord3.total * (1 - 0.0285) - 0.01, "net korunur");
   assert.strictEqual(b3.installmentCount, 3); assert.strictEqual(b3.amount, beklenen, "vade farklı tutar");
   assert.strictEqual(Math.round(b3.basket.basketItems.reduce((s, i) => s + i.totalPrice, 0) * 100) / 100, beklenen, "sepet=tutar (vade farkı kalemi)");
   assert.ok(b3.basket.basketItems.some((i) => i.itemId === "vade-farki"));

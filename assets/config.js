@@ -56,14 +56,18 @@ GESM.config = {
     kartUrl: "https://www.gespaenerji.com/odeme.html",
     kartMinTL: 50,
     kartMaxTL: 350000,
-    // tami taksit seçenekleri (yalnız tami 3D yolunda). VADE FARKI MÜŞTERİYE:
-    // farkPct[n] = n taksitte sepet tutarına eklenen %. Oranları tami
-    // sözleşmesindeki komisyona göre GİR (0 = vade farksız). Listede olmayan
-    // taksit sayısı sunulmaz. Kartın taksit yapıp yapamadığını tami söyler
-    // (/installment/installment-info → isInstallment; banka kartında hayır).
+    // tami taksit (yalnız tami 3D yolunda). VADE FARKI MÜŞTERİYE.
+    // komisyonPct = tami paneli → İş Yerim'deki oranlar, OLDUĞU GİBİ yazılır
+    // (1 = tek çekim). Vade farkı koddan türetilir: n taksitte işletmenin
+    // NET'i tek çekimdeki net'e eşit olsun diye
+    //   fark% = ((1 − kom[1]) / (1 − kom[n]) − 1) × 100, kuruşa YUKARI yuvarlı
+    // (tami.js taksitTutar = Cart.jsx taksitTutar). Listede olmayan taksit
+    // sunulmaz; kartın taksit yapıp yapamadığını tami söyler (banka kartı: hayır).
+    // Oranlar: tami paneli, 8 Eki 2026.
     taksit: {
-      secenekler: [2, 3, 4, 5, 6, 9, 12],
-      farkPct: { 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 9: 0, 12: 0 }
+      secenekler: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      komisyonPct: { 1: 2.85, 2: 5.89, 3: 7.95, 4: 9.88, 5: 11.72, 6: 13.47,
+        7: 15.39, 8: 17.23, 9: 18.97, 10: 20.85, 11: 22.71, 12: 24.32 }
     }
   },
 

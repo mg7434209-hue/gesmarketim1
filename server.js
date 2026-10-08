@@ -160,7 +160,12 @@ const PUBLIC_CFG = JSON.stringify({
   // tami=true → kart sepette doğrudan alınır (3D Secure); kartUrl'den ÖNCE gelir.
   payments: {
     tami: tami.ready(),
-    taksit: tami.ready() ? (CFG.payments && CFG.payments.taksit) || null : null,
+    // Komisyon oranları (K1: maliyet) tarayıcıya GİTMEZ; yalnız hesaplanmış vade farkı %.
+    taksit: tami.ready() && CFG.payments && CFG.payments.taksit ? {
+      secenekler: CFG.payments.taksit.secenekler || [],
+      farkPct: Object.fromEntries((CFG.payments.taksit.secenekler || [])
+        .map((n) => [n, tami.farkPct(n, CFG.payments.taksit)]))
+    } : null,
     kart: KART_AKTIF,
     kartUrl: (CFG.payments && CFG.payments.kartUrl) || "",
     kartMinTL: (CFG.payments && CFG.payments.kartMinTL) || 0,
