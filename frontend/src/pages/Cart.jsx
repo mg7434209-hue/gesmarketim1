@@ -12,16 +12,43 @@ export default function Cart() {
   const [cart, setCart] = useState(cartGet());
   const [form, setForm] = useState({ name: "", phone: "", addr: "", email: "", note: "", pay: "havale", kvkk: false });
   const [err, setErr] = useState("");
+  // Kart verisi yalnız bu bileşenin belleğinde durur; localStorage'a yazılmaz.
+  const [kart, setKart] = useState({ holder: "", number: "", exp: "", cvv: "" });
+  const K = (k) => (e) => setKart({ ...kart, [k]: e.target.value });
   const [busy, setBusy] = useState(false);
   useEffect(() => onCart(setCart), []);
-  // Kart tahsilatı iki yoldan biriyle yapılır (config.payments):
-  // 1) kartUrl dolu → gespaenerji.com'daki iyzico "Güvenli Ödeme" link
-  //    sayfasına yönlendirilir (iyzico tek site izni — ASIL yol),
-  // 2) kartUrl boş + sunucuda iyzico env anahtarları → yerinde Checkout Form.
+  // Kart tahsilatı şu sırayla seçilir (config.payments):
+  // 1) tami=true → kart bu sayfada alınır, tami (Garanti BBVA) 3D Secure,
+  // 2) kartUrl dolu → gespaenerji.com'daki iyzico "Güvenli Ödeme" link
+  //    sayfasına yönlendirilir (iyzico tek site izni),
+  // 3) kartUrl boş + sunucuda iyzico env anahtarları → yerinde Checkout Form.
   const pays = store.config.payments || {};
-  const kartUrl = pays.kartUrl || "";
-  const kartYerinde = !kartUrl && Boolean(pays.kart);
-  const kartOnline = Boolean(kartUrl) || kartYerinde;
+  const kartTami = Boolean(pays.tami);
+  const kartUrl = kartTami ? "" : (pays.kartUrl || "");
+  const kartYerinde = !kartTami && !kartUrl && Boolean(pays.kart);
+  const kartOnline = kartTami || Boolean(kartUrl) || kartYerinde;
+
+  // Taksit: kartın ilk 8 hanesi girilince tami'ye sorulur (sunucu üzerinden;
+  // yalnız BIN gider). Vade farkı config.payments.taksit.farkPct'ten.
+  const taksitCfg = pays.taksit || null;
+  const bin = kart.number.replace(/\D/g, "").slice(0, 8);
+  const [taksit, setTaksit] = useState({ bin: "", info: null, n: 1, yukleniyor: false });
+  useEffect(() => {
+    if (!kartTami || !taksitCfg || bin.length < 8) {
+      if (taksit.bin) setTaksit({ bin: "", info: null, n: 1, yukleniyor: false });
+      return;
+    }
+    if (bin === taksit.bin) return;
+    let iptal = false;
+    setTaksit({ bin, info: null, n: 1, yukleniyor: true });
+    fetch("/api/pay/tami/taksit", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bin }), signal: AbortSignal.timeout(15000),
+    }).then((x) => x.json()).catch(() => null).then((j) => {
+      if (!iptal) setTaksit({ bin, info: j && j.ok ? j : null, n: 1, yukleniyor: false });
+    });
+    return () => { iptal = true; };
+  }, [bin, kartTami]);
 
   const items = Object.entries(cart)
     .map(([id, qty]) => ({ p: store.products.find((x) => x.id === id), qty }))
@@ -53,7 +80,8 @@ export default function Cart() {
     if (!form.kvkk) return setErr("Lütfen sözleşme onay kutusunu işaretleyin.");
     const kartLink = form.pay === "kart" && Boolean(kartUrl);
     const kartInit = form.pay === "kart" && kartYerinde;
-    if (kartInit && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
+    const kart3d = form.pay === "kart" && kartTami;
+    if ((kartInit || kart3d) && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
       return setErr("Kartla ödeme için geçerli bir e-posta adresi girin (makbuz iletimi).");
     if (kartLink) {
       // Sınırlar gespaenerji.com/api/pay/custom ile aynı (config'ten gelir)
@@ -62,12 +90,22 @@ export default function Cart() {
         return setErr(`Kartla online ödeme ${fmtTL(min)} – ${fmtTL(max)} arası tutarlar için geçerlidir. ` +
           "Lütfen havale/EFT seçin ya da siparişi WhatsApp ile gönderin.");
     }
+    let kartGovde = null;
+    if (kart3d) {
+      const no = kart.number.replace(/\D/g, "");
+      const m = kart.exp.match(/^\s*(\d{1,2})\s*\/?\s*(\d{2}|\d{4})\s*$/);
+      if (kart.holder.trim().length < 3) return setErr("Kart üzerindeki adı yazın.");
+      if (no.length < 12 || no.length > 19) return setErr("Kart numarasını kontrol edin.");
+      if (!m) return setErr("Son kullanma tarihini AA/YY biçiminde yazın.");
+      if (!/^\d{3,4}$/.test(kart.cvv.trim())) return setErr("CVV'yi kontrol edin (kartın arkasındaki 3 hane).");
+      kartGovde = { holderName: kart.holder.trim(), number: no, expireMonth: +m[1], expireYear: +m[2], cvv: kart.cvv.trim() };
+    }
     setErr("");
 
     // --- KARTLA ONLINE ÖDEME ---
     // Sepet burada temizlenmez: başarısız/yarıda kalan denemede müşteri
     // sepetini kaybetmesin (link akışında sonuç sayfası gespaenerji.com'dadır).
-    if (kartLink || kartInit) {
+    if (kartLink || kartInit || kart3d) {
       setBusy(true);
       try {
         let no = "", total = cardTotal;
@@ -96,6 +134,21 @@ export default function Cart() {
           return;
         }
         if (!no) throw new Error("siparis");
+        if (kart3d) {
+          const p = await fetch("/api/pay/tami/init", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ no, card: kartGovde, taksit: taksit.n }),
+            signal: AbortSignal.timeout(30000),
+          }).then((x) => x.json());
+          if (p && p.ok && p.html) {
+            setKart({ holder: "", number: "", exp: "", cvv: "" });
+            // tami'nin döndürdüğü sayfa banka 3D formunu kendiliğinden gönderir
+            document.open(); document.write(p.html); document.close();
+            return;
+          }
+          setErr((p && p.message) || "Ödeme başlatılamadı. Lütfen tekrar deneyin ya da havale seçin.");
+          return;
+        }
         const p = await fetch("/api/pay/init", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ no }),
@@ -209,7 +262,9 @@ export default function Cart() {
             {[
               { v: "havale", t: <b>Havale / EFT</b>, d: `%${commerce.havaleDiscountPct} indirim — IBAN onay mesajıyla iletilir.` },
               kartOnline
-                ? { v: "kart", t: <b>Kredi / Banka Kartı</b>, d: kartUrl
+                ? { v: "kart", t: <b>Kredi / Banka Kartı</b>, d: kartTami
+                    ? "Garanti BBVA tami altyapısıyla 3D Secure ödeme — bankanızın onay şifresiyle."
+                    : kartUrl
                     ? "Gespa Enerji'nin (gespaenerji.com) iyzico güvenli ödeme sayfasında ödersiniz — tutar ve sipariş no otomatik dolar."
                     : "iyzico güvenli ödeme sayfasında 256-bit SSL ile ödersiniz." }
                 : { v: "kart", t: <b>Kredi kartı</b>, d: "Güvenli ödeme linki WhatsApp'tan gönderilir." },
@@ -220,9 +275,56 @@ export default function Cart() {
                 <span>{o.t} — <span className="text-brand-ink/70">{o.d}</span></span>
               </label>
             ))}
-            {form.pay === "kart" && kartYerinde && (
+            {form.pay === "kart" && (kartYerinde || kartTami) && (
               <input className="input" type="email" placeholder="E-posta * (ödeme makbuzu için)"
                 value={form.email} onChange={F("email")} aria-label="E-posta" />
+            )}
+            {form.pay === "kart" && kartTami && (
+              <div className="space-y-2 border border-surface-line rounded-btn p-3">
+                <input className="input" placeholder="Kart üzerindeki ad *" autoComplete="cc-name" maxLength={30}
+                  value={kart.holder} onChange={K("holder")} aria-label="Kart üzerindeki ad" />
+                <input className="input" placeholder="Kart numarası *" inputMode="numeric" autoComplete="cc-number"
+                  maxLength={23} value={kart.number} onChange={K("number")} aria-label="Kart numarası" />
+                <div className="grid grid-cols-2 gap-2">
+                  <input className="input" placeholder="AA/YY *" inputMode="numeric" autoComplete="cc-exp"
+                    maxLength={7} value={kart.exp} onChange={K("exp")} aria-label="Son kullanma tarihi" />
+                  <input className="input" placeholder="CVV *" inputMode="numeric" autoComplete="cc-csc"
+                    maxLength={4} value={kart.cvv} onChange={K("cvv")} aria-label="CVV" />
+                </div>
+                {taksitCfg && bin.length === 8 && (
+                  <div className="text-sm">
+                    {taksit.yukleniyor && <p className="text-xs text-brand-ink/60">Taksit seçenekleri sorgulanıyor…</p>}
+                    {!taksit.yukleniyor && taksit.info && (
+                      <p className="text-xs text-brand-ink/70 mb-1">
+                        {[taksit.info.banka, taksit.info.program, taksit.info.tip].filter(Boolean).join(" · ")}
+                      </p>
+                    )}
+                    {!taksit.yukleniyor && taksit.info && !taksit.info.taksit && (
+                      <p className="text-xs text-brand-ink/60">Bu kartla taksit yapılamıyor (banka kartı veya ticari kart) — tek çekim.</p>
+                    )}
+                    {!taksit.yukleniyor && taksit.info && taksit.info.taksit && (
+                      <div className="border border-surface-line rounded-btn divide-y divide-surface-line">
+                        {[1, ...(taksitCfg.secenekler || [])].map((n) => {
+                          const t = taksitTutar(cardTotal, n, taksitCfg);
+                          return (
+                            <label key={n} className={"flex items-center gap-2 px-3 py-2 cursor-pointer " +
+                              (taksit.n === n ? "bg-brand-amber/10" : "")}>
+                              <input type="radio" name="taksit" checked={taksit.n === n}
+                                onChange={() => setTaksit({ ...taksit, n })} />
+                              <span className="grow">{n === 1 ? "Tek çekim" : `${n} taksit`}</span>
+                              <span className="text-right">
+                                {n > 1 && <span className="text-xs text-brand-ink/60">{n} × {fmtKurus(Math.floor(t.toplam / n * 100) / 100)} = </span>}
+                                <b>{fmtKurus(t.toplam)}</b>
+                              </span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
+                <p className="text-xs text-brand-ink/60">🔒 Kart bilgileriniz saklanmaz; yalnız ödeme için bankaya iletilir.</p>
+              </div>
             )}
           </div>
 
@@ -242,7 +344,9 @@ export default function Cart() {
           </button>
           <p className="text-xs text-brand-ink/60 mt-2 leading-5">
             {form.pay === "kart" && kartOnline
-              ? (kartUrl
+              ? (kartTami
+                  ? "Bankanızın 3D Secure onay sayfası açılır; şifreyi girince ödemeniz tamamlanır."
+                  : kartUrl
                   ? "Siparişiniz kaydedilir ve grup sitemiz gespaenerji.com'un iyzico güvenli ödeme sayfasına yönlendirilirsiniz; kart bilgileriniz sitemizde tutulmaz."
                   : "iyzico güvenli ödeme sayfasına yönlendirileceksiniz; kart bilgileriniz sitemizde tutulmaz.")
               : "Siparişiniz WhatsApp üzerinden ekibimize iletilir; stok teyidi ve ödeme adımı için sizi arıyoruz."}
@@ -252,6 +356,16 @@ export default function Cart() {
     </div>
   );
 }
+
+// Vade farkı % sunucuda hesaplanıp /api/config ile gelir (tami.js farkPct);
+// tutar formülü tami.js taksitTutar ile AYNI.
+function taksitTutar(taban, n, cfg) {
+  const pct = n > 1 ? Number(((cfg && cfg.farkPct) || {})[n]) || 0 : 0;
+  const fark = Math.round(taban * pct) / 100;
+  return { n, fark, toplam: Math.round((taban + fark) * 100) / 100 };
+}
+
+const fmtKurus = (n) => new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n) + " ₺";
 
 function Row({ l, v }) {
   return <div className="flex justify-between"><span className="text-brand-ink/70">{l}</span><b>{v}</b></div>;

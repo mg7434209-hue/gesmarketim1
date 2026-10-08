@@ -1,5 +1,5 @@
-// iyzico ödeme dönüş sayfası — /odeme-sonuc?durum=basarili|hata&no=GM...
-// Sunucu, iyzico callback'ini token ile doğruladıktan SONRA buraya 302'ler;
+// Kart ödemesi dönüş sayfası (tami 3D / iyzico) — /odeme-sonuc?durum=basarili|hata&no=GM...
+// Sunucu, ödeme dönüşünü doğruladıktan (tami: hashedData + complete-3ds; iyzico: token) SONRA buraya 302'ler;
 // bu sayfa yalnızca sonucu gösterir (ödeme kararı sunucuda verilir).
 import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";

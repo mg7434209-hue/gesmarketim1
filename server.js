@@ -12,6 +12,7 @@ const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const tami = require("./tami.js");
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
@@ -156,7 +157,15 @@ const PUBLIC_CFG = JSON.stringify({
   // kartUrl doluysa kart tahsilatı gespaenerji.com'daki link ödeme sayfasında
   // yapılır (iyzico tek site izni); kart=true yalnız yerinde Checkout Form'u
   // (env anahtarları) bildirir. Sınırlar gespaenerji /api/pay/custom ile aynı.
+  // tami=true → kart sepette doğrudan alınır (3D Secure); kartUrl'den ÖNCE gelir.
   payments: {
+    tami: tami.ready(),
+    // Komisyon oranları (K1: maliyet) tarayıcıya GİTMEZ; yalnız hesaplanmış vade farkı %.
+    taksit: tami.ready() && CFG.payments && CFG.payments.taksit ? {
+      secenekler: CFG.payments.taksit.secenekler || [],
+      farkPct: Object.fromEntries((CFG.payments.taksit.secenekler || [])
+        .map((n) => [n, tami.farkPct(n, CFG.payments.taksit)]))
+    } : null,
     kart: KART_AKTIF,
     kartUrl: (CFG.payments && CFG.payments.kartUrl) || "",
     kartMinTL: (CFG.payments && CFG.payments.kartMinTL) || 0,
@@ -587,6 +596,132 @@ const server = http.createServer((req, res) => {
         }
         const q = "?durum=" + (basarili ? "basarili" : "hata") + (o ? "&no=" + encodeURIComponent(o.no) : "");
         send(res, 302, "", { Location: "/odeme-sonuc" + q });
+      });
+    });
+    return;
+  }
+
+  /* ---------- tami: 3D başlat + dönüş (tami.js) ----------
+     Kart verisi gövdeden alınır, yalnız tami isteğinde kullanılır; HİÇBİR
+     yere yazılmaz/loglanmaz. Siparişe maskeli numara ve banka kodları girer. */
+  // Kartın ilk 8 hanesiyle taksit yapılabilirliği (tami installment-info).
+  // Seçenek ve vade farkı config.payments.taksit'ten; kart numarası ALINMAZ.
+  if (urlPath === "/api/pay/tami/taksit" && req.method === "POST") {
+    if (!tami.ready()) return send(res, 503, '{"error":"kart_kapali"}', JSON_HDR);
+    return readBody(req, 512, (d) => {
+      const bin = String((d && d.bin) || "");
+      if (!/^\d{8}$/.test(bin)) return send(res, 400, '{"error":"bin"}', JSON_HDR);
+      const istek = { binNumber: bin };
+      istek.securityHash = tami.securityHash(istek);
+      tami.post(tami.PATHS.installment, istek, (j) => {
+        const b = tami.taksitBilgi(j);
+        if (!b) return send(res, 502, '{"error":"taksit_sorgu"}', JSON_HDR);
+        send(res, 200, JSON.stringify({ ok: true, ...b }), JSON_HDR);
+      });
+    });
+  }
+  if (urlPath === "/api/pay/tami/init" && req.method === "POST") {
+    if (!tami.ready()) return send(res, 503, '{"error":"kart_kapali","message":"Kartla ödeme şu an kullanılamıyor."}', JSON_HDR);
+    return readBody(req, 4096, (d) => {
+      const list = readOrders();
+      const o = d && list.find((x) => x.no === d.no);
+      if (!o) return send(res, 404, '{"error":"siparis_yok"}', JSON_HDR);
+      if (o.pay !== "kart") return send(res, 400, '{"error":"odeme_tipi_kart_degil"}', JSON_HDR);
+      if (o.odendi) return send(res, 400, '{"error":"zaten_odendi","message":"Bu sipariş zaten ödendi."}', JSON_HDR);
+      const k = tami.checkCard(d.card);
+      if (k.error) return send(res, 400, JSON.stringify({ error: "kart", message: k.error }), JSON_HDR);
+
+      // Her deneme ayrı tami sipariş no'su alır (aynı orderId ikinci kez reddedilir)
+      const deneme = (o.tamiTry || 0) + 1;
+      const orderId = o.no + "-" + deneme;
+      const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
+        req.socket.remoteAddress || "127.0.0.1";
+      const callbackUrl = req.headers["x-forwarded-proto"]
+        ? "https://" + (CANON_HOST || String(req.headers.host || "").split(":")[0]) + "/api/pay/tami/callback"
+        : "http://" + String(req.headers.host || ("127.0.0.1:" + PORT)) + "/api/pay/tami/callback";
+      const n = parseInt(d.taksit, 10) || 1;
+      const tk = tami.taksitTutar(o.total, n, CFG.payments && CFG.payments.taksit);
+      if (!tk) return send(res, 400, '{"error":"taksit","message":"Bu taksit seçeneği sunulmuyor."}', JSON_HDR);
+
+      // Taksitliyse kartın taksit yapabildiğini SUNUCUDA tami'ye sor
+      const taksitOnay = (next) => {
+        if (tk.n === 1) return next();
+        const sor = { binNumber: k.card.number.slice(0, 8) };
+        sor.securityHash = tami.securityHash(sor);
+        tami.post(tami.PATHS.installment, sor, (j) => {
+          const b = tami.taksitBilgi(j);
+          if (!b) return send(res, 502, '{"error":"taksit_sorgu","message":"Taksit bilgisi alınamadı. Tek çekim deneyin."}', JSON_HDR);
+          if (!b.taksit) return send(res, 400, '{"error":"taksit_yok","message":"Bu kartla taksit yapılamıyor. Tek çekim seçin."}', JSON_HDR);
+          next();
+        });
+      };
+      const govde = tami.authBody(o, k.card, { orderId, ip, callbackUrl, taksit: tk });
+      if (!govde) return send(res, 500, '{"error":"tutar","message":"Sipariş tutarı doğrulanamadı."}', JSON_HDR);
+      govde.securityHash = tami.securityHash(govde);
+
+      taksitOnay(() => tami.post(tami.PATHS.auth, govde, (j) => {
+        if (!j || !tami.truthy(j.success) || !j.threeDSHtmlContent) {
+          console.error("[tami] 3D başlatma hata:", o.no, j && (j.errorCode + " " + j.errorMessage));
+          return send(res, 502, JSON.stringify({
+            error: "odeme_baslatilamadi",
+            message: (j && j.errorMessage) || "Ödeme başlatılamadı. Lütfen tekrar deneyin ya da havale seçin."
+          }), JSON_HDR);
+        }
+        const c = j.card || {};
+        o.tamiTry = deneme;
+        o.tami = { orderId, amount: govde.amount, currency: govde.currency, installmentCount: tk.n, vadeFarki: tk.fark,
+          maskedNumber: c.maskedNumber || "", cardBrand: c.cardBrand || "", cardOrganization: c.cardOrganization || "" };
+        try { writeOrders(list); } catch (e) { return send(res, 500, '{"error":"yazilamadi"}', JSON_HDR); }
+        let html;
+        try { html = Buffer.from(String(j.threeDSHtmlContent), "base64").toString("utf8"); } catch (e) { html = ""; }
+        if (!html) return send(res, 502, '{"error":"odeme_baslatilamadi"}', JSON_HDR);
+        console.log("[tami] 3D başlatıldı", orderId, tk.n > 1 ? tk.n + " taksit" : "tek çekim");
+        send(res, 200, JSON.stringify({ ok: true, html }), JSON_HDR);
+      }));
+    });
+  }
+  if (urlPath === "/api/pay/tami/callback") {
+    let body = "";
+    req.on("data", (c) => { body += c; if (body.length > 16384) req.destroy(); });
+    req.on("end", () => {
+      // Dönüş form-POST, JSON ya da sorgu dizesiyle gelebilir
+      let f = {};
+      try { f = body.trim().startsWith("{") ? JSON.parse(body) : Object.fromEntries(new URLSearchParams(body)); } catch (e) { f = {}; }
+      if (!f.orderId) f = Object.fromEntries(new URL(req.url, "http://x").searchParams);
+      const git = (ok, o) => send(res, 302, "", { Location: "/odeme-sonuc?durum=" + (ok ? "basarili" : "hata") +
+        (o ? "&no=" + encodeURIComponent(o.no) : "") });
+
+      const list = readOrders();
+      const o = f.orderId && list.find((x) => x.tami && x.tami.orderId === f.orderId);
+      if (!o) { console.warn("[tami] dönüş: sipariş bulunamadı"); return git(false, null); }
+      if (o.odendi) return git(true, o);
+      if (!tami.verifyCallback(f, o.tami)) {
+        console.warn("[tami] dönüş: hashedData DOĞRULANAMADI", o.no);
+        return git(false, o);
+      }
+      if (!tami.truthy(f.success)) {
+        console.warn("[tami] 3D doğrulama başarısız", o.no, "mdStatus:", f.mdStatus);
+        return git(false, o);
+      }
+      const istek = { orderId: o.tami.orderId };
+      istek.securityHash = tami.securityHash(istek);
+      tami.post(tami.PATHS.complete, istek, (j) => {
+        const list2 = readOrders();
+        const o2 = list2.find((x) => x.no === o.no) || o;
+        // Sunucudan sunucuya TLS cevabı: başarı + aynı sipariş + aynı tutar
+        const ok = j && tami.truthy(j.success) && j.orderId === o.tami.orderId &&
+          Math.abs(Number(j.amount) - Number(o.tami.amount)) < 0.01;
+        if (ok && !o2.odendi) {
+          o2.odendi = true;
+          o2.paymentId = String(j.bankReferenceNumber || o.tami.orderId);
+          o2.tami = { ...o.tami, bankAuthCode: String(j.bankAuthCode || ""),
+            bankReferenceNumber: String(j.bankReferenceNumber || ""), paidAt: new Date().toISOString() };
+          try { writeOrders(list2); } catch (e) { console.error("[tami] sipariş yazılamadı", e); }
+          console.log("[tami] ÖDENDİ", o2.no, "ref:", o2.paymentId);
+        } else if (!ok) {
+          console.warn("[tami] tamamlama başarısız", o.no, j ? (j.errorCode || "") + " " + (j.errorMessage || "") + " tutar:" + j.amount : "yanıt yok");
+        }
+        git(ok, o2);
       });
     });
     return;
