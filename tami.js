@@ -102,7 +102,7 @@ function checkCard(c, now = new Date()) {
   const ay = parseInt(c.expireMonth, 10);
   let yil = parseInt(c.expireYear, 10);
   if (yil < 100) yil += 2000;
-  if (holderName.length < 3 || holderName.length > 60) return { error: "Kart üzerindeki adı yazın." };
+  if (holderName.length < 3 || holderName.length > 30) return { error: "Kart üzerindeki adı yazın (en çok 30 karakter)." };
   if (!/^\d{12,19}$/.test(number) || !luhn(number)) return { error: "Kart numarası geçersiz." };
   if (!(ay >= 1 && ay <= 12) || !(yil >= 2000 && yil <= 2100)) return { error: "Son kullanma tarihi geçersiz." };
   const simdi = now.getFullYear() * 12 + now.getMonth() + 1;
@@ -113,9 +113,6 @@ function checkCard(c, now = new Date()) {
 
 /* ---------- 3D başlatma gövdesi ---------- */
 const para = (n) => Math.round(n * 100) / 100;
-function tsLocal(d = new Date()) {
-  return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 23);
-}
 // order: orders.json kaydı (tutar SUNUCUDA hesaplanmıştır). → gövde ya da null
 // Taksit tutarı: vade farkı = taban × farkPct / 100 (kuruşa yuvarlı). Sepet
 // sayfası aynı formülü gösterir (frontend Cart.jsx taksitTutar).
@@ -138,11 +135,16 @@ function taksitBilgi(j) {
   };
 }
 
+// Alan sınırları tami "İstek Parametreleri" tablosundan: ürün adı/itemId 50,
+// contactName/ad/soyad 30, adres 400. unitPrice × numberOfProducts = totalPrice
+// ve kalemler toplamı = amount olmalı. İsteğe bağlı identityNumber ile
+// registration/lastLoginDate (biçimi örneklerle çelişiyor) GÖNDERİLMEZ.
+const kes = (v, n) => String(v || "").trim().slice(0, n);
 function authBody(order, card, { orderId, ip, callbackUrl, taksit }) {
   const items = order.items.map((it) => ({
-    itemId: String(it.id).slice(0, 64), name: String(it.name).slice(0, 120),
+    itemId: kes(it.id, 50), name: kes(it.name, 50),
     itemType: "PHYSICAL", category: "Solar",
-    numberOfProducts: it.qty, unitPrice: para(it.tl), totalPrice: para(it.tl * it.qty)
+    numberOfProducts: it.qty, unitPrice: para(it.tl), totalPrice: para(para(it.tl) * it.qty)
   }));
   if (order.shipping > 0) items.push({ itemId: "kargo", name: "Kargo", itemType: "PHYSICAL",
     category: "Hizmet", numberOfProducts: 1, unitPrice: para(order.shipping), totalPrice: para(order.shipping) });
@@ -153,14 +155,15 @@ function authBody(order, card, { orderId, ip, callbackUrl, taksit }) {
     itemType: "VIRTUAL", category: "Hizmet", numberOfProducts: 1, unitPrice: tk.fark, totalPrice: tk.fark });
 
   const parca = String(order.name).trim().split(/\s+/);
-  const name = parca.length > 1 ? parca.slice(0, -1).join(" ") : parca[0];
-  const surName = parca.length > 1 ? parca[parca.length - 1] : "-";
-  const phone = String(order.phone || "").replace(/\D/g, "").slice(-10);
+  const name = kes(parca.length > 1 ? parca.slice(0, -1).join(" ") : parca[0], 30);
+  const surName = kes(parca.length > 1 ? parca[parca.length - 1] : "-", 30);
+  // GSM: örneklerdeki gibi başında 0 ile 11 hane (05xxxxxxxxx)
+  const d10 = String(order.phone || "").replace(/\D/g, "").slice(-10);
+  const phone = d10.length === 10 ? "0" + d10 : d10;
   const email = order.email || "siparis@gesmarketim.com";
   const city = order.city || "Belirtilmedi";
-  const adres = { address: String(order.addr).slice(0, 250), city, companyName: "",
-    country: "Türkiye", district: "", contactName: order.name, phoneNumber: phone, zipCode: "" };
-  const simdi = tsLocal();
+  const adres = { address: kes(order.addr, 400), city, companyName: "",
+    country: "Türkiye", district: "", contactName: kes(order.name, 30), phoneNumber: phone, zipCode: "" };
   return {
     orderId, amount: para(order.total + tk.fark), callbackUrl, currency: "TRY",
     installmentCount: tk.n, motoInd: false, paymentGroup: "PRODUCT", paymentChannel: "WEB",
@@ -168,10 +171,9 @@ function authBody(order, card, { orderId, ip, callbackUrl, taksit }) {
     billingAddress: { ...adres, emailAddress: email },
     shippingAddress: { ...adres, emailAddress: email },
     buyer: {
-      ipAddress: ip, buyerId: order.no, name, surName, identityNumber: 11111111111,
+      ipAddress: ip, buyerId: kes(order.no, 50), name, surName,
       city, country: "Türkiye", zipCode: "", emailAddress: email, phoneNumber: phone,
-      registrationAddress: String(order.addr).slice(0, 250),
-      lastLoginDate: simdi, registrationDate: simdi
+      registrationAddress: kes(order.addr, 400)
     },
     basket: { basketId: order.no, basketItems: items }
   };

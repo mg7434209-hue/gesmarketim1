@@ -281,7 +281,7 @@ export default function Cart() {
             )}
             {form.pay === "kart" && kartTami && (
               <div className="space-y-2 border border-surface-line rounded-btn p-3">
-                <input className="input" placeholder="Kart üzerindeki ad *" autoComplete="cc-name"
+                <input className="input" placeholder="Kart üzerindeki ad *" autoComplete="cc-name" maxLength={30}
                   value={kart.holder} onChange={K("holder")} aria-label="Kart üzerindeki ad" />
                 <input className="input" placeholder="Kart numarası *" inputMode="numeric" autoComplete="cc-number"
                   maxLength={23} value={kart.number} onChange={K("number")} aria-label="Kart numarası" />

@@ -55,6 +55,19 @@ mock.listen(0, async () => {
   assert.strictEqual(ab.amount, ord.total); assert.strictEqual(ab.card.expireYear, 2030);
   assert.strictEqual(ab.basket.basketItems.reduce((s, i) => s + i.totalPrice, 0), ord.total, "sepet=tutar");
   const oid = ab.orderId; assert.strictEqual(oid, ord.no + "-1");
+  // tami alan kuralları ("İstek Parametreleri" tablosu)
+  assert.match(oid, /^[A-Za-z0-9]+([-_][A-Za-z0-9]+)*$/, "orderId karakter kuralı");
+  assert.ok(oid.length >= 2 && oid.length <= 36);
+  assert.ok(ab.card.holderName.length <= 30 && ab.buyer.name.length <= 30 && ab.buyer.surName.length <= 30);
+  assert.ok(ab.billingAddress.contactName.length <= 30 && ab.shippingAddress.contactName.length <= 30);
+  assert.ok(!("identityNumber" in ab.buyer) && !("registrationDate" in ab.buyer) && !("lastLoginDate" in ab.buyer));
+  assert.match(ab.buyer.phoneNumber, /^05\d{9}$/, "GSM");
+  assert.ok(/@/.test(ab.buyer.emailAddress) && ab.buyer.ipAddress && ab.buyer.buyerId);
+  for (const it of ab.basket.basketItems) {
+    assert.ok(it.name.length <= 50 && it.itemId.length <= 50 && ["PHYSICAL", "VIRTUAL"].includes(it.itemType));
+    assert.ok(it.totalPrice > 0 && Math.round(it.unitPrice * it.numberOfProducts * 100) === Math.round(it.totalPrice * 100), "birim × adet = toplam");
+  }
+  assert.ok(ab.installmentCount >= 1 && ab.paymentGroup === "PRODUCT" && ab.callbackUrl.endsWith("/api/pay/tami/callback"));
   // kart verisi diske düşmemeli
   const disk = fs.readFileSync(path.join(DATA, "orders.json"), "utf8");
   assert.ok(!disk.includes(CARD) && !disk.includes('"cvv"'), "kart diske yazılmamalı");
