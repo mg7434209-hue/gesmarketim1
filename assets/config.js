@@ -55,7 +55,7 @@ GESM.config = {
   payments: {
     kartUrl: "https://www.gespaenerji.com/odeme.html",
     kartMinTL: 50,
-    kartMaxTL: 250000
+    kartMaxTL: 350000
   },
 
   // Fiyatlandırma kuralları (K2/K3) — admin panel bunların üzerine yazabilir

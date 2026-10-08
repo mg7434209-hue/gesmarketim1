@@ -35,7 +35,24 @@ engelli, noindex; şifre ADMIN_PASS env > config.admin.pass) · SPA 404.
 Eski `.html` URL'leri server.js 301 ile yeni rotalara yönlendirir (SEO).
 SİPARİŞLER: sepet WhatsApp'a ek `POST /api/orders` ile sunucuya da yazar
 (tutar sunucuda hesaplanır ve yanıtta döner; `DATA_DIR/orders.json`, son 500).
-KART ÖDEMESİ: iyzico tek kanaldan/tek siteden izin verdiği için tahsilat
+KART ÖDEMESİ — tami (Garanti BBVA) 3D Secure, ASIL YOL (8 Eki 2026):
+`tami.js` + server.js `/api/pay/tami/init|callback`. Env'lerin TAMAMI
+girilince (`TAMI_MERCHANT_NUMBER` `TAMI_TERMINAL_NUMBER` `TAMI_SECRET_KEY`
+`TAMI_KID` `TAMI_K` `TAMI_BASE_URL`; sandbox
+https://sandbox-paymentapi.tami.com.tr) `/api/config` → `payments.tami=true`
+olur ve sepet kartı KENDİ formunda alır (kartUrl'den önce gelir). Akış:
+`/payment/auth` (gövde + securityHash) → dönen `threeDSHtmlContent`
+(base64) tarayıcıda açılır → banka → callback'te `hashedData` HMAC-SHA256
+(secretKey) ile DOĞRULANIR → `/payment/complete-3ds` → yanıt başarılı VE
+tutar siparişle aynıysa sipariş `odendi` (paymentId = bankReferenceNumber).
+İmzalar tami resmî kod örnekleriyle birebir: PG-Auth-Token =
+`m:t:base64(sha256(m+t+secret))`; securityHash = JWS HS512 (kid + base64url
+k, payload = securityHash HARİÇ gövde JSON'u). Her deneme ayrı tami
+orderId'si alır (`GM…-1`, `-2`). KART VERİSİ (numara/SKT/CVV) yalnız bellekte
+tami isteğine konur — log'a, orders.json'a, e-postaya YAZILMAZ; kayda yalnız
+maskeli numara girer. Kart sitemizden geçtiği için PCI-DSS (SAQ) tami ile
+yürütülür. Env eksikse tami kapalıdır, aşağıdaki link akışı geçerli kalır.
+YEDEK/ESKİ YOL — iyzico tek kanaldan/tek siteden izin verdiği için tahsilat
 gespaenerji.com'daki "Güvenli Ödeme" link sayfasında yapılır —
 `config.payments.kartUrl` (+ kartMin/MaxTL sınırları) → sepet, siparişi
 `/api/orders`'a yazıp `odeme.html?t=<tutar>&a=<özet>&s=<sipariş no>`'ya
