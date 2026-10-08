@@ -28,6 +28,28 @@ export default function Cart() {
   const kartYerinde = !kartTami && !kartUrl && Boolean(pays.kart);
   const kartOnline = kartTami || Boolean(kartUrl) || kartYerinde;
 
+  // Taksit: kartın ilk 8 hanesi girilince tami'ye sorulur (sunucu üzerinden;
+  // yalnız BIN gider). Vade farkı config.payments.taksit.farkPct'ten.
+  const taksitCfg = pays.taksit || null;
+  const bin = kart.number.replace(/\D/g, "").slice(0, 8);
+  const [taksit, setTaksit] = useState({ bin: "", info: null, n: 1, yukleniyor: false });
+  useEffect(() => {
+    if (!kartTami || !taksitCfg || bin.length < 8) {
+      if (taksit.bin) setTaksit({ bin: "", info: null, n: 1, yukleniyor: false });
+      return;
+    }
+    if (bin === taksit.bin) return;
+    let iptal = false;
+    setTaksit({ bin, info: null, n: 1, yukleniyor: true });
+    fetch("/api/pay/tami/taksit", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bin }), signal: AbortSignal.timeout(15000),
+    }).then((x) => x.json()).catch(() => null).then((j) => {
+      if (!iptal) setTaksit({ bin, info: j && j.ok ? j : null, n: 1, yukleniyor: false });
+    });
+    return () => { iptal = true; };
+  }, [bin, kartTami]);
+
   const items = Object.entries(cart)
     .map(([id, qty]) => ({ p: store.products.find((x) => x.id === id), qty }))
     .filter((it) => it.p);
@@ -115,7 +137,7 @@ export default function Cart() {
         if (kart3d) {
           const p = await fetch("/api/pay/tami/init", {
             method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ no, card: kartGovde }),
+            body: JSON.stringify({ no, card: kartGovde, taksit: taksit.n }),
             signal: AbortSignal.timeout(30000),
           }).then((x) => x.json());
           if (p && p.ok && p.html) {
@@ -269,6 +291,38 @@ export default function Cart() {
                   <input className="input" placeholder="CVV *" inputMode="numeric" autoComplete="cc-csc"
                     maxLength={4} value={kart.cvv} onChange={K("cvv")} aria-label="CVV" />
                 </div>
+                {taksitCfg && bin.length === 8 && (
+                  <div className="text-sm">
+                    {taksit.yukleniyor && <p className="text-xs text-brand-ink/60">Taksit seçenekleri sorgulanıyor…</p>}
+                    {!taksit.yukleniyor && taksit.info && (
+                      <p className="text-xs text-brand-ink/70 mb-1">
+                        {[taksit.info.banka, taksit.info.program, taksit.info.tip].filter(Boolean).join(" · ")}
+                      </p>
+                    )}
+                    {!taksit.yukleniyor && taksit.info && !taksit.info.taksit && (
+                      <p className="text-xs text-brand-ink/60">Bu kartla taksit yapılamıyor (banka kartı veya ticari kart) — tek çekim.</p>
+                    )}
+                    {!taksit.yukleniyor && taksit.info && taksit.info.taksit && (
+                      <div className="border border-surface-line rounded-btn divide-y divide-surface-line">
+                        {[1, ...(taksitCfg.secenekler || [])].map((n) => {
+                          const t = taksitTutar(cardTotal, n, taksitCfg);
+                          return (
+                            <label key={n} className={"flex items-center gap-2 px-3 py-2 cursor-pointer " +
+                              (taksit.n === n ? "bg-brand-amber/10" : "")}>
+                              <input type="radio" name="taksit" checked={taksit.n === n}
+                                onChange={() => setTaksit({ ...taksit, n })} />
+                              <span className="grow">{n === 1 ? "Tek çekim" : `${n} taksit`}</span>
+                              <span className="text-right">
+                                {n > 1 && <span className="text-xs text-brand-ink/60">{n} × {fmtKurus(Math.floor(t.toplam / n * 100) / 100)} = </span>}
+                                <b>{fmtKurus(t.toplam)}</b>
+                              </span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
                 <p className="text-xs text-brand-ink/60">🔒 Kart bilgileriniz saklanmaz; yalnız ödeme için bankaya iletilir.</p>
               </div>
             )}
@@ -302,6 +356,15 @@ export default function Cart() {
     </div>
   );
 }
+
+// Sunucudaki tami.js taksitTutar ile AYNI formül (vade farkı kuruşa yuvarlı)
+function taksitTutar(taban, n, cfg) {
+  const pct = n > 1 ? Number(((cfg && cfg.farkPct) || {})[n]) || 0 : 0;
+  const fark = Math.round(taban * pct) / 100;
+  return { n, fark, toplam: Math.round((taban + fark) * 100) / 100 };
+}
+
+const fmtKurus = (n) => new Intl.NumberFormat("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n) + " ₺";
 
 function Row({ l, v }) {
   return <div className="flex justify-between"><span className="text-brand-ink/70">{l}</span><b>{v}</b></div>;

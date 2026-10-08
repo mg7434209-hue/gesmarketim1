@@ -55,7 +55,16 @@ GESM.config = {
   payments: {
     kartUrl: "https://www.gespaenerji.com/odeme.html",
     kartMinTL: 50,
-    kartMaxTL: 350000
+    kartMaxTL: 350000,
+    // tami taksit seçenekleri (yalnız tami 3D yolunda). VADE FARKI MÜŞTERİYE:
+    // farkPct[n] = n taksitte sepet tutarına eklenen %. Oranları tami
+    // sözleşmesindeki komisyona göre GİR (0 = vade farksız). Listede olmayan
+    // taksit sayısı sunulmaz. Kartın taksit yapıp yapamadığını tami söyler
+    // (/installment/installment-info → isInstallment; banka kartında hayır).
+    taksit: {
+      secenekler: [2, 3, 4, 5, 6, 9, 12],
+      farkPct: { 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 9: 0, 12: 0 }
+    }
   },
 
   // Fiyatlandırma kuralları (K2/K3) — admin panel bunların üzerine yazabilir

@@ -29,7 +29,8 @@ const cfg = {
 
 const PATHS = {
   auth: "/payment/auth",
-  complete: "/payment/complete-3ds"
+  complete: "/payment/complete-3ds",
+  installment: "/installment/installment-info"
 };
 
 // PG-Auth-Token = merchantNumber:terminalNumber:base64(sha256(m + t + secretKey))
@@ -116,7 +117,28 @@ function tsLocal(d = new Date()) {
   return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 23);
 }
 // order: orders.json kaydı (tutar SUNUCUDA hesaplanmıştır). → gövde ya da null
-function authBody(order, card, { orderId, ip, callbackUrl }) {
+// Taksit tutarı: vade farkı = taban × farkPct / 100 (kuruşa yuvarlı). Sepet
+// sayfası aynı formülü gösterir (frontend Cart.jsx taksitTutar).
+function taksitTutar(taban, n, taksitCfg) {
+  if (!(n > 1)) return { n: 1, fark: 0, toplam: para(taban) };
+  const t = taksitCfg || {};
+  if (!(t.secenekler || []).includes(n)) return null;
+  const pct = Number((t.farkPct || {})[n]) || 0;
+  const fark = Math.round(taban * pct) / 100; // Cart.jsx ile AYNI
+  return { n, fark, pct, toplam: para(taban + fark) };
+}
+// installment-info yanıtını sadeleştir (Java modelinde alan "installment"
+// olarak da serileşebildiği için ikisi de okunur).
+function taksitBilgi(j) {
+  if (!j || !truthy(j.success ?? true)) return null;
+  return {
+    taksit: truthy(j.isInstallment ?? j.installment),
+    banka: String(j.bankName || ""), tip: String(j.cardType || ""),
+    org: String(j.cardOrg || ""), program: String(j.rewardType || "")
+  };
+}
+
+function authBody(order, card, { orderId, ip, callbackUrl, taksit }) {
   const items = order.items.map((it) => ({
     itemId: String(it.id).slice(0, 64), name: String(it.name).slice(0, 120),
     itemType: "PHYSICAL", category: "Solar",
@@ -126,6 +148,9 @@ function authBody(order, card, { orderId, ip, callbackUrl }) {
     category: "Hizmet", numberOfProducts: 1, unitPrice: para(order.shipping), totalPrice: para(order.shipping) });
   const toplam = para(items.reduce((s, i) => s + i.totalPrice, 0));
   if (toplam !== para(order.total)) return null; // sepet ≠ tutar → gönderme
+  const tk = taksit || { n: 1, fark: 0 };
+  if (tk.fark > 0) items.push({ itemId: "vade-farki", name: "Vade farkı (" + tk.n + " taksit)",
+    itemType: "VIRTUAL", category: "Hizmet", numberOfProducts: 1, unitPrice: tk.fark, totalPrice: tk.fark });
 
   const parca = String(order.name).trim().split(/\s+/);
   const name = parca.length > 1 ? parca.slice(0, -1).join(" ") : parca[0];
@@ -137,8 +162,8 @@ function authBody(order, card, { orderId, ip, callbackUrl }) {
     country: "Türkiye", district: "", contactName: order.name, phoneNumber: phone, zipCode: "" };
   const simdi = tsLocal();
   return {
-    orderId, amount: para(order.total), callbackUrl, currency: "TRY",
-    installmentCount: 1, motoInd: false, paymentGroup: "PRODUCT", paymentChannel: "WEB",
+    orderId, amount: para(order.total + tk.fark), callbackUrl, currency: "TRY",
+    installmentCount: tk.n, motoInd: false, paymentGroup: "PRODUCT", paymentChannel: "WEB",
     card,
     billingAddress: { ...adres, emailAddress: email },
     shippingAddress: { ...adres, emailAddress: email },
@@ -189,5 +214,5 @@ const truthy = (v) => v === true || String(v).toLowerCase() === "true";
 
 module.exports = {
   cfg, PATHS, authToken, securityHash, ready,
-  post, checkCard, luhn, authBody, responseHash, verifyCallback, truthy
+  post, checkCard, luhn, authBody, responseHash, verifyCallback, truthy, taksitTutar, taksitBilgi
 };

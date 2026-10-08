@@ -23,6 +23,10 @@ const mock = http.createServer((req, res) => {
         card: { maskedNumber: "4824-9105-xxxx-xx14", cardBrand: "GARANTI", cardOrganization: "VISA", cardType: "CREDIT" },
         threeDSHtmlContent: Buffer.from("<html><body>BANKA3D</body></html>").toString("base64") }));
     }
+    if (req.url === "/installment/installment-info") {
+      return res.end(JSON.stringify({ success: true, bankName: "GARANTI BBVA", cardType: "CREDIT", cardOrg: "VISA",
+        rewardType: "Bonus", isInstallment: j.binNumber.startsWith("4824") }));
+    }
     if (req.url === "/payment/complete-3ds") {
       return res.end(JSON.stringify({ success: true, orderId: j.orderId, amount: global.AMT, currency: "TRY",
         bankAuthCode: "471xxx", bankReferenceNumber: "5222134", installmentCount: 1 }));
@@ -81,7 +85,31 @@ mock.listen(0, async () => {
   cb2.hashedData = crypto.createHmac("sha256", SEC).update(cb.cardOrganization + cb.cardBrand + cb.cardType + cb.maskedNumber + "1TRY" + String(ord2.total) + oid2 + cb.systemTime + "true").digest("base64");
   r = await post(cb2); assert.match(r.headers.get("location"), /durum=hata/);
   assert.ok(!JSON.parse(fs.readFileSync(path.join(DATA, "orders.json"), "utf8")).find(x => x.no === ord2.no).odendi);
-  console.log("TÜM TAMI TESTLERİ GEÇTİ ✔ toplam", ord.total);
+  // --- TAKSİT ---
+  const tb = await J("/api/pay/tami/taksit", { method: "POST", body: JSON.stringify({ bin: "48249105" }) });
+  assert.ok(tb.ok && tb.taksit === true && tb.program === "Bonus", "taksit sorgu");
+  r = await fetch(B + "/api/pay/tami/taksit", { method: "POST", body: JSON.stringify({ bin: "4824" }) });
+  assert.strictEqual(r.status, 400, "eksik BIN");
+  global.GESM.config.payments.taksit.farkPct[3] = 4.5;
+  const ord3 = await J("/api/orders", { method: "POST", body: JSON.stringify({ name: "T K", phone: "05431112233", addr: "X", email: "a@b.co", pay: "kart", items: [{ id: p.id, qty: 3 }] }) });
+  const KRT = { holderName: "T K", number: CARD, expireMonth: 4, expireYear: 30, cvv: "123" };
+  r = await fetch(B + "/api/pay/tami/init", { method: "POST", body: JSON.stringify({ no: ord3.no, card: KRT, taksit: 7 }) });
+  assert.strictEqual(r.status, 400, "listede olmayan taksit");
+  r = await fetch(B + "/api/pay/tami/init", { method: "POST", body: JSON.stringify({ no: ord3.no, card: { ...KRT, number: "5421190122944522" }, taksit: 3 }) });
+  assert.strictEqual((await r.json()).error, "taksit_yok", "taksitsiz kart");
+  const i3 = await J("/api/pay/tami/init", { method: "POST", body: JSON.stringify({ no: ord3.no, card: KRT, taksit: 3 }) });
+  assert.ok(i3.ok);
+  const b3 = seen["/payment/auth"].body, beklenen = Math.round((ord3.total + Math.round(ord3.total * 4.5) / 100) * 100) / 100;
+  assert.strictEqual(b3.installmentCount, 3); assert.strictEqual(b3.amount, beklenen, "vade farklı tutar");
+  assert.strictEqual(Math.round(b3.basket.basketItems.reduce((s, i) => s + i.totalPrice, 0) * 100) / 100, beklenen, "sepet=tutar (vade farkı kalemi)");
+  assert.ok(b3.basket.basketItems.some((i) => i.itemId === "vade-farki"));
+  global.AMT = beklenen;
+  const cb3 = { ...cb, orderId: b3.orderId, installmentCount: "3", txnAmount: String(beklenen) };
+  cb3.hashedData = crypto.createHmac("sha256", SEC).update(cb.cardOrganization + cb.cardBrand + cb.cardType + cb.maskedNumber + "3TRY" + String(beklenen) + b3.orderId + cb.systemTime + "true").digest("base64");
+  r = await post(cb3); assert.match(r.headers.get("location"), /durum=basarili/, "taksitli ödeme");
+  const o3 = JSON.parse(fs.readFileSync(path.join(DATA, "orders.json"), "utf8")).find(x => x.no === ord3.no);
+  assert.ok(o3.odendi && o3.tami.installmentCount === 3 && o3.tami.vadeFarki > 0);
+  console.log("TÜM TAMI TESTLERİ GEÇTİ ✔ toplam", ord.total, "· 3 taksit", beklenen);
   process.exit(0);
 });
 setTimeout(() => { console.error("zaman aşımı"); process.exit(1); }, 20000);
