@@ -153,3 +153,6 @@ gerekiyorsa dosya olarak repoya ekle.
 - `npm run build` → catalog + sitemap; `npm run build:web` → React → dist/.
 - `npm start` → http://localhost:3000 ; `/`, `/kategori/panel`, `/urun/:id`,
   `/api/products`, `/api/config` 200 döndüğünü doğrula (SPA fallback dahil).
+
+## Ajan düzeni (maliyet)
+Fable yalnız `mimar` (tema/dizayn/SEO planı) ve `kritik-denetci`'de; uygulama Sonnet/Haiku ajanlarında: @docs/ajanlar.md
