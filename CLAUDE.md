@@ -78,6 +78,10 @@ GESPA OS (JARVIS) ÖZETİ: `GET /api/os/summary` + `X-OS-Token` (Railway `OS_TOK
 ≥32 karakter; yönetici şifresi kabul edilmez). Salt okunur: son 30 gün siparişleri,
 katalog uyarıları (stokta yok, görselsiz), override'lar, kur, ziyaretçi. Siparişteki
 ad/telefon/e-posta/adres/not ÇIKMAZ (`tests/os-summary.test.js`, `npm test`).
+SİPARİŞ DEFTERİ: `writeOrders()` her yazımda `osScheduleSync()` çağırır; kişisel verisi ayıklanmış
+sipariş arka planda Gespa OS'e gider (`OS_INGEST_URL` + `OS_INGEST_TOKEN` ≥32 karakter; yoksa kapalı).
+Sipariş/ödeme yanıtını bekletmez, hata atmaz, dakikada bir yeniden dener. Bu çağrıyı KALDIRMA:
+Volume yokken siparişlerin tek kalıcı kopyası odur.
 
 ## DEĞİŞMEZ İŞ KURALLARI (spec 8.1)
 - **K1**: Tedarikçi ve MALİYET bilgisi müşteri arayüzünde HİÇBİR yerde
