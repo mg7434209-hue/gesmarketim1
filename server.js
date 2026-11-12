@@ -65,6 +65,82 @@ function readOrders() {
 function writeOrders(list) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(ORDERS_FILE, JSON.stringify(list.slice(-500))); // son 500 sipariş
+  osScheduleSync(); // Gespa OS sipariş defteri — arka planda, hata atmaz
+}
+
+/* ---------- Gespa OS sipariş defteri (kalıcı kopya) ----------
+   orders.json Volume yokken her deploy'da silinir. Her sipariş değişikliğinde
+   (oluştu, ödendi, tamamlandı) KİŞİSEL VERİSİ AYIKLANMIŞ kayıt Gespa OS'e
+   (Postgres) gönderilir. Sipariş/ödeme yanıtını BEKLETMEZ: 1 sn sonra arka
+   planda gider, hata atmaz, dakikada bir yeniden dener; açılışta dosyadaki
+   siparişler de gider. Kayıt başına "osSent" = gönderilen durum anahtarı.
+   Ayarlar (ikisi de yoksa kapalı): OS_INGEST_URL (Gespa OS adresi),
+   OS_INGEST_TOKEN (≥32 karakter; Gespa OS'teki ORDER_INGEST_TOKEN ile AYNI).
+   KVKK: ad, telefon, e-posta, adres, not GÖNDERİLMEZ (test denetler). */
+const OS_INGEST = (() => {
+  const url = String(process.env.OS_INGEST_URL || "").trim().replace(/\/+$/, "");
+  const tok = String(process.env.OS_INGEST_TOKEN || "").trim();
+  return url && tok.length >= 32 ? { url: url + "/api/ingest/orders", token: tok } : null;
+})();
+const OS_SYNC_EVERY_MS = +process.env.OS_SYNC_EVERY_MS || 60 * 1000; // test kısaltır
+let osSyncTimer = null, osSyncBusy = false;
+function osOrderKey(o) { return (o.odendi ? 1 : 0) + "|" + (o.done ? 1 : 0); }
+function osOrderRecord(o) {
+  return {
+    ref: String(o.no),
+    channel: o.pay === "kart" ? "kart" : "havale",
+    status: o.odendi ? "paid" : "pending",
+    fulfilled: !!o.done,
+    createdAt: o.createdAt || null,
+    totalTL: o.total != null ? +o.total : null,
+    paidTL: o.odendi && o.total != null ? +o.total + ((o.tami && +o.tami.vadeFarki) || 0) : null,
+    taksit: (o.tami && +o.tami.installmentCount) || null,
+    items: (o.items || []).filter((it) => it && it.id !== "vade-farki")
+      .map((it) => ({ id: String(it.id), name: it.name, qty: it.qty, unitTL: it.tl != null ? +it.tl : null }))
+  };
+}
+function osScheduleSync(ms) {
+  try {
+    if (!OS_INGEST || osSyncTimer) return;
+    osSyncTimer = setTimeout(() => { osSyncTimer = null; osSync(); }, ms || 1000);
+    osSyncTimer.unref();
+  } catch (e) { /* defter siparişi asla bozmaz */ }
+}
+function osSync() {
+  if (!OS_INGEST || osSyncBusy) return;
+  let pending;
+  try { pending = readOrders().filter((o) => o && o.no && o.createdAt && o.osSent !== osOrderKey(o)).slice(0, 50); } catch (e) { return; }
+  if (!pending.length) return;
+  const sent = {};
+  const body = JSON.stringify({ site: "gesmarketim", orders: pending.map((o) => { sent[o.no] = osOrderKey(o); return osOrderRecord(o); }) });
+  osSyncBusy = true;
+  const done = (ok, why) => {
+    osSyncBusy = false;
+    if (!ok) {
+      console.warn("[os-defter] gönderilemedi (" + why + "), yeniden denenecek");
+      return osScheduleSync(OS_SYNC_EVERY_MS);
+    }
+    try {
+      // Doğrudan dosyaya yazılır (writeOrders değil): işaretleme yeni gönderim tetiklemesin.
+      // Arada durum değiştiyse anahtar tutmaz ve kayıt yeniden gider.
+      const cur = readOrders();
+      cur.forEach((o) => { if (o && sent[o.no]) o.osSent = sent[o.no]; });
+      fs.writeFileSync(ORDERS_FILE, JSON.stringify(cur.slice(-500)));
+      console.log("[os-defter] " + pending.length + " kayıt gönderildi");
+      if (cur.some((o) => o && o.osSent !== osOrderKey(o))) osScheduleSync();
+    } catch (e) { console.warn("[os-defter] işaretlenemedi:", e && e.message); }
+  };
+  try {
+    const u = new URL(OS_INGEST.url);
+    const rq = require(u.protocol === "http:" ? "http" : "https").request({
+      hostname: u.hostname, port: u.port || (u.protocol === "http:" ? 80 : 443), path: u.pathname, method: "POST",
+      timeout: 30000, // uyuyan Gespa OS ilk istekte birkaç saniyede uyanır
+      headers: { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(body), "X-Ingest-Token": OS_INGEST.token, "User-Agent": "gesm-siparis-defteri/1" }
+    }, (rs) => { rs.resume(); rs.on("end", () => done(rs.statusCode === 200, "HTTP " + rs.statusCode)); });
+    rq.on("timeout", () => rq.destroy(new Error("zaman aşımı")));
+    rq.on("error", (e) => done(false, e.message));
+    rq.end(body);
+  } catch (e) { done(false, e && e.message); }
 }
 function mergedProducts() {
   return (CATALOG.products || []).map((p) => {
@@ -867,6 +943,8 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log("GES MARKETİM yayında → http://localhost:" + PORT);
   if (!ADMIN_PASS) console.log("UYARI: ADMIN_PASS tanımlı değil — /admin ve yönetici uçları kapalı");
+  console.log("Gespa OS sipariş defteri: " + (OS_INGEST ? "açık" : "kapalı (OS_INGEST_URL / OS_INGEST_TOKEN yok)"));
+  osScheduleSync(5000); // dosyada bekleyen siparişler
   // Otomatik kur: açılışta (3 sn sonra) + periyodik (varsayılan 6 saat)
   const hours = Number(process.env.KUR_REFRESH_HOURS) > 0 ? Number(process.env.KUR_REFRESH_HOURS) : 6;
   setTimeout(autoUpdateKur, 3000).unref();
